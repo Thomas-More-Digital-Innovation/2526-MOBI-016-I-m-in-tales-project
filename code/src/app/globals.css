@@ -1,8 +1,27 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* talesblu */
+  --color-talesblu-100: #cfd9dd;
+  --color-talesblu-200: #9eb3bb;
+  --color-talesblu-300: #6e8e98;
+  --color-talesblu-400: #3d6876;
+  --color-talesblu-500: #0d4254;
+  --color-talesblu-600: #0a3543;
+  --color-talesblu-700: #082832;
+  --color-talesblu-800: #051a22;
+  --color-talesblu-900: #030d11;
+
+  /* talesorang */
+  --color-talesorang-100: #fde3df;
+  --color-talesorang-200: #fbc7bf;
+  --color-talesorang-300: #faac9e;
+  --color-talesorang-400: #f8907e;
+  --color-talesorang-500: #f6745e;
+  --color-talesorang-600: #c55d4b;
+  --color-talesorang-700: #944638;
+  --color-talesorang-800: #622e26;
+  --color-talesorang-900: #311713;
 }
 
 @theme inline {
