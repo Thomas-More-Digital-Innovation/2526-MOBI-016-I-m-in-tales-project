@@ -18,13 +18,13 @@
 - drivers
 - Ipads don't support USB devices easily
 
-## Bluetooth NFC reader plus local device logic
+## Bluetooth NFC reader
 
 ### Pros
 
 - No drivers
 - Works on computers and tablets
-  
+
 ### Cons
 
 - No plug & play (unless bluetooth searcher in app)
