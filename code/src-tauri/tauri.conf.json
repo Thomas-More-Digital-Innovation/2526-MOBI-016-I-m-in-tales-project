@@ -50,7 +50,7 @@
       {
         "fullscreen": false,
         "height": 920,
-        "resizable": true,
+        "resizable": false,
         "title": "imintales",
         "width": 1440,
         "useHttpsScheme": true
