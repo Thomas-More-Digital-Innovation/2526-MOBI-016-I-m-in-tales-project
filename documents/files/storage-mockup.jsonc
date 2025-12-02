@@ -1,0 +1,69 @@
+{
+    "story": [
+        {
+            "id": "0f337012-dde9-5fdc-8363-2236746cb68f",
+            "name": "test story 1",
+            "description": "This is a test story",
+            "chapter": [
+                {
+                    "id": "b034639d-7697-50a4-88eb-3b9fb9d59616",
+                    "title": "Chapter 1",
+                    "description": "This is the first chapter",
+                    "audio": "audio/chapter1.mp3",
+                    "image": "image/chapter1.png",
+                    "failAudio": null,
+                    "option": [
+                        {
+                            "nextChapter": "6f9b62a9-2198-5494-9ec0-198d07c21d62",
+                            "audio": "audio/option1_success.mp3",
+                            "item": "aad829c2-dcf7-5e21-92dc-82e1bf4bd0f7"
+                        },
+                        {
+                            "nextChapter": "tefs525d-2198-5494-9ec0-198d07c21d62",
+                            "audio": "audio/option1_alt.mp3",
+                            "item": "gcd53kks-dcf7-5e21-92dc-82e1bf4bd0f7"
+                        }
+                    ]
+                },
+                {
+                    "id": "abc5b9d7-7697-50a4-88eb-3b9fb9d59616",
+                    "title": "Chapter 2",
+                    "description": "This is the first chapter",
+                    "audio": "audio/chapter1.mp3",
+                    "image": "image/chapter1.png",
+                    "failAudio": "audio/chapter1_fail.mp3",
+                    "option": [
+                        {
+                            "nextChapter": "6f9b62a9-2198-5494-9ec0-198d07c21d62",
+                            "audio": "audio/option1_success.mp3",
+                            "item": "aad829c2-dcf7-5e21-92dc-82e1bf4bd0f7"
+                        }
+                    ]
+                },
+                {
+                    "id": "b967345c-ee59-523b-bb4a-d673eec1c3c7",
+                    "title": "Alt chapter",
+                    "description": "This is an alternative chapter",
+                    "audio": "audio/chapter1.mp3",
+                    "image": "image/chapter1.png",
+                    "failAudio": null,
+                    "option": [
+                        // no options means end of story
+                    ]
+                }
+            ]
+        }
+    ],
+    // it is either an option to make one general dictionary for each item,
+    // so you only have to set it up once, or set it up for each story
+    "item": [
+        {
+            "item_id": "ealkj5ffk",
+            "linked_to": "aad829c2-dcf7-5e21-92dc-82e1bf4bd0f7"
+        },
+        {
+            "item_id": "sflksj5s",
+            "linked_to": "gcd53kks-dcf7-5e21-92dc-82e1bf4bd0f7"
+        }
+    ]
+}
