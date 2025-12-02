@@ -1,5 +1,5 @@
 import { FullScreenButton, HeaderButton } from '@components';
-import Image from "next/image";
+
 export default function Header({mainPage = false} : {mainPage?: boolean}) {
     // for the main page, no point in having a back button
     const backButton = mainPage ? null : (
@@ -11,7 +11,7 @@ export default function Header({mainPage = false} : {mainPage?: boolean}) {
                 {backButton}
                 <FullScreenButton />
             </div>
-            <Image src="/SmallLogo.svg" alt="Top logo" priority width={800} height={500}/>
+            <img src="/SmallLogo.svg" alt="Top logo" width={800} height={500}/>
             <HeaderButton label="?"/>
         </div>
     )
