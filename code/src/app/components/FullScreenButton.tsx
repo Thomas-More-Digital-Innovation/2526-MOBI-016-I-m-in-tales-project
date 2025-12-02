@@ -1,10 +1,13 @@
 import { getCurrentWindow } from "@tauri-apps/api/window";
+import { useState } from "react";
 
 export default function FullScreenButton() {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
   const toggleFullscreen = async () => {
     const win = getCurrentWindow();
-    const isFull = await win.isFullscreen();
-    await win.setFullscreen(!isFull);
+    setIsFullscreen(await win.isFullscreen());
+    await win.setFullscreen(!isFullscreen);
   };
 
   return (
