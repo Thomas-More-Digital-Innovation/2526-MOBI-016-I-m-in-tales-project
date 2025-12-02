@@ -1,4 +1,3 @@
-import Image from "next/image";
 export default function StoryForm() {
     return(
         <form action="" className="flex w-1/4">
@@ -15,7 +14,7 @@ export default function StoryForm() {
             </div>
             {/* Make the image upload here via a component */}
             <div>
-                <Image className="border " width={200} height={200} src={"/file.svg"} alt="Input Image"/>
+                <img className="border " width={200} height={200} src={"/file.svg"} alt="Input Image"/>
                 <button type="submit">Next</button>
             </div>
         </form>
