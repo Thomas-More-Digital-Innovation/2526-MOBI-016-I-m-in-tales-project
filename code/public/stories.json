@@ -11,7 +11,7 @@
                     "title": "The Beginning",
                     "description": "You wake up in a mysterious forest.",
                     "audio": "audio/fantasy_start.mp3",
-                    "image": "image/fantasy_chapter1.png",
+                    "image": "/image/fantasy_chapter1.jpg",
                     "failAudio": null,
                     "option": [
                         {
