@@ -12,7 +12,7 @@ export default function StoryCard({ story, onClick }: Props) {
             className="
             flex flex-col items-center border border-talesblu-400 hover:bg-talesorang-400
             hover:text-white hover:border-white ease-in-out duration-300 p-2 rounded-2xl m-2
-            w-xs h-96 min-h-0">
+            w-xs h-96 min-h-0 cursor-pointer">
             <img
                 src={story.image}
                 alt="cover"
