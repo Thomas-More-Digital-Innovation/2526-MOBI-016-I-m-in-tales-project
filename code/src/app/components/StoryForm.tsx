@@ -1,20 +1,22 @@
+import { InputLabel, TextAreaLabel, ImageUpload } from "@components";
+import { useState } from "react";
 export default function StoryForm() {
+    const [thumbnail, setThumbnail] = useState<string | null>(null);
+
     return(
-        <form action="" className="flex w-1/4">
-            <div className="min-h-full">
-                <div className="flex flex-col h-1/4">
-                    <label htmlFor="StoryName">Story Name</label>
-                    <input className="border rounded p-1 h-full" type="text" name="StoryName" id="StoryName" placeholder="My Story" />
+        <form action="" className="flex">
+            <div className="min-h-full p-4">
+                <div>
+                    <InputLabel label="Story Name" nameId="StoryName" placeholder="My Amazing Story"/>
                 </div>
 
-                <div className="flex flex-col h-1/2">
-                    <label htmlFor="Description">Description</label>
-                    <textarea className="border rounded px-1 h-full" name="Description" id="Description" placeholder="Something about the story" />
+                <div>
+                    <TextAreaLabel cols={40} rows={3} nameId="Description" label="Description" placeholder="Something about the story" />
                 </div>
             </div>
             {/* Make the image upload here via a component */}
             <div>
-                <img className="border " width={200} height={200} src={"/file.svg"} alt="Input Image"/>
+                <ImageUpload onThumbnailChange={setThumbnail}/>
                 <button type="submit">Next</button>
             </div>
         </form>

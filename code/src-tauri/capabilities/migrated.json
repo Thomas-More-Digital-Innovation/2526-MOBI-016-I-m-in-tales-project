@@ -39,6 +39,32 @@
     "core:window:allow-set-cursor-position",
     "core:window:allow-set-ignore-cursor-events",
     "core:window:allow-start-dragging",
-    "core:webview:allow-print"
+    "core:webview:allow-print",
+    "dialog:default",
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [
+        {
+          "path": "$APPDATA/*"
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-copy-file",
+      "allow": [
+        {
+          "path": "$APPDATA/*"
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-mkdir",
+      "allow": [
+        {
+          "path": "$APPDATA/*"
+        }
+      ]
+    }
   ]
 }
