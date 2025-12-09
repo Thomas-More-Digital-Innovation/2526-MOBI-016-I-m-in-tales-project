@@ -5,6 +5,7 @@ export default function PlayStoryButton({ id }: { id: string }) {
     const nav = useNavigate();
     return (
         <Button
+            primary={true}
             onClick={() => {
                 nav(`/playStory/${id}`);
             }}
