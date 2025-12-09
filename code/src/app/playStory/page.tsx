@@ -1,6 +1,6 @@
 import { Button, Header } from "@components";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Story, StoriesData, Chapter, Option } from "../../types/story.type";
 import Modal from "../components/Modal";
 import SettingsModal from "./SettingsModal";
@@ -10,7 +10,7 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 export default function PlayStory() {
     const { id } = useParams();
     const [story, setStory] = useState<Story | null>(null);
-    const [wasFullscreen, setWasFullscreen] = useState(false); // if the user was already using fullscreen before opening the story
+    const wasFullscreen = useRef(false); // if the user was already using fullscreen before opening the story
     const [currentChapter, setCurrentChapter] = useState<Chapter | undefined>(
         undefined
     );
@@ -21,11 +21,23 @@ export default function PlayStory() {
         setCurrentChapter(getChapterById(option.nextChapter));
     }
 
+    function handleEscapeKey(e: KeyboardEvent) {
+        console.log(e.key);
+        console.log(wasFullscreen);
+
+        if (e.key === "Escape") {
+            e.preventDefault();
+            e.stopPropagation();
+            closeStory();
+        }
+    }
+
     function closeStory() {
-        if (!wasFullscreen) {
+        if (!wasFullscreen.current) {
             const win = getCurrentWindow();
             win.setFullscreen(false);
         }
+        window.removeEventListener("keydown", handleEscapeKey);
         window.history.back();
     }
 
@@ -34,14 +46,17 @@ export default function PlayStory() {
     }
 
     useEffect(() => {
+        if (!id) return;
+
         const win = getCurrentWindow();
         win.isFullscreen().then((isFullscreen) => {
-            setWasFullscreen(isFullscreen);
+            wasFullscreen.current = Boolean(isFullscreen);
             if (!isFullscreen) {
                 win.setFullscreen(true);
             }
         });
-        if (!id) return;
+        window.addEventListener("keydown", handleEscapeKey);
+
         fetch("/stories.json")
             .then((res) => res.json())
             .then((data: StoriesData) => {
@@ -91,6 +106,20 @@ export default function PlayStory() {
             ) : (
                 <p>Story not found</p>
             )}
+
+            {/* temp for testing, change for "verhaal speler interface" */}
+            <div className="absolute flex flex-col bottom-4 right-4 z-100">
+                {currentChapter?.option.map((option) => (
+                    <Button
+                        key={option.nextChapter}
+                        onClick={() => nextChapter(option)}
+                        cls="m-2">
+                        {option.item ?? "null"}
+                        <br />
+                        {option.audio ?? "null"}
+                    </Button>
+                ))}
+            </div>
 
             <SettingsModal
                 isOpen={showSettingsModal}
