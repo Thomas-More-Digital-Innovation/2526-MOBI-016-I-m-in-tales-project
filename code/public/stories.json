@@ -1,0 +1,305 @@
+{
+    "story": [
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440000",
+            "name": "Fantasy Adventure",
+            "description": "Embark on a magical journey through enchanted lands.",
+            "image": "/image/fantasy_cover.jpg",
+            "chapter": [
+                {
+                    "id": "11111111-2222-3333-4444-555555555555",
+                    "title": "The Beginning",
+                    "description": "You wake up in a mysterious forest.",
+                    "audio": "audio/fantasy_start.mp3",
+                    "image": "/image/fantasy_chapter1.jpg",
+                    "failAudio": null,
+                    "option": [
+                        {
+                            "nextChapter": "22222222-3333-4444-5555-666666666666",
+                            "audio": "audio/fantasy_option1.mp3",
+                            "item": "item-uuid-1111"
+                        },
+                        {
+                            "nextChapter": "33333333-4444-5555-6666-777777777777",
+                            "audio": "audio/fantasy_option2.mp3",
+                            "item": null
+                        }
+                    ]
+                },
+                {
+                    "id": "22222222-3333-4444-5555-666666666666",
+                    "title": "The Enchanted Forest",
+                    "description": "You encounter magical creatures.",
+                    "audio": "audio/fantasy_forest.mp3",
+                    "image": "image/fantasy_chapter2.png",
+                    "failAudio": "audio/fantasy_fail.mp3",
+                    "option": [
+                        {
+                            "nextChapter": "44444444-5555-6666-7777-888888888888",
+                            "audio": "audio/fantasy_success.mp3",
+                            "item": "item-uuid-2222"
+                        }
+                    ]
+                },
+                {
+                    "id": "33333333-4444-5555-6666-777777777777",
+                    "title": "The Dark Cave",
+                    "description": "A perilous cave blocks your path.",
+                    "audio": "audio/fantasy_cave.mp3",
+                    "image": "image/fantasy_chapter3.png",
+                    "failAudio": null,
+                    "option": [
+                        {
+                            "nextChapter": "44444444-5555-6666-7777-888888888888",
+                            "audio": "audio/fantasy_escape.mp3",
+                            "item": null
+                        }
+                    ]
+                },
+                {
+                    "id": "44444444-5555-6666-7777-888888888888",
+                    "title": "The End",
+                    "description": "You reach the end of your adventure.",
+                    "audio": "audio/fantasy_end.mp3",
+                    "image": "image/fantasy_chapter4.png",
+                    "failAudio": null,
+                    "option": []
+                }
+            ]
+        },
+        {
+            "id": "660e8400-e29b-41d4-a716-446655440001",
+            "name": "Mystery in the City",
+            "description": "Solve puzzles in a bustling metropolis.",
+            "image": "image/mystery_city_cover.png",
+            "chapter": [
+                {
+                    "id": "55555555-6666-7777-8888-999999999999",
+                    "title": "Arrival",
+                    "description": "You arrive in the city and notice something odd.",
+                    "audio": "audio/city_arrival.mp3",
+                    "image": "image/city_chapter1.png",
+                    "failAudio": null,
+                    "option": [
+                        {
+                            "nextChapter": "66666666-7777-8888-9999-aaaaaaaaaaaa",
+                            "audio": "audio/city_investigate.mp3",
+                            "item": "item-uuid-3333"
+                        }
+                    ]
+                },
+                {
+                    "id": "66666666-7777-8888-9999-aaaaaaaaaaaa",
+                    "title": "The Clue",
+                    "description": "You find a mysterious clue.",
+                    "audio": "audio/city_clue.mp3",
+                    "image": "image/city_chapter2.png",
+                    "failAudio": "audio/city_fail.mp3",
+                    "option": [
+                        {
+                            "nextChapter": "77777777-8888-9999-aaaa-bbbbbbbbbbbb",
+                            "audio": "audio/city_solve.mp3",
+                            "item": null
+                        }
+                    ]
+                },
+                {
+                    "id": "77777777-8888-9999-aaaa-bbbbbbbbbbbb",
+                    "title": "Resolution",
+                    "description": "The mystery is solved.",
+                    "audio": "audio/city_end.mp3",
+                    "image": "image/city_chapter3.png",
+                    "failAudio": null,
+                    "option": []
+                }
+            ]
+        },
+        {
+            "id": "770e8400-e29b-41d4-a716-446655440002",
+            "name": "Space Odyssey",
+            "description": "Explore the vastness of space.",
+            "image": "image/space_odyssey_cover.png",
+            "chapter": [
+                {
+                    "id": "88888888-9999-aaaa-bbbb-cccccccccccc",
+                    "title": "Launch",
+                    "description": "Your spaceship takes off.",
+                    "audio": "audio/space_launch.mp3",
+                    "image": "image/space_chapter1.png",
+                    "failAudio": null,
+                    "option": [
+                        {
+                            "nextChapter": "99999999-aaaa-bbbb-cccc-dddddddddddd",
+                            "audio": "audio/space_explore.mp3",
+                            "item": "item-uuid-4444"
+                        }
+                    ]
+                },
+                {
+                    "id": "99999999-aaaa-bbbb-cccc-dddddddddddd",
+                    "title": "Alien Encounter",
+                    "description": "You meet extraterrestrial life.",
+                    "audio": "audio/space_alien.mp3",
+                    "image": "image/space_chapter2.png",
+                    "failAudio": "audio/space_fail.mp3",
+                    "option": [
+                        {
+                            "nextChapter": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                            "audio": "audio/space_communicate.mp3",
+                            "item": null
+                        }
+                    ]
+                },
+                {
+                    "id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                    "title": "Homeward Bound",
+                    "description": "Return to Earth with new knowledge.",
+                    "audio": "audio/space_return.mp3",
+                    "image": "image/space_chapter3.png",
+                    "failAudio": null,
+                    "option": []
+                }
+            ]
+        },
+        {
+            "id": "880e8400-e29b-41d4-a716-446655440003",
+            "name": "Underwater Quest",
+            "description": "Dive into the depths of the ocean.",
+            "image": "image/underwater_quest_cover.png",
+            "chapter": [
+                {
+                    "id": "bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
+                    "title": "The Dive",
+                    "description": "You descend into the ocean.",
+                    "audio": "audio/ocean_dive.mp3",
+                    "image": "image/ocean_chapter1.png",
+                    "failAudio": null,
+                    "option": [
+                        {
+                            "nextChapter": "cccccccc-dddd-eeee-ffff-gggggggggggg",
+                            "audio": "audio/ocean_swim.mp3",
+                            "item": "item-uuid-5555"
+                        }
+                    ]
+                },
+                {
+                    "id": "cccccccc-dddd-eeee-ffff-gggggggggggg",
+                    "title": "The Reef",
+                    "description": "Explore a vibrant coral reef.",
+                    "audio": "audio/ocean_reef.mp3",
+                    "image": "image/ocean_chapter2.png",
+                    "failAudio": "audio/ocean_fail.mp3",
+                    "option": [
+                        {
+                            "nextChapter": "dddddddd-eeee-ffff-gggg-hhhhhhhhhhhh",
+                            "audio": "audio/ocean_discover.mp3",
+                            "item": null
+                        }
+                    ]
+                },
+                {
+                    "id": "dddddddd-eeee-ffff-gggg-hhhhhhhhhhhh",
+                    "title": "The Abyss",
+                    "description": "Reach the deepest part.",
+                    "audio": "audio/ocean_abyss.mp3",
+                    "image": "image/ocean_chapter3.png",
+                    "failAudio": null,
+                    "option": []
+                }
+            ]
+        },
+        {
+            "id": "990e8400-e29b-41d4-a716-446655440004",
+            "name": "Time Travel Tale",
+            "description": "Journey through different eras.",
+            "image": "image/time_travel_cover.png",
+            "chapter": [
+                {
+                    "id": "eeeeeeee-ffff-gggg-hhhh-iiiiiiiiiiii",
+                    "title": "The Machine",
+                    "description": "You activate the time machine.",
+                    "audio": "audio/time_machine.mp3",
+                    "image": "image/time_chapter1.png",
+                    "failAudio": null,
+                    "option": [
+                        {
+                            "nextChapter": "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
+                            "audio": "audio/time_past.mp3",
+                            "item": "item-uuid-6666"
+                        },
+                        {
+                            "nextChapter": "gggggggg-hhhh-iiii-jjjj-kkkkkkkkkkkk",
+                            "audio": "audio/time_future.mp3",
+                            "item": null
+                        }
+                    ]
+                },
+                {
+                    "id": "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
+                    "title": "Ancient Times",
+                    "description": "Visit dinosaurs and pyramids.",
+                    "audio": "audio/time_past.mp3",
+                    "image": "image/time_chapter2.png",
+                    "failAudio": "audio/time_fail.mp3",
+                    "option": [
+                        {
+                            "nextChapter": "hhhhhhhh-iiii-jjjj-kkkk-llllllllllll",
+                            "audio": "audio/time_return.mp3",
+                            "item": null
+                        }
+                    ]
+                },
+                {
+                    "id": "gggggggg-hhhh-iiii-jjjj-kkkkkkkkkkkk",
+                    "title": "Future World",
+                    "description": "See flying cars and robots.",
+                    "audio": "audio/time_future.mp3",
+                    "image": "image/time_chapter3.png",
+                    "failAudio": null,
+                    "option": [
+                        {
+                            "nextChapter": "hhhhhhhh-iiii-jjjj-kkkk-llllllllllll",
+                            "audio": "audio/time_back.mp3",
+                            "item": null
+                        }
+                    ]
+                },
+                {
+                    "id": "hhhhhhhh-iiii-jjjj-kkkk-llllllllllll",
+                    "title": "Back to Present",
+                    "description": "Return home safely.",
+                    "audio": "audio/time_present.mp3",
+                    "image": "image/time_chapter4.png",
+                    "failAudio": null,
+                    "option": []
+                }
+            ]
+        }
+    ],
+    "item": [
+        {
+            "item_id": "fantasy_sword",
+            "linked_to": "item-uuid-1111"
+        },
+        {
+            "item_id": "magic_potion",
+            "linked_to": "item-uuid-2222"
+        },
+        {
+            "item_id": "detective_badge",
+            "linked_to": "item-uuid-3333"
+        },
+        {
+            "item_id": "spacesuit",
+            "linked_to": "item-uuid-4444"
+        },
+        {
+            "item_id": "diving_gear",
+            "linked_to": "item-uuid-5555"
+        },
+        {
+            "item_id": "time_device",
+            "linked_to": "item-uuid-6666"
+        }
+    ]
+}
