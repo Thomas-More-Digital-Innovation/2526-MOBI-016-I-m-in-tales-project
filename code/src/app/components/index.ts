@@ -3,3 +3,4 @@ export { default as HeaderButton } from './HeaderLink';
 export { default as LargerButton } from './LargerButton';
 export { default as StoryForm } from './StoryForm';
 export { default as FullScreenButton } from './FullScreenButton';
+export { default as Button } from './Button';

@@ -1,8 +1,8 @@
 interface ButtonProps {
     children: React.ReactNode;
-    primary?: boolean;
     onClick?: () => void;
-    cls?: string
+    cls?: string;
+    primary?: boolean;
 }
 
 export default function Button({children, primary = false, cls = "", onClick}: ButtonProps) {
