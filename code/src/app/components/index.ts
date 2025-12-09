@@ -6,3 +6,4 @@ export { default as FullScreenButton } from './FullScreenButton';
 export { default as InputLabel } from './InputLabel';
 export { default as TextAreaLabel } from './TextAreaLabel';
 export { default as ImageUpload } from './ImageUpload';
+export { default as Button } from './Button';
