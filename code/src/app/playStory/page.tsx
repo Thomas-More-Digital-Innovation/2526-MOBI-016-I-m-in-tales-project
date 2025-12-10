@@ -14,18 +14,24 @@ export default function PlayStory() {
     const [currentChapter, setCurrentChapter] = useState<Chapter | undefined>(
         undefined
     );
+    const currentChapterRef = useRef<Chapter | undefined>(undefined);
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [settings, setSettings] = useState<StorySettings>(storySettings);
 
     function nextChapter(option: Option) {
-        setCurrentChapter(getChapterById(option.nextChapter));
+        const chapter = getChapterById(option.nextChapter);
+        setCurrentChapter(chapter);
+        currentChapterRef.current = chapter;
     }
 
-    function handleEscapeKey(e: KeyboardEvent) {
+    function handleKeyPressed(e: KeyboardEvent) {
         console.log(e.key);
-        console.log(wasFullscreen);
+        console.log(currentChapterRef.current?.option.length);
 
-        if (e.key === "Escape") {
+        if (
+            e.key === "Escape" ||
+            currentChapterRef.current?.option.length === 0
+        ) {
             e.preventDefault();
             e.stopPropagation();
             closeStory();
@@ -37,7 +43,6 @@ export default function PlayStory() {
             const win = getCurrentWindow();
             win.setFullscreen(false);
         }
-        window.removeEventListener("keydown", handleEscapeKey);
         window.history.back();
     }
 
@@ -55,7 +60,7 @@ export default function PlayStory() {
                 win.setFullscreen(true);
             }
         });
-        window.addEventListener("keydown", handleEscapeKey);
+        window.addEventListener("keydown", handleKeyPressed);
 
         fetch("/stories.json")
             .then((res) => res.json())
@@ -63,10 +68,20 @@ export default function PlayStory() {
                 const found =
                     (data.story || []).find((s) => s.id === id) || null;
                 setStory(found);
-                setCurrentChapter(found?.chapter[0]);
+                const chapter = found?.chapter[0];
+                setCurrentChapter(chapter);
+                currentChapterRef.current = chapter;
             })
             .catch((err) => console.error(err));
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyPressed);
+        };
     }, [id]);
+
+    useEffect(() => {
+        currentChapterRef.current = currentChapter;
+    }, [currentChapter]);
 
     return (
         <main className="bg-white min-h-screen">
@@ -120,6 +135,12 @@ export default function PlayStory() {
                     </Button>
                 ))}
             </div>
+
+            {currentChapter?.option.length === 0 && (
+                <div className="absolute bottom-4 left-4 z-100 max-w-1/4 text-white bg-talesorang-500 p-4 rounded-lg">
+                    Dit is het einde van het verhaal. Druk op een toets om het verhaal af te sluiten.
+                </div>
+            )}
 
             <SettingsModal
                 isOpen={showSettingsModal}
