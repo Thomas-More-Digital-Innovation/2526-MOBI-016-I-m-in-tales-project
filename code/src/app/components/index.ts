@@ -7,3 +7,4 @@ export { default as InputLabel } from './InputLabel';
 export { default as TextAreaLabel } from './TextAreaLabel';
 export { default as ImageUpload } from './ImageUpload';
 export { default as Button } from './Button';
+export { default as StoryBuilder } from './StoryBuilder';
