@@ -43,7 +43,7 @@
   "productName": "imintales",
   "mainBinaryName": "imintales",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "com.imintales.dev",
   "plugins": {},
   "app": {
     "windows": [
