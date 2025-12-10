@@ -17,7 +17,7 @@ export default function makeStory() {
         checkDirectory();
     }, []);
     return(
-        <main className="bg-white h-screen">
+        <main className="h-screen">
             <Header />
             <div className="h-screen flex justify-center items-center">
                 <StoryForm />
