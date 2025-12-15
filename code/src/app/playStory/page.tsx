@@ -6,6 +6,7 @@ import Modal from "../components/Modal";
 import SettingsModal from "./SettingsModal";
 import { getFontSize, storySettings } from "./Settings";
 import { getCurrentWindow } from "@tauri-apps/api/window";
+import { playAudio } from "./AudioPlayer";
 
 export default function PlayStory() {
     const { id } = useParams();
@@ -18,10 +19,19 @@ export default function PlayStory() {
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [settings, setSettings] = useState<StorySettings>(storySettings);
 
-    function nextChapter(option: Option) {
+    async function nextChapter(option: Option) {
+        if (option.audio) {
+            console.log(option.audio);
+            await playAudio(option.audio);
+        }
         const chapter = getChapterById(option.nextChapter);
         setCurrentChapter(chapter);
         currentChapterRef.current = chapter;
+
+        if (chapter?.audio) {
+            console.log(chapter.audio);
+            await playAudio(chapter.audio);
+        }
     }
 
     function handleKeyPressed(e: KeyboardEvent) {
@@ -138,7 +148,8 @@ export default function PlayStory() {
 
             {currentChapter?.option.length === 0 && (
                 <div className="absolute bottom-4 left-4 z-100 max-w-1/4 text-white bg-talesorang-500 p-4 rounded-lg">
-                    Dit is het einde van het verhaal. Druk op een toets om het verhaal af te sluiten.
+                    Dit is het einde van het verhaal. Druk op een toets om het
+                    verhaal af te sluiten.
                 </div>
             )}
 

@@ -16,7 +16,7 @@
                     "option": [
                         {
                             "nextChapter": "22222222-3333-4444-5555-666666666666",
-                            "audio": "audio/fantasy_option1.mp3",
+                            "audio": "audio/1.mp3",
                             "item": "item-uuid-1111"
                         },
                         {
@@ -30,13 +30,13 @@
                     "id": "22222222-3333-4444-5555-666666666666",
                     "title": "The Enchanted Forest",
                     "description": "You encounter magical creatures.",
-                    "audio": "audio/fantasy_forest.mp3",
+                    "audio": "audio/2.mp3",
                     "image": "image/fantasy_chapter2.png",
                     "failAudio": "audio/fantasy_fail.mp3",
                     "option": [
                         {
                             "nextChapter": "44444444-5555-6666-7777-888888888888",
-                            "audio": "audio/fantasy_success.mp3",
+                            "audio": null,
                             "item": "item-uuid-2222"
                         }
                     ]
@@ -60,7 +60,7 @@
                     "id": "44444444-5555-6666-7777-888888888888",
                     "title": "The End",
                     "description": "You reach the end of your adventure.",
-                    "audio": "audio/fantasy_end.mp3",
+                    "audio": "audio/end.mp3",
                     "image": "image/fantasy_chapter4.png",
                     "failAudio": null,
                     "option": []
