@@ -2,6 +2,9 @@ import { useMemo, useState } from "react";
 import { Stage, Layer, Group, Rect, Text, Image, Arrow } from "react-konva";
 import type { KonvaEventObject } from "konva/lib/Node";
 import { Button, TextAreaLabel, InputLabel, ImageUpload } from "@components";
+import { readTextFile, BaseDirectory, writeTextFile} from "@tauri-apps/plugin-fs";
+import { join } from "@tauri-apps/api/path";
+import { useNavigate } from "react-router-dom";
 
 // Defining how we store each node
 type StoryNode = {
@@ -9,18 +12,27 @@ type StoryNode = {
   title: string;
   description: string;
   audio: string | null;
-  image: HTMLImageElement | null;
+  // Here we store the image object created from the blob containing the image bytes
+  image: CanvasImageSource | null;
+  // Here we store the url of the created object in order to pass it to imageupload
+  imageSrc?: string | null;
+  // Here we store the image bytes which are going to be stored in the JSON
   imageBytes?: Uint8Array | null;
   x: number;
   y: number;
   linkedNodes?: string[];
 };
 
+type StageNodeProps = {
+  folderName?: string;
+};
+
 // Clamp helper function for zooming in/out
 const clamp = (val: number, min: number, max: number) => Math.min(Math.max(val, min), max);
 
-export default function StageNode() {
+export default function StageNode({ folderName = "" }: StageNodeProps) {
   const [scale, setScale] = useState(1);
+  const navigate = useNavigate();
   // Where we store the nodes, using intro to initialize
   const [nodes, setNodes] = useState<StoryNode[]>([
     { id: crypto.randomUUID(), title: "Intro", description: "Intro Scene", image: null, audio: null, x: 200, y: 200 },
@@ -83,17 +95,24 @@ export default function StageNode() {
     if (!selectedId) return;
     const blob = new Blob([bytes]);
     const url = URL.createObjectURL(blob);
-    // had to do it this way only because of canvas, for normal HTML check the component way of loading an image
-    const img = new window.Image();
-    img.onload = () => {
-      URL.revokeObjectURL(url);
-      setNodes(prev =>
-        prev.map(n =>
-          n.id === selectedId ? { ...n, image: img, imageBytes: bytes } : n
-        )
-      );
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const dataUrl = typeof reader.result === "string" ? reader.result : null;
+      // had to do it this way only because of canvas, for normal HTML check the component way of loading an image
+      const img = new window.Image();
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        setNodes(prev =>
+          prev.map(n =>
+            n.id === selectedId ? { ...n, image: img, imageBytes: bytes, imageSrc: dataUrl } : n
+          )
+        );
+      };
+      img.src = url;
     };
-    img.src = url;
+
+    reader.readAsDataURL(blob);
   }
   // this runs every time a container is clicked but depending on the state of linking it changes it functionality
   const linkStage = (nodeId: string) => {
@@ -135,6 +154,54 @@ export default function StageNode() {
     return [...src, ...dest];
   };
 
+  const saveStory = async (jsonData: unknown, folderName: string) => {
+      const storyFilePath = await join(folderName, "StoryData.json");
+      await writeTextFile(storyFilePath, JSON.stringify(jsonData), {
+          baseDir: BaseDirectory.AppData
+      });
+      navigate("/");
+  };
+  // Saving the file by getting the json that was saved in the previous page
+  // appending each node as a chapter, in options we put the linkednodes
+  const saveFile = async () => {
+    const existingPath = await join(folderName, 'StoryData.json');
+    const baseJSON = await readTextFile(existingPath, {
+      baseDir: BaseDirectory.AppData
+    });
+    let NewJSON = JSON.parse(baseJSON);
+    const items: { item_id: string; linked_to: string }[] = [];
+
+    const chapter = nodes.map((node) => {
+      const option = (node.linkedNodes ?? []).map((linkedNode) => {
+        const pseudoItemId = crypto.randomUUID();
+        items.push({ item_id: pseudoItemId, linked_to: linkedNode });
+        return {
+          nextChapter: linkedNode,
+          audio: null,
+          item: pseudoItemId
+        };
+      });
+
+      return {
+        id: node.id,
+        title: node.title,
+        description: node.description,
+        audio: node.audio,
+        image: node.imageBytes ? Array.from(node.imageBytes) : null,
+        failAudio: null,
+        option
+      };
+    });
+
+    NewJSON = {
+      ...NewJSON,
+      story: { ...(NewJSON.story ?? {}), chapter },
+      item: items
+    };
+
+    await saveStory(NewJSON, folderName);
+  }
+
   return (
     <div className="flex gap-3 w-auto">
       <div className="p-2 w-1/2 flex flex-col items-end">
@@ -146,7 +213,7 @@ export default function StageNode() {
               <Group key={node.id} draggable x={node.x} y={node.y} onClick={() => linkStage(node.id)} onTap={() => linkStage(node.id)} onDragMove={(e) => handleNodeDragMove(node.id, e)}>
                 <Rect fill={selectedId === node.id ? "#dbeafe" : "#f4f5f7"} stroke={selectedId === node.id ? "#3b82f6" : "#6b7280"} cornerRadius={16} width={150} height={150} />
                 {node.image ? (
-                  <Rect x={1} y={1} width={146} height={110} cornerRadius={16} fillPatternImage={node.image} />
+                  <Image image={node.image} cornerRadius={16} x={1} y={1} width={148} height={120}/>
                 ) : (
                   <Group>
                     <Rect x={2} y={2} width={146} height= {110} cornerRadius={12} fill="#e5e7eb" />
@@ -179,7 +246,7 @@ export default function StageNode() {
           <div>
             <InputLabel label="Title" value={selectedNode.title} onChangeText={(e) => updateField("title", e.target.value)} />
             <TextAreaLabel label="Description" rows={3} onChangeText={(e) => updateField("description", e.target.value)} value={selectedNode.description} />
-            <ImageUpload cls="mt-5" onImageBytes={handleImageBytes} />
+            <ImageUpload cls="mt-5" onImageBytes={handleImageBytes} value={selectedNode.imageSrc ?? null} />
             {linking ? (
               <div className="flex items-center mt-4">
                 <Button onClick={() => toggleLinking(null)} cls="bg-talesblu-500/50 me-4 hover:bg-talesorang-300">Link Stage</Button>
@@ -193,7 +260,7 @@ export default function StageNode() {
                 const linkedNode = nodes.find((n) => n.id === linkedNodeId);
                 if (!linkedNode) return null;
                 return(
-                  <li className="border p-3 rounded-2xl border-gray-400 m-2">
+                  <li key={linkedNode.id} className="border p-3 rounded-2xl border-gray-400 m-2">
                     <p>Title: {linkedNode.title}</p>
                     <p className="text-gray-400/80 text-sm">id: {linkedNode.id}</p>
                     <div>
@@ -204,6 +271,7 @@ export default function StageNode() {
                 )
               })}
             </ul>
+            <Button onClick={() => saveFile()}>Save</Button>
           </div>
         ) : (
           <h3 className="text-sm text-gray-500">Click a node to edit.</h3>

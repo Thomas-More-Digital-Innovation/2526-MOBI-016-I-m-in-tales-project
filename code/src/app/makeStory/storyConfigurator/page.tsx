@@ -1,4 +1,4 @@
-import { Header, StoryBuilder2 } from "@components"
+import { Header, StageNode } from "@components"
 import { useParams } from "react-router-dom"
 export default function storyConfigurator() {
     const { folderName } = useParams();
@@ -6,7 +6,7 @@ export default function storyConfigurator() {
     return (
         <main className="flex flex-col">
             <Header />
-            <StoryBuilder2/>
+            <StageNode folderName={folderName}/>
         </main>
     )
 }

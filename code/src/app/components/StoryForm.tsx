@@ -39,14 +39,13 @@ export default function StoryForm() {
         const description = formData.get("Description")?.toString().trim() || "";
 
         const JsonData = {
-            story: [
+            story:
                 {
                     id: storyId,
                     name: storyName,
                     description,
                     thumbnail: thumbnailBytes ? Array.from(thumbnailBytes) : null
                 }
-            ]
         };
 
         await saveStory(JsonData, storyName);
