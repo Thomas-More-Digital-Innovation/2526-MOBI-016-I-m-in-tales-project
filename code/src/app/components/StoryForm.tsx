@@ -1,10 +1,11 @@
 import { InputLabel, TextAreaLabel, ImageUpload } from "@components";
 import { useState } from "react";
-import { writeTextFile, BaseDirectory, exists, mkdir, copyFile, remove } from "@tauri-apps/plugin-fs";
+import { writeTextFile, BaseDirectory, exists, mkdir } from "@tauri-apps/plugin-fs";
 import { join } from "@tauri-apps/api/path";
 import { useNavigate } from "react-router-dom";
 
 export default function StoryForm() {
+    const [thumbnailBytes, setThumbnailBytes] = useState<Uint8Array | null>(null);
     const navigate = useNavigate();
     const [storyId] = useState(() => crypto.randomUUID());
 
@@ -24,23 +25,8 @@ export default function StoryForm() {
         await ensureStoryFolder(folderName);
 
         const storyFilePath = await join(folderName, "StoryData.json");
-        await writeTextFile(storyFilePath, JSON.stringify(jsonData, null, 2), {
+        await writeTextFile(storyFilePath, JSON.stringify(jsonData), {
             baseDir: BaseDirectory.AppData
-        });
-        const tempImagePath = await join("temp", "storyThumbnail.png");
-        const imageExists = await exists(tempImagePath, {
-            baseDir: BaseDirectory.AppData,
-        });
-        const destImagePath = await join(folderName, "storyThumbnail.png");
-        if (imageExists) {
-            await copyFile(tempImagePath, destImagePath, {
-                fromPathBaseDir: BaseDirectory.AppData,
-                toPathBaseDir: BaseDirectory.AppData
-            });
-        }
-        await remove("temp", {
-            baseDir: BaseDirectory.AppData,
-            recursive: true
         });
         navigate("/makeStory/storyConfigurator/" + folderName);
     };
@@ -53,13 +39,13 @@ export default function StoryForm() {
         const description = formData.get("Description")?.toString().trim() || "";
 
         const JsonData = {
-            story: [
+            story:
                 {
                     id: storyId,
                     name: storyName,
-                    description
+                    description,
+                    thumbnail: thumbnailBytes ? Array.from(thumbnailBytes) : null
                 }
-            ]
         };
 
         await saveStory(JsonData, storyName);
@@ -77,7 +63,7 @@ export default function StoryForm() {
                 </div>
             </div>
             <div>
-                <ImageUpload />
+                <ImageUpload onImageBytes={(bytes) => setThumbnailBytes(bytes)} />
                 <button type="submit">Next</button>
             </div>
         </form>
