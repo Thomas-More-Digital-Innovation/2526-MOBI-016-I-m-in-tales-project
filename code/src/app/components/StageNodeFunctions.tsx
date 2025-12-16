@@ -5,9 +5,10 @@ export type PositionalNode = {
   x: number;
   y: number;
 };
-
+// Clamping limiting zooming in/out
 export const clamp = (val: number, min: number, max: number) => Math.min(Math.max(val, min), max);
-
+// depending on the position of our destination (top left top right bottom left bottom right) we change the arrow to point FROM a particular point on the container
+// We do the same for the destination container.
 export const getEdgePoints = (from: PositionalNode, to: PositionalNode) => {
   const NODE_W = 150;
   const NODE_H = 150;
@@ -26,7 +27,7 @@ export const getEdgePoints = (from: PositionalNode, to: PositionalNode) => {
 
   return [...sourcePoint, ...destPoint];
 };
-
+// saves the json file locally (work on any system)
 export const persistStory = async (jsonData: unknown, folderName: string) => {
   const storyFilePath = await join(folderName, "StoryData.json");
   await writeTextFile(storyFilePath, JSON.stringify(jsonData), {
