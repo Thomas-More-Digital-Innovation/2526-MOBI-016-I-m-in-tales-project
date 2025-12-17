@@ -23,6 +23,16 @@ export function useStory(storyId: string | undefined) {
         [story]
     );
 
+    function loadChapter(chapter: Chapter | undefined) {
+        if (!chapter) {
+            console.error("Chapter not found");
+            return;
+        }
+        setCurrentChapter(chapter);
+        preloadChapterAudio(chapter);
+        currentChapterRef.current = chapter;
+    }
+
     const nextChapter = useCallback(
         async (option: Option) => {
             if (option.audio) {
@@ -59,14 +69,4 @@ export function useStory(storyId: string | undefined) {
         currentChapterRef,
         nextChapter,
     };
-
-    function loadChapter(chapter: Chapter | undefined) {
-        if (!chapter) {
-            console.error("Chapter not found");
-            return;
-        }
-        setCurrentChapter(chapter);
-        preloadChapterAudio(chapter);
-        currentChapterRef.current = chapter;
-    }
 }

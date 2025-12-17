@@ -20,12 +20,6 @@ export default function Modal({
 }: ModalProps) {
     if (!isOpen) return null;
 
-    function close() {
-        setIsOpen(false);
-        onClose?.();
-        window.removeEventListener("keydown", handleEscape);
-    }
-
     function handleEscape(e: KeyboardEvent) {
         if (e.key === "Escape") {
             e.stopPropagation();
@@ -33,9 +27,19 @@ export default function Modal({
         }
     }
 
+    function close() {
+        setIsOpen(false);
+        onClose?.();
+        window.removeEventListener("keydown", handleEscape);
+    }
+
     useEffect(() => {
         window.addEventListener("keydown", handleEscape);
-    });
+
+        return () => {
+            window.removeEventListener("keydown", handleEscape);
+        };
+    }, [handleEscape]);
 
     return (
         <div

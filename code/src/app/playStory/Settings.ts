@@ -2,7 +2,7 @@ import { StorySettings, FontSize } from "@/types";
 
 export let storySettings: StorySettings = {
     fontSize: "normale tekst",
-    volume: 0.8,
+    volume: 0.5,
 };
 
 export let fontSize: Record<FontSize, number> = {
