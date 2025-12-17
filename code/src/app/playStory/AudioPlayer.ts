@@ -1,26 +1,60 @@
-const globalAudio = new Audio();
+import { Chapter, Option } from "@/types/story.type";
 
-export function playAudio(source: string): Promise<void> {
+let audioRecord: Record<string, HTMLAudioElement> = {};
+let activeAudio: HTMLAudioElement | null = null;
+
+export function playAudio(audioPath: string): Promise<void> {
     return new Promise((resolve, reject) => {
-        const src = source.startsWith("/") ? source : `/${source}`;
-        globalAudio.src = src;
+        const audio = audioRecord[audioPath];
+        stopAudio();
+        activeAudio = audio;
+
+        const onCleanUp = () => {
+            audio.removeEventListener("ended", handleEnded);
+            audio.removeEventListener("error", handleError);
+            activeAudio = null;
+        };
 
         const handleEnded = () => {
-            globalAudio.removeEventListener("ended", handleEnded);
-            globalAudio.removeEventListener("error", handleError);
+            onCleanUp();
             resolve();
         };
 
         const handleError = (e: Event) => {
-            globalAudio.removeEventListener("ended", handleEnded);
-            globalAudio.removeEventListener("error", handleError);
+            onCleanUp();
             reject(new Error("Audio playback failed"));
         };
 
-        globalAudio.addEventListener("ended", handleEnded);
-        globalAudio.addEventListener("error", handleError);
+        audio.addEventListener("ended", handleEnded);
+        audio.addEventListener("error", handleError);
 
-        globalAudio.load();
-        globalAudio.play().catch(handleError);
+        audio.play().catch(handleError);
     });
+}
+
+export function stopAudio() {
+    if (activeAudio) {
+        activeAudio.pause();
+        activeAudio.currentTime = 0;
+    }
+}
+
+export function loadAudio(audioPath: string): HTMLAudioElement {
+    const src = audioPath.startsWith("/") ? audioPath : `/${audioPath}`;
+    const audio = new Audio(src);
+    audio.load();
+    return audio;
+}
+
+export function preloadChapterAudio(chapter: Chapter) {
+    audioRecord = {};
+    chapter.option.forEach((option: Option) => {
+        if (option.audio) {
+            audioRecord[option.audio] = loadAudio(option.audio);
+        }
+    });
+    if (chapter.audio) {
+        audioRecord[chapter.audio] = loadAudio(chapter.audio);
+    }
+    console.log(audioRecord);
 }

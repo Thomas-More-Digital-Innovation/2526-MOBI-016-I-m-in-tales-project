@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Story, StoriesData, Chapter, Option } from "../../types/story.type";
-import { playAudio } from "./AudioPlayer";
+import { playAudio, preloadChapterAudio } from "./AudioPlayer";
 
 export function useStory(storyId: string | undefined) {
     const [story, setStory] = useState<Story | null>(null);
@@ -24,15 +24,11 @@ export function useStory(storyId: string | undefined) {
     const nextChapter = useCallback(
         async (option: Option) => {
             if (option.audio) {
-                console.log(option.audio);
                 await playAudio(option.audio);
             }
             const chapter = getChapterById(option.nextChapter);
-            setCurrentChapter(chapter);
-            currentChapterRef.current = chapter;
-
+            loadChapter(chapter);
             if (chapter?.audio) {
-                console.log(chapter.audio);
                 await playAudio(chapter.audio);
             }
         },
@@ -49,8 +45,7 @@ export function useStory(storyId: string | undefined) {
                     (data.story || []).find((s) => s.id === storyId) || null;
                 setStory(found);
                 const chapter = found?.chapter[0];
-                setCurrentChapter(chapter);
-                currentChapterRef.current = chapter;
+                loadChapter(chapter);
             })
             .catch((err) => console.error(err));
     }, [storyId]);
@@ -61,4 +56,14 @@ export function useStory(storyId: string | undefined) {
         currentChapterRef,
         nextChapter,
     };
+
+    function loadChapter(chapter: Chapter | undefined) {
+        if (!chapter) {
+            console.error("Chapter not found");
+            return;
+        }
+        setCurrentChapter(chapter);
+        preloadChapterAudio(chapter);
+        currentChapterRef.current = chapter;
+    }
 }

@@ -9,6 +9,7 @@ import StoryVisuals from "./components/StoryVisuals";
 import StoryOverlay from "./components/StoryOverlay";
 import StoryOptions from "./components/StoryOptions";
 import StoryHeader from "./components/StoryHeader";
+import { stopAudio } from "./AudioPlayer";
 
 export default function PlayStory() {
     const { id } = useParams();
@@ -38,12 +39,7 @@ export default function PlayStory() {
     }, [currentChapterRef, showSettingsModal]);
 
     function closeStory() {
-        // We can just rely on built-in history or explicit navigation
-        // The fullscreen exit is handled by the hook on unmount if we just navigate away?
-        // Actually, the original code had explicit logic to restore fullscreen state.
-        // Let's replicate what was there: restore previous state.
-        // But wait, useFullscreen hook does exactly that on unmount!
-        // So we just need to navigate back.
+        stopAudio();
         window.history.back();
     }
 
