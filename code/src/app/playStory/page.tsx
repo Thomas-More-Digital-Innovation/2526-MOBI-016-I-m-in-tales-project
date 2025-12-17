@@ -8,7 +8,7 @@ import StoryVisuals from "./components/StoryVisuals";
 import StoryOverlay from "./components/StoryOverlay";
 import StoryOptions from "./components/StoryOptions";
 import StoryHeader from "./components/StoryHeader";
-import { stopAudio } from "./AudioPlayer";
+import { playAudio, stopAudio } from "./AudioPlayer";
 import { StorySettings } from "@/types";
 
 export default function PlayStory() {
@@ -53,6 +53,10 @@ export default function PlayStory() {
                 fontSizeSetting={settings.fontSize}
                 onSettingsClick={() => setShowSettingsModal(true)}
                 onCloseClick={closeStory}
+                onReplayAudioClick={() => {
+                    if (!currentChapter?.audio) return;
+                    playAudio(currentChapter.audio);
+                }}
             />
 
             {currentChapter ? (
@@ -72,6 +76,10 @@ export default function PlayStory() {
             <StoryOptions
                 options={currentChapter?.option}
                 onOptionClick={nextChapter}
+                onErrorClick={() => {
+                    if (!currentChapter?.failAudio) return;
+                    playAudio(currentChapter.failAudio);
+                }}
             />
 
             <SettingsModal
