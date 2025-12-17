@@ -48,12 +48,10 @@
   "app": {
     "windows": [
       {
-        "fullscreen": false,
-        "height": 920,
-        "resizable": false,
         "title": "imintales",
-        "width": 1440,
-        "useHttpsScheme": true
+        "useHttpsScheme": true,
+        "resizable": true,
+        "fullscreen": false
       }
     ],
     "security": {
