@@ -5,11 +5,13 @@ import { Option } from "@/types";
 
 export interface StoryOptionsProps {
     options: Option[] | undefined;
+    onErrorClick: () => void;
     onOptionClick: (option: Option) => void;
 }
 
 export default function StoryOptions({
     options,
+    onErrorClick,
     onOptionClick,
 }: StoryOptionsProps) {
     if (!options) return null;
@@ -30,6 +32,9 @@ export default function StoryOptions({
                     )}
                 </Button>
             ))}
+            <Button onClick={() => onErrorClick()} cls="m-2 bg-red-500!">
+                Error
+            </Button>
         </div>
     );
 }
