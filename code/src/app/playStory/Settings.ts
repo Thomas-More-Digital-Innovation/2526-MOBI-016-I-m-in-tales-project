@@ -1,6 +1,6 @@
 export let storySettings: StorySettings = {
     fontSize: "normale tekst",
-    volume: 0.5,
+    volume: 0.8,
 };
 
 export let fontSize: Record<FontSize, number> = {

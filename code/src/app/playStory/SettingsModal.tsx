@@ -39,6 +39,32 @@ export default function SettingsModal({ isOpen, setIsOpen }: Props) {
                         </Button>
                     ))}
                 </div>
+                <div>
+                    <h1 className="text-3xl py-2">Volume</h1>
+                    <span className="w-full flex gap-4">
+                        <span>{settings.volume * 100}%</span>
+                        <input
+                            className="w-full accent-talesorang-500"
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.1"
+                            value={settings.volume}
+                            onChange={(e) => {
+                                setSettings((prev) => {
+                                    const next = {
+                                        ...prev,
+                                        volume: Number(e.target.value),
+                                    };
+                                    storySettings.volume = Number(
+                                        e.target.value
+                                    );
+                                    return next;
+                                });
+                            }}
+                        />
+                    </span>
+                </div>
             </div>
         </Modal>
     );

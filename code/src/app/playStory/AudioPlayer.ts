@@ -1,11 +1,17 @@
 import { Chapter, Option } from "@/types/story.type";
+import { storySettings } from "./Settings";
 
 let audioRecord: Record<string, HTMLAudioElement> = {};
 let activeAudio: HTMLAudioElement | null = null;
 
 export function playAudio(audioPath: string): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const audio = audioRecord[audioPath];
+        if (!audio) {
+            console.warn(`Audio ${audioPath} not found in preload record`);
+            resolve();
+            return;
+        }
         stopAudio();
         activeAudio = audio;
 
@@ -13,21 +19,22 @@ export function playAudio(audioPath: string): Promise<void> {
             audio.removeEventListener("ended", handleEnded);
             audio.removeEventListener("error", handleError);
             activeAudio = null;
+            resolve();
         };
 
         const handleEnded = () => {
             onCleanUp();
-            resolve();
         };
 
-        const handleError = (e: Event) => {
+        const handleError = () => {
+            console.error("Audio playback failed");
             onCleanUp();
-            reject(new Error("Audio playback failed"));
         };
 
         audio.addEventListener("ended", handleEnded);
         audio.addEventListener("error", handleError);
 
+        audio.volume = storySettings.volume;
         audio.play().catch(handleError);
     });
 }
@@ -59,5 +66,4 @@ export function preloadChapterAudio(chapter: Chapter) {
     if (chapter.failAudio) {
         audioRecord[chapter.failAudio] = loadAudio(chapter.failAudio);
     }
-    console.log(audioRecord);
 }
