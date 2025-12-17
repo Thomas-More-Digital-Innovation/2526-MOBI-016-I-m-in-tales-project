@@ -6,13 +6,13 @@ export default function Header({mainPage = false} : {mainPage?: boolean}) {
         <HeaderButton label="<" link="../"/>
     );
     return (
-        <div className="flex justify-between w-screen">
-            <div className='flex'>
+        <div className="flex justify-between items-center w-screen">
+            <img src="/newLogo.svg" alt="Top logo" width={300} height={300}/>
+            <div className='flex gap-3 p-3'>
                 {backButton}
                 <FullScreenButton />
+                <HeaderButton label="?"/>
             </div>
-            <img src="/SmallLogo.svg" alt="Top logo" width={800} height={500}/>
-            <HeaderButton label="?"/>
         </div>
     )
 }

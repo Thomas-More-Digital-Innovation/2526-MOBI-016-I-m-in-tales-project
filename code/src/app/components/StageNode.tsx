@@ -205,7 +205,7 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
   return (
     <div className="flex gap-3 w-auto">
       <div className="p-2 w-1/2 flex flex-col items-end">
-        <Button onClick={createNewNode} cls="mb-2">Add new class</Button>
+        <Button onClick={createNewNode} cls="text-sm !px-4 !py-2 mb-2">Add new class</Button>
         {/* This is the canvas for the konva library which makes stuff draggable */}
         <Stage width={stageSize.width} height={stageSize.height - 8} className="border rounded-2xl" draggable scaleX={scale} scaleY={scale} onWheel={handleWheel}>
           <Layer>
@@ -247,13 +247,14 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
             <InputLabel label="Title" value={selectedNode.title} onChangeText={(e) => updateField("title", e.target.value)} />
             <TextAreaLabel label="Description" rows={3} onChangeText={(e) => updateField("description", e.target.value)} value={selectedNode.description} />
             <ImageUpload cls="mt-5" onImageBytes={handleImageBytes} value={selectedNode.imageSrc ?? null} />
+            <div className="my-2 border-t border-gray-300" />
             {linking ? (
               <div className="flex items-center mt-4">
-                <Button onClick={() => toggleLinking(null)} cls="bg-talesblu-500/50 me-4 hover:bg-talesorang-300">Link Stage</Button>
+                <Button onClick={() => toggleLinking(null)} cls="text-sm !px-4 !py-2">Link Stage</Button>
                 <p>Select a node to link</p>
               </div>
             ) : (
-              <Button onClick={() => toggleLinking(selectedNode.id)} cls="mt-4">Link Stage</Button>
+              <Button onClick={() => toggleLinking(selectedNode.id)} cls="text-sm !px-4 !py-2">Link Stage</Button>
             )}
             <ul>
               {(selectedNode.linkedNodes ?? []).map((linkedNodeId) => {
@@ -263,15 +264,15 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
                   <li key={linkedNode.id} className="border p-3 rounded-2xl border-gray-400 m-2">
                     <p>Title: {linkedNode.title}</p>
                     <p className="text-gray-400/80 text-sm">id: {linkedNode.id}</p>
-                    <div>
-                      <Button cls="bg-transparent border border-talesblu-400 !text-talesblu-400 text-sm hover:!text-white">Add Item</Button>
-                      <Button cls="m-2 text-sm bg-transparent border border-talesorang-400 !text-talesorang-400 hover:!text-white" primary>Add Audio</Button>
+                    <div className="gap-3 flex">
+                      <Button cls="text-sm !px-4 !py-2">Add Item</Button>
+                      <Button cls="text-sm !px-4 !py-2">Add Audio</Button>
                     </div>
                   </li>
                 )
               })}
             </ul>
-            <Button onClick={() => saveFile()}>Save</Button>
+            <Button onClick={() => saveFile()} cls="text-sm !px-4 !py-2 my-3">Save</Button>
           </div>
         ) : (
           <h3 className="text-sm text-gray-500">Click a node to edit.</h3>

@@ -1,4 +1,4 @@
-import { InputLabel, TextAreaLabel, ImageUpload } from "@components";
+import { InputLabel, TextAreaLabel, ImageUpload, Button } from "@components";
 import { useState } from "react";
 import { writeTextFile, BaseDirectory, exists, mkdir } from "@tauri-apps/plugin-fs";
 import { join } from "@tauri-apps/api/path";
@@ -52,19 +52,14 @@ export default function StoryForm() {
     };
 
     return(
-        <form onSubmit={handleSubmit} className="flex">
-            <div className="min-h-full p-4">
-                <div>
-                    <InputLabel label="Story Name" required={true} nameId="StoryName" placeholder="My Amazing Story"/>
-                </div>
-
-                <div>
-                    <TextAreaLabel cols={40} rows={3} nameId="Description" label="Description" placeholder="Something about the story" />
-                </div>
-            </div>
+        <form onSubmit={handleSubmit} className="flex justify-center items-center gap-4">
             <div>
+                <InputLabel label="Story Name" required={true} nameId="StoryName" placeholder="My Amazing Story"/>
+                <TextAreaLabel cols={40} rows={3} nameId="Description" label="Description" placeholder="Something about the story" />
+            </div>
+            <div className="gap-2 flex flex-col justify-center items-start">
                 <ImageUpload onImageBytes={(bytes) => setThumbnailBytes(bytes)} />
-                <button type="submit">Next</button>
+                <Button cls="text-sm !px-4 !py-2">Next</Button>
             </div>
         </form>
     )

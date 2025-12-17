@@ -51,7 +51,9 @@
         "title": "imintales",
         "useHttpsScheme": true,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "minHeight": 720,
+        "minWidth": 1440
       }
     ],
     "security": {
