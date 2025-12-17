@@ -56,5 +56,8 @@ export function preloadChapterAudio(chapter: Chapter) {
     if (chapter.audio) {
         audioRecord[chapter.audio] = loadAudio(chapter.audio);
     }
+    if (chapter.failAudio) {
+        audioRecord[chapter.failAudio] = loadAudio(chapter.failAudio);
+    }
     console.log(audioRecord);
 }
