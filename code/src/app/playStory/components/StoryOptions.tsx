@@ -1,5 +1,7 @@
 import { Button } from "@components";
-import { Option } from "../../../types/story.type";
+import { Option } from "@types/story.type";
+
+// this is just a temporary placeholder for the options until it is worked out with the NFC sensor
 
 export interface StoryOptionsProps {
     options: Option[] | undefined;
@@ -11,15 +13,6 @@ export default function StoryOptions({
     onOptionClick,
 }: StoryOptionsProps) {
     if (!options) return null;
-
-    if (options.length === 0) {
-        return (
-            <div className="absolute bottom-24 left-4 z-100 max-w-1/4 text-white bg-talesorang-500 p-4 rounded-lg">
-                Dit is het einde van het verhaal. Druk op een toets om het
-                verhaal af te sluiten.
-            </div>
-        );
-    }
 
     return (
         <div className="absolute flex flex-col bottom-4 right-4 z-100">
