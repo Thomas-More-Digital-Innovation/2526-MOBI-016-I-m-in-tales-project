@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SettingsModal from "./SettingsModal";
 import { storySettings } from "./Settings";
-import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useStory } from "./useStory";
 import { useFullscreen } from "./useFullscreen";
 import StoryVisuals from "./components/StoryVisuals";
@@ -10,6 +9,7 @@ import StoryOverlay from "./components/StoryOverlay";
 import StoryOptions from "./components/StoryOptions";
 import StoryHeader from "./components/StoryHeader";
 import { stopAudio } from "./AudioPlayer";
+import { StorySettings } from "@/types";
 
 export default function PlayStory() {
     const { id } = useParams();
@@ -50,6 +50,7 @@ export default function PlayStory() {
     return (
         <main className="bg-white min-h-screen">
             <StoryHeader
+                fontSizeSetting={settings.fontSize}
                 onSettingsClick={() => setShowSettingsModal(true)}
                 onCloseClick={closeStory}
             />

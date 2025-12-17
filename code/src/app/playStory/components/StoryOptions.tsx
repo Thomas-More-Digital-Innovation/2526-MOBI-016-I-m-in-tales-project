@@ -1,5 +1,5 @@
 import { Button } from "@components";
-import { Option } from "@types/story.type";
+import { Option } from "@/types";
 
 // this is just a temporary placeholder for the options until it is worked out with the NFC sensor
 

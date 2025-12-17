@@ -1,5 +1,5 @@
-import { getFontSize } from "../Settings";
-import { Option } from "@types/story.type";
+import { fontSize } from "../Settings";
+import { Option, FontSize } from "@/types";
 
 export interface StoryOverlayProps {
     title: string | undefined;
@@ -14,7 +14,7 @@ export default function StoryOverlay({
     fontSizeSetting,
     options,
 }: StoryOverlayProps) {
-    const baseFontSize = getFontSize(fontSizeSetting);
+    const baseFontSize = fontSize[fontSizeSetting];
 
     return (
         <>
@@ -37,7 +37,11 @@ export default function StoryOverlay({
                 </p>
             )}
             {options && options.length === 0 && (
-                <div className="absolute bottom-24 left-4 z-100 max-w-1/4 text-white bg-talesorang-500 p-4 rounded-lg">
+                <div
+                    className="absolute bottom-24 left-4 z-100 max-w-1/4 text-white bg-talesorang-500 p-4 rounded-lg"
+                    style={{
+                        fontSize: baseFontSize + "px",
+                    }}>
                     Dit is het einde van het verhaal. Druk op een toets om het
                     verhaal af te sluiten.
                 </div>

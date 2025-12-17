@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Story, StoriesData, Chapter, Option } from "@types/story.type";
+import { Story, StoriesData, Chapter, Option } from "@/types";
 import { playAudio, preloadChapterAudio } from "./AudioPlayer";
 
 export function useStory(storyId: string | undefined) {
@@ -16,7 +16,9 @@ export function useStory(storyId: string | undefined) {
 
     const getChapterById = useCallback(
         (chapterId: string | undefined): Chapter | undefined => {
-            return story?.chapter.find((chapter) => chapter.id === chapterId);
+            return story?.chapter.find(
+                (chapter: Chapter) => chapter.id === chapterId
+            );
         },
         [story]
     );
@@ -42,7 +44,8 @@ export function useStory(storyId: string | undefined) {
             .then((res) => res.json())
             .then((data: StoriesData) => {
                 const found =
-                    (data.story || []).find((s) => s.id === storyId) || null;
+                    (data.story || []).find((s: Story) => s.id === storyId) ||
+                    null;
                 setStory(found);
                 const chapter = found?.chapter[0];
                 loadChapter(chapter);

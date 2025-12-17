@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Modal from "../components/Modal";
 import { fontSize, storySettings } from "./Settings";
-import { Button } from "@components";
+import { Button, Modal } from "@components";
+import { StorySettings, FontSize } from "@/types";
 
 interface Props {
     isOpen: boolean;
