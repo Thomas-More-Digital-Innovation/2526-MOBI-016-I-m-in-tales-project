@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import Button from "./Button";
 
 interface ModalProps {
@@ -18,17 +18,36 @@ export default function Modal({
     onClose,
     children,
 }: ModalProps) {
+    if (!isOpen) return null;
+
+    function handleEscape(e: KeyboardEvent) {
+        if (e.key === "Escape") {
+            e.stopPropagation();
+            close();
+        }
+    }
+
     function close() {
         setIsOpen(false);
         onClose?.();
+        window.removeEventListener("keydown", handleEscape);
     }
 
-    if (!isOpen) return null;
+    useEffect(() => {
+        window.addEventListener("keydown", handleEscape);
+
+        return () => {
+            window.removeEventListener("keydown", handleEscape);
+        };
+    }, [handleEscape]);
 
     return (
         <div
             className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-            onClick={close}>
+            onClick={(e) => {
+                e.stopPropagation();
+                close();
+            }}>
             <div
                 style={{ width, height }}
                 className="bg-white rounded-2xl mx-4 relative"
