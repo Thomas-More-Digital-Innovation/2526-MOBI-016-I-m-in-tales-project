@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Story, StoriesData, Chapter, Option } from "../../types/story.type";
+import { Story, StoriesData, Chapter, Option } from "@types/story.type";
 import { playAudio, preloadChapterAudio } from "./AudioPlayer";
 
 export function useStory(storyId: string | undefined) {

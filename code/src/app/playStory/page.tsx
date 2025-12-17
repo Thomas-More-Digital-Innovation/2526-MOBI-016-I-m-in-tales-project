@@ -61,6 +61,7 @@ export default function PlayStory() {
                         title={currentChapter.title}
                         description={currentChapter.description}
                         fontSizeSetting={settings.fontSize}
+                        options={currentChapter.option}
                     />
                 </div>
             ) : (
