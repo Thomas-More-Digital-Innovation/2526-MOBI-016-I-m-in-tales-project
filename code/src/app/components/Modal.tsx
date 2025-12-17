@@ -28,6 +28,7 @@ export default function Modal({
 
     function handleEscape(e: KeyboardEvent) {
         if (e.key === "Escape") {
+            e.stopPropagation();
             close();
         }
     }
@@ -39,7 +40,10 @@ export default function Modal({
     return (
         <div
             className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-            onClick={close}>
+            onClick={(e) => {
+                e.stopPropagation();
+                close();
+            }}>
             <div
                 style={{ width, height }}
                 className="bg-white rounded-2xl mx-4 relative"
