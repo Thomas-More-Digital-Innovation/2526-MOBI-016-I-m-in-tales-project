@@ -1,22 +1,29 @@
 import { InputLabel, TextAreaLabel, ImageUpload, Button } from "@components";
 import { useState } from "react";
-import { writeTextFile, BaseDirectory, exists, mkdir } from "@tauri-apps/plugin-fs";
+import {
+    writeTextFile,
+    BaseDirectory,
+    exists,
+    mkdir,
+} from "@tauri-apps/plugin-fs";
 import { join } from "@tauri-apps/api/path";
 import { useNavigate } from "react-router-dom";
 
 export default function StoryForm() {
-    const [thumbnailBytes, setThumbnailBytes] = useState<Uint8Array | null>(null);
+    const [thumbnailBytes, setThumbnailBytes] = useState<Uint8Array | null>(
+        null
+    );
     const navigate = useNavigate();
     const [storyId] = useState(() => crypto.randomUUID());
 
     const ensureStoryFolder = async (folderName: string) => {
-        const storyFolderExists = await exists(folderName, { 
-            baseDir: BaseDirectory.AppData
+        const storyFolderExists = await exists(folderName, {
+            baseDir: BaseDirectory.AppData,
         });
         if (!storyFolderExists) {
             await mkdir(folderName, {
                 baseDir: BaseDirectory.AppData,
-                recursive: true
+                recursive: true,
             });
         }
     };
@@ -26,7 +33,7 @@ export default function StoryForm() {
 
         const storyFilePath = await join(folderName, "StoryData.json");
         await writeTextFile(storyFilePath, JSON.stringify(jsonData), {
-            baseDir: BaseDirectory.AppData
+            baseDir: BaseDirectory.AppData,
         });
         navigate("/makeStory/storyConfigurator/" + folderName);
     };
@@ -35,22 +42,22 @@ export default function StoryForm() {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
 
-        const storyName = formData.get("StoryName")?.toString().trim() || "story";
-        const description = formData.get("Description")?.toString().trim() || "";
+        const storyName =
+            formData.get("StoryName")?.toString().trim() || "story";
+        const description =
+            formData.get("Description")?.toString().trim() || "";
 
         const JsonData = {
-            story:
-                {
-                    id: storyId,
-                    name: storyName,
-                    description,
-                    thumbnail: thumbnailBytes ? Array.from(thumbnailBytes) : null
-                }
+            story: {
+                id: storyId,
+                name: storyName,
+                description,
+                thumbnail: thumbnailBytes ? Array.from(thumbnailBytes) : null,
+            },
         };
 
         await saveStory(JsonData, storyName);
     };
-
     return(
         <form onSubmit={handleSubmit} className="flex justify-center items-center gap-4">
             <div>
@@ -62,5 +69,5 @@ export default function StoryForm() {
                 <Button cls="text-sm !px-4 !py-2">Next</Button>
             </div>
         </form>
-    )
+    );
 }
