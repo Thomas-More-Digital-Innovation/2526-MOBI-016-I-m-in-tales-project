@@ -12,3 +12,4 @@ src-tauri/gen
 
 # Misc
 *.log
+../documents/**

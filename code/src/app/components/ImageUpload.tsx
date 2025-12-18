@@ -31,13 +31,21 @@ export default function ImageUpload({ onImageBytes, cls = "", value = null }: Im
   };
 
   return (
-    <div className={`${cls} flex justify-center items-center w-[10vw] h-[10vw] bg-foreground/10 rounded-2xl border-3 border-foreground/20`}>
+    <div
+      className={`${cls} flex justify-center items-center w-[10vw] h-[10vw] bg-foreground/10 rounded-2xl border-3 border-foreground/20`}>
       {thumbnail ? (
-        <img src={thumbnail} className="object-cover rounded-2xl w-full h-full" alt="no image found"/>
+        <img
+          src={thumbnail}
+          className="object-cover rounded-2xl w-full h-full"
+          alt="no image found"
+        />
       ) : (
         ""
       )}
-      <button className="absolute text-2xl font-bold bg-white px-2 rounded-full hover:cursor-pointer hover:scale-125 duration-200 ease-in-out hover:shadow" type="button" onClick={file_selector}>
+      <button
+        className="absolute text-2xl font-bold bg-white px-2 rounded-full hover:cursor-pointer hover:scale-125 duration-200 ease-in-out hover:shadow"
+        type="button"
+        onClick={file_selector}>
         +
       </button>
     </div>
