@@ -1,4 +1,4 @@
-import { FullScreenButton, HeaderButton } from '@components';
+import { FullScreenButton, HeaderButton } from "@components";
 
 export default function Header({mainPage = false} : {mainPage?: boolean}) {
     // for the main page, no point in having a back button

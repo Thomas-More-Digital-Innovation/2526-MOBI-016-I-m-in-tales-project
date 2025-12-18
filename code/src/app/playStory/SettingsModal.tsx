@@ -4,8 +4,8 @@ import { Button, Modal } from "@components";
 import { StorySettings, FontSize } from "@/types";
 
 interface Props {
-    isOpen: boolean;
-    setIsOpen: (open: boolean) => void;
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
 }
 
 export default function SettingsModal({ isOpen, setIsOpen }: Props) {

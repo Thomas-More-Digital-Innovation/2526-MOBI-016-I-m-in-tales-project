@@ -38,9 +38,12 @@ export default function StoryForm() {
         navigate("/makeStory/storyConfigurator/" + folderName);
     };
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
+    const storyFilePath = await join(folderName, "StoryData.json");
+    await writeTextFile(storyFilePath, JSON.stringify(jsonData), {
+      baseDir: BaseDirectory.AppData,
+    });
+    navigate("/makeStory/storyConfigurator/" + folderName);
+  };
 
         const storyName =
             formData.get("StoryName")?.toString().trim() || "story";
@@ -56,7 +59,13 @@ export default function StoryForm() {
             },
         };
 
-        await saveStory(JsonData, storyName);
+    const JsonData = {
+      story: {
+        id: storyId,
+        name: storyName,
+        description,
+        thumbnail: thumbnailBytes ? Array.from(thumbnailBytes) : null,
+      },
     };
     return(
         <form onSubmit={handleSubmit} className="flex justify-center items-center gap-4">

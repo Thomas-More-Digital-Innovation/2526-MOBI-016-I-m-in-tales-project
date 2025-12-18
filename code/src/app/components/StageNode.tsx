@@ -33,7 +33,15 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
   const navigate = useNavigate();
   // Where we store the nodes, using intro to initialize
   const [nodes, setNodes] = useState<StoryNode[]>([
-    { id: crypto.randomUUID(), title: "Intro", description: "Intro Scene", image: null, audio: null, x: 200, y: 200 },
+    {
+      id: crypto.randomUUID(),
+      title: "Intro",
+      description: "Intro Scene",
+      image: null,
+      audio: null,
+      x: 200,
+      y: 200,
+    },
   ]);
   // The Id of the selected node (that will be shown on the forms)
   const [selectedId, setSelectedId] = useState<string | null>(nodes[0]?.id ?? null);
@@ -71,7 +79,7 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
     setScale(newScale);
   };
   // find our selectednode via id
-  const selectedNode = selectedId ? nodes.find((n) => n.id === selectedId) ?? null : null;
+  const selectedNode = selectedId ? (nodes.find((n) => n.id === selectedId) ?? null) : null;
 
   // real time updating from forms
   const updateField = (field: "title" | "description", value: string) => {
@@ -101,8 +109,8 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
       const img = new window.Image();
       img.onload = () => {
         URL.revokeObjectURL(url);
-        setNodes(prev =>
-          prev.map(n =>
+        setNodes((prev) =>
+          prev.map((n) =>
             n.id === selectedId ? { ...n, image: img, imageBytes: bytes, imageSrc: dataUrl } : n
           )
         );
@@ -111,14 +119,14 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
     };
 
     reader.readAsDataURL(blob);
-  }
+  };
   // this runs every time a container is clicked but depending on the state of linking it changes it functionality
   const linkStage = (nodeId: string) => {
     if (linking && linkingRootId) {
       // if linking is true we change our linkingroots array to include the nodeId passed in this function
       setNodes((prev) =>
         prev.map((n) =>
-          n.id === linkingRootId ? { ...n, linkedNodes: [ ...(n.linkedNodes ?? []), nodeId ] } : n
+          n.id === linkingRootId ? { ...n, linkedNodes: [...(n.linkedNodes ?? []), nodeId] } : n
         )
       );
       setLinking(false);
@@ -131,9 +139,9 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
   // Saving the file by getting the json that was saved in the previous page
   // appending each node as a chapter, in options we put the linkednodes
   const saveFile = async () => {
-    const existingPath = await join(folderName, 'StoryData.json');
+    const existingPath = await join(folderName, "StoryData.json");
     const baseJSON = await readTextFile(existingPath, {
-      baseDir: BaseDirectory.AppData
+      baseDir: BaseDirectory.AppData,
     });
     let NewJSON = JSON.parse(baseJSON);
     const items: { item_id: string; linked_to: string }[] = [];
@@ -145,7 +153,7 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
         return {
           nextChapter: linkedNode,
           audio: null,
-          item: pseudoItemId
+          item: pseudoItemId,
         };
       });
 
@@ -156,14 +164,14 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
         audio: node.audio,
         image: node.imageBytes ? Array.from(node.imageBytes) : null,
         failAudio: null,
-        option
+        option,
       };
     });
 
     NewJSON = {
       ...NewJSON,
       story: { ...(NewJSON.story ?? {}), chapter },
-      item: items
+      item: items,
     };
 
     await persistStory(NewJSON, folderName);
@@ -173,18 +181,47 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
   return (
     <div className="flex gap-3 w-auto">
       <div className="p-2 w-1/2 flex flex-col items-end">
-        <Button onClick={createNewNode} cls="text-sm !px-4 !py-2 mb-2">Add new class</Button>
+        <Button onClick={createNewNode} cls="text-sm !px-4 !py-2 mb-2">
+          Add new class
+        </Button>
         {/* This is the canvas for the konva library which makes stuff draggable */}
-        <Stage width={stageSize.width} height={stageSize.height - 8} className="border rounded-2xl" draggable scaleX={scale} scaleY={scale} onWheel={handleWheel}>
+        <Stage
+          width={stageSize.width}
+          height={stageSize.height - 8}
+          className="border rounded-2xl"
+          draggable
+          scaleX={scale}
+          scaleY={scale}
+          onWheel={handleWheel}>
           <Layer>
             {nodes.map((node) => (
-              <Group key={node.id} draggable x={node.x} y={node.y} onClick={() => linkStage(node.id)} onTap={() => linkStage(node.id)} onDragMove={(e) => handleNodeDragMove(node.id, e)}>
-                <Rect fill={selectedId === node.id ? "#dbeafe" : "#f4f5f7"} stroke={selectedId === node.id ? "#3b82f6" : "#6b7280"} cornerRadius={16} width={150} height={150} />
+              <Group
+                key={node.id}
+                draggable
+                x={node.x}
+                y={node.y}
+                onClick={() => linkStage(node.id)}
+                onTap={() => linkStage(node.id)}
+                onDragMove={(e) => handleNodeDragMove(node.id, e)}>
+                <Rect
+                  fill={selectedId === node.id ? "#dbeafe" : "#f4f5f7"}
+                  stroke={selectedId === node.id ? "#3b82f6" : "#6b7280"}
+                  cornerRadius={16}
+                  width={150}
+                  height={150}
+                />
                 {node.image ? (
-                  <Image image={node.image} cornerRadius={16} x={1} y={1} width={148} height={120}/>
+                  <Image
+                    image={node.image}
+                    cornerRadius={16}
+                    x={1}
+                    y={1}
+                    width={148}
+                    height={120}
+                  />
                 ) : (
                   <Group>
-                    <Rect x={2} y={2} width={146} height= {110} cornerRadius={12} fill="#e5e7eb" />
+                    <Rect x={2} y={2} width={146} height={110} cornerRadius={12} fill="#e5e7eb" />
                     <Text text="no image" x={50} y={60} fontSize={12} fill="#6b7280" />
                   </Group>
                 )}
@@ -212,23 +249,40 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
         <h3 className="text-talesorang-500 text-2xl font-bold">Selected Node</h3>
         {selectedNode ? (
           <div>
-            <InputLabel label="Title" value={selectedNode.title} onChangeText={(e) => updateField("title", e.target.value)} />
-            <TextAreaLabel label="Description" rows={3} onChangeText={(e) => updateField("description", e.target.value)} value={selectedNode.description} />
-            <ImageUpload cls="mt-5" onImageBytes={handleImageBytes} value={selectedNode.imageSrc ?? null} />
+            <InputLabel
+              label="Title"
+              value={selectedNode.title}
+              onChangeText={(e) => updateField("title", e.target.value)}
+            />
+            <TextAreaLabel
+              label="Description"
+              rows={3}
+              onChangeText={(e) => updateField("description", e.target.value)}
+              value={selectedNode.description}
+            />
+            <ImageUpload
+              cls="mt-5"
+              onImageBytes={handleImageBytes}
+              value={selectedNode.imageSrc ?? null}
+            />
             <div className="my-2 border-t border-gray-300" />
             {linking ? (
               <div className="flex items-center mt-4">
-                <Button onClick={() => toggleLinking(null)} cls="text-sm !px-4 !py-2">Link Stage</Button>
+                <Button onClick={() => toggleLinking(null)} cls="text-sm !px-4 !py-2">
+                  Link Stage
+                </Button>
                 <p>Select a node to link</p>
               </div>
             ) : (
-              <Button onClick={() => toggleLinking(selectedNode.id)} cls="text-sm !px-4 !py-2">Link Stage</Button>
+              <Button onClick={() => toggleLinking(selectedNode.id)} cls="text-sm !px-4 !py-2">
+                Link Stage
+              </Button>
             )}
             <ul>
               {(selectedNode.linkedNodes ?? []).map((linkedNodeId) => {
                 const linkedNode = nodes.find((n) => n.id === linkedNodeId);
                 if (!linkedNode) return null;
-                return(
+                return (
                   <li key={linkedNode.id} className="border p-3 rounded-2xl border-gray-400 m-2">
                     <p>Title: {linkedNode.title}</p>
                     <p className="text-gray-400/80 text-sm">id: {linkedNode.id}</p>
@@ -237,10 +291,12 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
                       <Button cls="text-sm !px-4 !py-2">Add Audio</Button>
                     </div>
                   </li>
-                )
+                );
               })}
             </ul>
-            <Button onClick={() => saveFile()} cls="text-sm !px-4 !py-2 my-3">Save</Button>
+            <Button onClick={() => saveFile()} cls="text-sm !px-4 !py-2 my-3">
+              Save
+            </Button>
           </div>
         ) : (
           <h3 className="text-sm text-gray-500">Click a node to edit.</h3>

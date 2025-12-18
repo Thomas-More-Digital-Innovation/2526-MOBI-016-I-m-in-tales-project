@@ -42,6 +42,9 @@ export default function PlayStory() {
         stopAudio();
         window.history.back();
     }
+    window.removeEventListener("keydown", handleEscapeKey);
+    window.history.back();
+  }
 
     if (!currentChapter && !story) {
         return <p>Story not found</p>; // Can improve this state
@@ -82,10 +85,7 @@ export default function PlayStory() {
                 }}
             />
 
-            <SettingsModal
-                isOpen={showSettingsModal}
-                setIsOpen={setShowSettingsModal}
-            />
-        </main>
-    );
+      <SettingsModal isOpen={showSettingsModal} setIsOpen={setShowSettingsModal} />
+    </main>
+  );
 }

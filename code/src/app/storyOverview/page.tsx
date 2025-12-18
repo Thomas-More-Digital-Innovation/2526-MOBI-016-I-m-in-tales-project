@@ -9,71 +9,65 @@ import PlayStoryButton from "./PlayStoryButton";
 type Mode = "view" | "edit";
 
 export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
-    const [stories, setStories] = useState<Story[]>([]);
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedStory, setSelectedStory] = useState<Story | null>(null);
+  const [stories, setStories] = useState<Story[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedStory, setSelectedStory] = useState<Story | null>(null);
 
-    useEffect(() => {
-        fetch("stories.json")
-            .then((res) => res.json())
-            .then((data: StoriesData) => {
-                setStories(data.story || []);
-            })
-            .catch((error) => console.error("Error fetching stories:", error));
-    }, []);
+  useEffect(() => {
+    fetch("stories.json")
+      .then((res) => res.json())
+      .then((data: StoriesData) => {
+        setStories(data.story || []);
+      })
+      .catch((error) => console.error("Error fetching stories:", error));
+  }, []);
 
-    return (
-        <main className="bg-white h-screen">
-            <Header />
-            <div className="h-80 flex justify-center items-center flex-wrap">
-                {stories.map((element) => (
-                    <StoryCard
-                        key={element.id}
-                        story={element}
-                        onClick={(story) => {
-                            setSelectedStory(story);
-                            setIsOpen(true);
-                        }}
-                    />
-                ))}
-            </div>
+  return (
+    <main className="bg-white h-screen">
+      <Header />
+      <div className="h-80 flex justify-center items-center flex-wrap">
+        {stories.map((element) => (
+          <StoryCard
+            key={element.id}
+            story={element}
+            onClick={(story) => {
+              setSelectedStory(story);
+              setIsOpen(true);
+            }}
+          />
+        ))}
+      </div>
 
-            <Modal
-                isOpen={isOpen}
-                width="70%"
-                height="70%"
-                setIsOpen={setIsOpen}
-                onClose={() => setSelectedStory(null)}>
-                {selectedStory ? StoryModal(selectedStory, mode) : null}
-            </Modal>
-        </main>
-    );
+      <Modal
+        isOpen={isOpen}
+        width="70%"
+        height="70%"
+        setIsOpen={setIsOpen}
+        onClose={() => setSelectedStory(null)}>
+        {selectedStory ? StoryModal(selectedStory, mode) : null}
+      </Modal>
+    </main>
+  );
 }
 
 function StoryModal(selectedStory: Story, mode: Mode) {
-    return (
-        <div className="relative h-full">
-            <img
-                width={"100%"}
-                height={"100%"}
-                src={selectedStory.image}
-                className="h-full w-full object-cover rounded-2xl"
-                alt="verhaal afbeelding niet gevonden"
-            />
-            <div className="p-4 absolute bottom-0 w-full bg-black/70 rounded-b-2xl">
-                <div className="py-2">
-                    <h1 className="text-2xl text-white">
-                        {selectedStory.name}
-                    </h1>
-                    <p className="text-white">{selectedStory.description}</p>
-                </div>
-                {mode == "view" ? (
-                    <PlayStoryButton id={selectedStory.id} />
-                ) : (
-                    <h1>edit</h1>
-                )}{" "}
-               { /* TODO add edit button */}
-            </div>
+  return (
+    <div className="relative h-full">
+      <img
+        width={"100%"}
+        height={"100%"}
+        src={selectedStory.image}
+        className="h-full w-full object-cover rounded-2xl"
+        alt="verhaal afbeelding niet gevonden"
+      />
+      <div className="p-4 absolute bottom-0 w-full bg-black/70 rounded-b-2xl">
+        <div className="py-2">
+          <h1 className="text-2xl text-white">{selectedStory.name}</h1>
+          <p className="text-white">{selectedStory.description}</p>
         </div>
-    );
+        {mode == "view" ? <PlayStoryButton id={selectedStory.id} /> : <h1>edit</h1>}{" "}
+        {/* TODO add edit button */}
+      </div>
+    </div>
+  );
 }

@@ -2,21 +2,21 @@ import { ReactNode, useEffect } from "react";
 import Button from "./Button";
 
 interface ModalProps {
-    isOpen: boolean;
-    width: string;
-    height: string;
-    setIsOpen: (open: boolean) => void;
-    onClose?: () => void;
-    children: ReactNode;
+  isOpen: boolean;
+  width: string;
+  height: string;
+  setIsOpen: (open: boolean) => void;
+  onClose?: () => void;
+  children: ReactNode;
 }
 
 export default function Modal({
-    isOpen,
-    width = "auto",
-    height = "auto",
-    setIsOpen,
-    onClose,
-    children,
+  isOpen,
+  width = "auto",
+  height = "auto",
+  setIsOpen,
+  onClose,
+  children,
 }: ModalProps) {
     if (!isOpen) return null;
 
