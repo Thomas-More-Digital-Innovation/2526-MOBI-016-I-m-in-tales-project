@@ -1,24 +1,30 @@
 import { getCurrentWindow } from "@tauri-apps/api/window";
-import { useState } from "react";
+import type { CSSProperties } from "react";
 
-export default function FullScreenButton() {
+interface FullScreenButtonProps {
+    cls?: string;
+    primary?: boolean;
+    style?: CSSProperties;
+}
 
+export default function FullScreenButton({ cls = "", primary = false, style }: FullScreenButtonProps) {
     const toggleFullscreen = async () => {
         const win = getCurrentWindow();
         const isFullScreen = await win.isFullscreen();
         await win.setFullscreen(!isFullScreen);
     };
 
+    const variantClass = primary
+        ? "bg-[#0d4254] shadow-[0px_1px_2px_1px_#6e8e98]"
+        : "bg-[#f6745e] shadow-[0px_1px_2px_1px_#faac9e]";
+
     return (
         <button
-            className="p-5 rounded-2xl m-5 text-3xl border-2 border-talesblu-400 text-talesblu-400 hover:bg-talesorang-400 hover:text-white hover:border-white ease-in-out duration-300"
-            onClick={toggleFullscreen}>
-            <img
-                src="/maximize-solid-full.svg"
-                width={25}
-                height={25}
-                alt="Fullscreen"
-            />
+            className={`text-3xl cursor-pointer font-semibold duration-150 ease-in-out py-3 px-8 h-fit hover:scale-85 hover:drop-shadow-none text-[#242424] rounded ${cls} ${variantClass}`}
+            style={style}
+            onClick={toggleFullscreen}
+        >
+            <img src="/maximize-solid-full.svg" width={36} height={1} alt="Fullscreen" />
         </button>
     );
 }

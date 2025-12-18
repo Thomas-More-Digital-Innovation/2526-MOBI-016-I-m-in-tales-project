@@ -1,0 +1,15 @@
+<svg width="512" height="485" xmlns="http://www.w3.org/2000/svg">
+ <!--!Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+
+ <g>
+  <title>Layer 1</title>
+  <g>
+   <!--!Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+   <path fill="#0d4254" d="m256,109.3l0,309.3l0.5,-0.2c54.6,-22.7 113.2,-34.4 172.3,-34.4l19.2,0l0,-320l-19.2,0c-42.2,0 -84.1,8.4 -123.1,24.6c-16.8,7 -33.4,13.9 -49.7,20.7zm-25.1,-79.8l25.1,10.5l25.1,-10.5c46.8,-19.5 97,-29.5 147.7,-29.5l35.2,0c26.5,0 48,21.5 48,48l0,352c0,26.5 -21.5,48 -48,48l-35.2,0c-50.7,0 -100.9,10 -147.7,29.5l-12.8,5.3c-7.9,3.3 -16.7,3.3 -24.6,0l-12.8,-5.3c-46.8,-19.5 -97,-29.5 -147.7,-29.5l-35.2,0c-26.5,0 -48,-21.5 -48,-48l0,-352c0,-26.5 21.5,-48 48,-48l35.2,0c50.7,0 100.9,10 147.7,29.5z"/>
+  </g>
+  <g>
+   <!--!Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+   <path fill="#f6745e" d="m198.07797,118.65989c-6.73654,-3.69423 -14.88558,-3.53125 -21.51346,0.38029c-6.62788,3.91154 -10.64808,11.02837 -10.64808,18.68846l0,199.92307c0,7.6601 4.07452,14.77692 10.64808,18.68846c6.57356,3.91154 14.77692,4.07452 21.51346,0.38029l182.53846,-99.96154c6.95385,-3.80288 11.3,-11.13702 11.3,-19.06875c0,-7.93173 -4.34615,-15.26586 -11.3,-19.06875l-182.53846,-99.96154z"/>
+  </g>
+ </g>
+</svg>
