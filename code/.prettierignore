@@ -1,0 +1,14 @@
+# Build artifacts
+dist
+build
+coverage
+
+# Dependencies
+node_modules
+
+# Generated Tauri files
+src-tauri/target
+src-tauri/gen
+
+# Misc
+*.log
