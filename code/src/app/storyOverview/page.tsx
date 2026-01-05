@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Story, StoriesData } from "../../types/story.type";
 import StoryCard from "../components/StoryCard";
 import Modal from "../components/Modal";
-import Button from "../components/Button";
+import { ToolTip } from "@components";
 import PlayStoryButton from "./PlayStoryButton";
 
 type Mode = "view" | "edit";
@@ -12,6 +12,8 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
   const [stories, setStories] = useState<Story[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedStory, setSelectedStory] = useState<Story | null>(null);
+  const [showToolTip, setShowToolTip] = useState(false);
+
 
   useEffect(() => {
     fetch("stories.json")
@@ -24,7 +26,8 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
 
   return (
     <main className="bg-white h-screen">
-      <Header />
+      <Header onHelpHover={setShowToolTip} />
+      {showToolTip && (<ToolTip text="Select a story to play" cls="top-20 right-4" absolute />)}
       <div className="h-80 flex justify-center items-center flex-wrap">
         {stories.map((element) => (
           <StoryCard

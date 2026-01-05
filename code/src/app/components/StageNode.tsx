@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Stage, Layer, Group, Rect, Text, Image, Arrow } from "react-konva";
 import type { KonvaEventObject } from "konva/lib/Node";
-import { Button, TextAreaLabel, InputLabel, ImageUpload } from "@components";
+import { Button, TextAreaLabel, InputLabel, ImageUpload, ToolTip } from "@components";
 import { readTextFile, BaseDirectory, writeTextFile } from "@tauri-apps/plugin-fs";
 import { join } from "@tauri-apps/api/path";
 import { useNavigate } from "react-router-dom";
@@ -25,12 +25,13 @@ type StoryNode = {
 
 type StageNodeProps = {
   folderName?: string;
+  showToolTipState?: boolean;
 };
 
 // Clamp helper function for zooming in/out
 const clamp = (val: number, min: number, max: number) => Math.min(Math.max(val, min), max);
 
-export default function StageNode({ folderName = "" }: StageNodeProps) {
+export default function StageNode({ folderName = "", showToolTipState = false }: StageNodeProps) {
   const [scale, setScale] = useState(1);
   const navigate = useNavigate();
   // Where we store the nodes, using intro to initialize
@@ -221,6 +222,7 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
           Add new class
         </Button>
         {/* This is the canvas for the konva library which makes stuff draggable */}
+        {showToolTipState && <ToolTip text={`Click + drag to pan \n Click on a node to select it \n Scroll to zoom in \n Click the button on the top right to add a new node`} absolute cls="left-2 top-35" />}
         <Stage
           width={stageSize.width}
           height={stageSize.height - 8}
@@ -285,23 +287,27 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
         <h3 className="text-talesorang-500 text-2xl font-bold">Selected Node</h3>
         {selectedNode ? (
           <div>
+            {showToolTipState && <ToolTip text="Edit the title of the selected node" cls="w-fit text-[0.75rem] mb-3" />}
             <InputLabel
               label="Title"
               value={selectedNode.title}
               onChangeText={(e) => updateField("title", e.target.value)}
             />
+            {showToolTipState && <ToolTip text="Edit the description of the selected node" cls="w-fit text-[0.75rem] my-3" />}
             <TextAreaLabel
               label="Description"
               rows={3}
               onChangeText={(e) => updateField("description", e.target.value)}
               value={selectedNode.description}
             />
+            {showToolTipState && <ToolTip text="Upload an image for the selected node" cls="w-fit text-[0.75rem] my-3" />}
             <ImageUpload
               cls="mt-5"
               onImageBytes={handleImageBytes}
               value={selectedNode.imageSrc ?? null}
             />
             <div className="my-2 border-t border-gray-300" />
+            {showToolTipState && <ToolTip text="Click the button and select a node to link it" cls="w-fit text-[0.75rem] mb-2" />}
             {linking ? (
               <div className="flex items-center mt-4">
                 <Button onClick={() => toggleLinking(null)} cls="text-sm !px-4 !py-2">
@@ -314,6 +320,10 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
                 Link Stage
               </Button>
             )}
+            <div className="flex pt-5">
+              {showToolTipState && <ToolTip text="Add an item that switches to the linked node" cls="w-fit text-[0.75rem]" />}
+              {showToolTipState && <ToolTip text="Add audio that plays when this node is reached" cls="w-fit text-[0.75rem]" />}
+            </div>
             <ul>
               {(selectedNode.linkedNodes ?? []).map((linkedNodeId) => {
                 const linkedNode = nodes.find((n) => n.id === linkedNodeId);
@@ -322,7 +332,7 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
                   <li key={linkedNode.id} className="border p-3 rounded-2xl border-gray-400 m-2">
                     <p>Title: {linkedNode.title}</p>
                     <p className="text-gray-400/80 text-sm">id: {linkedNode.id}</p>
-                    <div className="gap-3 flex">
+                    <div className="gap-3 flex relative">
                       <Button cls="text-sm !px-4 !py-2">Add Item</Button>
                       <Button cls="text-sm !px-4 !py-2">Add Audio</Button>
                     </div>
@@ -330,6 +340,7 @@ export default function StageNode({ folderName = "" }: StageNodeProps) {
                 );
               })}
             </ul>
+            {showToolTipState && <ToolTip text="Click the save button to save your changes and write to file" cls="w-fit text-[0.75rem]" />}
             <Button onClick={() => saveFile()} cls="text-sm !px-4 !py-2 my-3">
               Save
             </Button>

@@ -1,7 +1,8 @@
-import { Header, StoryForm } from "@components";
-import { useEffect } from "react";
+import { Header, StoryForm, ToolTip } from "@components";
+import { useEffect, useState } from "react";
 import { exists, BaseDirectory, mkdir } from "@tauri-apps/plugin-fs";
 export default function makeStory() {
+  const [showToolTip, setShowToolTip] = useState(false);
   const checkDirectory = async () => {
     const tempFolderExists = await exists("temp", {
       baseDir: BaseDirectory.AppData,
@@ -18,9 +19,9 @@ export default function makeStory() {
   }, []);
   return (
     <main className="h-screen">
-      <Header />
+      <Header onHelpHover={setShowToolTip} />
       <div className="h-screen flex justify-center items-center">
-        <StoryForm />
+        <StoryForm showToolTipState={showToolTip} />
       </div>
     </main>
   );
