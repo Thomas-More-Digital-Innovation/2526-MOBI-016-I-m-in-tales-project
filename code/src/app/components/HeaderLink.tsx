@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, FocusEventHandler, MouseEventHandler } from "react";
 
 interface HeaderButtonProps {
   label: string;
@@ -6,6 +6,8 @@ interface HeaderButtonProps {
   cls?: string;
   primary?: boolean;
   style?: CSSProperties;
+  onMouseEnter?: MouseEventHandler<HTMLAnchorElement>;
+  onMouseLeave?: MouseEventHandler<HTMLAnchorElement>;
 }
 
 export default function HeaderButton({
@@ -14,6 +16,8 @@ export default function HeaderButton({
   cls = "",
   primary = false,
   style,
+  onMouseEnter,
+  onMouseLeave
 }: HeaderButtonProps) {
   const variantClass = primary
     ? "bg-[#0d4254] shadow-[0px_1px_2px_1px_#6e8e98]"
@@ -23,6 +27,8 @@ export default function HeaderButton({
     <a
       href={link}
       style={style}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       className={`text-3xl cursor-pointer font-semibold duration-150 text-white ease-in-out py-3 px-8 h-fit hover:scale-85 hover:drop-shadow-none rounded ${cls} ${variantClass}`}>
       {label}
     </a>

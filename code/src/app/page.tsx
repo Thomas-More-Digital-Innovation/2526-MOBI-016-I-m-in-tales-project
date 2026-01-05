@@ -1,14 +1,26 @@
-import { Header, HeaderButton, LargerButton } from "@components";
+import { Header, HeaderButton, LargerButton, ToolTip } from "@components";
+import { useState } from "react";
 export default function Home() {
+  const [showToolTip, setShowToolTip] = useState(false);
   return (
     <div className="flex flex-col justify-between items-center h-screen">
-      <Header mainPage={true} />
-      <div className="w-1/2 justify-between flex">
-        <LargerButton label="Play a story" link="/storyOverview" imageLink="/PlayStory.svg" />
-        <LargerButton label="Manage story" link="/manageStory" imageLink="/ManageStory.svg" />
-        <LargerButton label="Make a story" link="/makeStory" imageLink="/MakeStory.svg" />
+      <Header mainPage={true} onHelpHover={setShowToolTip} />
+      <div className="gap-3 justify-between flex">
+        <div className="">
+          {showToolTip && <ToolTip text="Play stories made by you or others!" absolute />}
+          <LargerButton label="Play a story" link="/storyOverview" imageLink="/PlayStory.svg" />
+        </div>
+        <div className="">
+          {showToolTip && <ToolTip text="Click here to edit stories!" absolute />}
+          <LargerButton label="Manage story" link="/manageStory" imageLink="/ManageStory.svg" />
+        </div>
+        <div className="">
+          {showToolTip && <ToolTip text="Click here to make a new story!" absolute />}
+          <LargerButton label="Make a story" link="/makeStory" imageLink="/MakeStory.svg" />
+        </div>
       </div>
-      <div className="w-screen p-5 flex justify-end">
+      <div className="w-screen p-5 flex flex-col gap-2 items-end">
+        {showToolTip && <ToolTip text="Test the connection to the board!" />}
         <HeaderButton link="/testBoard" label="test connection" />
       </div>
     </div>
