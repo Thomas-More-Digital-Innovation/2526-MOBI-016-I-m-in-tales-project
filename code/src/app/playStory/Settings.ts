@@ -11,3 +11,7 @@ export let fontSize: Record<FontSize, number> = {
   "grote tekst": 24,
   "extra grote tekst": 28,
 };
+
+export function getFontSize(_fontSize: FontSize) {
+    return fontSize[_fontSize];
+}

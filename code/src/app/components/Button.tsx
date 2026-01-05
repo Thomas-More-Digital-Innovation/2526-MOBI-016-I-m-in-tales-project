@@ -15,7 +15,7 @@ export default function Button({ children, cls = "", onClick, style, primary = f
         <button
             onClick={onClick}
             style={style}
-            className={`text-3xl cursor-pointer font-semibold duration-150 ease-in-out py-3 px-8 h-fit hover:scale-85 hover:drop-shadow-none text-[#242424] rounded ${cls} ${variantClass}`}
+            className={`text-3xl cursor-pointer font-semibold duration-150 ease-in-out py-3 px-8 h-fit hover:scale-85 hover:drop-shadow-none text-white rounded ${cls} ${variantClass}`}
         >
             {children}
         </button>

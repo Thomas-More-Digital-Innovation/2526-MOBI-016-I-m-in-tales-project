@@ -8,4 +8,5 @@ export { default as TextAreaLabel } from "./TextAreaLabel";
 export { default as ImageUpload } from "./ImageUpload";
 export { default as Button } from "./Button";
 export { default as StageNode } from "./StageNode";
+export { default as ToolTip } from "./ToolTip";
 export { default as Modal } from "./Modal";

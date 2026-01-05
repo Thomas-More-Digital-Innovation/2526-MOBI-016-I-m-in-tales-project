@@ -4,12 +4,25 @@ import { Button, Modal } from "@components";
 import { StorySettings, FontSize } from "@/types";
 
 interface Props {
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+    isOpen: boolean;
+    setIsOpen: (open: boolean) => void;
+    onSettingsChange?: (settings: StorySettings) => void;
 }
 
-export default function SettingsModal({ isOpen, setIsOpen }: Props) {
+export default function SettingsModal({
+    isOpen,
+    setIsOpen,
+    onSettingsChange,
+}: Props) {
     const [settings, setSettings] = useState<StorySettings>(storySettings);
+
+    const updateSettings = (next: StorySettings) => {
+        setSettings(next);
+        storySettings.fontSize = next.fontSize;
+        storySettings.volume = next.volume;
+        onSettingsChange?.(next);
+    };
+
     return (
         <Modal isOpen={isOpen} setIsOpen={setIsOpen} width="70%" height="70%">
             <div className="p-4">
@@ -19,16 +32,12 @@ export default function SettingsModal({ isOpen, setIsOpen }: Props) {
                     {Object.entries(fontSize).map(([key, value]) => (
                         <Button
                             key={key}
-                            onClick={() => {
-                                setSettings((prev) => {
-                                    const next = {
-                                        ...prev,
-                                        fontSize: key as FontSize,
-                                    };
-                                    storySettings.fontSize = key as FontSize;
-                                    return next;
-                                });
-                            }}
+                            onClick={() =>
+                                updateSettings({
+                                    ...settings,
+                                    fontSize: key as FontSize,
+                                })
+                            }
                             cls="flex-1"
                             primary={key === settings.fontSize}>
                             <span
@@ -50,18 +59,12 @@ export default function SettingsModal({ isOpen, setIsOpen }: Props) {
                             max="1"
                             step="0.1"
                             value={settings.volume}
-                            onChange={(e) => {
-                                setSettings((prev) => {
-                                    const next = {
-                                        ...prev,
-                                        volume: Number(e.target.value),
-                                    };
-                                    storySettings.volume = Number(
-                                        e.target.value
-                                    );
-                                    return next;
-                                });
-                            }}
+                            onChange={(e) =>
+                                updateSettings({
+                                    ...settings,
+                                    volume: Number(e.target.value),
+                                })
+                            }
                         />
                     </span>
                 </div>
