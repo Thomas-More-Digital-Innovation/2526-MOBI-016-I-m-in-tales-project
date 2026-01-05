@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Stage, Layer, Group, Rect, Text, Image, Arrow } from "react-konva";
 import type { KonvaEventObject } from "konva/lib/Node";
 import { Button, TextAreaLabel, InputLabel, ImageUpload, ToolTip } from "@components";
@@ -49,11 +49,22 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
   ]);
   // The Id of the selected node (that will be shown on the forms)
   const [selectedId, setSelectedId] = useState<string | null>(nodes[0]?.id ?? null);
-  // Helper for getting the size of our canvas, will only recalculate when it changes (aka when we fullscreen)
-  const stageSize = useMemo(
-    () => ({ width: window.innerWidth / 2, height: window.innerHeight * 0.8 }),
-    []
-  );
+  // Track available space for the stage so it stays responsive.
+  const stageContainerRef = useRef<HTMLDivElement | null>(null);
+  const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const updateStageSize = () => {
+      const container = stageContainerRef.current;
+      const width = container?.clientWidth ?? window.innerWidth / 2;
+      const height = window.innerHeight - 160; // leave room for header/buttons
+      setStageSize({ width, height: Math.max(height, 300) });
+    };
+
+    updateStageSize();
+    window.addEventListener("resize", updateStageSize);
+    return () => window.removeEventListener("resize", updateStageSize);
+  }, []);
   // boolean to determine color of the button and what clicking a node does
   const [linking, setLinking] = useState(false);
   // reference for our source when linking
@@ -183,8 +194,8 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
   }
 
   return (
-    <div className="flex gap-3 w-auto">
-      <div className="p-2 w-1/2 flex flex-col items-end">
+    <div className="flex gap-3 w-full">
+      <div ref={stageContainerRef} className="p-2 flex-1 min-w-[320px] flex flex-col items-end">
         <Button onClick={createNewNode} cls="text-sm !px-4 !py-2 mb-2">
           Add new class
         </Button>
@@ -192,8 +203,8 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
         {showToolTipState && <ToolTip text={`Click + drag to pan \n Click on a node to select it \n Scroll to zoom in \n Click the button on the top right to add a new node`} absolute cls="left-2 top-35" />}
         <Stage
           width={stageSize.width}
-          height={stageSize.height - 8}
-          className="border rounded-2xl"
+          height={stageSize.height}
+          className="border rounded-2xl w-full"
           draggable
           scaleX={scale}
           scaleY={scale}
@@ -250,7 +261,7 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
           </Layer>
         </Stage>
       </div>
-      <div className="w-1/2 border rounded-2xl m-3 p-2 space-y-3">
+      <div className="flex-1 min-w-[320px] border rounded-2xl m-3 p-2 space-y-3">
         <h3 className="text-talesorang-500 text-2xl font-bold">Selected Node</h3>
         {selectedNode ? (
           <div>
@@ -287,10 +298,16 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
                 Link Stage
               </Button>
             )}
-            <div className="flex pt-5">
-              {showToolTipState && <ToolTip text="Add an item that switches to the linked node" cls="w-fit text-[0.75rem]" />}
-              {showToolTipState && <ToolTip text="Add audio that plays when this node is reached" cls="w-fit text-[0.75rem]" />}
-            </div>
+            {(selectedNode.linkedNodes?.length ?? 0) > 0 && (
+              <div className="flex pt-5">
+                {showToolTipState && (
+                  <ToolTip text="Add an item that switches to the linked node" cls="w-fit text-[0.75rem]" />
+                )}
+                {showToolTipState && (
+                  <ToolTip text="Add audio that plays when this node is reached" cls="w-fit text-[0.75rem]" />
+                )}
+              </div>
+            )}
             <ul>
               {(selectedNode.linkedNodes ?? []).map((linkedNodeId) => {
                 const linkedNode = nodes.find((n) => n.id === linkedNodeId);
@@ -307,7 +324,7 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
                 );
               })}
             </ul>
-            {showToolTipState && <ToolTip text="Click the save button to save your changes and write to file" cls="w-fit text-[0.75rem]" />}
+            {showToolTipState && <ToolTip text="Click the save button to save your changes and write to file" cls="w-fit mt-2 text-[0.75rem]" />}
             <Button onClick={() => saveFile()} cls="text-sm !px-4 !py-2 my-3">
               Save
             </Button>

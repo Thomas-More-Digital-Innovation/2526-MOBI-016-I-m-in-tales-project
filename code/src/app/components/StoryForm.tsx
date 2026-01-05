@@ -52,9 +52,9 @@ export default function StoryForm({ showToolTipState }: { showToolTipState: bool
 
   return (
     <form onSubmit={handleSubmit} className="flex justify-center items-center gap-4">
-      <div>
+      <div className="relative">
         {showToolTipState && (
-          <ToolTip text="Enter the name of your story" cls="w-fit text-[0.75rem]" />
+          <ToolTip text="Enter the name of your story" cls="w-fit -top-8 text-[0.75rem]" absolute />
         )}
         <InputLabel
           label="Story Name"
@@ -63,7 +63,7 @@ export default function StoryForm({ showToolTipState }: { showToolTipState: bool
           placeholder="My Amazing Story"
         />
         {showToolTipState && (
-          <ToolTip text="Provide a brief description of your story" cls="w-fit text-[0.75rem]" />
+          <ToolTip text="Provide a brief description of your story" cls="w-fit -bottom-10 text-[0.75rem]" absolute />
         )}
         <TextAreaLabel
           cols={40}
@@ -73,15 +73,16 @@ export default function StoryForm({ showToolTipState }: { showToolTipState: bool
           placeholder="Something about the story"
         />
       </div>
-      <div className="gap-2 flex flex-col justify-center items-start">
+      <div className="relative gap-2 flex flex-col justify-center items-start">
         {showToolTipState && (
-          <ToolTip text="Upload a thumbnail image for your story" cls="w-fit text-[0.75rem]" />
+          <ToolTip text="Upload a thumbnail image for your story" cls="w-fit -top-15 text-[0.75rem]" absolute />
         )}
         <ImageUpload onImageBytes={(bytes) => setThumbnailBytes(bytes)} />
         {showToolTipState && (
           <ToolTip
             text="Click next to proceed to the story configuration"
-            cls="w-fit text-[0.75rem]"
+            cls="w-fit text-[0.75rem] -bottom-20"
+            absolute
           />
         )}
         <Button cls="text-sm !px-4 !py-2">Next</Button>
