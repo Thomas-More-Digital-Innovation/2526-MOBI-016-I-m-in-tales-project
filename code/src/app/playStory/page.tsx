@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import SettingsModal from "./SettingsModal";
 import { storySettings } from "./Settings";
 import { useStory } from "./useStory";
 import { useFullscreen } from "./useFullscreen";
-import { StoryVisuals } from "@components";
-import { StoryOverlay } from "@components";
-import { StoryOptions } from "@components";
-import { StoryHeader } from "@components";
+import StoryVisuals from "./components/StoryVisuals";
+import StoryOverlay from "./components/StoryOverlay";
+import StoryOptions from "./components/StoryOptions";
+import StoryHeader from "./components/StoryHeader";
 import { playAudio, stopAudio } from "./AudioPlayer";
 import { StorySettings } from "@/types";
 
@@ -19,6 +19,11 @@ export default function PlayStory() {
 
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [settings, setSettings] = useState<StorySettings>(storySettings);
+
+    const closeStory = useCallback(() => {
+        stopAudio();
+        window.history.back();
+    }, []);
 
     // Keyboard handling
     useEffect(() => {
@@ -36,15 +41,7 @@ export default function PlayStory() {
         }
         window.addEventListener("keydown", handleKeyPressed);
         return () => window.removeEventListener("keydown", handleKeyPressed);
-    }, [currentChapterRef, showSettingsModal]);
-
-    function closeStory() {
-        stopAudio();
-        window.history.back();
-    }
-    window.removeEventListener("keydown", handleEscapeKey);
-    window.history.back();
-  }
+    }, [currentChapterRef, showSettingsModal, closeStory]);
 
     if (!currentChapter && !story) {
         return <p>Story not found</p>; // Can improve this state
@@ -85,7 +82,11 @@ export default function PlayStory() {
                 }}
             />
 
-      <SettingsModal isOpen={showSettingsModal} setIsOpen={setShowSettingsModal} />
-    </main>
-  );
+            <SettingsModal
+                isOpen={showSettingsModal}
+                setIsOpen={setShowSettingsModal}
+                onSettingsChange={setSettings}
+            />
+        </main>
+    );
 }

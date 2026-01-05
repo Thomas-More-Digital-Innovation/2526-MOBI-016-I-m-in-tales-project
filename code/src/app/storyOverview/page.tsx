@@ -16,7 +16,8 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
 
 
   useEffect(() => {
-    fetch("stories.json")
+    // Use absolute path so it works regardless of the current route.
+    fetch("/stories.json")
       .then((res) => res.json())
       .then((data: StoriesData) => {
         setStories(data.story || []);

@@ -7,7 +7,7 @@ export default function Home() {
       <Header mainPage={true} onHelpHover={setShowToolTip} />
       <div className="gap-3 justify-between flex">
         <div className="">
-          {showToolTip && <ToolTip text="Play stories made by you or others!" absolute />}
+          {showToolTip && <ToolTip text="Play stories made by you or others!" absolute cls="max-w-[250px]"/>}
           <LargerButton label="Play a story" link="/storyOverview" imageLink="/PlayStory.svg" />
         </div>
         <div className="">
