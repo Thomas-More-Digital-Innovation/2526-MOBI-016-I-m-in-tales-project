@@ -5,6 +5,7 @@ import { Button, TextAreaLabel, InputLabel, ImageUpload, ToolTip } from "@compon
 import { readTextFile, BaseDirectory, writeTextFile } from "@tauri-apps/plugin-fs";
 import { join } from "@tauri-apps/api/path";
 import { useNavigate } from "react-router-dom";
+import { clamp, getEdgePoints, persistStory } from "./StageNodeFunctions";
 
 // Defining how we store each node
 type StoryNode = {
@@ -139,41 +140,6 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
       setSelectedId(nodeId);
     }
   };
-  // depending on the position of our destination (top left top right bottom left bottom right) we change the arrow to point FROM a particular point on the container
-  // We do the same for the destination container.
-  const getEdgePoints = (from: StoryNode, to: StoryNode) => {
-    const NODE_W = 150;
-    const NODE_H = 150;
-    const dx = to.x - from.x;
-    const dy = to.y - from.y;
-    const horizontal = Math.abs(dx) >= Math.abs(dy);
-
-    const src = horizontal
-      ? // mathematics one love <3
-        dx >= 0
-        ? [NODE_W, NODE_H / 2]
-        : [0, NODE_H / 2]
-      : dy >= 0
-        ? [NODE_W / 2, NODE_H]
-        : [NODE_W / 2, 0];
-
-    const dest = horizontal
-      ? dx >= 0
-        ? [dx + 0, dy + NODE_H / 2]
-        : [dx + NODE_W, dy + NODE_H / 2]
-      : dy >= 0
-        ? [dx + NODE_W / 2, dy + 0]
-        : [dx + NODE_W / 2, dy + NODE_H];
-    return [...src, ...dest];
-  };
-
-  const saveStory = async (jsonData: unknown, folderName: string) => {
-    const storyFilePath = await join(folderName, "StoryData.json");
-    await writeTextFile(storyFilePath, JSON.stringify(jsonData), {
-      baseDir: BaseDirectory.AppData,
-    });
-    navigate("/");
-  };
   // Saving the file by getting the json that was saved in the previous page
   // appending each node as a chapter, in options we put the linkednodes
   const saveFile = async () => {
@@ -212,8 +178,9 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
       item: items,
     };
 
-    await saveStory(NewJSON, folderName);
-  };
+    await persistStory(NewJSON, folderName);
+    navigate("/");
+  }
 
   return (
     <div className="flex gap-3 w-auto">

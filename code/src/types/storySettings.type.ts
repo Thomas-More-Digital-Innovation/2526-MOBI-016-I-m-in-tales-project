@@ -1,6 +1,10 @@
-interface StorySettings {
-  fontSize: FontSize;
-  volume: number;
+export interface StorySettings {
+    fontSize: FontSize;
+    volume: number;
 }
 
-type FontSize = "kleine tekst" | "normale tekst" | "grote tekst" | "extra grote tekst";
+export type FontSize =
+    | "kleine tekst"
+    | "normale tekst"
+    | "grote tekst"
+    | "extra grote tekst";

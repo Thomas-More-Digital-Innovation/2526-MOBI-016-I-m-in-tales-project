@@ -18,6 +18,8 @@
 /out/
 
 # production
+/dist
+/src-tauri/target
 /build
 
 # misc
