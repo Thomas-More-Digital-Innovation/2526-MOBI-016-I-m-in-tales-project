@@ -4,10 +4,10 @@ import SettingsModal from "./SettingsModal";
 import { storySettings } from "./Settings";
 import { useStory } from "./useStory";
 import { useFullscreen } from "./useFullscreen";
-import StoryVisuals from "./components/StoryVisuals";
-import StoryOverlay from "./components/StoryOverlay";
-import StoryOptions from "./components/StoryOptions";
-import StoryHeader from "./components/StoryHeader";
+import { StoryVisuals } from "@components";
+import { StoryOverlay } from "@components";
+import { StoryOptions } from "@components";
+import { StoryHeader } from "@components";
 import { playAudio, stopAudio } from "./AudioPlayer";
 import { StorySettings } from "@/types";
 

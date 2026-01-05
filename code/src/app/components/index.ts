@@ -10,3 +10,7 @@ export { default as Button } from "./Button";
 export { default as StageNode } from "./StageNode";
 export { default as ToolTip } from "./ToolTip";
 export { default as Modal } from "./Modal";
+export { default as StoryVisuals } from "./StoryVisuals";
+export { default as StoryOverlay } from "./StoryOverlay";
+export { default as StoryOptions } from "./StoryOptions";
+export { default as StoryHeader } from "./StoryHeader";

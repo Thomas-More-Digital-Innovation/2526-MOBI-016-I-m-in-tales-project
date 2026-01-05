@@ -22,7 +22,7 @@ export default function Header({ mainPage = false, onHelpHover }: HeaderProps) {
 
   return (
     <div className="flex justify-between items-center w-screen">
-      <img src="/newLogo.svg" alt="Top logo" width={300} height={300} />
+      <img src="/Logo.svg" alt="Top logo" width={300} height={300} />
       <div className="flex gap-3 p-3">
         {backButton}
         <FullScreenButton />

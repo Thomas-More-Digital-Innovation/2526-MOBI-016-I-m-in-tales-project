@@ -5,7 +5,7 @@ import { Button, TextAreaLabel, InputLabel, ImageUpload, ToolTip } from "@compon
 import { readTextFile, BaseDirectory, writeTextFile } from "@tauri-apps/plugin-fs";
 import { join } from "@tauri-apps/api/path";
 import { useNavigate } from "react-router-dom";
-import { clamp, getEdgePoints, persistStory } from "./StageNodeFunctions";
+import { getEdgePoints, persistStory } from "./StageNodeFunctions";
 
 // Defining how we store each node
 type StoryNode = {
