@@ -43,3 +43,9 @@ export const loadStoryData = async (folderName: string) => {
   return JSON.parse(content);
 };
 
+export const getAllAvailableStories = async () => {
+  const stories = await readDir("", {
+    baseDir: BaseDirectory.AppData,
+  });
+  return stories.map((story) => story.name);
+};
