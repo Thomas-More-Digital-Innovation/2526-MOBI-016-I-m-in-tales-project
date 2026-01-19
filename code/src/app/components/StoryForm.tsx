@@ -1,33 +1,15 @@
 import { InputLabel, TextAreaLabel, ImageUpload, Button, ToolTip } from "@components";
 import { useState } from "react";
-import { writeTextFile, BaseDirectory, exists, mkdir } from "@tauri-apps/plugin-fs";
-import { join } from "@tauri-apps/api/path";
 import { useNavigate } from "react-router-dom";
+import { saveStoryData } from "@/utils/storyIO";
 
 export default function StoryForm({ showToolTipState }: { showToolTipState: boolean }) {
   const [thumbnailBytes, setThumbnailBytes] = useState<Uint8Array | null>(null);
   const navigate = useNavigate();
   const [storyId] = useState(() => crypto.randomUUID());
 
-  const ensureStoryFolder = async (folderName: string) => {
-    const storyFolderExists = await exists(folderName, {
-      baseDir: BaseDirectory.AppData,
-    });
-    if (!storyFolderExists) {
-      await mkdir(folderName, {
-        baseDir: BaseDirectory.AppData,
-        recursive: true,
-      });
-    }
-  };
-
-  const saveStory = async (jsonData: unknown, folderName: string) => {
-    await ensureStoryFolder(folderName);
-
-    const storyFilePath = await join(folderName, "StoryData.json");
-    await writeTextFile(storyFilePath, JSON.stringify(jsonData), {
-      baseDir: BaseDirectory.AppData,
-    });
+  const handleSave = async (jsonData: unknown, folderName: string) => {
+    await saveStoryData(folderName, jsonData);
     navigate("/makeStory/storyConfigurator/" + folderName);
   };
 
@@ -47,7 +29,7 @@ export default function StoryForm({ showToolTipState }: { showToolTipState: bool
       },
     };
 
-    await saveStory(JsonData, storyName);
+    await handleSave(JsonData, storyName);
   };
 
   return (

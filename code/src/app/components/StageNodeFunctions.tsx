@@ -1,5 +1,3 @@
-import { join } from "@tauri-apps/api/path";
-import { BaseDirectory, writeTextFile } from "@tauri-apps/plugin-fs";
 
 export type PositionalNode = {
   x: number;
@@ -26,11 +24,4 @@ export const getEdgePoints = (from: PositionalNode, to: PositionalNode) => {
     : [dx + NODE_W / 2, dy >= 0 ? dy : dy + NODE_H];
 
   return [...sourcePoint, ...destPoint];
-};
-// saves the json file locally (work on any system)
-export const persistStory = async (jsonData: unknown, folderName: string) => {
-  const storyFilePath = await join(folderName, "StoryData.json");
-  await writeTextFile(storyFilePath, JSON.stringify(jsonData), {
-    baseDir: BaseDirectory.AppData
-  });
 };
