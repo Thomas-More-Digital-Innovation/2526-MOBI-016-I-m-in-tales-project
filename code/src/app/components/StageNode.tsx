@@ -2,10 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { Stage, Layer, Group, Rect, Text, Image, Arrow } from "react-konva";
 import type { KonvaEventObject } from "konva/lib/Node";
 import { Button, TextAreaLabel, InputLabel, ImageUpload, ToolTip } from "@components";
-import { readTextFile, BaseDirectory, writeTextFile } from "@tauri-apps/plugin-fs";
-import { join } from "@tauri-apps/api/path";
 import { useNavigate } from "react-router-dom";
-import { getEdgePoints, persistStory } from "./StageNodeFunctions";
+import { getEdgePoints, PositionalNode } from "./StageNodeFunctions";
+import { loadStoryData, saveStoryData } from "@/utils/storyIO";
 
 // Defining how we store each node
 type StoryNode = {
@@ -154,11 +153,7 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
   // Saving the file by getting the json that was saved in the previous page
   // appending each node as a chapter, in options we put the linkednodes
   const saveFile = async () => {
-    const existingPath = await join(folderName, "StoryData.json");
-    const baseJSON = await readTextFile(existingPath, {
-      baseDir: BaseDirectory.AppData,
-    });
-    let NewJSON = JSON.parse(baseJSON);
+    let NewJSON = await loadStoryData(folderName);
     const items: { item_id: string; linked_to: string }[] = [];
 
     const chapter = nodes.map((node) => {
@@ -189,7 +184,7 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
       item: items,
     };
 
-    await persistStory(NewJSON, folderName);
+    await saveStoryData(folderName, NewJSON);
     navigate("/");
   }
 

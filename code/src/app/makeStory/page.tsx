@@ -1,21 +1,11 @@
 import { Header, StoryForm, ToolTip } from "@components";
 import { useEffect, useState } from "react";
-import { exists, BaseDirectory, mkdir } from "@tauri-apps/plugin-fs";
+import { ensureStoryFolder } from "@/utils/storyIO";
+
 export default function makeStory() {
   const [showToolTip, setShowToolTip] = useState(false);
-  const checkDirectory = async () => {
-    const tempFolderExists = await exists("temp", {
-      baseDir: BaseDirectory.AppData,
-    });
-    if (!tempFolderExists) {
-      await mkdir("temp", {
-        baseDir: BaseDirectory.AppData,
-        recursive: true,
-      });
-    }
-  };
   useEffect(() => {
-    checkDirectory();
+    ensureStoryFolder("temp");
   }, []);
   return (
     <main className="h-screen">
