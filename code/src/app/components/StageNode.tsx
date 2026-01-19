@@ -171,8 +171,8 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
         id: node.id,
         title: node.title,
         description: node.description,
-        audio: node.audio,
-        image: node.imageBytes ? Array.from(node.imageBytes) : null,
+        audio: null, // TODO: Implement audio as binary data
+        image: node.imageBytes ?? null,
         failAudio: null,
         option,
       };

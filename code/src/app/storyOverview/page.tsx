@@ -1,26 +1,37 @@
 import { Header } from "@components";
 import { useState, useEffect } from "react";
-import { Story, StoriesData } from "../../types/story.type";
 import StoryCard from "../components/StoryCard";
 import Modal from "../components/Modal";
 import { ToolTip } from "@components";
 import PlayStoryButton from "./PlayStoryButton";
+import { getStoriesOverview, StoryPreview } from "@/utils/storyIO";
 
 type Mode = "view" | "edit";
 
+interface StoryCardData {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+}
+
 export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
-  const [stories, setStories] = useState<Story[]>([]);
+  const [stories, setStories] = useState<StoryCardData[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedStory, setSelectedStory] = useState<Story | null>(null);
+  const [selectedStory, setSelectedStory] = useState<StoryCardData | null>(null);
   const [showToolTip, setShowToolTip] = useState(false);
 
 
   useEffect(() => {
-    // Use absolute path so it works regardless of the current route.
-    fetch("/stories.json")
-      .then((res) => res.json())
-      .then((data: StoriesData) => {
-        setStories(data.story || []);
+    getStoriesOverview()
+      .then((previews: StoryPreview[]) => {
+        const storyCards = previews.map((preview) => ({
+          id: preview.id,
+          name: preview.name,
+          description: preview.description,
+          image: preview.thumbnailUrl,
+        }));
+        setStories(storyCards);
       })
       .catch((error) => console.error("Error fetching stories:", error));
   }, []);
@@ -33,9 +44,9 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
         {stories.map((element) => (
           <StoryCard
             key={element.id}
-            story={element}
+            story={element as any}
             onClick={(story) => {
-              setSelectedStory(story);
+              setSelectedStory(story as any);
               setIsOpen(true);
             }}
           />
@@ -54,7 +65,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
   );
 }
 
-function StoryModal(selectedStory: Story, mode: Mode) {
+function StoryModal(selectedStory: StoryCardData, mode: Mode) {
   return (
     <div className="relative h-full">
       <img
