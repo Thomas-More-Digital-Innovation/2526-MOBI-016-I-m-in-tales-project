@@ -44,7 +44,7 @@ export default function PlayStory() {
     }, [currentChapterRef, showSettingsModal, closeStory]);
 
     if (!currentChapter && !story) {
-        return <p>Story not found</p>; // Can improve this state
+        return <p>Story not found</p>; // TODO: Can improve this state
     }
 
     return (
