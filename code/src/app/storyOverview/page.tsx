@@ -1,4 +1,4 @@
-import { Header } from "@components";
+import { Center, Header, LargerButton } from "@components";
 import { useState, useEffect } from "react";
 import StoryCard from "../components/StoryCard";
 import Modal from "../components/Modal";
@@ -20,6 +20,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedStory, setSelectedStory] = useState<StoryCardData | null>(null);
   const [showToolTip, setShowToolTip] = useState(false);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -32,6 +33,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
           image: preview.thumbnailUrl,
         }));
         setStories(storyCards);
+        setLoading(false);
       })
       .catch((error) => console.error("Error fetching stories:", error));
   }, []);
@@ -41,7 +43,9 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
       <Header onHelpHover={setShowToolTip} />
       {showToolTip && (<ToolTip text="Select a story to play" cls="top-20 right-4" absolute />)}
       <div className="h-80 flex justify-center items-center flex-wrap">
-        {stories.map((element) => (
+        {loading ? <Center>
+          <p className="text-2xl">Verhalen aan het laden...</p>
+        </Center> : stories.length > 0 ? stories.map((element) => (
           <StoryCard
             key={element.id}
             story={element as any}
@@ -50,7 +54,11 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
               setIsOpen(true);
             }}
           />
-        ))}
+        )) : <Center>
+          <p className="text-2xl py-4">Geen verhalen gevonden</p>
+          <LargerButton label="Maak je eerste verhaal" link="/makeStory" imageLink="/MakeStory.svg" />
+
+        </Center>}
       </div>
 
       <Modal
