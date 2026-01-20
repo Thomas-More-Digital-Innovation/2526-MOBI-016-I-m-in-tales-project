@@ -11,3 +11,4 @@ export { default as StageNode } from "./StageNode";
 export { default as AudioUpload } from "./AudioUpload";
 export { default as ToolTip } from "./ToolTip";
 export { default as Modal } from "./Modal";
+export { default as Center } from "./Center";
