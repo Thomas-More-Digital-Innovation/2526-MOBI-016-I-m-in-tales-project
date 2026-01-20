@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Stage, Layer, Group, Rect, Text, Image, Arrow } from "react-konva";
 import type { KonvaEventObject } from "konva/lib/Node";
-import { Button, TextAreaLabel, InputLabel, ImageUpload, ToolTip } from "@components";
+import { Button, TextAreaLabel, InputLabel, ImageUpload, AudioUpload, ToolTip } from "@components";
 import { useNavigate } from "react-router-dom";
 import { getEdgePoints, PositionalNode } from "./StageNodeFunctions";
 import { loadStoryData, saveStoryData } from "@/utils/storyIO";
@@ -12,6 +12,8 @@ type StoryNode = {
   title: string;
   description: string;
   audio: string | null;
+  audioSrc?: string | null;
+  audioBytes?: Uint8Array | null;
   // Here we store the image object created from the blob containing the image bytes
   image: CanvasImageSource | null;
   // Here we store the url of the created object in order to pass it to imageupload
@@ -134,6 +136,17 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
 
     reader.readAsDataURL(blob);
   };
+
+  const handleAudioBytes = (bytes: Uint8Array<ArrayBuffer>) => {
+    if (!selectedId) return;
+    const blob = new Blob([bytes]);
+    const url = URL.createObjectURL(blob);
+    setNodes((prev) =>
+      prev.map((n) =>
+        n.id === selectedId ? { ...n, audioBytes: bytes, audioSrc: url } : n
+      )
+    );
+  };
   // this runs every time a container is clicked but depending on the state of linking it changes it functionality
   const linkStage = (nodeId: string) => {
     if (linking && linkingRootId) {
@@ -171,7 +184,7 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
         id: node.id,
         title: node.title,
         description: node.description,
-        audio: null, // TODO: Implement audio as binary data
+        audio: node.audioBytes ?? null,
         image: node.imageBytes ?? null,
         failAudio: null,
         option,
@@ -278,6 +291,12 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
               cls="mt-5"
               onImageBytes={handleImageBytes}
               value={selectedNode.imageSrc ?? null}
+            />
+            {showToolTipState && <ToolTip text="Upload audio for the selected node" cls="w-fit text-[0.75rem] my-3" />}
+            <AudioUpload
+              cls="mt-5"
+              onAudioBytes={handleAudioBytes}
+              value={selectedNode.audioSrc ?? null}
             />
             <div className="my-2 border-t border-gray-300" />
             {showToolTipState && <ToolTip text="Click the button and select a node to link it" cls="w-fit text-[0.75rem] mb-2" />}
