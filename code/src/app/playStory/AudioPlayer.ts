@@ -26,8 +26,8 @@ export function playAudio(audioPath: string): Promise<void> {
             onCleanUp();
         };
 
-        const handleError = () => {
-            console.error("Audio playback failed");
+        const handleError = (e: ErrorEvent) => {
+            console.error("Audio playback failed", e);
             onCleanUp();
         };
 
@@ -47,7 +47,10 @@ export function stopAudio() {
 }
 
 export function loadAudio(audioPath: string): HTMLAudioElement {
-    const src = audioPath.startsWith("/") ? audioPath : `/${audioPath}`;
+    // If it's a blob URL or an absolute web URL, use it directly
+    const isFullUrl = audioPath.startsWith("blob:") || audioPath.startsWith("http");
+    const src = isFullUrl ? audioPath : (audioPath.startsWith("/") ? audioPath : `/${audioPath}`);
+
     const audio = new Audio(src);
     audio.load();
     return audio;
