@@ -10,6 +10,7 @@ import StoryOptions from "./components/StoryOptions";
 import StoryHeader from "./components/StoryHeader";
 import { playAudio, stopAudio } from "./AudioPlayer";
 import { StorySettings } from "@/types";
+import { Center } from "../components";
 
 export default function PlayStory() {
     const { id } = useParams();
@@ -44,7 +45,9 @@ export default function PlayStory() {
     }, [currentChapterRef, showSettingsModal, closeStory]);
 
     if (!currentChapter && !story) {
-        return <p>Story not found</p>; // TODO: Can improve this state
+        return <Center>
+            <p className="text-2xl">Story not found</p>
+        </Center>
     }
 
     return (
