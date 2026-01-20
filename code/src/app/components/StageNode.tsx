@@ -14,6 +14,8 @@ type StoryNode = {
   audio: string | null;
   audioSrc?: string | null;
   audioBytes?: Uint8Array | null;
+  failAudioSrc?: string | null;
+  failAudioBytes?: Uint8Array | null;
   // Here we store the image object created from the blob containing the image bytes
   image: CanvasImageSource | null;
   // Here we store the url of the created object in order to pass it to imageupload
@@ -147,6 +149,17 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
       )
     );
   };
+
+  const handleFailAudioBytes = (bytes: Uint8Array<ArrayBuffer>) => {
+    if (!selectedId) return;
+    const blob = new Blob([bytes]);
+    const url = URL.createObjectURL(blob);
+    setNodes((prev) =>
+      prev.map((n) =>
+        n.id === selectedId ? { ...n, failAudioBytes: bytes, failAudioSrc: url } : n
+      )
+    );
+  };
   // this runs every time a container is clicked but depending on the state of linking it changes it functionality
   const linkStage = (nodeId: string) => {
     if (linking && linkingRootId) {
@@ -186,7 +199,7 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
         description: node.description,
         audio: node.audioBytes ?? null,
         image: node.imageBytes ?? null,
-        failAudio: null,
+        failAudio: node.failAudioBytes ?? null,
         option,
       };
     });
@@ -297,6 +310,12 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
               cls="mt-5"
               onAudioBytes={handleAudioBytes}
               value={selectedNode.audioSrc ?? null}
+            />
+            {showToolTipState && <ToolTip text="Upload fail audio for the selected node" cls="w-fit text-[0.75rem] my-3" />}
+            <AudioUpload
+              cls="mt-5"
+              onAudioBytes={handleFailAudioBytes}
+              value={selectedNode.failAudioSrc ?? null}
             />
             <div className="my-2 border-t border-gray-300" />
             {showToolTipState && <ToolTip text="Click the button and select a node to link it" cls="w-fit text-[0.75rem] mb-2" />}

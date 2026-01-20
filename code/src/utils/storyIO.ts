@@ -128,6 +128,20 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
       if (audBytes && audBytes.length > 0) {
         audioFolder?.file(`${chapter.id}.mp3`, audBytes);
       }
+
+      const fAudBytes = toUint8Array(chapter.failAudio);
+      if (fAudBytes && fAudBytes.length > 0) {
+        audioFolder?.file(`${chapter.id}_fail.mp3`, fAudBytes);
+      }
+
+      if (chapter.option) {
+        chapter.option.forEach((opt, idx) => {
+          const optAudBytes = toUint8Array(opt.audio);
+          if (optAudBytes && optAudBytes.length > 0) {
+            audioFolder?.file(`${chapter.id}_opt_${idx}.mp3`, optAudBytes);
+          }
+        });
+      }
     }
   }
 
@@ -172,18 +186,35 @@ export const loadStoryData = async (storyName: string): Promise<StoryData> => {
         audio = await audFile.async("uint8array");
       }
 
+      let failAudio: Uint8Array | null = null;
+      const fAudFile = zip.file(`audio/${ch.id}_fail.mp3`);
+      if (fAudFile) {
+        failAudio = await fAudFile.async("uint8array");
+      }
+
+      const options = await Promise.all(
+        (ch.options || []).map(async (opt, idx) => {
+          let optAudio: Uint8Array | null = null;
+          const optAudFile = zip.file(`audio/${ch.id}_opt_${idx}.mp3`);
+          if (optAudFile) {
+            optAudio = await optAudFile.async("uint8array");
+          }
+          return {
+            nextChapter: opt.nextChapter,
+            audio: optAudio,
+            item: opt.item,
+          };
+        })
+      );
+
       return {
         id: ch.id,
         title: ch.title,
         description: ch.description,
         image,
         audio,
-        failAudio: null,
-        option: (ch.options || []).map(opt => ({
-          nextChapter: opt.nextChapter,
-          audio: null,
-          item: opt.item,
-        })),
+        failAudio,
+        option: options,
       };
     })
   );
