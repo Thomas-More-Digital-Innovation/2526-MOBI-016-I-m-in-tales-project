@@ -48,7 +48,11 @@ export function stopAudio() {
 
 export function loadAudio(audioPath: string): HTMLAudioElement {
     // If it's a blob URL or an absolute web URL, use it directly
-    const isFullUrl = audioPath.startsWith("blob:") || audioPath.startsWith("http");
+    const isFullUrl =
+        audioPath.startsWith("blob:") ||
+        audioPath.startsWith("data:") ||
+        audioPath.startsWith("http:") ||
+        audioPath.startsWith("https:");
     const src = isFullUrl ? audioPath : (audioPath.startsWith("/") ? audioPath : `/${audioPath}`);
 
     const audio = new Audio(src);

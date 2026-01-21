@@ -205,12 +205,12 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
   // appending each node as a chapter, in options we put the linkednodes
   const saveFile = async () => {
     let NewJSON = await loadStoryData(folderName);
-    const items: { item_id: string; linked_to: string }[] = [];
+    const items: { item_id: string; linkedTo: string }[] = [];
 
     const chapter = nodes.map((node) => {
       const option = (node.linkedNodes ?? []).map((linkedNode) => {
         const pseudoItemId = crypto.randomUUID();
-        items.push({ item_id: pseudoItemId, linked_to: linkedNode });
+        items.push({ item_id: pseudoItemId, linkedTo: linkedNode });
         return {
           nextChapter: linkedNode,
           audio: null,

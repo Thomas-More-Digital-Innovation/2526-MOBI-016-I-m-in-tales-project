@@ -30,8 +30,8 @@ export interface OptionMetadata {
 }
 
 export interface ItemMetadata {
-  item_id: string;
-  linked_to: string;
+  itemId: string;
+  linkedTo: string;
 }
 
 export interface StoryData {
@@ -62,8 +62,8 @@ export interface OptionData {
 }
 
 export interface ItemData {
-  item_id: string;
-  linked_to: string;
+  itemId: string;
+  linkedTo: string;
 }
 
 // ============================================
@@ -161,7 +161,7 @@ export const loadStoryData = async (storyName: string): Promise<StoryData> => {
   const zip = await JSZip.loadAsync(zipContent);
 
   const metadataFile = zip.file("metadata.json");
-  if (!metadataFile) throw new Error("No metadata.json found in story zip");
+  if (!metadataFile) throw new Error(`No metadata.json found in story zip: ${storyName}`);
   const metadataText = await metadataFile.async("string");
   const metadata: StoryMetadata = JSON.parse(metadataText);
 
@@ -267,8 +267,7 @@ export const getStoriesOverview = async (): Promise<StoryPreview[]> => {
           if (thumbFile) {
             const thumbBytes = await thumbFile.async("uint8array");
             if (thumbBytes.length > 0) {
-              const blob = new Blob([thumbBytes as BufferSource], { type: "image/png" });
-              thumbnailUrl = URL.createObjectURL(blob);
+              thumbnailUrl = bytesToUrl(thumbBytes, "image/png");
             }
           }
 
@@ -315,7 +314,7 @@ export const getAllAvailableStories = async (): Promise<string[]> => {
 // Image URL Helpers
 // ============================================
 
-export const bytesToUrl = (bytes: Uint8Array | number[] | null | undefined): string => {
+export const bytesToUrl = (bytes: Uint8Array | number[] | null | undefined, mimeType: string): string => {
   if (!bytes) return "/placeholder.png";
   const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
   if (u8.length === 0) return "/placeholder.png";
@@ -325,5 +324,5 @@ export const bytesToUrl = (bytes: Uint8Array | number[] | null | undefined): str
     binary += String.fromCharCode(u8[i]);
   }
   const base64 = typeof btoa === "function" ? btoa(binary) : "";
-  return base64 ? `data:image/png;base64,${base64}` : "/placeholder.png"
+  return base64 ? `data:${mimeType};base64,${base64}` : "/placeholder.png"
 };
