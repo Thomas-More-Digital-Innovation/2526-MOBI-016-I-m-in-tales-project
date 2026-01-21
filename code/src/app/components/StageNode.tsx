@@ -3,7 +3,7 @@ import { Stage, Layer, Group, Rect, Text, Image, Arrow } from "react-konva";
 import type { KonvaEventObject } from "konva/lib/Node";
 import { Button, TextAreaLabel, InputLabel, ImageUpload, AudioUpload, ToolTip } from "@components";
 import { useNavigate } from "react-router-dom";
-import { getEdgePoints, PositionalNode } from "./StageNodeFunctions";
+import { getEdgePoints } from "./StageNodeFunctions";
 import { loadStoryData, saveStoryData } from "@/utils/storyIO";
 
 // Defining how we store each node
@@ -68,6 +68,19 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
     window.addEventListener("resize", updateStageSize);
     return () => window.removeEventListener("resize", updateStageSize);
   }, []);
+
+  useEffect(() => {
+    return () => {
+      nodes.forEach((node) => {
+        if (node.audioSrc && node.audioSrc.startsWith("blob:")) {
+          URL.revokeObjectURL(node.audioSrc);
+        }
+        if (node.failAudioSrc && node.failAudioSrc.startsWith("blob:")) {
+          URL.revokeObjectURL(node.failAudioSrc);
+        }
+      });
+    };
+  }, [nodes]);
   // boolean to determine color of the button and what clicking a node does
   const [linking, setLinking] = useState(false);
   // reference for our source when linking
@@ -115,9 +128,9 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
     setLinkingRootId(nodeId);
   };
   // get the image in bytes from our components
-  const handleImageBytes = (bytes: Uint8Array<ArrayBuffer>) => {
+  const handleImageBytes = (bytes: Uint8Array) => {
     if (!selectedId) return;
-    const blob = new Blob([bytes]);
+    const blob = new Blob([bytes as BufferSource]);
     const url = URL.createObjectURL(blob);
     const reader = new FileReader();
 
@@ -139,25 +152,37 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
     reader.readAsDataURL(blob);
   };
 
-  const handleAudioBytes = (bytes: Uint8Array<ArrayBuffer>) => {
+  const handleAudioBytes = (bytes: Uint8Array) => {
     if (!selectedId) return;
-    const blob = new Blob([bytes]);
+    const blob = new Blob([bytes as BufferSource]);
     const url = URL.createObjectURL(blob);
     setNodes((prev) =>
-      prev.map((n) =>
-        n.id === selectedId ? { ...n, audioBytes: bytes, audioSrc: url } : n
-      )
+      prev.map((n) => {
+        if (n.id === selectedId) {
+          if (n.audioSrc && n.audioSrc.startsWith("blob:")) {
+            URL.revokeObjectURL(n.audioSrc);
+          }
+          return { ...n, audioBytes: bytes, audioSrc: url };
+        }
+        return n;
+      })
     );
   };
 
-  const handleFailAudioBytes = (bytes: Uint8Array<ArrayBuffer>) => {
+  const handleFailAudioBytes = (bytes: Uint8Array) => {
     if (!selectedId) return;
-    const blob = new Blob([bytes]);
+    const blob = new Blob([bytes as BufferSource]);
     const url = URL.createObjectURL(blob);
     setNodes((prev) =>
-      prev.map((n) =>
-        n.id === selectedId ? { ...n, failAudioBytes: bytes, failAudioSrc: url } : n
-      )
+      prev.map((n) => {
+        if (n.id === selectedId) {
+          if (n.failAudioSrc && n.failAudioSrc.startsWith("blob:")) {
+            URL.revokeObjectURL(n.failAudioSrc);
+          }
+          return { ...n, failAudioBytes: bytes, failAudioSrc: url };
+        }
+        return n;
+      })
     );
   };
   // this runs every time a container is clicked but depending on the state of linking it changes it functionality

@@ -6,7 +6,7 @@ import {
   mkdir,
   readDir,
 } from "@tauri-apps/plugin-fs";
-import { join, appDataDir } from "@tauri-apps/api/path";
+import { join } from "@tauri-apps/api/path";
 import JSZip from "jszip";
 
 export interface StoryMetadata {
@@ -267,7 +267,7 @@ export const getStoriesOverview = async (): Promise<StoryPreview[]> => {
           if (thumbFile) {
             const thumbBytes = await thumbFile.async("uint8array");
             if (thumbBytes.length > 0) {
-              const blob = new Blob([thumbBytes as any]);
+              const blob = new Blob([thumbBytes as BufferSource], { type: "image/png" });
               thumbnailUrl = URL.createObjectURL(blob);
             }
           }
@@ -319,27 +319,11 @@ export const bytesToUrl = (bytes: Uint8Array | number[] | null | undefined): str
   if (!bytes) return "/placeholder.png";
   const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
   if (u8.length === 0) return "/placeholder.png";
-  const blob = new Blob([u8 as any]);
-  return URL.createObjectURL(blob);
-};
 
-export const loadThumbnail = async (storyName: string): Promise<string> => {
-  try {
-    const data = await loadStoryData(storyName);
-    return bytesToUrl(data.story.thumbnail);
-  } catch (e) {
-    console.error("Error loading thumbnail:", e);
-    return "/placeholder.png";
+  let binary = "";
+  for (let i = 0; i < u8.length; i++) {
+    binary += String.fromCharCode(u8[i]);
   }
-};
-
-export const loadImage = async (storyName: string, chapterId: string): Promise<string> => {
-  try {
-    const data = await loadStoryData(storyName);
-    const chapter = data.story.chapter?.find(ch => ch.id === chapterId);
-    return bytesToUrl(chapter?.image);
-  } catch (e) {
-    console.error("Error loading image:", e);
-    return "/placeholder.png";
-  }
+  const base64 = typeof btoa === "function" ? btoa(binary) : "";
+  return base64 ? `data:image/png;base64,${base64}` : "/placeholder.png"
 };
