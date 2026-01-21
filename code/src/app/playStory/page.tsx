@@ -20,6 +20,7 @@ export default function PlayStory() {
 
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [settings, setSettings] = useState<StorySettings>(storySettings);
+    const [isLoading, setLoading] = useState(true);
 
     const closeStory = useCallback(() => {
         stopAudio();
@@ -44,11 +45,23 @@ export default function PlayStory() {
         return () => window.removeEventListener("keydown", handleKeyPressed);
     }, [currentChapterRef, showSettingsModal, closeStory]);
 
-    if (!currentChapter && !story) {
+    useEffect(() => {
+        if (story) {
+            setLoading(false);
+        }
+    }, [story]);
+
+    if (isLoading) {
         return <Center>
-            <p className="text-2xl">Story not found</p>
+            <p className="text-2xl">Verhaal aan het laden...</p> // TODO: loading animation
+        </Center>
+    } else if (!currentChapter && !story) {
+        return <Center>
+            <p className="text-2xl">Verhaal niet gevonden</p>
         </Center>
     }
+
+
 
     return (
         <main className="bg-white min-h-screen">
