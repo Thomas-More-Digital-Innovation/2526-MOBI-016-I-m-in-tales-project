@@ -20,7 +20,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedStory, setSelectedStory] = useState<StoryCardData | null>(null);
   const [showToolTip, setShowToolTip] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -35,7 +35,8 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
         setStories(storyCards);
         setLoading(false);
       })
-      .catch((error) => console.error("Error fetching stories:", error));
+      .catch((error) => console.error("Error fetching stories:", error))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -43,7 +44,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
       <Header onHelpHover={setShowToolTip} />
       {showToolTip && (<ToolTip text="Select a story to play" cls="top-20 right-4" absolute />)}
       <div className="h-80 flex justify-center items-center flex-wrap">
-        {loading ? <Center>
+        {isLoading ? <Center>
           <p className="text-2xl">Verhalen aan het laden...</p>
         </Center> : stories.length > 0 ? stories.map((element) => (
           <StoryCard
