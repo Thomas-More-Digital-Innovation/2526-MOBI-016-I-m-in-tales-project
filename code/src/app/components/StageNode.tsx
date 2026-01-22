@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Stage, Layer, Group, Rect, Text, Image, Arrow } from "react-konva";
 import type { KonvaEventObject } from "konva/lib/Node";
-import { Button, TextAreaLabel, InputLabel, ImageUpload, ToolTip } from "@components";
+import { Button, TextAreaLabel, InputLabel, ImageUpload, AudioUpload, ToolTip } from "@components";
 import { useNavigate } from "react-router-dom";
-import { getEdgePoints, PositionalNode } from "./StageNodeFunctions";
+import { getEdgePoints } from "./StageNodeFunctions";
 import { loadStoryData, saveStoryData } from "@/utils/storyIO";
 
 // Defining how we store each node
@@ -12,6 +12,10 @@ type StoryNode = {
   title: string;
   description: string;
   audio: string | null;
+  audioSrc?: string | null;
+  audioBytes?: Uint8Array | null;
+  failAudioSrc?: string | null;
+  failAudioBytes?: Uint8Array | null;
   // Here we store the image object created from the blob containing the image bytes
   image: CanvasImageSource | null;
   // Here we store the url of the created object in order to pass it to imageupload
@@ -64,6 +68,19 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
     window.addEventListener("resize", updateStageSize);
     return () => window.removeEventListener("resize", updateStageSize);
   }, []);
+
+  useEffect(() => {
+    return () => {
+      nodes.forEach((node) => {
+        if (node.audioSrc && node.audioSrc.startsWith("blob:")) {
+          URL.revokeObjectURL(node.audioSrc);
+        }
+        if (node.failAudioSrc && node.failAudioSrc.startsWith("blob:")) {
+          URL.revokeObjectURL(node.failAudioSrc);
+        }
+      });
+    };
+  }, [nodes]);
   // boolean to determine color of the button and what clicking a node does
   const [linking, setLinking] = useState(false);
   // reference for our source when linking
@@ -111,9 +128,9 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
     setLinkingRootId(nodeId);
   };
   // get the image in bytes from our components
-  const handleImageBytes = (bytes: Uint8Array<ArrayBuffer>) => {
+  const handleImageBytes = (bytes: Uint8Array) => {
     if (!selectedId) return;
-    const blob = new Blob([bytes]);
+    const blob = new Blob([bytes as BufferSource]);
     const url = URL.createObjectURL(blob);
     const reader = new FileReader();
 
@@ -133,6 +150,40 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
     };
 
     reader.readAsDataURL(blob);
+  };
+
+  const handleAudioBytes = (bytes: Uint8Array) => {
+    if (!selectedId) return;
+    const blob = new Blob([bytes as BufferSource]);
+    const url = URL.createObjectURL(blob);
+    setNodes((prev) =>
+      prev.map((n) => {
+        if (n.id === selectedId) {
+          if (n.audioSrc && n.audioSrc.startsWith("blob:")) {
+            URL.revokeObjectURL(n.audioSrc);
+          }
+          return { ...n, audioBytes: bytes, audioSrc: url };
+        }
+        return n;
+      })
+    );
+  };
+
+  const handleFailAudioBytes = (bytes: Uint8Array) => {
+    if (!selectedId) return;
+    const blob = new Blob([bytes as BufferSource]);
+    const url = URL.createObjectURL(blob);
+    setNodes((prev) =>
+      prev.map((n) => {
+        if (n.id === selectedId) {
+          if (n.failAudioSrc && n.failAudioSrc.startsWith("blob:")) {
+            URL.revokeObjectURL(n.failAudioSrc);
+          }
+          return { ...n, failAudioBytes: bytes, failAudioSrc: url };
+        }
+        return n;
+      })
+    );
   };
   // this runs every time a container is clicked but depending on the state of linking it changes it functionality
   const linkStage = (nodeId: string) => {
@@ -154,12 +205,12 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
   // appending each node as a chapter, in options we put the linkednodes
   const saveFile = async () => {
     let NewJSON = await loadStoryData(folderName);
-    const items: { item_id: string; linked_to: string }[] = [];
+    const items: { itemId: string; linkedTo: string }[] = [];
 
     const chapter = nodes.map((node) => {
       const option = (node.linkedNodes ?? []).map((linkedNode) => {
         const pseudoItemId = crypto.randomUUID();
-        items.push({ item_id: pseudoItemId, linked_to: linkedNode });
+        items.push({ itemId: pseudoItemId, linkedTo: linkedNode });
         return {
           nextChapter: linkedNode,
           audio: null,
@@ -171,9 +222,9 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
         id: node.id,
         title: node.title,
         description: node.description,
-        audio: node.audio,
-        image: node.imageBytes ? Array.from(node.imageBytes) : null,
-        failAudio: null,
+        audio: node.audioBytes ?? null,
+        image: node.imageBytes ?? null,
+        failAudio: node.failAudioBytes ?? null,
         option,
       };
     });
@@ -278,6 +329,18 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
               cls="mt-5"
               onImageBytes={handleImageBytes}
               value={selectedNode.imageSrc ?? null}
+            />
+            {showToolTipState && <ToolTip text="Upload audio for the selected node" cls="w-fit text-[0.75rem] my-3" />}
+            <AudioUpload
+              cls="mt-5"
+              onAudioBytes={handleAudioBytes}
+              value={selectedNode.audioSrc ?? null}
+            />
+            {showToolTipState && <ToolTip text="Upload fail audio for the selected node" cls="w-fit text-[0.75rem] my-3" />}
+            <AudioUpload
+              cls="mt-5"
+              onAudioBytes={handleFailAudioBytes}
+              value={selectedNode.failAudioSrc ?? null}
             />
             <div className="my-2 border-t border-gray-300" />
             {showToolTipState && <ToolTip text="Click the button and select a node to link it" cls="w-fit text-[0.75rem] mb-2" />}

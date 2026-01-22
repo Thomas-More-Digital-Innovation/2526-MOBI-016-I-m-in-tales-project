@@ -1,4 +1,5 @@
 import type { CSSProperties, FocusEventHandler, MouseEventHandler } from "react";
+import { Link } from "react-router-dom";
 
 interface HeaderButtonProps {
   label: string;
@@ -24,13 +25,13 @@ export default function HeaderButton({
     : "bg-[#f6745e] shadow-[0px_1px_2px_1px_#faac9e]";
 
   return (
-    <a
-      href={link}
+    <Link
+      to={link}
       style={style}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={`text-3xl cursor-pointer font-semibold duration-150 text-white ease-in-out py-3 px-8 h-fit hover:scale-85 hover:drop-shadow-none rounded ${cls} ${variantClass}`}>
       {label}
-    </a>
+    </Link>
   );
 }

@@ -1,9 +1,9 @@
 import { open } from "@tauri-apps/plugin-dialog";
 import { readFile } from "@tauri-apps/plugin-fs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 type ImageUploadProps = {
-    onImageBytes?: (bytes: Uint8Array<ArrayBuffer>) => void;
+    onImageBytes?: (bytes: Uint8Array) => void;
     cls?: string;
     value?: string | null;
 };
@@ -14,12 +14,21 @@ export default function ImageUpload({
     value = null,
 }: ImageUploadProps) {
     const [thumbnail, setThumbnail] = useState<string | null>(value);
+    const createdUrlRef = useRef<string | null>(null);
 
     useEffect(() => {
         setThumbnail(value);
     }, [value]);
 
-    const file_selector = async () => {
+    useEffect(() => {
+        return () => {
+            if (createdUrlRef.current) {
+                URL.revokeObjectURL(createdUrlRef.current);
+            }
+        };
+    }, []);
+
+    const fileSelector = async () => {
         const selectedThumbnail = await open({
             multiple: false,
             extensions: ["png", "jpeg"],
@@ -29,6 +38,11 @@ export default function ImageUpload({
         const bytes = await readFile(selectedThumbnail.toString());
         const blob = new Blob([bytes]);
         const url = URL.createObjectURL(blob);
+
+        if (createdUrlRef.current) {
+            URL.revokeObjectURL(createdUrlRef.current);
+        }
+        createdUrlRef.current = url;
 
         setThumbnail(url);
         onImageBytes?.(bytes);
@@ -49,7 +63,7 @@ export default function ImageUpload({
             <button
                 className="absolute text-2xl font-bold bg-white px-2 rounded-full hover:cursor-pointer hover:scale-125 duration-200 ease-in-out hover:shadow"
                 type="button"
-                onClick={file_selector}>
+                onClick={fileSelector}>
                 +
             </button>
         </div>
