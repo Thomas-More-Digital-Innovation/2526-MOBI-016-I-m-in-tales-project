@@ -24,7 +24,7 @@ export interface Story {
 
 export interface Item {
   item_id: string;
-  linked_to: string;
+  linkedTo: string;
 }
 
 export interface StoriesData {

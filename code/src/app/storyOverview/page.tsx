@@ -1,28 +1,42 @@
-import { Header } from "@components";
+import { Center, Header, LargerButton } from "@components";
 import { useState, useEffect } from "react";
-import { Story, StoriesData } from "../../types/story.type";
 import StoryCard from "../components/StoryCard";
 import Modal from "../components/Modal";
 import { ToolTip } from "@components";
 import PlayStoryButton from "./PlayStoryButton";
+import { getStoriesOverview, StoryPreview } from "@/utils/storyIO";
 
 type Mode = "view" | "edit";
 
+interface StoryCardData {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+}
+
 export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
-  const [stories, setStories] = useState<Story[]>([]);
+  const [stories, setStories] = useState<StoryCardData[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedStory, setSelectedStory] = useState<Story | null>(null);
+  const [selectedStory, setSelectedStory] = useState<StoryCardData | null>(null);
   const [showToolTip, setShowToolTip] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
 
   useEffect(() => {
-    // Use absolute path so it works regardless of the current route.
-    fetch("/stories.json")
-      .then((res) => res.json())
-      .then((data: StoriesData) => {
-        setStories(data.story || []);
+    getStoriesOverview()
+      .then((previews: StoryPreview[]) => {
+        const storyCards = previews.map((preview) => ({
+          id: preview.id,
+          name: preview.name,
+          description: preview.description,
+          image: preview.thumbnailUrl,
+        }));
+        setStories(storyCards);
+        setLoading(false);
       })
-      .catch((error) => console.error("Error fetching stories:", error));
+      .catch((error) => console.error("Error fetching stories:", error))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -30,16 +44,22 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
       <Header onHelpHover={setShowToolTip} />
       {showToolTip && (<ToolTip text="Select a story to play" cls="top-20 right-4" absolute />)}
       <div className="h-80 flex justify-center items-center flex-wrap">
-        {stories.map((element) => (
+        {isLoading ? <Center>
+          <p className="text-2xl">Verhalen aan het laden...</p>
+        </Center> : stories.length > 0 ? stories.map((element) => (
           <StoryCard
             key={element.id}
-            story={element}
+            story={element as any}
             onClick={(story) => {
-              setSelectedStory(story);
+              setSelectedStory(story as any);
               setIsOpen(true);
             }}
           />
-        ))}
+        )) : <Center>
+          <p className="text-2xl py-4">Geen verhalen gevonden</p>
+          <LargerButton label="Maak je eerste verhaal" link="/makeStory" imageLink="/MakeStory.svg" />
+
+        </Center>}
       </div>
 
       <Modal
@@ -54,7 +74,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
   );
 }
 
-function StoryModal(selectedStory: Story, mode: Mode) {
+function StoryModal(selectedStory: StoryCardData, mode: Mode) {
   return (
     <div className="relative h-full">
       <img
