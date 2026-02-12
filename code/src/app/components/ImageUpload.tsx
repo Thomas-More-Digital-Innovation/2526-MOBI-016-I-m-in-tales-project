@@ -3,7 +3,7 @@ import { readFile } from "@tauri-apps/plugin-fs";
 import { useEffect, useState, useRef } from "react";
 
 type ImageUploadProps = {
-    onImageBytes?: (bytes: Uint8Array) => void;
+    onImageBytes?: (bytes: Uint8Array<ArrayBuffer>) => void;
     cls?: string;
     value?: string | null;
 };

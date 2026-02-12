@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { Button } from "@components";
 
 type AudioUploadProps = {
-    onAudioBytes?: (bytes: Uint8Array) => void;
+    onAudioBytes?: (bytes: Uint8Array<ArrayBuffer>) => void;
     cls?: string;
     value?: string | null; // This will now be a URL string (blob url)
 };

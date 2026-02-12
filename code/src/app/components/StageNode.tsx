@@ -13,15 +13,15 @@ type StoryNode = {
   description: string;
   audio: string | null;
   audioSrc?: string | null;
-  audioBytes?: Uint8Array | null;
+  audioBytes?: Uint8Array<ArrayBuffer> | null;
   failAudioSrc?: string | null;
-  failAudioBytes?: Uint8Array | null;
+  failAudioBytes?: Uint8Array<ArrayBuffer> | null;
   // Here we store the image object created from the blob containing the image bytes
   image: CanvasImageSource | null;
   // Here we store the url of the created object in order to pass it to imageupload
   imageSrc?: string | null;
   // Here we store the image bytes which are going to be stored in the JSON
-  imageBytes?: Uint8Array | null;
+  imageBytes?: Uint8Array<ArrayBuffer> | null;
   x: number;
   y: number;
   linkedNodes?: string[];
@@ -128,7 +128,7 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
     setLinkingRootId(nodeId);
   };
   // get the image in bytes from our components
-  const handleImageBytes = (bytes: Uint8Array) => {
+  const handleImageBytes = (bytes: Uint8Array<ArrayBuffer>) => {
     if (!selectedId) return;
     const blob = new Blob([bytes as BufferSource]);
     const url = URL.createObjectURL(blob);
@@ -152,7 +152,7 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
     reader.readAsDataURL(blob);
   };
 
-  const handleAudioBytes = (bytes: Uint8Array) => {
+  const handleAudioBytes = (bytes: Uint8Array<ArrayBuffer>) => {
     if (!selectedId) return;
     const blob = new Blob([bytes as BufferSource]);
     const url = URL.createObjectURL(blob);
@@ -169,7 +169,7 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
     );
   };
 
-  const handleFailAudioBytes = (bytes: Uint8Array) => {
+  const handleFailAudioBytes = (bytes: Uint8Array<ArrayBuffer>) => {
     if (!selectedId) return;
     const blob = new Blob([bytes as BufferSource]);
     const url = URL.createObjectURL(blob);
