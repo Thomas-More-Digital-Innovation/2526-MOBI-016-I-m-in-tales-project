@@ -35,6 +35,24 @@ type StageNodeProps = {
 // Clamp helper function for zooming in/out
 const clamp = (val: number, min: number, max: number) => Math.min(Math.max(val, min), max);
 
+const bytesToUint8 = (
+  data: Uint8Array<ArrayBuffer> | Uint8Array | number[] | null | undefined
+): Uint8Array<ArrayBuffer> | null => {
+  if (!data) return null;
+  return data instanceof Uint8Array ? data : new Uint8Array(data);
+};
+
+const blobToDataUrl = async (blob: Blob): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () =>
+      typeof reader.result === "string"
+        ? resolve(reader.result)
+        : reject(new Error("Could not convert blob to data URL"));
+    reader.onerror = () => reject(new Error("Could not read blob"));
+    reader.readAsDataURL(blob);
+  });
+
 export default function StageNode({ folderName = "", showToolTipState = false }: StageNodeProps) {
   const [scale, setScale] = useState(1);
   const navigate = useNavigate();
@@ -52,6 +70,7 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
   ]);
   // The Id of the selected node (that will be shown on the forms)
   const [selectedId, setSelectedId] = useState<string | null>(nodes[0]?.id ?? null);
+  const nodesRef = useRef<StoryNode[]>(nodes);
   // Track available space for the stage so it stays responsive.
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
@@ -70,8 +89,12 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
   }, []);
 
   useEffect(() => {
+    nodesRef.current = nodes;
+  }, [nodes]);
+
+  useEffect(() => {
     return () => {
-      nodes.forEach((node) => {
+      nodesRef.current.forEach((node) => {
         if (node.audioSrc && node.audioSrc.startsWith("blob:")) {
           URL.revokeObjectURL(node.audioSrc);
         }
@@ -80,7 +103,87 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
         }
       });
     };
-  }, [nodes]);
+  }, []);
+
+  useEffect(() => {
+    const loadExistingScenes = async () => {
+      if (!folderName.trim()) return;
+
+      try {
+        const loaded = await loadStoryData(folderName);
+        const chapters = loaded.story.chapter ?? [];
+        if (chapters.length === 0) return;
+
+        const hydratedNodes = await Promise.all(
+          chapters.map(async (chapter, idx) => {
+            const imageBytes = bytesToUint8(chapter.image);
+            const audioBytes = bytesToUint8(chapter.audio);
+            const failAudioBytes = bytesToUint8(chapter.failAudio);
+
+            let image: CanvasImageSource | null = null;
+            let imageSrc: string | null = null;
+
+            if (imageBytes && imageBytes.length > 0) {
+              const blob = new Blob([imageBytes as BufferSource]);
+              imageSrc = await blobToDataUrl(blob);
+              const imgUrl = URL.createObjectURL(blob);
+              image = await new Promise<HTMLImageElement>((resolve, reject) => {
+                const img = new window.Image();
+                img.onload = () => resolve(img);
+                img.onerror = () => reject(new Error("Could not load image into canvas"));
+                img.src = imgUrl;
+              });
+              URL.revokeObjectURL(imgUrl);
+            }
+
+            const audioSrc =
+              audioBytes && audioBytes.length > 0
+                ? URL.createObjectURL(new Blob([audioBytes as BufferSource]))
+                : null;
+            const failAudioSrc =
+              failAudioBytes && failAudioBytes.length > 0
+                ? URL.createObjectURL(new Blob([failAudioBytes as BufferSource]))
+                : null;
+
+            return {
+              id: chapter.id,
+              title: chapter.title,
+              description: chapter.description,
+              image,
+              imageSrc,
+              imageBytes,
+              audio: null,
+              audioSrc,
+              audioBytes,
+              failAudioSrc,
+              failAudioBytes,
+              x: 180 + (idx % 4) * 180,
+              y: 120 + Math.floor(idx / 4) * 180,
+              linkedNodes: (chapter.option ?? []).map((opt) => opt.nextChapter),
+            } satisfies StoryNode;
+          })
+        );
+
+        setNodes((prev) => {
+          prev.forEach((node) => {
+            if (node.audioSrc && node.audioSrc.startsWith("blob:")) {
+              URL.revokeObjectURL(node.audioSrc);
+            }
+            if (node.failAudioSrc && node.failAudioSrc.startsWith("blob:")) {
+              URL.revokeObjectURL(node.failAudioSrc);
+            }
+          });
+          return hydratedNodes;
+        });
+
+        setSelectedId(hydratedNodes[0]?.id ?? null);
+      } catch (error) {
+        console.error(`Could not load scenes from story "${folderName}"`, error);
+      }
+    };
+
+    void loadExistingScenes();
+  }, [folderName]);
   // boolean to determine color of the button and what clicking a node does
   const [linking, setLinking] = useState(false);
   // reference for our source when linking

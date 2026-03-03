@@ -1,14 +1,14 @@
 import { InputLabel, TextAreaLabel, ImageUpload, Button, ToolTip } from "@components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { saveStoryData } from "@/utils/storyIO";
+import { saveStoryData, StoryData } from "@/utils/storyIO";
 
 export default function StoryForm({ showToolTipState }: { showToolTipState: boolean }) {
   const [thumbnailBytes, setThumbnailBytes] = useState<Uint8Array | null>(null);
   const navigate = useNavigate();
   const [storyId] = useState(() => crypto.randomUUID());
 
-  const handleSave = async (jsonData: unknown, folderName: string) => {
+  const handleSave = async (jsonData: StoryData, folderName: string) => {
     await saveStoryData(folderName, jsonData);
     navigate("/makeStory/storyConfigurator/" + folderName);
   };

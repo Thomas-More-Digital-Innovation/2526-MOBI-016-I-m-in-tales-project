@@ -1,12 +1,5 @@
-import { Header } from "@components";
+import StoryOverview from "../storyOverview/page";
 
 export default function ManageStory() {
-  return (
-    <main className="bg-white h-screen">
-      <Header />
-      <div className="h-screen flex justify-center items-center">
-        <h1>Manage Story</h1>
-      </div>
-    </main>
-  );
+  return <StoryOverview mode="edit" />;
 }

@@ -4,6 +4,7 @@ import StoryCard from "../components/StoryCard";
 import Modal from "../components/Modal";
 import { ToolTip } from "@components";
 import PlayStoryButton from "./PlayStoryButton";
+import EditStoryButton from "./EditStoryButton";
 import { getStoriesOverview, StoryPreview } from "@/utils/storyIO";
 
 type Mode = "view" | "edit";
@@ -42,7 +43,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
   return (
     <main className="bg-white h-screen">
       <Header onHelpHover={setShowToolTip} />
-      {showToolTip && (<ToolTip text="Select a story to play" cls="top-20 right-4" absolute />)}
+      {showToolTip && (<ToolTip text={mode === "view" ? "Select a story to play" : "Select a story to edit"} cls="top-20 right-4" absolute />)}
       <div className="h-80 flex justify-center items-center flex-wrap">
         {isLoading ? <Center>
           <p className="text-2xl">Verhalen aan het laden...</p>
@@ -89,8 +90,11 @@ function StoryModal(selectedStory: StoryCardData, mode: Mode) {
           <h1 className="text-2xl text-white">{selectedStory.name}</h1>
           <p className="text-white">{selectedStory.description}</p>
         </div>
-        {mode == "view" ? <PlayStoryButton id={selectedStory.id} /> : <h1>edit</h1>}{" "}
-        {/* TODO add edit button */}
+        {mode === "view" ? (
+          <PlayStoryButton id={selectedStory.id} />
+        ) : (
+          <EditStoryButton id={selectedStory.id} />
+        )}
       </div>
     </div>
   );
