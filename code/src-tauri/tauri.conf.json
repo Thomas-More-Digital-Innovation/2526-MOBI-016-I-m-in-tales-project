@@ -40,15 +40,15 @@
       }
     }
   },
-  "productName": "imintales",
-  "mainBinaryName": "imintales",
+  "productName": "whispertag",
+  "mainBinaryName": "whispertag",
   "version": "0.1.0",
-  "identifier": "com.imintales.dev",
+  "identifier": "com.whispertag.dev",
   "plugins": {},
   "app": {
     "windows": [
       {
-        "title": "imintales",
+        "title": "whispertag",
         "useHttpsScheme": true,
         "resizable": true,
         "fullscreen": false,

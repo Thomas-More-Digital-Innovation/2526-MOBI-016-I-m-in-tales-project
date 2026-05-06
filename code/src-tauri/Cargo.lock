@@ -1556,20 +1556,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "imintales"
-version = "0.1.0"
-dependencies = [
- "libloading 0.8.9",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-plugin-dialog",
- "tauri-plugin-fs",
- "thiserror 1.0.69",
-]
-
-[[package]]
 name = "indexmap"
 version = "1.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4513,6 +4499,20 @@ dependencies = [
  "thiserror 2.0.17",
  "windows",
  "windows-core 0.61.2",
+]
+
+[[package]]
+name = "whispertag"
+version = "0.1.0"
+dependencies = [
+ "libloading 0.8.9",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-dialog",
+ "tauri-plugin-fs",
+ "thiserror 1.0.69",
 ]
 
 [[package]]

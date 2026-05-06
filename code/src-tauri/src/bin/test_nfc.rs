@@ -1,5 +1,5 @@
-use imintales::nfc::ufr::UfrReader; // Adjust 'app' to your package name
-use imintales::nfc::NfcReader;
+use whispertag::nfc::ufr::UfrReader; // Adjust 'app' to your package name
+use whispertag::nfc::NfcReader;
 
 fn main() {
     let reader = UfrReader::new().expect("Failed to load library");

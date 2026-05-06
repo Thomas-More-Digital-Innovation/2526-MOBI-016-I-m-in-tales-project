@@ -1,11 +1,11 @@
 [package]
-name = "imintales"
+name = "whispertag"
 version = "0.1.0"
 description = "A Tauri App"
 authors = ["you"]
 license = ""
 repository = ""
-default-run = "imintales"
+default-run = "whispertag"
 edition = "2021"
 rust-version = "1.60"
 
