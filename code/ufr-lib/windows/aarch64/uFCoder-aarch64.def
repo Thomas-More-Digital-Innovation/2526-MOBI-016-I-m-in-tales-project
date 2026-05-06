@@ -1,0 +1,4796 @@
+EXPORTS
+    AES_to_DES_key_type @1
+    ALL_POWERSCHEMES_GUID @2 DATA
+    APDUHexStrTransceive @3
+    APDUHexStrTransceiveHnd @4
+    APDUHexStrTransceiveM @5
+    APDUPlainTransceive @6
+    APDUPlainTransceiveHnd @7
+    APDUPlainTransceiveM @8
+    APDUPlainTransceiveToHeap @9
+    APDUPlainTransceiveToHeapHnd @10
+    APDUPlainTransceiveToHeapM @11
+    APDUTransceive @12
+    APDUTransceiveForceExtendedHnd @13
+    APDUTransceiveHnd @14
+    APDUTransceiveM @15
+    APDU_switch_off_from_ISO7816_interface @16
+    APDU_switch_off_from_ISO7816_interfaceHnd @17
+    APDU_switch_off_from_ISO7816_interfaceM @18
+    APDU_switch_to_ISO14443_4_interface @19
+    APDU_switch_to_ISO14443_4_interfaceHnd @20
+    APDU_switch_to_ISO14443_4_interfaceM @21
+    APDU_switch_to_ISO7816_interface @22
+    APDU_switch_to_ISO7816_interfaceHnd @23
+    APDU_switch_to_ISO7816_interfaceM @24
+    ATECC608LockConfig @25
+    ATECC608LockConfigHnd @26
+    ATECC608LockConfigM @27
+    ATECC608LockDataAndOtp @28
+    ATECC608LockDataAndOtpHnd @29
+    ATECC608LockDataAndOtpM @30
+    ATECC608LockKeySlot @31
+    ATECC608LockKeySlotHnd @32
+    ATECC608LockKeySlotM @33
+    AdHocEmulationStart @34
+    AdHocEmulationStartHnd @35
+    AdHocEmulationStartM @36
+    AdHocEmulationStop @37
+    AdHocEmulationStopHnd @38
+    AdHocEmulationStopM @39
+    AutoSleepGet @40
+    AutoSleepGetHnd @41
+    AutoSleepGetM @42
+    AutoSleepSet @43
+    AutoSleepSetHnd @44
+    AutoSleepSetM @45
+    BalanceGet @46
+    BalanceGetM @47
+    BalanceSet @48
+    BalanceSetM @49
+    BlockInSectorRead @50
+    BlockInSectorReadHnd @51
+    BlockInSectorReadM @52
+    BlockInSectorReadSamKey @53
+    BlockInSectorReadSamKeyHnd @54
+    BlockInSectorReadSamkeyM @55
+    BlockInSectorRead_AKM1 @56
+    BlockInSectorRead_AKM1Hnd @57
+    BlockInSectorRead_AKM1M @58
+    BlockInSectorRead_AKM2 @59
+    BlockInSectorRead_AKM2Hnd @60
+    BlockInSectorRead_AKM2M @61
+    BlockInSectorRead_PK @62
+    BlockInSectorRead_PKHnd @63
+    BlockInSectorRead_PKM @64
+    BlockInSectorWrite @65
+    BlockInSectorWriteHnd @66
+    BlockInSectorWriteM @67
+    BlockInSectorWriteSamKey @68
+    BlockInSectorWriteSamKeyHnd @69
+    BlockInSectorWriteSamkeyM @70
+    BlockInSectorWrite_AKM1 @71
+    BlockInSectorWrite_AKM1Hnd @72
+    BlockInSectorWrite_AKM1M @73
+    BlockInSectorWrite_AKM2 @74
+    BlockInSectorWrite_AKM2Hnd @75
+    BlockInSectorWrite_AKM2M @76
+    BlockInSectorWrite_PK @77
+    BlockInSectorWrite_PKHnd @78
+    BlockInSectorWrite_PKM @79
+    BlockRead @80
+    BlockReadHnd @81
+    BlockReadM @82
+    BlockReadSamKey @83
+    BlockReadSamKeyHnd @84
+    BlockReadSamKeyM @85
+    BlockRead_AKM1 @86
+    BlockRead_AKM1Hnd @87
+    BlockRead_AKM1M @88
+    BlockRead_AKM2 @89
+    BlockRead_AKM2Hnd @90
+    BlockRead_AKM2M @91
+    BlockRead_PK @92
+    BlockRead_PKHnd @93
+    BlockRead_PKM @94
+    BlockWrite @95
+    BlockWriteHnd @96
+    BlockWriteM @97
+    BlockWriteSamKey @98
+    BlockWriteSamKeyHnd @99
+    BlockWriteSamKeyM @100
+    BlockWrite_AKM1 @101
+    BlockWrite_AKM1Hnd @102
+    BlockWrite_AKM1M @103
+    BlockWrite_AKM2 @104
+    BlockWrite_AKM2Hnd @105
+    BlockWrite_AKM2M @106
+    BlockWrite_PK @107
+    BlockWrite_PKHnd @108
+    BlockWrite_PKM @109
+    BootReader @110
+    BootReaderHnd @111
+    BusAdminCardMake @112
+    BusAdminCardMakeHnd @113
+    CLSID_DOMDocument @114 DATA
+    CLSID_DOMFreeThreadedDocument @115 DATA
+    CLSID_XMLDSOControl @116 DATA
+    CLSID_XMLDocument @117 DATA
+    CLSID_XMLHTTPRequest @118 DATA
+    COMTransceive @119
+    COMTransceiveHnd @120
+    COMTransceiveM @121
+    CRC16 @122
+    CRC8 @123
+    CalcChecksum @124
+    CalcChecksum_D @125
+    CardEncryption_GetActualCardSN @126
+    CardEncryption_GetActualCardSNHnd @127
+    CardEncryption_GetActualCardSNM @128
+    CardEncryption_GetJobSN @129
+    CardEncryption_GetJobSNHnd @130
+    CardEncryption_GetJobSNM @131
+    CardEncryption_GetJobSN_SalterSNHnd @132
+    CardEncryption_GetNext @133
+    CardEncryption_GetNextEncryptedCard @134
+    CardEncryption_GetNextEncryptedCardHnd @135
+    CardEncryption_GetNextEncryptedCardM @136
+    CardEncryption_GetNextHnd @137
+    CardEncryption_GetNextM @138
+    CardEncryption_GetSalterSN @139
+    CardEncryption_GetSalterSNHnd @140
+    CardEncryption_GetSalterSNM @141
+    CardEncryption_Initialize @142
+    CardEncryption_InitializeHnd @143
+    CardEncryption_InitializeM @144
+    ChangeReaderJobId @145
+    ChangeReaderJobIdHnd @146
+    ChangeReaderJobIdM @147
+    ChangeReaderPassword @148
+    ChangeReaderPasswordHnd @149
+    ChangeReaderPasswordM @150
+    CheckUidChangeable @151
+    CheckUidChangeableHnd @152
+    CheckUidChangeableM @153
+    CodeFrame @154
+    CombinedModeEmulationStart @155
+    CombinedModeEmulationStartHnd @156
+    CombinedModeEmulationStartM @157
+    CommonBlockInSectorRead_AKM @158
+    CommonBlockInSectorWrite_AKM @159
+    CommonBlockRead @160
+    CommonBlockRead_AKM @161
+    CommonBlockWrite @162
+    CommonBlockWrite_AKM @163
+    CommonLinearFormatCard_AKM @164
+    CommonLinearRead @165
+    CommonLinearWrite @166
+    CommonSectorTrailerWriteUnsafe_AKM @167
+    CommonSectorTrailerWrite_AKM @168
+    DES_to_AES_key_type @169
+    DIID_XMLDOMDocumentEvents @170 DATA
+    DLFree @171
+    DLGetECCCurveDesignator @172
+    DLGetECCCurveIndex @173
+    DLGetEccCurveName @174
+    DLGetHash @175
+    DLGetHashName @176
+    DLGetHashOutputByteLength @177
+    DLGetHashToHeap @178
+    DLGetSignatureSchemeName @179
+    DLHashFinishChunked @180
+    DLHashFinishChunkedToHeap @181
+    DLHashInitChunked @182
+    DLHashUpdateChunked @183
+    DL_TLS_Request @184
+    DL_TLS_SetClientCertificate @185
+    DL_TLS_SetClientX509PrivateKey_PEM @186
+    DLrealloc @187
+    DLsprintf @188
+    DataR @189 DATA
+    DataS @190 DATA
+    DefaultBaudrateFlashCheck @191
+    DefaultBaudrateFlashCheckHnd @192
+    DefaultBaudrateFlashCheckM @193
+    DeslectCard @194
+    DeslectCardHnd @195
+    DeslectCardM @196
+    DigitalSignatureVerifyHash @197
+    DisableAntiCollision @198
+    DisableAntiCollisionHnd @199
+    DisableAntiCollisionM @200
+    Display_CheckBootStatusHnd @201
+    Display_ClearImageHnd @202
+    Display_EraseFlashI2CHnd @203
+    Display_EraseSection @204
+    Display_EraseSectionHnd @205
+    Display_GetFirmwareVersionHnd @206
+    Display_GetParametersHnd @207
+    Display_PrintText @208
+    Display_PrintTextHnd @209
+    Display_RebootHnd @210
+    Display_SaveBitmapToGallery @211
+    Display_SaveBitmapToGalleryHnd @212
+    Display_SaveSystemBitmap @213
+    Display_SaveSystemBitmapHnd @214
+    Display_SendBootCommandHnd @215
+    Display_ShowBitmap @216
+    Display_ShowBitmapFromGallery @217
+    Display_ShowBitmapFromGalleryHnd @218
+    Display_ShowBitmapHnd @219
+    Display_ShowLastUnsavedImage @220
+    Display_ShowLastUnsavedImageHnd @221
+    Display_ShowTime @222
+    Display_ShowTimeHnd @223
+    Display_Transmit @224
+    Display_TransmitHnd @225
+    Display_UserInterfaceSignal @226
+    Display_UserInterfaceSignalHnd @227
+    Display_WriteFlashI2CHnd @228
+    EE_Lock @229
+    EE_LockHnd @230
+    EE_Password_Change @231
+    EE_Password_ChangeHnd @232
+    EE_Read @233
+    EE_ReadHnd @234
+    EE_Write @235
+    EE_WriteHnd @236
+    EMV_GetLastTransaction @237
+    EMV_GetPAN @238
+    EVP_cleanup @239
+    EmulMirrorHnd @240
+    EnableAntiCollision @241
+    EnableAntiCollisionHnd @242
+    EnableAntiCollisionM @243
+    EnterShareRamCommMode @244
+    EnterShareRamCommModeHnd @245
+    EnterShareRamCommModeM @246
+    EnumCards @247
+    EnumCardsHnd @248
+    EnumCardsM @249
+    EspBackupConfiguration @250
+    EspBackupConfigurationHnd @251
+    EspChangeReaderPassword @252
+    EspChangeReaderPasswordHnd @253
+    EspChangeReaderPasswordM @254
+    EspDisableWifi @255
+    EspDisableWifiHnd @256
+    EspDisableWifiM @257
+    EspEnableWifi @258
+    EspEnableWifiHnd @259
+    EspEnableWifiM @260
+    EspGetFirmwareVersion @261
+    EspGetFirmwareVersionHnd @262
+    EspGetFirmwareVersionM @263
+    EspGetIOState @264
+    EspGetIOStateHnd @265
+    EspGetIOStateM @266
+    EspGetReaderSerialNumber @267
+    EspGetReaderSerialNumberHnd @268
+    EspGetReaderSerialNumberM @269
+    EspGetReaderTime @270
+    EspGetReaderTimeHnd @271
+    EspGetReaderTimeM @272
+    EspGetTransparentReaders @273
+    EspGetTransparentReadersHnd @274
+    EspIdleAnimation @275
+    EspIdleAnimationHnd @276
+    EspIdleAnimationM @277
+    EspReadProgressHnd @278
+    EspReaderEepromRead @279
+    EspReaderEepromReadHnd @280
+    EspReaderEepromReadM @281
+    EspReaderEepromWrite @282
+    EspReaderEepromWriteHnd @283
+    EspReaderEepromWriteM @284
+    EspReaderReset @285
+    EspReaderResetHnd @286
+    EspReaderResetM @287
+    EspRestoreConfiguration @288
+    EspRestoreConfigurationHnd @289
+    EspSetDisplayData @290
+    EspSetDisplayDataHnd @291
+    EspSetDisplayDataM @292
+    EspSetIOState @293
+    EspSetIOStateHnd @294
+    EspSetIOStateM @295
+    EspSetReaderTime @296
+    EspSetReaderTimeHnd @297
+    EspSetReaderTimeM @298
+    EspSetTransparentReader @299
+    EspSetTransparentReaderHnd @300
+    EspSetTransparentReaderM @301
+    EspSetTransparentReaderSession @302
+    EspSetTransparentReaderSessionHnd @303
+    EspStartIntenalAnimationHnd @304
+    EspStartStreamHnd @305
+    EspStopStreamHnd @306
+    EspTurnOff @307
+    EspTurnOffHnd @308
+    EspTurnOffM @309
+    EspWriteStreamHnd @310
+    ExitShareRamCommMode @311
+    ExitShareRamCommModeHnd @312
+    ExitShareRamCommModeM @313
+    ExtractSerialFromInstanceID @314
+    FT_Close @315 DATA
+    FT_ClrRts @316 DATA
+    FT_CreateDeviceInfoList @317 DATA
+    FT_EE_Read @318 DATA
+    FT_GetComPortNumber @319 DATA
+    FT_GetDeviceInfoDetail @320 DATA
+    FT_GetDriverVersion @321 DATA
+    FT_GetLatencyTimer @322 DATA
+    FT_GetQueueStatus @323 DATA
+    FT_ListDevices @324 DATA
+    FT_Open @325 DATA
+    FT_OpenEx @326 DATA
+    FT_Purge @327 DATA
+    FT_Read @328 DATA
+    FT_ResetDevice @329 DATA
+    FT_SetBaudRate @330 DATA
+    FT_SetBitMode @331 DATA
+    FT_SetDataCharacteristics @332 DATA
+    FT_SetFlowControl @333 DATA
+    FT_SetLatencyTimer @334 DATA
+    FT_SetRts @335 DATA
+    FT_SetTimeouts @336 DATA
+    FT_W32_ClearCommError @337 DATA
+    FT_Write @338 DATA
+    FastFlashCheck @339
+    FastFlashCheckHnd @340
+    FastFlashCheckM @341
+    FindCOMPortBySerial @342
+    Flasher_DownloadConfigurationHnd @343
+    Flasher_DownloadFirmwareHnd @344
+    Flasher_GetFirmwarePackageManifest @345
+    Flasher_GetFirmwarePackageManifestHnd @346
+    Flasher_GetInstalledPackageName @347
+    Flasher_GetInstalledPackageNameHnd @348
+    Flasher_InstallFirmwarePackage @349
+    Flasher_InstallFirmwarePackageHnd @350
+    Flasher_InstallLatestStableFirmwarePackage @351
+    Flasher_InstallLatestStableFirmwarePackageHnd @352
+    Flasher_ListConfigurationsHnd @353
+    Flasher_ListReaderFirmwarePackages @354
+    Flasher_ListReaderFirmwarePackagesHnd @355
+    FrameR @356 DATA
+    FrameS @357 DATA
+    GUID_ACDC_POWER_SOURCE @358 DATA
+    GUID_ACTIVE_POWERSCHEME @359 DATA
+    GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP @360 DATA
+    GUID_ALLOW_AWAYMODE @361 DATA
+    GUID_ALLOW_DISPLAY_REQUIRED @362 DATA
+    GUID_ALLOW_RTC_WAKE @363 DATA
+    GUID_ALLOW_STANDBY_STATES @364 DATA
+    GUID_ALLOW_SYSTEM_REQUIRED @365 DATA
+    GUID_APPLAUNCH_BUTTON @366 DATA
+    GUID_BACKGROUND_TASK_NOTIFICATION @367 DATA
+    GUID_BATTERY_DISCHARGE_ACTION_0 @368 DATA
+    GUID_BATTERY_DISCHARGE_ACTION_1 @369 DATA
+    GUID_BATTERY_DISCHARGE_ACTION_2 @370 DATA
+    GUID_BATTERY_DISCHARGE_ACTION_3 @371 DATA
+    GUID_BATTERY_DISCHARGE_FLAGS_0 @372 DATA
+    GUID_BATTERY_DISCHARGE_FLAGS_1 @373 DATA
+    GUID_BATTERY_DISCHARGE_FLAGS_2 @374 DATA
+    GUID_BATTERY_DISCHARGE_FLAGS_3 @375 DATA
+    GUID_BATTERY_DISCHARGE_LEVEL_0 @376 DATA
+    GUID_BATTERY_DISCHARGE_LEVEL_1 @377 DATA
+    GUID_BATTERY_DISCHARGE_LEVEL_2 @378 DATA
+    GUID_BATTERY_DISCHARGE_LEVEL_3 @379 DATA
+    GUID_BATTERY_PERCENTAGE_REMAINING @380 DATA
+    GUID_BATTERY_SUBGROUP @381 DATA
+    GUID_CONSOLE_DISPLAY_STATE @382 DATA
+    GUID_CRITICAL_POWER_TRANSITION @383 DATA
+    GUID_DEVCLASS_1394 @384 DATA
+    GUID_DEVCLASS_1394DEBUG @385 DATA
+    GUID_DEVCLASS_61883 @386 DATA
+    GUID_DEVCLASS_ADAPTER @387 DATA
+    GUID_DEVCLASS_APMSUPPORT @388 DATA
+    GUID_DEVCLASS_AVC @389 DATA
+    GUID_DEVCLASS_BATTERY @390 DATA
+    GUID_DEVCLASS_BIOMETRIC @391 DATA
+    GUID_DEVCLASS_BLUETOOTH @392 DATA
+    GUID_DEVCLASS_CAMERA @393 DATA
+    GUID_DEVCLASS_CDROM @394 DATA
+    GUID_DEVCLASS_COMPUTEACCELERATOR @395 DATA
+    GUID_DEVCLASS_COMPUTER @396 DATA
+    GUID_DEVCLASS_DECODER @397 DATA
+    GUID_DEVCLASS_DISKDRIVE @398 DATA
+    GUID_DEVCLASS_DISPLAY @399 DATA
+    GUID_DEVCLASS_DOT4 @400 DATA
+    GUID_DEVCLASS_DOT4PRINT @401 DATA
+    GUID_DEVCLASS_EHSTORAGESILO @402 DATA
+    GUID_DEVCLASS_ENUM1394 @403 DATA
+    GUID_DEVCLASS_EXTENSION @404 DATA
+    GUID_DEVCLASS_FDC @405 DATA
+    GUID_DEVCLASS_FIRMWARE @406 DATA
+    GUID_DEVCLASS_FLOPPYDISK @407 DATA
+    GUID_DEVCLASS_FSFILTER_ACTIVITYMONITOR @408 DATA
+    GUID_DEVCLASS_FSFILTER_ANTIVIRUS @409 DATA
+    GUID_DEVCLASS_FSFILTER_BOTTOM @410 DATA
+    GUID_DEVCLASS_FSFILTER_CFSMETADATASERVER @411 DATA
+    GUID_DEVCLASS_FSFILTER_COMPRESSION @412 DATA
+    GUID_DEVCLASS_FSFILTER_CONTENTSCREENER @413 DATA
+    GUID_DEVCLASS_FSFILTER_CONTINUOUSBACKUP @414 DATA
+    GUID_DEVCLASS_FSFILTER_COPYPROTECTION @415 DATA
+    GUID_DEVCLASS_FSFILTER_ENCRYPTION @416 DATA
+    GUID_DEVCLASS_FSFILTER_HSM @417 DATA
+    GUID_DEVCLASS_FSFILTER_INFRASTRUCTURE @418 DATA
+    GUID_DEVCLASS_FSFILTER_OPENFILEBACKUP @419 DATA
+    GUID_DEVCLASS_FSFILTER_PHYSICALQUOTAMANAGEMENT @420 DATA
+    GUID_DEVCLASS_FSFILTER_QUOTAMANAGEMENT @421 DATA
+    GUID_DEVCLASS_FSFILTER_REPLICATION @422 DATA
+    GUID_DEVCLASS_FSFILTER_SECURITYENHANCER @423 DATA
+    GUID_DEVCLASS_FSFILTER_SYSTEM @424 DATA
+    GUID_DEVCLASS_FSFILTER_SYSTEMRECOVERY @425 DATA
+    GUID_DEVCLASS_FSFILTER_TOP @426 DATA
+    GUID_DEVCLASS_FSFILTER_UNDELETE @427 DATA
+    GUID_DEVCLASS_FSFILTER_VIRTUALIZATION @428 DATA
+    GUID_DEVCLASS_GPS @429 DATA
+    GUID_DEVCLASS_HDC @430 DATA
+    GUID_DEVCLASS_HIDCLASS @431 DATA
+    GUID_DEVCLASS_HOLOGRAPHIC @432 DATA
+    GUID_DEVCLASS_IMAGE @433 DATA
+    GUID_DEVCLASS_INFINIBAND @434 DATA
+    GUID_DEVCLASS_INFRARED @435 DATA
+    GUID_DEVCLASS_KEYBOARD @436 DATA
+    GUID_DEVCLASS_LEGACYDRIVER @437 DATA
+    GUID_DEVCLASS_MEDIA @438 DATA
+    GUID_DEVCLASS_MEDIUM_CHANGER @439 DATA
+    GUID_DEVCLASS_MEMORY @440 DATA
+    GUID_DEVCLASS_MODEM @441 DATA
+    GUID_DEVCLASS_MONITOR @442 DATA
+    GUID_DEVCLASS_MOUSE @443 DATA
+    GUID_DEVCLASS_MTD @444 DATA
+    GUID_DEVCLASS_MULTIFUNCTION @445 DATA
+    GUID_DEVCLASS_MULTIPORTSERIAL @446 DATA
+    GUID_DEVCLASS_NET @447 DATA
+    GUID_DEVCLASS_NETCLIENT @448 DATA
+    GUID_DEVCLASS_NETDRIVER @449 DATA
+    GUID_DEVCLASS_NETSERVICE @450 DATA
+    GUID_DEVCLASS_NETTRANS @451 DATA
+    GUID_DEVCLASS_NODRIVER @452 DATA
+    GUID_DEVCLASS_PCMCIA @453 DATA
+    GUID_DEVCLASS_PNPPRINTERS @454 DATA
+    GUID_DEVCLASS_PORTS @455 DATA
+    GUID_DEVCLASS_PRINTER @456 DATA
+    GUID_DEVCLASS_PRINTERUPGRADE @457 DATA
+    GUID_DEVCLASS_PRINTQUEUE @458 DATA
+    GUID_DEVCLASS_PROCESSOR @459 DATA
+    GUID_DEVCLASS_SBP2 @460 DATA
+    GUID_DEVCLASS_SCMDISK @461 DATA
+    GUID_DEVCLASS_SCMVOLUME @462 DATA
+    GUID_DEVCLASS_SCSIADAPTER @463 DATA
+    GUID_DEVCLASS_SECURITYACCELERATOR @464 DATA
+    GUID_DEVCLASS_SENSOR @465 DATA
+    GUID_DEVCLASS_SIDESHOW @466 DATA
+    GUID_DEVCLASS_SMARTCARDREADER @467 DATA
+    GUID_DEVCLASS_SMRDISK @468 DATA
+    GUID_DEVCLASS_SMRVOLUME @469 DATA
+    GUID_DEVCLASS_SOFTWARECOMPONENT @470 DATA
+    GUID_DEVCLASS_SOUND @471 DATA
+    GUID_DEVCLASS_SYSTEM @472 DATA
+    GUID_DEVCLASS_TAPEDRIVE @473 DATA
+    GUID_DEVCLASS_UCM @474 DATA
+    GUID_DEVCLASS_UNKNOWN @475 DATA
+    GUID_DEVCLASS_USB @476 DATA
+    GUID_DEVCLASS_VOLUME @477 DATA
+    GUID_DEVCLASS_VOLUMESNAPSHOT @478 DATA
+    GUID_DEVCLASS_WCEUSBS @479 DATA
+    GUID_DEVCLASS_WPD @480 DATA
+    GUID_DEVICE_IDLE_POLICY @481 DATA
+    GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS @482 DATA
+    GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS @483 DATA
+    GUID_DEVINTERFACE_CDCHANGER @484 DATA
+    GUID_DEVINTERFACE_CDROM @485 DATA
+    GUID_DEVINTERFACE_COMPORT @486 DATA
+    GUID_DEVINTERFACE_DISK @487 DATA
+    GUID_DEVINTERFACE_FLOPPY @488 DATA
+    GUID_DEVINTERFACE_HIDDEN_VOLUME @489 DATA
+    GUID_DEVINTERFACE_MEDIUMCHANGER @490 DATA
+    GUID_DEVINTERFACE_PARTITION @491 DATA
+    GUID_DEVINTERFACE_SCM_PHYSICAL_DEVICE @492 DATA
+    GUID_DEVINTERFACE_SERENUM_BUS_ENUMERATOR @493 DATA
+    GUID_DEVINTERFACE_SERVICE_VOLUME @494 DATA
+    GUID_DEVINTERFACE_SES @495 DATA
+    GUID_DEVINTERFACE_STORAGEPORT @496 DATA
+    GUID_DEVINTERFACE_TAPE @497 DATA
+    GUID_DEVINTERFACE_UNIFIED_ACCESS_RPMB @498 DATA
+    GUID_DEVINTERFACE_VMLUN @499 DATA
+    GUID_DEVINTERFACE_VOLUME @500 DATA
+    GUID_DEVINTERFACE_WRITEONCEDISK @501 DATA
+    GUID_DEVINTERFACE_ZNSDISK @502 DATA
+    GUID_DISK_ADAPTIVE_POWERDOWN @503 DATA
+    GUID_DISK_BURST_IGNORE_THRESHOLD @504 DATA
+    GUID_DISK_COALESCING_POWERDOWN_TIMEOUT @505 DATA
+    GUID_DISK_IDLE_TIMEOUT @506 DATA
+    GUID_DISK_POWERDOWN_TIMEOUT @507 DATA
+    GUID_DISK_SUBGROUP @508 DATA
+    GUID_ENABLE_SWITCH_FORCED_SHUTDOWN @509 DATA
+    GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT @510 DATA
+    GUID_GLOBAL_USER_PRESENCE @511 DATA
+    GUID_HIBERNATE_FASTS4_POLICY @512 DATA
+    GUID_HIBERNATE_TIMEOUT @513 DATA
+    GUID_IDLE_BACKGROUND_TASK @514 DATA
+    GUID_IDLE_RESILIENCY_PERIOD @515 DATA
+    GUID_IDLE_RESILIENCY_SUBGROUP @516 DATA
+    GUID_LIDCLOSE_ACTION @517 DATA
+    GUID_LIDOPEN_POWERSTATE @518 DATA
+    GUID_LIDSWITCH_STATE_CHANGE @519 DATA
+    GUID_LOCK_CONSOLE_ON_WAKE @520 DATA
+    GUID_MAX_POWER_SAVINGS @521 DATA
+    GUID_MIN_POWER_SAVINGS @522 DATA
+    GUID_MONITOR_POWER_ON @523 DATA
+    GUID_NON_ADAPTIVE_INPUT_TIMEOUT @524 DATA
+    GUID_PCIEXPRESS_ASPM_POLICY @525 DATA
+    GUID_PCIEXPRESS_SETTINGS_SUBGROUP @526 DATA
+    GUID_POWERBUTTON_ACTION @527 DATA
+    GUID_POWERSCHEME_PERSONALITY @528 DATA
+    GUID_PROCESSOR_ALLOW_THROTTLING @529 DATA
+    GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR @530 DATA
+    GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD @531 DATA
+    GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING @532 DATA
+    GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY @533 DATA
+    GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD @534 DATA
+    GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME @535 DATA
+    GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY @536 DATA
+    GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD @537 DATA
+    GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME @538 DATA
+    GUID_PROCESSOR_CORE_PARKING_MAX_CORES @539 DATA
+    GUID_PROCESSOR_CORE_PARKING_MIN_CORES @540 DATA
+    GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR @541 DATA
+    GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD @542 DATA
+    GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD @543 DATA
+    GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING @544 DATA
+    GUID_PROCESSOR_DISTRIBUTE_UTILITY @545 DATA
+    GUID_PROCESSOR_IDLESTATE_POLICY @546 DATA
+    GUID_PROCESSOR_IDLE_ALLOW_SCALING @547 DATA
+    GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD @548 DATA
+    GUID_PROCESSOR_IDLE_DISABLE @549 DATA
+    GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD @550 DATA
+    GUID_PROCESSOR_IDLE_STATE_MAXIMUM @551 DATA
+    GUID_PROCESSOR_IDLE_TIME_CHECK @552 DATA
+    GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD @553 DATA
+    GUID_PROCESSOR_PARKING_CORE_OVERRIDE @554 DATA
+    GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD @555 DATA
+    GUID_PROCESSOR_PARKING_PERF_STATE @556 DATA
+    GUID_PROCESSOR_PERFSTATE_POLICY @557 DATA
+    GUID_PROCESSOR_PERF_BOOST_MODE @558 DATA
+    GUID_PROCESSOR_PERF_BOOST_POLICY @559 DATA
+    GUID_PROCESSOR_PERF_DECREASE_POLICY @560 DATA
+    GUID_PROCESSOR_PERF_DECREASE_THRESHOLD @561 DATA
+    GUID_PROCESSOR_PERF_DECREASE_TIME @562 DATA
+    GUID_PROCESSOR_PERF_HISTORY @563 DATA
+    GUID_PROCESSOR_PERF_INCREASE_POLICY @564 DATA
+    GUID_PROCESSOR_PERF_INCREASE_THRESHOLD @565 DATA
+    GUID_PROCESSOR_PERF_INCREASE_TIME @566 DATA
+    GUID_PROCESSOR_PERF_LATENCY_HINT @567 DATA
+    GUID_PROCESSOR_PERF_TIME_CHECK @568 DATA
+    GUID_PROCESSOR_SETTINGS_SUBGROUP @569 DATA
+    GUID_PROCESSOR_THROTTLE_MAXIMUM @570 DATA
+    GUID_PROCESSOR_THROTTLE_MINIMUM @571 DATA
+    GUID_PROCESSOR_THROTTLE_POLICY @572 DATA
+    GUID_SCM_PD_HEALTH_NOTIFICATION @573 DATA
+    GUID_SCM_PD_PASSTHROUGH_INVDIMM @574 DATA
+    GUID_SESSION_DISPLAY_STATUS @575 DATA
+    GUID_SESSION_USER_PRESENCE @576 DATA
+    GUID_SLEEPBUTTON_ACTION @577 DATA
+    GUID_SLEEP_IDLE_THRESHOLD @578 DATA
+    GUID_SLEEP_SUBGROUP @579 DATA
+    GUID_STANDBY_TIMEOUT @580 DATA
+    GUID_SYSTEM_AWAYMODE @581 DATA
+    GUID_SYSTEM_BUTTON_SUBGROUP @582 DATA
+    GUID_SYSTEM_COOLING_POLICY @583 DATA
+    GUID_TYPICAL_POWER_SAVINGS @584 DATA
+    GUID_UNATTEND_SLEEP_TIMEOUT @585 DATA
+    GUID_USERINTERFACEBUTTON_ACTION @586 DATA
+    GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS @587 DATA
+    GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE @588 DATA
+    GUID_VIDEO_ADAPTIVE_POWERDOWN @589 DATA
+    GUID_VIDEO_ANNOYANCE_TIMEOUT @590 DATA
+    GUID_VIDEO_CONSOLE_LOCK_TIMEOUT @591 DATA
+    GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS @592 DATA
+    GUID_VIDEO_DIM_TIMEOUT @593 DATA
+    GUID_VIDEO_POWERDOWN_TIMEOUT @594 DATA
+    GUID_VIDEO_SUBGROUP @595 DATA
+    GetATECC608ConfigZone @596
+    GetATECC608ConfigZoneHnd @597
+    GetATECC608ConfigZoneM @598
+    GetATECC608InfoRevision @599
+    GetATECC608InfoRevisionHnd @600
+    GetATECC608InfoRevisionM @601
+    GetATECC608OtpZone @602
+    GetATECC608OtpZoneHnd @603
+    GetATECC608OtpZoneM @604
+    GetATECC608SettingsHnd @605
+    GetATECC608ZonesLockStatus @606
+    GetATECC608ZonesLockStatusHnd @607
+    GetATECC608ZonesLockStatusM @608
+    GetAdHocEmulationParams @609
+    GetAdHocEmulationParamsHnd @610
+    GetAdHocEmulationParamsM @611
+    GetAndTestResponseData @612
+    GetAndTestResponseIntro @613
+    GetAndTestResponseIntroSam @614
+    GetAntiCollisionStatus @615
+    GetAntiCollisionStatusHnd @616
+    GetAntiCollisionStatusM @617
+    GetAsyncCardIdSendConfig @618
+    GetAsyncCardIdSendConfigEx @619
+    GetAsyncCardIdSendConfigExHnd @620
+    GetAsyncCardIdSendConfigExM @621
+    GetAsyncCardIdSendConfigHnd @622
+    GetAsyncCardIdSendConfigM @623
+    GetAsyncCardJsonSendConfig @624
+    GetAsyncCardJsonSendConfigHnd @625
+    GetAsyncCardJsonSendConfigM @626
+    GetAtqHnd @627
+    GetAtqaSak @628
+    GetAtqaSakM @629
+    GetBuildNumber @630
+    GetBuildNumberHnd @631
+    GetBuildNumberM @632
+    GetCardId @633
+    GetCardIdEx @634
+    GetCardIdExHnd @635
+    GetCardIdExM @636
+    GetCardIdHnd @637
+    GetCardIdM @638
+    GetCardInfo @639
+    GetCardInfoHnd @640
+    GetCardInfoM @641
+    GetCardManufacturer @642
+    GetCardManufacturerHnd @643
+    GetCardManufacturerM @644
+    GetCardSize @645
+    GetCardSizeHnd @646
+    GetCardSizeM @647
+    GetChecksumFragment @648
+    GetChecksum_local @649
+    GetCustomUiConfig @650
+    GetCustomUiConfigHnd @651
+    GetCustomUiConfigM @652
+    GetDeviceDetails @653
+    GetDeviceDetailsByCOM @654
+    GetDeviceInstanceIDAndSerialByCOM @655
+    GetDiscoveryLoopSetup @656
+    GetDiscoveryLoopSetupHnd @657
+    GetDiscoveryLoopSetupM @658
+    GetDisplayIntensity @659
+    GetDisplayIntensityHnd @660
+    GetDisplayIntensityM @661
+    GetDllVersion @662
+    GetDllVersionStr @663
+    GetDlogicCardType @664
+    GetDlogicCardTypeHnd @665
+    GetDlogicCardTypeM @666
+    GetExternalFieldState @667
+    GetExternalFieldStateHnd @668
+    GetExternalFieldStateM @669
+    GetFeaturesSetupHnd @670
+    GetFtdiDriverVersion @671
+    GetFtdiDriverVersionM @672
+    GetFtdiDriverVersionStr @673
+    GetFtdiDriverVersionStrM @674
+    GetI2cDevicesHnd @675
+    GetI2cDevicesStatus @676
+    GetI2cDevicesStatusM @677
+    GetLastCardIdEx @678
+    GetLastCardIdExHnd @679
+    GetLastCardIdExM @680
+    GetLicenseRequestData @681
+    GetMimeType @682
+    GetMobileAdditionalData @683
+    GetMobileAdditionalDataHnd @684
+    GetMobileAdditionalDataM @685
+    GetMobileUniqueIdAid @686
+    GetMobileUniqueIdAidHnd @687
+    GetMobileUniqueIdAidM @688
+    GetNfcT2TVersion @689
+    GetNfcT2TVersionHnd @690
+    GetNfcT2TVersionM @691
+    GetReaderDescription @692
+    GetReaderDescriptionHnd @693
+    GetReaderDescriptionM @694
+    GetReaderFirmwareVersion @695
+    GetReaderFirmwareVersionHnd @696
+    GetReaderFirmwareVersionM @697
+    GetReaderHardwareVersion @698
+    GetReaderHardwareVersionHnd @699
+    GetReaderHardwareVersionM @700
+    GetReaderInfo @701
+    GetReaderInfoStr @702
+    GetReaderInfoStrHnd @703
+    GetReaderLockStatus @704
+    GetReaderLockStatusHnd @705
+    GetReaderLockStatusM @706
+    GetReaderParameters @707
+    GetReaderParameters2Hnd @708
+    GetReaderParametersDefaultBaudrate @709
+    GetReaderParametersDefaultBaudrateHnd @710
+    GetReaderParametersDefaultBaudrateM @711
+    GetReaderParametersHnd @712
+    GetReaderParametersM @713
+    GetReaderParametersPN7462 @714
+    GetReaderParametersPN7462_M @715
+    GetReaderProMode @716
+    GetReaderProModeHnd @717
+    GetReaderProModeM @718
+    GetReaderSerialDescription @719
+    GetReaderSerialDescriptionHnd @720
+    GetReaderSerialDescriptionM @721
+    GetReaderSerialNumber @722
+    GetReaderSerialNumberHnd @723
+    GetReaderSerialNumberM @724
+    GetReaderStatus @725
+    GetReaderStatusEx @726
+    GetReaderStatusExHnd @727
+    GetReaderStatusExM @728
+    GetReaderStatusHnd @729
+    GetReaderStatusM @730
+    GetReaderTime @731
+    GetReaderTimeHnd @732
+    GetReaderTimeM @733
+    GetReaderType @734
+    GetReaderTypeHnd @735
+    GetReaderTypeM @736
+    GetRfAnalogRegistersISO14443_212 @737
+    GetRfAnalogRegistersISO14443_212Hnd @738
+    GetRfAnalogRegistersISO14443_212M @739
+    GetRfAnalogRegistersISO14443_424 @740
+    GetRfAnalogRegistersISO14443_424Hnd @741
+    GetRfAnalogRegistersISO14443_424M @742
+    GetRfAnalogRegistersPN7462 @743
+    GetRfAnalogRegistersPN7462Hnd @744
+    GetRfAnalogRegistersPN7462_M @745
+    GetRfAnalogRegistersTypeA @746
+    GetRfAnalogRegistersTypeAHnd @747
+    GetRfAnalogRegistersTypeAM @748
+    GetRfAnalogRegistersTypeATrans @749
+    GetRfAnalogRegistersTypeATransHnd @750
+    GetRfAnalogRegistersTypeATransM @751
+    GetRfAnalogRegistersTypeB @752
+    GetRfAnalogRegistersTypeBHnd @753
+    GetRfAnalogRegistersTypeBM @754
+    GetRfAnalogRegistersTypeBTrans @755
+    GetRfAnalogRegistersTypeBTransHnd @756
+    GetRfAnalogRegistersTypeBTransM @757
+    GetRgbIntensity @758
+    GetRgbIntensityM @759
+    GetServiceData @760
+    GetServiceDataHnd @761
+    GetServiceDataM @762
+    GetSpeedParameters @763
+    GetSpeedParametersHnd @764
+    GetSpeedParametersM @765
+    GetUID @766
+    GreenLedBlinkingTurnOff @767
+    GreenLedBlinkingTurnOffHnd @768
+    GreenLedBlinkingTurnOffM @769
+    GreenLedBlinkingTurnOn @770
+    GreenLedBlinkingTurnOnHnd @771
+    GreenLedBlinkingTurnOnM @772
+    IID_AsyncIAdviseSink @773 DATA
+    IID_AsyncIAdviseSink2 @774 DATA
+    IID_AsyncIMultiQI @775 DATA
+    IID_AsyncIUnknown @776 DATA
+    IID_IAddrExclusionControl @777 DATA
+    IID_IAddrTrackingControl @778 DATA
+    IID_IAdviseSink @779 DATA
+    IID_IAdviseSink2 @780 DATA
+    IID_IAgileObject @781 DATA
+    IID_IAgileReference @782 DATA
+    IID_IApartmentShutdown @783 DATA
+    IID_IAsyncManager @784 DATA
+    IID_IAsyncRpcChannelBuffer @785 DATA
+    IID_IAuthenticate @786 DATA
+    IID_IAuthenticateEx @787 DATA
+    IID_IBindCallbackRedirect @788 DATA
+    IID_IBindCtx @789 DATA
+    IID_IBindHost @790 DATA
+    IID_IBindProtocol @791 DATA
+    IID_IBindStatusCallback @792 DATA
+    IID_IBindStatusCallbackEx @793 DATA
+    IID_IBinding @794 DATA
+    IID_IBlockingLock @795 DATA
+    IID_ICallFactory @796 DATA
+    IID_ICancelMethodCalls @797 DATA
+    IID_ICatalogFileInfo @798 DATA
+    IID_IChannelHook @799 DATA
+    IID_IClassActivator @800 DATA
+    IID_IClassFactory @801 DATA
+    IID_IClientSecurity @802 DATA
+    IID_ICodeInstall @803 DATA
+    IID_IComThreadingInfo @804 DATA
+    IID_IContinue @805 DATA
+    IID_ICreateErrorInfo @806 DATA
+    IID_ICreateTypeInfo @807 DATA
+    IID_ICreateTypeInfo2 @808 DATA
+    IID_ICreateTypeLib @809 DATA
+    IID_ICreateTypeLib2 @810 DATA
+    IID_IDataAdviseHolder @811 DATA
+    IID_IDataFilter @812 DATA
+    IID_IDataObject @813 DATA
+    IID_IDirectWriterLock @814 DATA
+    IID_IDispatch @815 DATA
+    IID_IDropSource @816 DATA
+    IID_IDropSourceNotify @817 DATA
+    IID_IDropTarget @818 DATA
+    IID_IDummyHICONIncluder @819 DATA
+    IID_IEncodingFilterFactory @820 DATA
+    IID_IEnumFORMATETC @821 DATA
+    IID_IEnumMoniker @822 DATA
+    IID_IEnumOLEVERB @823 DATA
+    IID_IEnumSTATDATA @824 DATA
+    IID_IEnumSTATPROPSETSTG @825 DATA
+    IID_IEnumSTATPROPSTG @826 DATA
+    IID_IEnumSTATSTG @827 DATA
+    IID_IEnumString @828 DATA
+    IID_IEnumUnknown @829 DATA
+    IID_IEnumVARIANT @830 DATA
+    IID_IErrorInfo @831 DATA
+    IID_IErrorLog @832 DATA
+    IID_IExternalConnection @833 DATA
+    IID_IFastRundown @834 DATA
+    IID_IFillLockBytes @835 DATA
+    IID_IForegroundTransfer @836 DATA
+    IID_IGetBindHandle @837 DATA
+    IID_IGlobalInterfaceTable @838 DATA
+    IID_IGlobalOptions @839 DATA
+    IID_IHttpNegotiate @840 DATA
+    IID_IHttpNegotiate2 @841 DATA
+    IID_IHttpNegotiate3 @842 DATA
+    IID_IHttpSecurity @843 DATA
+    IID_IInitializeSpy @844 DATA
+    IID_IInternalUnknown @845 DATA
+    IID_IInternet @846 DATA
+    IID_IInternetBindInfo @847 DATA
+    IID_IInternetBindInfoEx @848 DATA
+    IID_IInternetHostSecurityManager @849 DATA
+    IID_IInternetPriority @850 DATA
+    IID_IInternetProtocol @851 DATA
+    IID_IInternetProtocolEx @852 DATA
+    IID_IInternetProtocolInfo @853 DATA
+    IID_IInternetProtocolRoot @854 DATA
+    IID_IInternetProtocolSink @855 DATA
+    IID_IInternetProtocolSinkStackable @856 DATA
+    IID_IInternetSecurityManager @857 DATA
+    IID_IInternetSecurityManagerEx @858 DATA
+    IID_IInternetSecurityManagerEx2 @859 DATA
+    IID_IInternetSecurityMgrSite @860 DATA
+    IID_IInternetSession @861 DATA
+    IID_IInternetThreadSwitch @862 DATA
+    IID_IInternetZoneManager @863 DATA
+    IID_IInternetZoneManagerEx @864 DATA
+    IID_IInternetZoneManagerEx2 @865 DATA
+    IID_ILayoutStorage @866 DATA
+    IID_ILockBytes @867 DATA
+    IID_IMalloc @868 DATA
+    IID_IMallocSpy @869 DATA
+    IID_IMarshal @870 DATA
+    IID_IMarshal2 @871 DATA
+    IID_IMarshalingStream @872 DATA
+    IID_IMessageFilter @873 DATA
+    IID_IMoniker @874 DATA
+    IID_IMonikerProp @875 DATA
+    IID_IMultiQI @876 DATA
+    IID_INoMarshal @877 DATA
+    IID_IOleAdviseHolder @878 DATA
+    IID_IOleCache @879 DATA
+    IID_IOleCache2 @880 DATA
+    IID_IOleCacheControl @881 DATA
+    IID_IOleClientSite @882 DATA
+    IID_IOleContainer @883 DATA
+    IID_IOleInPlaceActiveObject @884 DATA
+    IID_IOleInPlaceFrame @885 DATA
+    IID_IOleInPlaceObject @886 DATA
+    IID_IOleInPlaceSite @887 DATA
+    IID_IOleInPlaceUIWindow @888 DATA
+    IID_IOleItemContainer @889 DATA
+    IID_IOleLink @890 DATA
+    IID_IOleObject @891 DATA
+    IID_IOleWindow @892 DATA
+    IID_IOplockStorage @893 DATA
+    IID_IPSFactoryBuffer @894 DATA
+    IID_IParseDisplayName @895 DATA
+    IID_IPersist @896 DATA
+    IID_IPersistFile @897 DATA
+    IID_IPersistMoniker @898 DATA
+    IID_IPersistStorage @899 DATA
+    IID_IPersistStream @900 DATA
+    IID_IPipeByte @901 DATA
+    IID_IPipeDouble @902 DATA
+    IID_IPipeLong @903 DATA
+    IID_IPrintDialogCallback @904 DATA
+    IID_IPrintDialogServices @905 DATA
+    IID_IProcessInitControl @906 DATA
+    IID_IProcessLock @907 DATA
+    IID_IProgressNotify @908 DATA
+    IID_IPropertyBag @909 DATA
+    IID_IPropertySetStorage @910 DATA
+    IID_IPropertyStorage @911 DATA
+    IID_IROTData @912 DATA
+    IID_IRecordInfo @913 DATA
+    IID_IReleaseMarshalBuffers @914 DATA
+    IID_IRootStorage @915 DATA
+    IID_IRpcChannelBuffer @916 DATA
+    IID_IRpcChannelBuffer2 @917 DATA
+    IID_IRpcChannelBuffer3 @918 DATA
+    IID_IRpcHelper @919 DATA
+    IID_IRpcOptions @920 DATA
+    IID_IRpcProxyBuffer @921 DATA
+    IID_IRpcStubBuffer @922 DATA
+    IID_IRpcSyntaxNegotiate @923 DATA
+    IID_IRunnableObject @924 DATA
+    IID_IRunningObjectTable @925 DATA
+    IID_ISequentialStream @926 DATA
+    IID_IServerSecurity @927 DATA
+    IID_IServiceProvider @928 DATA
+    IID_ISoftDistExt @929 DATA
+    IID_IStdMarshalInfo @930 DATA
+    IID_IStorage @931 DATA
+    IID_IStream @932 DATA
+    IID_ISupportErrorInfo @933 DATA
+    IID_ISurrogate @934 DATA
+    IID_ISurrogateService @935 DATA
+    IID_ISynchronize @936 DATA
+    IID_ISynchronizeContainer @937 DATA
+    IID_ISynchronizeEvent @938 DATA
+    IID_ISynchronizeHandle @939 DATA
+    IID_ISynchronizeMutex @940 DATA
+    IID_IThumbnailExtractor @941 DATA
+    IID_ITimeAndNoticeControl @942 DATA
+    IID_ITypeChangeEvents @943 DATA
+    IID_ITypeComp @944 DATA
+    IID_ITypeFactory @945 DATA
+    IID_ITypeInfo @946 DATA
+    IID_ITypeInfo2 @947 DATA
+    IID_ITypeLib @948 DATA
+    IID_ITypeLib2 @949 DATA
+    IID_ITypeMarshal @950 DATA
+    IID_IUnknown @951 DATA
+    IID_IUri @952 DATA
+    IID_IUriBuilder @953 DATA
+    IID_IUriBuilderFactory @954 DATA
+    IID_IUriContainer @955 DATA
+    IID_IUrlMon @956 DATA
+    IID_IViewObject @957 DATA
+    IID_IViewObject2 @958 DATA
+    IID_IWaitMultiple @959 DATA
+    IID_IWinInetCacheHints @960 DATA
+    IID_IWinInetCacheHints2 @961 DATA
+    IID_IWinInetFileStream @962 DATA
+    IID_IWinInetHttpInfo @963 DATA
+    IID_IWinInetHttpTimeouts @964 DATA
+    IID_IWinInetInfo @965 DATA
+    IID_IWindowForBindingUI @966 DATA
+    IID_IWrappedProtocol @967 DATA
+    IID_IXMLAttribute @968 DATA
+    IID_IXMLDOMAttribute @969 DATA
+    IID_IXMLDOMCDATASection @970 DATA
+    IID_IXMLDOMCharacterData @971 DATA
+    IID_IXMLDOMComment @972 DATA
+    IID_IXMLDOMDocument @973 DATA
+    IID_IXMLDOMDocumentFragment @974 DATA
+    IID_IXMLDOMDocumentType @975 DATA
+    IID_IXMLDOMElement @976 DATA
+    IID_IXMLDOMEntity @977 DATA
+    IID_IXMLDOMEntityReference @978 DATA
+    IID_IXMLDOMImplementation @979 DATA
+    IID_IXMLDOMNamedNodeMap @980 DATA
+    IID_IXMLDOMNode @981 DATA
+    IID_IXMLDOMNodeList @982 DATA
+    IID_IXMLDOMNotation @983 DATA
+    IID_IXMLDOMParseError @984 DATA
+    IID_IXMLDOMProcessingInstruction @985 DATA
+    IID_IXMLDOMText @986 DATA
+    IID_IXMLDSOControl @987 DATA
+    IID_IXMLDocument @988 DATA
+    IID_IXMLDocument2 @989 DATA
+    IID_IXMLElement @990 DATA
+    IID_IXMLElement2 @991 DATA
+    IID_IXMLElementCollection @992 DATA
+    IID_IXMLElementNotificationSink @993 DATA
+    IID_IXMLError @994 DATA
+    IID_IXMLHttpRequest @995 DATA
+    IID_IZoneIdentifier @996 DATA
+    IncrementCounter @997
+    IncrementCounterHnd @998
+    IncrementCounterM @999
+    InitialHandshaking @1000
+    IsAnimationPlaying @1001
+    IsAnimationPlayingHnd @1002
+    IsAnimationPlayingM @1003
+    IsUSBDevicePresent @1004
+    JCAppDeleteEcKeyPair @1005
+    JCAppDeleteEcKeyPairHnd @1006
+    JCAppDeleteEcKeyPairM @1007
+    JCAppDeleteRsaKeyPair @1008
+    JCAppDeleteRsaKeyPairHnd @1009
+    JCAppDeleteRsaKeyPairM @1010
+    JCAppGenerateKeyPair @1011
+    JCAppGenerateKeyPairHnd @1012
+    JCAppGenerateKeyPairM @1013
+    JCAppGenerateSignature @1014
+    JCAppGenerateSignatureHnd @1015
+    JCAppGenerateSignatureM @1016
+    JCAppGetEcKeySizeBits @1017
+    JCAppGetEcKeySizeBitsHnd @1018
+    JCAppGetEcKeySizeBitsM @1019
+    JCAppGetEcPublicKey @1020
+    JCAppGetEcPublicKeyHnd @1021
+    JCAppGetEcPublicKeyM @1022
+    JCAppGetErrorDescription @1023
+    JCAppGetObj @1024
+    JCAppGetObjHnd @1025
+    JCAppGetObjId @1026
+    JCAppGetObjIdHnd @1027
+    JCAppGetObjIdM @1028
+    JCAppGetObjM @1029
+    JCAppGetObjSubject @1030
+    JCAppGetObjSubjectHnd @1031
+    JCAppGetObjSubjectM @1032
+    JCAppGetPinTriesRemaining @1033
+    JCAppGetPinTriesRemainingHnd @1034
+    JCAppGetPinTriesRemainingM @1035
+    JCAppGetRsaPublicKey @1036
+    JCAppGetRsaPublicKeyHnd @1037
+    JCAppGetRsaPublicKeyM @1038
+    JCAppGetSignature @1039
+    JCAppInvalidateCert @1040
+    JCAppInvalidateCertHnd @1041
+    JCAppInvalidateCertM @1042
+    JCAppLogin @1043
+    JCAppLoginHnd @1044
+    JCAppLoginM @1045
+    JCAppPinChange @1046
+    JCAppPinChangeHnd @1047
+    JCAppPinChangeM @1048
+    JCAppPinDisable @1049
+    JCAppPinDisableHnd @1050
+    JCAppPinDisableM @1051
+    JCAppPinEnable @1052
+    JCAppPinEnableHnd @1053
+    JCAppPinEnableM @1054
+    JCAppPinUnblock @1055
+    JCAppPinUnblockHnd @1056
+    JCAppPinUnblockM @1057
+    JCAppPutObj @1058
+    JCAppPutObjHnd @1059
+    JCAppPutObjM @1060
+    JCAppPutObjSubject @1061
+    JCAppPutObjSubjectHnd @1062
+    JCAppPutObjSubjectM @1063
+    JCAppPutPrivateKey @1064
+    JCAppPutPrivateKeyHnd @1065
+    JCAppPutPrivateKeyM @1066
+    JCAppSelectByAid @1067
+    JCAppSelectByAidHnd @1068
+    JCAppSelectByAidM @1069
+    JCAppSignatureBegin @1070
+    JCAppSignatureBeginHnd @1071
+    JCAppSignatureBeginM @1072
+    JCAppSignatureEnd @1073
+    JCAppSignatureEndHnd @1074
+    JCAppSignatureEndM @1075
+    JCAppSignatureUpdate @1076
+    JCAppSignatureUpdateHnd @1077
+    JCAppSignatureUpdateM @1078
+    JCCheckEcdsaKeySize @1079
+    JCCheckEcdsaOnCardKeyGen @1080
+    JCCheckRsaKeySize @1081
+    JCCheckRsaOnCardKeyGen @1082
+    JCCheckSignerAlgorithms @1083
+    JCStorageDeleteFile @1084
+    JCStorageDeleteFileHnd @1085
+    JCStorageDeleteFileM @1086
+    JCStorageGetFileSize @1087
+    JCStorageGetFileSizeHnd @1088
+    JCStorageGetFileSizeM @1089
+    JCStorageGetFilesListSize @1090
+    JCStorageGetFilesListSizeHnd @1091
+    JCStorageGetFilesListSizeM @1092
+    JCStorageListFiles @1093
+    JCStorageListFilesHnd @1094
+    JCStorageListFilesM @1095
+    JCStorageReadFile @1096
+    JCStorageReadFileHnd @1097
+    JCStorageReadFileM @1098
+    JCStorageReadFileToFileSystem @1099
+    JCStorageReadFileToFileSystemHnd @1100
+    JCStorageReadFileToFileSystemM @1101
+    JCStorageWriteFile @1102
+    JCStorageWriteFileFromFileSystem @1103
+    JCStorageWriteFileFromFileSystemHnd @1104
+    JCStorageWriteFileFromFileSystemM @1105
+    JCStorageWriteFileHnd @1106
+    JCStorageWriteFileM @1107
+    JSONEscapeString @1108
+    KARATSUBA_MUL_CUTOFF @1109 DATA
+    KARATSUBA_SQR_CUTOFF @1110 DATA
+    LIBID_MSXML @1111 DATA
+    LinRowRead @1112
+    LinRowReadHnd @1113
+    LinRowReadM @1114
+    LinRowRead_AKM1 @1115
+    LinRowRead_AKM1Hnd @1116
+    LinRowRead_AKM1M @1117
+    LinRowRead_AKM2 @1118
+    LinRowRead_AKM2Hnd @1119
+    LinRowRead_AKM2M @1120
+    LinRowRead_PK @1121
+    LinRowRead_PKHnd @1122
+    LinRowRead_PKM @1123
+    LinearFormatCard @1124
+    LinearFormatCardHnd @1125
+    LinearFormatCardM @1126
+    LinearFormatCard_AKM1 @1127
+    LinearFormatCard_AKM1Hnd @1128
+    LinearFormatCard_AKM1M @1129
+    LinearFormatCard_AKM2 @1130
+    LinearFormatCard_AKM2Hnd @1131
+    LinearFormatCard_AKM2M @1132
+    LinearFormatCard_PK @1133
+    LinearFormatCard_PKHnd @1134
+    LinearFormatCard_PKM @1135
+    LinearRead @1136
+    LinearReadHnd @1137
+    LinearReadM @1138
+    LinearReadSamKey @1139
+    LinearReadSamKeyHnd @1140
+    LinearReadSamKeyM @1141
+    LinearRead_AKM1 @1142
+    LinearRead_AKM1Hnd @1143
+    LinearRead_AKM1M @1144
+    LinearRead_AKM2 @1145
+    LinearRead_AKM2Hnd @1146
+    LinearRead_AKM2M @1147
+    LinearRead_PK @1148
+    LinearRead_PKHnd @1149
+    LinearRead_PKM @1150
+    LinearWrite @1151
+    LinearWriteHnd @1152
+    LinearWriteM @1153
+    LinearWriteSamKey @1154
+    LinearWriteSamKeyHnd @1155
+    LinearWriteSamKeyM @1156
+    LinearWrite_AKM1 @1157
+    LinearWrite_AKM1Hnd @1158
+    LinearWrite_AKM1M @1159
+    LinearWrite_AKM2 @1160
+    LinearWrite_AKM2Hnd @1161
+    LinearWrite_AKM2M @1162
+    LinearWrite_PK @1163
+    LinearWrite_PKHnd @1164
+    LinearWrite_PKM @1165
+    ListCards @1166
+    ListCardsHnd @1167
+    ListCardsM @1168
+    ListUSBDevices @1169
+    LoadAnimation @1170
+    LoadAnimationHnd @1171
+    LoadAnimationM @1172
+    LoadFTD2XXLibrary @1173
+    MFP_AesAuthSecurityLevel1 @1174
+    MFP_AesAuthSecurityLevel1Hnd @1175
+    MFP_AesAuthSecurityLevel1M @1176
+    MFP_AesAuthSecurityLevel1_PK @1177
+    MFP_AesAuthSecurityLevel1_PKHnd @1178
+    MFP_AesAuthSecurityLevel1_PKM @1179
+    MFP_ChangeConfigurationKey @1180
+    MFP_ChangeConfigurationKeyHnd @1181
+    MFP_ChangeConfigurationKeyM @1182
+    MFP_ChangeConfigurationKeySamHnd @1183
+    MFP_ChangeConfigurationKeySamKey @1184
+    MFP_ChangeConfigurationKeySamKeyM @1185
+    MFP_ChangeConfigurationKey_PK @1186
+    MFP_ChangeConfigurationKey_PKHnd @1187
+    MFP_ChangeConfigurationKey_PKM @1188
+    MFP_ChangeMasterKey @1189
+    MFP_ChangeMasterKeyHnd @1190
+    MFP_ChangeMasterKeyM @1191
+    MFP_ChangeMasterKeySamHnd @1192
+    MFP_ChangeMasterKeySamKey @1193
+    MFP_ChangeMasterKeySamKeyM @1194
+    MFP_ChangeMasterKey_PK @1195
+    MFP_ChangeMasterKey_PKHnd @1196
+    MFP_ChangeMasterKey_PKM @1197
+    MFP_ChangeSectorExtKey @1198
+    MFP_ChangeSectorExtKeyM @1199
+    MFP_ChangeSectorKey @1200
+    MFP_ChangeSectorKeyExt_PK @1201
+    MFP_ChangeSectorKeyExt_PKM @1202
+    MFP_ChangeSectorKeyHnd @1203
+    MFP_ChangeSectorKeyM @1204
+    MFP_ChangeSectorKeySamExtKey @1205
+    MFP_ChangeSectorKeySamExtKeyM @1206
+    MFP_ChangeSectorKeySamHnd @1207
+    MFP_ChangeSectorKeySamKey @1208
+    MFP_ChangeSectorKeySamKeyM @1209
+    MFP_ChangeSectorKey_PK @1210
+    MFP_ChangeSectorKey_PKHnd @1211
+    MFP_ChangeSectorKey_PKM @1212
+    MFP_ChangeVcPollingEncKey @1213
+    MFP_ChangeVcPollingEncKeyHnd @1214
+    MFP_ChangeVcPollingEncKeyM @1215
+    MFP_ChangeVcPollingEncKeySamHnd @1216
+    MFP_ChangeVcPollingEncKeySamKey @1217
+    MFP_ChangeVcPollingEncKeySamKeyM @1218
+    MFP_ChangeVcPollingEncKey_PK @1219
+    MFP_ChangeVcPollingEncKey_PKHnd @1220
+    MFP_ChangeVcPollingEncKey_PKM @1221
+    MFP_ChangeVcPollingMacKey @1222
+    MFP_ChangeVcPollingMacKeyHnd @1223
+    MFP_ChangeVcPollingMacKeyM @1224
+    MFP_ChangeVcPollingMacKeySamHnd @1225
+    MFP_ChangeVcPollingMacKeySamKey @1226
+    MFP_ChangeVcPollingMacKeySamKeyM @1227
+    MFP_ChangeVcPollingMacKey_PK @1228
+    MFP_ChangeVcPollingMacKey_PKHnd @1229
+    MFP_ChangeVcPollingMacKey_PKM @1230
+    MFP_CommitPerso @1231
+    MFP_CommitPersoHnd @1232
+    MFP_CommitPersoM @1233
+    MFP_Error_codes @1234
+    MFP_EvGetUid @1235
+    MFP_EvGetUidHnd @1236
+    MFP_EvGetUidM @1237
+    MFP_EvGetUidSamHnd @1238
+    MFP_EvGetUidSamKey @1239
+    MFP_EvGetUidSamKeyM @1240
+    MFP_EvGetUid_PK @1241
+    MFP_EvGetUid_PKHnd @1242
+    MFP_EvGetUid_PKM @1243
+    MFP_FieldConfigurationSet @1244
+    MFP_FieldConfigurationSetHnd @1245
+    MFP_FieldConfigurationSetM @1246
+    MFP_FieldConfigurationSetSamHnd @1247
+    MFP_FieldConfigurationSetSamKey @1248
+    MFP_FieldConfigurationSetSamKeyM @1249
+    MFP_FieldConfigurationSet_PK @1250
+    MFP_FieldConfigurationSet_PKHnd @1251
+    MFP_FieldConfigurationSet_PKM @1252
+    MFP_GetUid @1253
+    MFP_GetUidHnd @1254
+    MFP_GetUidM @1255
+    MFP_GetUidSamHnd @1256
+    MFP_GetUidSamKey @1257
+    MFP_GetUidSamKeyM @1258
+    MFP_GetUid_PK @1259
+    MFP_GetUid_PKHnd @1260
+    MFP_GetUid_PKM @1261
+    MFP_PersonalizationMinimal @1262
+    MFP_PersonalizationMinimalHnd @1263
+    MFP_PersonalizationMinimalM @1264
+    MFP_SwitchToSecurityLevel3 @1265
+    MFP_SwitchToSecurityLevel3Hnd @1266
+    MFP_SwitchToSecurityLevel3M @1267
+    MFP_SwitchToSecurityLevel3_PK @1268
+    MFP_SwitchToSecurityLevel3_PKHnd @1269
+    MFP_SwitchToSecurityLevel3_PKM @1270
+    MFP_WritePerso @1271
+    MFP_WritePersoHnd @1272
+    MFP_WritePersoM @1273
+    MRTDAppSelectAndAuthenticateBac @1274
+    MRTDAppSelectAndAuthenticateBacHnd @1275
+    MRTDAppSelectAndAuthenticateBacM @1276
+    MRTDFileReadBacToHeap @1277
+    MRTDFileReadBacToHeapHnd @1278
+    MRTDFileReadBacToHeapM @1279
+    MRTDGetDGTagListFromCOM @1280
+    MRTDGetDgIndex @1281
+    MRTDGetDgName @1282
+    MRTDGetImageFromDG2 @1283
+    MRTDGetImageFromDG2ToFile @1284
+    MRTDGetImageFromDG7 @1285
+    MRTDGetImageFromDG7ToFile @1286
+    MRTDParseDG1ToHeap @1287
+    MRTDValidate @1288
+    MRTDValidateHnd @1289
+    MRTDValidateM @1290
+    MRTD_DG_To_JSON_Heap @1291
+    MRTD_MRZCheck @1292
+    MRTD_MRZDataToMRZProtoKey @1293
+    MRTD_MRZDetectFormat @1294
+    MRTD_MRZSubjacentCheck @1295
+    MRTD_MRZSubjacentToMRZProtoKey @1296
+    MRTD_ReadDocumentData @1297
+    MRTD_ReadDocumentDataEx @1298
+    MRTD_ReadDocumentDataHnd @1299
+    MRTD_SOD_CertToHeap @1300
+    MRTD_SOD_CertToHeapHnd @1301
+    MRTD_SOD_CertToHeapM @1302
+    MRTD_SessionClose @1303
+    MRTD_SessionCloseHnd @1304
+    MRTD_SessionInit @1305
+    MRTD_SessionInitHnd @1306
+    MRZDataToJSON @1307
+    MRZSprintfDataTD1Format @1308
+    MRZSprintfDataTD2Format @1309
+    MRZSprintfDataTD3Format @1310
+    MRZToDate @1311
+    MRZToSpace @1312
+    MRZToSpaceTrim @1313
+    MifareAuthHnd @1314
+    MifareAuthKeyA @1315
+    MifareAuthKeyAM @1316
+    MifareAuthKeyA_PK @1317
+    MifareAuthKeyA_PKM @1318
+    MifareAuthKeyB @1319
+    MifareAuthKeyBM @1320
+    MifareAuthKeyB_PK @1321
+    MifareAuthKeyB_PKM @1322
+    NDEF_ParseCC @1323
+    NO_SUBGROUP_GUID @1324 DATA
+    NfcT2TSafeConvertVersion @1325
+    OldWriteEmulationNdefHnd @1326
+    OpenOnlineReader_auto @1327
+    OpenSSL_add_all_algorithms @1328
+    OpenSSL_add_all_ciphers @1329
+    OpenSSL_add_all_digests @1330
+    Open_ISO7816_Generic @1331
+    Open_ISO7816_GenericM @1332
+    OriginalityCheck @1333
+    OutputData @1334 DATA
+    OutputFrame @1335 DATA
+    PN7462_CodeProtect @1336
+    PN7462_CodeProtectHnd @1337
+    PN7462_ESP32_boot_init @1338
+    PN7462_ESP32_boot_init_hnd @1339
+    PN7462_ExtField @1340
+    PN7462_ExtFieldHnd @1341
+    PN7462_LpcdCalibration @1342
+    PN7462_LpcdCalibrationHnd @1343
+    PN7462_LpcdPerform @1344
+    PN7462_LpcdPerformHnd @1345
+    PN7462_RfOff @1346
+    PN7462_RfOn @1347
+    PN7462_RfOnOffHnd @1348
+    PN7462_SetSpeakerFrequencyHnd @1349
+    PN7462_Test @1350
+    PN7462_TestHnd @1351
+    PN7462_WriteParams @1352
+    PN7462_WriteParamsHnd @1353
+    PN7462_WriteParamsUsb @1354
+    PN7462_WriteParamsUsbHnd @1355
+    PPM_IDLESTATES_DATA_GUID @1356 DATA
+    PPM_IDLESTATE_CHANGE_GUID @1357 DATA
+    PPM_IDLE_ACCOUNTING_EX_GUID @1358 DATA
+    PPM_IDLE_ACCOUNTING_GUID @1359 DATA
+    PPM_PERFMON_PERFSTATE_GUID @1360 DATA
+    PPM_PERFSTATES_DATA_GUID @1361 DATA
+    PPM_PERFSTATE_CHANGE_GUID @1362 DATA
+    PPM_PERFSTATE_DOMAIN_CHANGE_GUID @1363 DATA
+    PPM_THERMALCONSTRAINT_GUID @1364 DATA
+    PPM_THERMAL_POLICY_CHANGE_GUID @1365 DATA
+    ParamTest1 @1366
+    ParamTest2 @1367
+    ParseNdefMessage @1368
+    ParseTD1Format @1369
+    ParseTD3Format @1370
+    PortClose @1371
+    PortDefaultBaudRateOpen @1372
+    PortFtdiDefaultBaudRateOpen @1373
+    PortGetAvailable @1374
+    PortOpen_by @1375
+    PortOpen_byCOM @1376
+    PortOpen_byFTDI @1377
+    PortPurge @1378
+    PortRead @1379
+    PortRead1 @1380
+    PortSetBaudRate @1381
+    PortSetRTS @1382
+    PortSetTimeout @1383
+    PortWrite @1384
+    ProgDisplayHnd @1385
+    ProgEspHnd @1386
+    ProgReader @1387
+    ProgReaderHnd @1388
+    ProgReaderStreamUsb @1389
+    ProgReaderStreamUsbHnd @1390
+    ProgReaderUsb @1391
+    ProgReaderUsbHnd @1392
+    RTS_check_inverted @1393
+    RamTagEmulationStartHnd @1394
+    RamTagEmulationStopHnd @1395
+    RamWriteEmulationNdefHnd @1396
+    ReadCounter @1397
+    ReadCounterHnd @1398
+    ReadCounterM @1399
+    ReadECCSignature @1400
+    ReadECCSignatureDesfireHnd @1401
+    ReadECCSignatureExt @1402
+    ReadECCSignatureExtHnd @1403
+    ReadECCSignatureExtM @1404
+    ReadECCSignatureHnd @1405
+    ReadECCSignatureM @1406
+    ReadECCSignatureNtagDnaHnd @1407
+    ReadNFCCounter @1408
+    ReadNFCCounterM @1409
+    ReadNFCCounterPwdAuth_PK @1410
+    ReadNFCCounterPwdAuth_PKM @1411
+    ReadNFCCounterPwdAuth_RK @1412
+    ReadNFCCounterPwdAuth_RKM @1413
+    ReadNdefRecord_Address @1414
+    ReadNdefRecord_AddressHnd @1415
+    ReadNdefRecord_AddressM @1416
+    ReadNdefRecord_AndroidApp @1417
+    ReadNdefRecord_AndroidAppHnd @1418
+    ReadNdefRecord_AndroidAppM @1419
+    ReadNdefRecord_BT @1420
+    ReadNdefRecord_BTHnd @1421
+    ReadNdefRecord_BTM @1422
+    ReadNdefRecord_Bitcoin @1423
+    ReadNdefRecord_BitcoinHnd @1424
+    ReadNdefRecord_BitcoinM @1425
+    ReadNdefRecord_Contact @1426
+    ReadNdefRecord_ContactHnd @1427
+    ReadNdefRecord_ContactM @1428
+    ReadNdefRecord_Email @1429
+    ReadNdefRecord_EmailHnd @1430
+    ReadNdefRecord_EmailM @1431
+    ReadNdefRecord_GeoLocation @1432
+    ReadNdefRecord_GeoLocationHnd @1433
+    ReadNdefRecord_GeoLocationM @1434
+    ReadNdefRecord_NaviDestination @1435
+    ReadNdefRecord_NaviDestinationHnd @1436
+    ReadNdefRecord_NaviDestinationM @1437
+    ReadNdefRecord_Phone @1438
+    ReadNdefRecord_PhoneHnd @1439
+    ReadNdefRecord_PhoneM @1440
+    ReadNdefRecord_SMS @1441
+    ReadNdefRecord_SMSHnd @1442
+    ReadNdefRecord_SMSM @1443
+    ReadNdefRecord_Skype @1444
+    ReadNdefRecord_SkypeHnd @1445
+    ReadNdefRecord_SkypeM @1446
+    ReadNdefRecord_StreetView @1447
+    ReadNdefRecord_StreetViewHnd @1448
+    ReadNdefRecord_StreetViewM @1449
+    ReadNdefRecord_Text @1450
+    ReadNdefRecord_TextHnd @1451
+    ReadNdefRecord_TextM @1452
+    ReadNdefRecord_Viber @1453
+    ReadNdefRecord_ViberHnd @1454
+    ReadNdefRecord_ViberM @1455
+    ReadNdefRecord_Whatsapp @1456
+    ReadNdefRecord_WhatsappHnd @1457
+    ReadNdefRecord_WhatsappM @1458
+    ReadNdefRecord_WiFi @1459
+    ReadNdefRecord_WiFiHnd @1460
+    ReadNdefRecord_WiFiM @1461
+    ReadShareRam @1462
+    ReadShareRamHnd @1463
+    ReadShareRamM @1464
+    ReadTTStatus @1465
+    ReadTTStatusHnd @1466
+    ReadTTStatusM @1467
+    ReadUserData @1468
+    ReadUserDataExt @1469
+    ReadUserDataExtM @1470
+    ReadUserDataHnd @1471
+    ReadUserDataM @1472
+    ReaderClose @1473
+    ReaderCloseHnd @1474
+    ReaderCloseM @1475
+    ReaderEepromRead @1476
+    ReaderEepromReadHnd @1477
+    ReaderEepromReadM @1478
+    ReaderEepromWrite @1479
+    ReaderEepromWriteHnd @1480
+    ReaderEepromWriteM @1481
+    ReaderHwReset @1482
+    ReaderHwRestartHnd @1483
+    ReaderKeyWrite @1484
+    ReaderKeyWriteHnd @1485
+    ReaderKeyWriteM @1486
+    ReaderKeysLock @1487
+    ReaderKeysLockHnd @1488
+    ReaderKeysLockM @1489
+    ReaderKeysUnlock @1490
+    ReaderKeysUnlockHnd @1491
+    ReaderKeysUnlockM @1492
+    ReaderList_Add @1493
+    ReaderList_Destroy @1494
+    ReaderList_GetFTDIDescriptionByIndex @1495
+    ReaderList_GetFTDISerialByIndex @1496
+    ReaderList_GetInformation @1497
+    ReaderList_GetSerialByIndex @1498
+    ReaderList_GetSerialDescriptionByIndex @1499
+    ReaderList_GetTypeByIndex @1500
+    ReaderList_OpenByIndex @1501
+    ReaderList_OpenBySerial @1502
+    ReaderList_UpdateAndGetCount @1503
+    ReaderOpen @1504
+    ReaderOpenByFTDIIndex @1505
+    ReaderOpenByIdxSpeed @1506
+    ReaderOpenByType @1507
+    ReaderOpenByTypeNIndex @1508
+    ReaderOpenEx @1509
+    ReaderOpenExHnd @1510
+    ReaderOpenHnd @1511
+    ReaderOpenHnd_FtdiRS232 @1512
+    ReaderOpenHnd_FtdiUSB @1513
+    ReaderOpenHnd_FtdiUfr @1514
+    ReaderOpenHnd_Serial @1515
+    ReaderOpenHnd_ZeroUSB @1516
+    ReaderOpenM @1517
+    ReaderOpen_uFROnline @1518
+    ReaderOpen_uFROnlineHnd @1519
+    ReaderReset @1520
+    ReaderResetHnd @1521
+    ReaderResetM @1522
+    ReaderResetNoWaitFWHnd @1523
+    ReaderResetOffHnd @1524
+    ReaderResetOnHnd @1525
+    ReaderResetSetHnd @1526
+    ReaderResetWait @1527
+    ReaderResetWaitHnd @1528
+    ReaderRfOff @1529
+    ReaderRfOffM @1530
+    ReaderRfOn @1531
+    ReaderRfOnM @1532
+    ReaderRfReset @1533
+    ReaderRfResetHnd @1534
+    ReaderRfResetM @1535
+    ReaderSoftRestart @1536
+    ReaderSoftRestartHnd @1537
+    ReaderSoftRestartM @1538
+    ReaderSoundHnd @1539
+    ReaderSoundVolume @1540
+    ReaderSoundVolumeM @1541
+    ReaderStillConnected @1542
+    ReaderStillConnectedHnd @1543
+    ReaderStillConnectedM @1544
+    ReaderUISignal @1545
+    ReaderUISignalHnd @1546
+    ReaderUISignalM @1547
+    ReaderWaitForBootSeqHnd @1548
+    RgbControl @1549
+    RgbControlM @1550
+    RgbIdleDefault @1551
+    RgbIdleDefaultM @1552
+    RgbIdleSet @1553
+    RgbIdleSetM @1554
+    RgbInternalOffHnd @1555
+    RgbInternalOnHnd @1556
+    RgbInternalTurnOff @1557
+    RgbInternalTurnOffM @1558
+    RgbInternalTurnOn @1559
+    RgbInternalTurnOnM @1560
+    RidUidHnd @1561
+    SAM_authenticate_host_AV2_Hnd @1562
+    SAM_authenticate_host_AV2_plain @1563
+    SAM_authenticate_host_AV2_plainM @1564
+    SAM_authenticate_host_no_div_des @1565
+    SAM_authenticate_host_no_div_desM @1566
+    SAM_authenticate_host_no_div_des_Hnd @1567
+    SAM_change_key_entry_2K3DES_AV2_plain_one_key_Hnd @1568
+    SAM_change_key_entry_2K3DES_ULC_AV2_plain_one_key @1569
+    SAM_change_key_entry_2K3DES_ULC_AV2_plain_one_keyM @1570
+    SAM_change_key_entry_2K3DES_desfire_AV2_plain_one_key @1571
+    SAM_change_key_entry_2K3DES_desfire_AV2_plain_one_keyM @1572
+    SAM_change_key_entry_3K3DES_AV2_plain_one_key @1573
+    SAM_change_key_entry_3K3DES_AV2_plain_one_keyM @1574
+    SAM_change_key_entry_3K3DES_AV2_plain_one_key_Hnd @1575
+    SAM_change_key_entry_AES_AV2_plain_one_key @1576
+    SAM_change_key_entry_AES_AV2_plain_one_keyM @1577
+    SAM_change_key_entry_DES_AV2_plain_one_key @1578
+    SAM_change_key_entry_DES_AV2_plain_one_key_Hnd @1579
+    SAM_change_key_entry_aes_AV2_plain_host_key @1580
+    SAM_change_key_entry_aes_AV2_plain_host_keyM @1581
+    SAM_change_key_entry_aes_AV2_plain_host_key_Hnd @1582
+    SAM_change_key_entry_aes_AV2_plain_one_key_Hnd @1583
+    SAM_change_key_entry_mifare_AV2_plain_one_key @1584
+    SAM_change_key_entry_mifare_AV2_plain_one_keyM @1585
+    SAM_change_key_entry_mifare_AV2_plain_one_key_Hnd @1586
+    SAM_get_key_entry_raw @1587
+    SAM_get_key_entry_rawM @1588
+    SAM_get_key_entry_raw_hnd @1589
+    SAM_get_version @1590
+    SAM_get_versionM @1591
+    SAM_get_version_Hnd @1592
+    SAM_get_version_raw @1593
+    SAM_get_version_rawM @1594
+    SAM_get_version_raw_Hnd @1595
+    SAM_pre_personalization_switch_to_AV2_mode @1596
+    SAM_pre_personalization_switch_to_AV2_modeM @1597
+    SAM_pre_personalization_switch_to_AV2_mode_Hnd @1598
+    SAM_pre_pesonalization_master_AES128_key @1599
+    SAM_pre_pesonalization_master_AES128_keyM @1600
+    SAM_pre_pesonalization_master_AES128_key_Hnd @1601
+    SSL_CTX_root_ca @1602
+    SSL_library_init @1603
+    SSL_load_error_strings @1604
+    SSL_set_io @1605
+    SSL_set_userdata @1606
+    SSL_userdata @1607
+    SSLv3_client_method @1608
+    SSLv3_server_method @1609
+    SectorTrailerWrite @1610
+    SectorTrailerWriteHnd @1611
+    SectorTrailerWriteM @1612
+    SectorTrailerWriteSamKey @1613
+    SectorTrailerWriteSamKeyHnd @1614
+    SectorTrailerWriteSamKeyM @1615
+    SectorTrailerWriteUnsafe @1616
+    SectorTrailerWriteUnsafeHnd @1617
+    SectorTrailerWriteUnsafeM @1618
+    SectorTrailerWriteUnsafe_AKM1 @1619
+    SectorTrailerWriteUnsafe_AKM1Hnd @1620
+    SectorTrailerWriteUnsafe_AKM1M @1621
+    SectorTrailerWriteUnsafe_AKM2 @1622
+    SectorTrailerWriteUnsafe_AKM2Hnd @1623
+    SectorTrailerWriteUnsafe_AKM2M @1624
+    SectorTrailerWriteUnsafe_PK @1625
+    SectorTrailerWriteUnsafe_PKHnd @1626
+    SectorTrailerWriteUnsafe_PKM @1627
+    SectorTrailerWrite_AKM1 @1628
+    SectorTrailerWrite_AKM1Hnd @1629
+    SectorTrailerWrite_AKM1M @1630
+    SectorTrailerWrite_AKM2 @1631
+    SectorTrailerWrite_AKM2Hnd @1632
+    SectorTrailerWrite_AKM2M @1633
+    SectorTrailerWrite_PK @1634
+    SectorTrailerWrite_PKHnd @1635
+    SectorTrailerWrite_PKM @1636
+    SelectCard @1637
+    SelectCardHnd @1638
+    SelectCardM @1639
+    SetATECC608DefaultKeysConfiguration @1640
+    SetATECC608DefaultKeysConfigurationHnd @1641
+    SetATECC608DefaultKeysConfigurationM @1642
+    SetATECC608DefaultSlotsConfiguration @1643
+    SetATECC608DefaultSlotsConfigurationHnd @1644
+    SetATECC608DefaultSlotsConfigurationM @1645
+    SetATECC608ECCPrivateKey @1646
+    SetATECC608ECCPrivateKeyHnd @1647
+    SetATECC608ECCPrivateKeyM @1648
+    SetATECC608ECCPrivateKeyUnencrypted @1649
+    SetATECC608ECCPrivateKeyUnencryptedHnd @1650
+    SetATECC608ECCPrivateKeyUnencryptedM @1651
+    SetATECC608Hnd @1652
+    SetATECC608IOSecretKey @1653
+    SetATECC608IOSecretKeyHnd @1654
+    SetATECC608IOSecretKeyM @1655
+    SetAdHocEmulationParams @1656
+    SetAdHocEmulationParamsHnd @1657
+    SetAdHocEmulationParamsM @1658
+    SetAsyncCardIdSendConfig @1659
+    SetAsyncCardIdSendConfigEx @1660
+    SetAsyncCardIdSendConfigExHnd @1661
+    SetAsyncCardIdSendConfigExM @1662
+    SetAsyncCardIdSendConfigHnd @1663
+    SetAsyncCardIdSendConfigM @1664
+    SetAsyncCardJsonSendConfig @1665
+    SetAsyncCardJsonSendConfigHnd @1666
+    SetAsyncCardJsonSendConfigM @1667
+    SetCustomUiConfig @1668
+    SetCustomUiConfigHnd @1669
+    SetCustomUiConfigM @1670
+    SetDefaultUartSpeed @1671
+    SetDiscoveryLoop @1672
+    SetDiscoveryLoopHnd @1673
+    SetDiscoveryLoopM @1674
+    SetDisplayData @1675
+    SetDisplayDataHnd @1676
+    SetDisplayDataM @1677
+    SetDisplayIntensity @1678
+    SetDisplayIntensityHnd @1679
+    SetDisplayIntensityM @1680
+    SetFeaturesHnd @1681
+    SetISO14443_4_DLStorage @1682
+    SetISO14443_4_DLStorageHnd @1683
+    SetISO14443_4_DLStorageM @1684
+    SetISO14443_4_Mode @1685
+    SetISO14443_4_ModeHnd @1686
+    SetISO14443_4_ModeM @1687
+    SetISO14443_4_Mode_GetATS @1688
+    SetISO14443_4_Mode_GetATSHnd @1689
+    SetISO14443_4_Mode_GetATSM @1690
+    SetLicenseData @1691
+    SetMobileUniqueIdAid @1692
+    SetMobileUniqueIdAidHnd @1693
+    SetMobileUniqueIdAidM @1694
+    SetRID @1695
+    SetRID_Key @1696
+    SetReaderProMode @1697
+    SetReaderProModeHnd @1698
+    SetReaderProModeM @1699
+    SetReaderSerialDescription @1700
+    SetReaderSerialDescriptionHnd @1701
+    SetReaderSerialDescriptionM @1702
+    SetReaderTime @1703
+    SetReaderTimeHnd @1704
+    SetReaderTimeM @1705
+    SetRfAnalogRegistersISO14443_212 @1706
+    SetRfAnalogRegistersISO14443_212Default @1707
+    SetRfAnalogRegistersISO14443_212DefaultHnd @1708
+    SetRfAnalogRegistersISO14443_212DefaultM @1709
+    SetRfAnalogRegistersISO14443_212Hnd @1710
+    SetRfAnalogRegistersISO14443_212M @1711
+    SetRfAnalogRegistersISO14443_424 @1712
+    SetRfAnalogRegistersISO14443_424Default @1713
+    SetRfAnalogRegistersISO14443_424DefaultHnd @1714
+    SetRfAnalogRegistersISO14443_424DefaultM @1715
+    SetRfAnalogRegistersISO14443_424Hnd @1716
+    SetRfAnalogRegistersISO14443_424M @1717
+    SetRfAnalogRegistersPN7462 @1718
+    SetRfAnalogRegistersPN7462Default @1719
+    SetRfAnalogRegistersPN7462DefaultHnd @1720
+    SetRfAnalogRegistersPN7462DefaultM @1721
+    SetRfAnalogRegistersPN7462Hnd @1722
+    SetRfAnalogRegistersPN7462_M @1723
+    SetRfAnalogRegistersTypeA @1724
+    SetRfAnalogRegistersTypeADefault @1725
+    SetRfAnalogRegistersTypeADefaultHnd @1726
+    SetRfAnalogRegistersTypeADefaultM @1727
+    SetRfAnalogRegistersTypeAHnd @1728
+    SetRfAnalogRegistersTypeAM @1729
+    SetRfAnalogRegistersTypeATrans @1730
+    SetRfAnalogRegistersTypeATransHnd @1731
+    SetRfAnalogRegistersTypeATransM @1732
+    SetRfAnalogRegistersTypeB @1733
+    SetRfAnalogRegistersTypeBDefault @1734
+    SetRfAnalogRegistersTypeBDefaultHnd @1735
+    SetRfAnalogRegistersTypeBDefaultM @1736
+    SetRfAnalogRegistersTypeBHnd @1737
+    SetRfAnalogRegistersTypeBM @1738
+    SetRfAnalogRegistersTypeBTrans @1739
+    SetRfAnalogRegistersTypeBTransHnd @1740
+    SetRfAnalogRegistersTypeBTransM @1741
+    SetRgbData @1742
+    SetRgbDataM @1743
+    SetRgbIntensity @1744
+    SetRgbIntensityM @1745
+    SetServiceData @1746
+    SetServiceDataHnd @1747
+    SetServiceDataM @1748
+    SetSpeakerFrequency @1749
+    SetSpeakerFrequencyHnd @1750
+    SetSpeakerFrequencyM @1751
+    SetSpeedPermanently @1752
+    SetSpeedPermanentlyHnd @1753
+    SetSpeedPermanentlyM @1754
+    SetUartDefaultSpeedHnd @1755
+    SetUartSpeed @1756
+    SetUartSpeedHnd @1757
+    StartAnimation @1758
+    StartAnimationHnd @1759
+    StartAnimationM @1760
+    StartAsyncSession @1761
+    StopAnimation @1762
+    StopAnimationHnd @1763
+    StopAnimationM @1764
+    StopAsyncSession @1765
+    SubscribeBlock @1766
+    SubscribeBlockHnd @1767
+    SubscribeSector @1768
+    SubscribeSectorHnd @1769
+    T2T_PwdAuth @1770
+    T2T_PwdAuthM @1771
+    T2T_PwdAuth_PK @1772
+    T2T_PwdAuth_PKM @1773
+    T2tAuthHnd @1774
+    TLS_Sign_NFC_GIDS @1775
+    TOOM_MUL_CUTOFF @1776 DATA
+    TOOM_SQR_CUTOFF @1777 DATA
+    TagEmulationMirrorCounterDisabled @1778
+    TagEmulationMirrorCounterNonResetEnabled @1779
+    TagEmulationMirrorCounterResetEnabled @1780
+    TagEmulationStart @1781
+    TagEmulationStartHnd @1782
+    TagEmulationStartM @1783
+    TagEmulationStartRam @1784
+    TagEmulationStop @1785
+    TagEmulationStopHnd @1786
+    TagEmulationStopM @1787
+    TagEmulationStopRam @1788
+    TestAuthMode @1789
+    TestChecksum @1790
+    TimerStart @1791
+    TimerStop @1792
+    UFR_DLCardType2String @1793
+    UFR_SessionStatus2String @1794
+    UFR_Status2String @1795
+    ULC_ExternalAuth_PK @1796
+    ULC_ExternalAuth_PKM @1797
+    ULC_write_3des_key @1798
+    ULC_write_3des_keyM @1799
+    ULC_write_3des_key_factory_key @1800
+    ULC_write_3des_key_factory_keyM @1801
+    ULC_write_3des_key_factory_key_internal @1802
+    ULC_write_3des_key_factory_key_internalM @1803
+    ULC_write_3des_key_internal @1804
+    ULC_write_3des_key_internalHND @1805
+    ULC_write_3des_key_internalM @1806
+    ULC_write_3des_key_no_auth @1807
+    ULC_write_3des_key_no_authM @1808
+    ULC_write_3des_key_no_auth_internal @1809
+    ULC_write_3des_key_no_auth_internalM @1810
+    UfrEnterSleepMode @1811
+    UfrEnterSleepModeHnd @1812
+    UfrEnterSleepModeM @1813
+    UfrGetBadSelectCardNrMax @1814
+    UfrGetBadSelectCardNrMaxM @1815
+    UfrGetBadSelectNrHnd @1816
+    UfrGetInputState @1817
+    UfrLeaveSleepMode @1818
+    UfrLeaveSleepModeHnd @1819
+    UfrLeaveSleepModeM @1820
+    UfrOutControl @1821
+    UfrOutControlHnd @1822
+    UfrOutControlM @1823
+    UfrRedLightControl @1824
+    UfrRedLightControlHnd @1825
+    UfrRedLightControlM @1826
+    UfrRgbExtLightControl @1827
+    UfrRgbExtLightControlHnd @1828
+    UfrRgbExtLightControlM @1829
+    UfrRgbLightControl @1830
+    UfrRgbLightControlHnd @1831
+    UfrRgbLightControlM @1832
+    UfrRgbLightControlRfHnd @1833
+    UfrRgbLightControlRfPeriod @1834
+    UfrRgbLightControlRfPeriodM @1835
+    UfrRgbLightControlSleep @1836
+    UfrRgbLightControlSleepHnd @1837
+    UfrRgbLightControlSleepM @1838
+    UfrSetBadSelectCardNrMax @1839
+    UfrSetBadSelectCardNrMaxM @1840
+    UfrSetBadSelectNrHnd @1841
+    UfrXrcGetInputStateHnd @1842
+    UfrXrcGetIoState @1843
+    UfrXrcGetIoStateHnd @1844
+    UfrXrcGetIoStateM @1845
+    UfrXrcLockOn @1846
+    UfrXrcLockOnHnd @1847
+    UfrXrcLockOnM @1848
+    UfrXrcRelayState @1849
+    UfrXrcRelayStateHnd @1850
+    UfrXrcRelayStateM @1851
+    UlcAuth @1852
+    UlcAuthHnd @1853
+    UlcAuthM @1854
+    UlcAuth_PK @1855
+    UlcAuth_PKM @1856
+    UnloadFTD2XXLibrary @1857
+    VIRTUAL_STORAGE_TYPE_VENDOR_MICROSOFT @1858 DATA
+    VIRTUAL_STORAGE_TYPE_VENDOR_UNKNOWN @1859 DATA
+    ValidateCheckDigit @1860
+    ValueBlockDecrement @1861
+    ValueBlockDecrementHnd @1862
+    ValueBlockDecrementM @1863
+    ValueBlockDecrementSamKey @1864
+    ValueBlockDecrementSamKeyHnd @1865
+    ValueBlockDecrementSamKeyM @1866
+    ValueBlockDecrement_AKM1 @1867
+    ValueBlockDecrement_AKM1Hnd @1868
+    ValueBlockDecrement_AKM1M @1869
+    ValueBlockDecrement_AKM2 @1870
+    ValueBlockDecrement_AKM2Hnd @1871
+    ValueBlockDecrement_AKM2M @1872
+    ValueBlockDecrement_PK @1873
+    ValueBlockDecrement_PKHnd @1874
+    ValueBlockDecrement_PKM @1875
+    ValueBlockInSectorDecrement @1876
+    ValueBlockInSectorDecrementHnd @1877
+    ValueBlockInSectorDecrementM @1878
+    ValueBlockInSectorDecrementSamKey @1879
+    ValueBlockInSectorDecrementSamKeyHnd @1880
+    ValueBlockInSectorDecrementSamKeyM @1881
+    ValueBlockInSectorDecrement_AKM1 @1882
+    ValueBlockInSectorDecrement_AKM1Hnd @1883
+    ValueBlockInSectorDecrement_AKM1M @1884
+    ValueBlockInSectorDecrement_AKM2 @1885
+    ValueBlockInSectorDecrement_AKM2Hnd @1886
+    ValueBlockInSectorDecrement_AKM2M @1887
+    ValueBlockInSectorDecrement_PK @1888
+    ValueBlockInSectorDecrement_PKHnd @1889
+    ValueBlockInSectorDecrement_PKM @1890
+    ValueBlockInSectorIncrement @1891
+    ValueBlockInSectorIncrementHnd @1892
+    ValueBlockInSectorIncrementM @1893
+    ValueBlockInSectorIncrementSamKey @1894
+    ValueBlockInSectorIncrementSamKeyHnd @1895
+    ValueBlockInSectorIncrementSamKeyM @1896
+    ValueBlockInSectorIncrement_AKM1 @1897
+    ValueBlockInSectorIncrement_AKM1Hnd @1898
+    ValueBlockInSectorIncrement_AKM1M @1899
+    ValueBlockInSectorIncrement_AKM2 @1900
+    ValueBlockInSectorIncrement_AKM2Hnd @1901
+    ValueBlockInSectorIncrement_AKM2M @1902
+    ValueBlockInSectorIncrement_PK @1903
+    ValueBlockInSectorIncrement_PKHnd @1904
+    ValueBlockInSectorIncrement_PKM @1905
+    ValueBlockInSectorRead @1906
+    ValueBlockInSectorReadHnd @1907
+    ValueBlockInSectorReadM @1908
+    ValueBlockInSectorReadSamKey @1909
+    ValueBlockInSectorReadSamKeyHnd @1910
+    ValueBlockInSectorReadSamKeyM @1911
+    ValueBlockInSectorRead_AKM1 @1912
+    ValueBlockInSectorRead_AKM1Hnd @1913
+    ValueBlockInSectorRead_AKM1M @1914
+    ValueBlockInSectorRead_AKM2 @1915
+    ValueBlockInSectorRead_AKM2Hnd @1916
+    ValueBlockInSectorRead_AKM2M @1917
+    ValueBlockInSectorRead_PK @1918
+    ValueBlockInSectorRead_PKHnd @1919
+    ValueBlockInSectorRead_PKM @1920
+    ValueBlockInSectorWrite @1921
+    ValueBlockInSectorWriteHnd @1922
+    ValueBlockInSectorWriteM @1923
+    ValueBlockInSectorWriteSamKey @1924
+    ValueBlockInSectorWriteSamKeyHnd @1925
+    ValueBlockInSectorWriteSamKeyM @1926
+    ValueBlockInSectorWrite_AKM1 @1927
+    ValueBlockInSectorWrite_AKM1Hnd @1928
+    ValueBlockInSectorWrite_AKM1M @1929
+    ValueBlockInSectorWrite_AKM2 @1930
+    ValueBlockInSectorWrite_AKM2Hnd @1931
+    ValueBlockInSectorWrite_AKM2M @1932
+    ValueBlockInSectorWrite_PK @1933
+    ValueBlockInSectorWrite_PKHnd @1934
+    ValueBlockInSectorWrite_PKM @1935
+    ValueBlockIncrement @1936
+    ValueBlockIncrementHnd @1937
+    ValueBlockIncrementM @1938
+    ValueBlockIncrementSamKey @1939
+    ValueBlockIncrementSamKeyHnd @1940
+    ValueBlockIncrementSamKeyM @1941
+    ValueBlockIncrement_AKM1 @1942
+    ValueBlockIncrement_AKM1Hnd @1943
+    ValueBlockIncrement_AKM1M @1944
+    ValueBlockIncrement_AKM2 @1945
+    ValueBlockIncrement_AKM2Hnd @1946
+    ValueBlockIncrement_AKM2M @1947
+    ValueBlockIncrement_PK @1948
+    ValueBlockIncrement_PKHnd @1949
+    ValueBlockIncrement_PKM @1950
+    ValueBlockRead @1951
+    ValueBlockReadHnd @1952
+    ValueBlockReadM @1953
+    ValueBlockReadSamKey @1954
+    ValueBlockReadSamKeyHnd @1955
+    ValueBlockReadSamKeyM @1956
+    ValueBlockRead_AKM1 @1957
+    ValueBlockRead_AKM1Hnd @1958
+    ValueBlockRead_AKM1M @1959
+    ValueBlockRead_AKM2 @1960
+    ValueBlockRead_AKM2Hnd @1961
+    ValueBlockRead_AKM2M @1962
+    ValueBlockRead_PK @1963
+    ValueBlockRead_PKHnd @1964
+    ValueBlockRead_PKM @1965
+    ValueBlockWrite @1966
+    ValueBlockWriteHnd @1967
+    ValueBlockWriteM @1968
+    ValueBlockWriteSamKey @1969
+    ValueBlockWriteSamKeyHnd @1970
+    ValueBlockWriteSamKeyM @1971
+    ValueBlockWrite_AKM1 @1972
+    ValueBlockWrite_AKM1Hnd @1973
+    ValueBlockWrite_AKM1M @1974
+    ValueBlockWrite_AKM2 @1975
+    ValueBlockWrite_AKM2Hnd @1976
+    ValueBlockWrite_AKM2M @1977
+    ValueBlockWrite_PK @1978
+    ValueBlockWrite_PKHnd @1979
+    ValueBlockWrite_PKM @1980
+    WriteEmulationNdef @1981
+    WriteEmulationNdefHnd @1982
+    WriteEmulationNdefM @1983
+    WriteEmulationNdefRam @1984
+    WriteEmulationNdefRamM @1985
+    WriteEmulationNdefWithAAR @1986
+    WriteEmulationNdefWithAARHnd @1987
+    WriteNdefRecord_Address @1988
+    WriteNdefRecord_AddressHnd @1989
+    WriteNdefRecord_AddressM @1990
+    WriteNdefRecord_AndroidApp @1991
+    WriteNdefRecord_AndroidAppHnd @1992
+    WriteNdefRecord_AndroidAppM @1993
+    WriteNdefRecord_BT @1994
+    WriteNdefRecord_BTHnd @1995
+    WriteNdefRecord_BTM @1996
+    WriteNdefRecord_Bitcoin @1997
+    WriteNdefRecord_BitcoinHnd @1998
+    WriteNdefRecord_BitcoinM @1999
+    WriteNdefRecord_Contact @2000
+    WriteNdefRecord_ContactHnd @2001
+    WriteNdefRecord_ContactM @2002
+    WriteNdefRecord_Email @2003
+    WriteNdefRecord_EmailHnd @2004
+    WriteNdefRecord_EmailM @2005
+    WriteNdefRecord_GeoLocation @2006
+    WriteNdefRecord_GeoLocationHnd @2007
+    WriteNdefRecord_GeoLocationM @2008
+    WriteNdefRecord_NaviDestination @2009
+    WriteNdefRecord_NaviDestinationHnd @2010
+    WriteNdefRecord_NaviDestinationM @2011
+    WriteNdefRecord_Phone @2012
+    WriteNdefRecord_PhoneHnd @2013
+    WriteNdefRecord_PhoneM @2014
+    WriteNdefRecord_SMS @2015
+    WriteNdefRecord_SMSHnd @2016
+    WriteNdefRecord_SMSM @2017
+    WriteNdefRecord_Skype @2018
+    WriteNdefRecord_SkypeHnd @2019
+    WriteNdefRecord_SkypeM @2020
+    WriteNdefRecord_StreetView @2021
+    WriteNdefRecord_StreetViewHnd @2022
+    WriteNdefRecord_StreetViewM @2023
+    WriteNdefRecord_Text @2024
+    WriteNdefRecord_TextHnd @2025
+    WriteNdefRecord_TextM @2026
+    WriteNdefRecord_Viber @2027
+    WriteNdefRecord_ViberHnd @2028
+    WriteNdefRecord_ViberM @2029
+    WriteNdefRecord_Whatsapp @2030
+    WriteNdefRecord_WhatsappHnd @2031
+    WriteNdefRecord_WhatsappM @2032
+    WriteNdefRecord_WiFi @2033
+    WriteNdefRecord_WiFiHnd @2034
+    WriteNdefRecord_WiFiM @2035
+    WritePaymentAmount @2036
+    WritePaymentAmountHnd @2037
+    WriteReaderId @2038
+    WriteReaderIdHnd @2039
+    WriteReaderIdM @2040
+    WriteSamUnlockKey @2041
+    WriteSamUnlockKeyHnd @2042
+    WriteSamUnlockKeyM @2043
+    WriteShareRam @2044
+    WriteShareRamHnd @2045
+    WriteShareRamM @2046
+    WriteUserData @2047
+    WriteUserDataExt @2048
+    WriteUserDataExtM @2049
+    WriteUserDataHnd @2050
+    WriteUserDataM @2051
+    X509GetAKIFromCert @2052
+    X509GetAKIFromExtension @2053
+    X509GetCertFromFile @2054
+    X509GetExtension @2055
+    X509GetExtensionsPos @2056
+    X509GetExtensionsSeq @2057
+    X509GetIssuerPos @2058
+    X509GetIssuerSeq @2059
+    X509GetPublicKeyInfoPos @2060
+    X509GetRSAPubKeyExponent @2061
+    X509GetSKIFromCert @2062
+    X509GetSKIFromExtension @2063
+    X509GetSerialNumberByteArr @2064
+    X509GetSerialNumberPos @2065
+    X509GetSerialNumberSeq @2066
+    X509GetSignature @2067
+    X509GetSignatureAlgFromTBSPos @2068
+    X509GetSignatureAlgorithm @2069
+    X509GetSignatureAlgorithmNodePos @2070
+    X509GetSubjectPos @2071
+    X509GetSubjectSeq @2072
+    X509GetTbs @2073
+    X509GetTbsNodePos @2074
+    X509GetValidityPeriodPos @2075
+    X509GetValidityPeriodSeq @2076
+    X509GetVersion @2077
+    X509ParsePubKey @2078
+    X509VerifyDerCertSignature @2079
+    XRC_ReceiveAnswerBoot @2080
+    XRC_SendCommand @2081
+    __emutls_get_address @2082
+    __emutls_register_common @2083
+    _dist_code @2084 DATA
+    _hnd_ufr @2085 DATA
+    _isBigEndian @2086
+    _is_field @2087
+    _is_oid @2088
+    _is_oid2 @2089
+    _length_code @2090 DATA
+    _private_asn1_parse @2091
+    _private_b64_decode @2092
+    _private_b64_decodeblock @2093
+    _private_dtls_handshake_copyframesize @2094
+    _private_dtls_handshake_data @2095
+    _private_is_oid @2096
+    _private_random_sleep @2097
+    _private_tls_build_random @2098
+    _private_tls_compute_hash @2099
+    _private_tls_compute_key @2100
+    _private_tls_create_hash @2101
+    _private_tls_crypto_create @2102
+    _private_tls_crypto_decrypt @2103
+    _private_tls_crypto_done @2104
+    _private_tls_crypto_encrypt @2105
+    _private_tls_decrypt_dhe @2106
+    _private_tls_decrypt_ecc_dhe @2107
+    _private_tls_decrypt_rsa @2108
+    _private_tls_destroy_hash @2109
+    _private_tls_dh_clear_key @2110
+    _private_tls_dh_export_Y @2111
+    _private_tls_dh_export_pqY @2112
+    _private_tls_dh_make_key @2113
+    _private_tls_dh_shared_secret @2114
+    _private_tls_dhe_create @2115
+    _private_tls_dhe_free @2116
+    _private_tls_done_hash @2117
+    _private_tls_ecc_dhe_create @2118
+    _private_tls_ecc_dhe_free @2119
+    _private_tls_encrypt_rsa @2120
+    _private_tls_ensure_hash @2121
+    _private_tls_expand_key @2122
+    _private_tls_get_hash @2123
+    _private_tls_get_hash_idx @2124
+    _private_tls_hash_len @2125
+    _private_tls_hmac_message @2126
+    _private_tls_is_aead @2127
+    _private_tls_key_length @2128
+    _private_tls_mac_length @2129
+    _private_tls_parse_dh @2130
+    _private_tls_parse_random @2131
+    _private_tls_parse_signature @2132
+    _private_tls_prf @2133
+    _private_tls_prf_helper @2134
+    _private_tls_random_int @2135
+    _private_tls_read_from_file @2136
+    _private_tls_reset_context @2137
+    _private_tls_safe_read @2138
+    _private_tls_set_session_id @2139
+    _private_tls_sign_rsa @2140
+    _private_tls_sleep @2141
+    _private_tls_update_hash @2142
+    _private_tls_verify_rsa @2143
+    _private_tls_write_app_data @2144
+    _private_tls_write_packet @2145
+    _tls_ssl_private_send_pending @2146
+    _tr_align @2147
+    _tr_flush_bits @2148
+    _tr_flush_block @2149
+    _tr_init @2150
+    _tr_stored_block @2151
+    _tr_tally @2152
+    accList_allocate @2153
+    adler32 @2154
+    adler32_combine @2155
+    adler32_combine64 @2156
+    adler32_z @2157
+    aes_blocks_chained @2158
+    aes_calc_decode_key @2159
+    aes_decode @2160
+    aes_desc @2161 DATA
+    aes_encode @2162
+    aes_key_new_with_version @2163
+    aid1 @2164 DATA
+    ais_erase_right_record @2165
+    ais_erase_right_recordHnd @2166
+    ais_erase_right_recordM @2167
+    ais_get_card_daily_duration @2168
+    ais_get_card_daily_durationHnd @2169
+    ais_get_card_daily_durationM @2170
+    ais_get_card_number @2171
+    ais_get_card_numberHnd @2172
+    ais_get_card_numberM @2173
+    ais_get_card_total_duration @2174
+    ais_get_card_total_durationHnd @2175
+    ais_get_card_total_durationM @2176
+    ais_get_card_type @2177
+    ais_get_card_typeHnd @2178
+    ais_get_card_typeM @2179
+    ais_get_credit_and_period_validity @2180
+    ais_get_credit_and_period_validityHnd @2181
+    ais_get_credit_and_period_validityM @2182
+    ais_get_right_record @2183
+    ais_get_right_recordHnd @2184
+    ais_get_right_recordM @2185
+    ais_get_right_record_type_max_daily_counter @2186
+    ais_get_right_record_type_max_daily_counterHnd @2187
+    ais_get_right_record_type_max_daily_counterM @2188
+    ais_get_right_type_record @2189
+    ais_get_right_type_recordHnd @2190
+    ais_get_right_type_recordM @2191
+    ais_get_validate_record @2192
+    ais_get_validate_recordHnd @2193
+    ais_get_validate_recordM @2194
+    ais_set_card_daily_duration @2195
+    ais_set_card_daily_durationHnd @2196
+    ais_set_card_daily_durationM @2197
+    ais_set_card_total_duration @2198
+    ais_set_card_total_durationHnd @2199
+    ais_set_card_total_durationM @2200
+    ais_set_card_type @2201
+    ais_set_card_typeHnd @2202
+    ais_set_card_typeM @2203
+    ais_set_credit_and_period_validity @2204
+    ais_set_credit_and_period_validityHnd @2205
+    ais_set_credit_and_period_validityM @2206
+    ais_set_right_record @2207
+    ais_set_right_recordHnd @2208
+    ais_set_right_recordM @2209
+    ais_set_right_record_type_max_daily_counter @2210
+    ais_set_right_record_type_max_daily_counterHnd @2211
+    ais_set_right_record_type_max_daily_counterM @2212
+    ais_set_right_type_record @2213
+    ais_set_right_type_recordHnd @2214
+    ais_set_right_type_recordM @2215
+    ais_set_validate_record @2216
+    ais_set_validate_recordHnd @2217
+    ais_set_validate_recordM @2218
+    appendToEnd @2219
+    ascii_to_hex @2220
+    asn1_get_len @2221
+    asn1_parse @2222
+    asyncEventProcessorThread @2223
+    asyncUIDThread @2224
+    balance_get_creditHnd @2225
+    balance_set_creditHnd @2226
+    base64_decode @2227
+    base64_sane_decode @2228
+    base64_strict_decode @2229
+    bin_bcd_to_i @2230
+    bin_bcd_to_ll @2231
+    block @2232 DATA
+    bn_reverse @2233
+    bp @2234
+    buffer_tmp @2235 DATA
+    buffer_to_hex_string @2236
+    bytes_to_string @2237
+    cardDetectedCallback @2238 DATA
+    cardRemovedCallback @2239 DATA
+    card_halt_enable @2240
+    card_halt_enableHnd @2241
+    card_halt_enableM @2242
+    card_transceive @2243
+    card_transceiveM @2244
+    card_transceive_mode_start @2245
+    card_transceive_mode_startM @2246
+    card_transceive_mode_stop @2247
+    card_transceive_mode_stopM @2248
+    cbc_decrypt @2249
+    cbc_done @2250
+    cbc_encrypt @2251
+    cbc_start @2252
+    cert_len @2253 DATA
+    checkRSAKeySize @2254
+    check_clear_record_transaction_mac @2255
+    check_credit_value_transaction_mac @2256
+    check_debit_value_transaction_mac @2257
+    check_sdm_mac @2258
+    check_write_record_transaction_mac @2259
+    cipher_descriptor @2260 DATA
+    cipher_is_valid @2261
+    clear_internal_keys @2262
+    close_ISO7816_interface_APDU_ISO14443_4 @2263
+    close_ISO7816_interface_APDU_ISO14443_4Hnd @2264
+    close_ISO7816_interface_APDU_ISO14443_4M @2265
+    close_ISO7816_interface_no_APDU @2266
+    close_ISO7816_interface_no_APDUHnd @2267
+    close_ISO7816_interface_no_APDUM @2268
+    cmac_generate_subkeys_nl @2269
+    cmac_nl @2270
+    cmpfunc @2271
+    compress @2272
+    compress2 @2273
+    compressBound @2274
+    configuration_download @2275
+    crc16_global @2276 DATA
+    crc32 @2277
+    crc32_combine @2278
+    crc32_combine64 @2279
+    crc32_global @2280 DATA
+    crc32_z @2281
+    crc_32_f @2282 DATA
+    crc_found @2283 DATA
+    crypt_argchk @2284
+    crypto_postprocess_data_nl @2285
+    crypto_preprocess_data_nl @2286
+    cypher_single_block @2287
+    cypher_single_block_des @2288
+    debug @2289 DATA
+    dec_key_schedule @2290
+    decode_shift_row @2291
+    decompress @2292
+    decrypt_picc_data @2293
+    decrypt_sdm_enc_file_data @2294
+    deflate @2295
+    deflateBound @2296
+    deflateCopy @2297
+    deflateEnd @2298
+    deflateGetDictionary @2299
+    deflateInit2_ @2300
+    deflateInit_ @2301
+    deflateParams @2302
+    deflatePending @2303
+    deflatePrime @2304
+    deflateReset @2305
+    deflateResetKeep @2306
+    deflateSetDictionary @2307
+    deflateSetHeader @2308
+    deflateTune @2309
+    deflate_copyright @2310 DATA
+    der_asn1_class_to_string_map @2311 DATA
+    der_asn1_class_to_string_map_sz @2312 DATA
+    der_asn1_pc_to_string_map @2313 DATA
+    der_asn1_pc_to_string_map_sz @2314 DATA
+    der_asn1_tag_to_string_map @2315 DATA
+    der_asn1_tag_to_string_map_sz @2316 DATA
+    der_asn1_tag_to_type_map @2317 DATA
+    der_asn1_tag_to_type_map_sz @2318 DATA
+    der_asn1_type_to_identifier_map @2319 DATA
+    der_asn1_type_to_identifier_map_sz @2320 DATA
+    der_decode_asn1_identifier @2321
+    der_decode_asn1_length @2322
+    der_decode_bit_string @2323
+    der_decode_boolean @2324
+    der_decode_choice @2325
+    der_decode_custom_type @2326
+    der_decode_custom_type_ex @2327
+    der_decode_generalizedtime @2328
+    der_decode_ia5_string @2329
+    der_decode_integer @2330
+    der_decode_object_identifier @2331
+    der_decode_octet_string @2332
+    der_decode_printable_string @2333
+    der_decode_raw_bit_string @2334
+    der_decode_sequence_ex @2335
+    der_decode_sequence_flexi @2336
+    der_decode_sequence_multi @2337
+    der_decode_sequence_multi_ex @2338
+    der_decode_short_integer @2339
+    der_decode_teletex_string @2340
+    der_decode_utctime @2341
+    der_decode_utf8_string @2342
+    der_encode_asn1_identifier @2343
+    der_encode_asn1_length @2344
+    der_encode_bit_string @2345
+    der_encode_boolean @2346
+    der_encode_custom_type @2347
+    der_encode_generalizedtime @2348
+    der_encode_ia5_string @2349
+    der_encode_integer @2350
+    der_encode_object_identifier @2351
+    der_encode_octet_string @2352
+    der_encode_printable_string @2353
+    der_encode_raw_bit_string @2354
+    der_encode_sequence_ex @2355
+    der_encode_set @2356
+    der_encode_setof @2357
+    der_encode_short_integer @2358
+    der_encode_utctime @2359
+    der_encode_utf8_string @2360
+    der_ia5_char_encode @2361
+    der_ia5_value_decode @2362
+    der_length_asn1_identifier @2363
+    der_length_asn1_length @2364
+    der_length_bit_string @2365
+    der_length_boolean @2366
+    der_length_custom_type @2367
+    der_length_generalizedtime @2368
+    der_length_ia5_string @2369
+    der_length_integer @2370
+    der_length_object_identifier @2371
+    der_length_octet_string @2372
+    der_length_printable_string @2373
+    der_length_sequence @2374
+    der_length_sequence_ex @2375
+    der_length_short_integer @2376
+    der_length_teletex_string @2377
+    der_length_utctime @2378
+    der_length_utf8_string @2379
+    der_object_identifier_bits @2380
+    der_printable_char_encode @2381
+    der_printable_value_decode @2382
+    der_sequence_free @2383
+    der_teletex_char_encode @2384
+    der_teletex_value_decode @2385
+    der_utf8_charsize @2386
+    der_utf8_valid_char @2387
+    des3_desc @2388 DATA
+    des3_done @2389
+    des3_ecb_decrypt @2390
+    des3_ecb_encrypt @2391
+    des3_keysize @2392
+    des3_setup @2393
+    des3_test @2394
+    des_blocks_chained @2395
+    des_desc @2396 DATA
+    des_done @2397
+    des_ecb_decrypt @2398
+    des_ecb_encrypt @2399
+    des_encrypt1 @2400
+    des_key_new @2401
+    des_keysize @2402
+    des_set_key @2403
+    des_setup @2404
+    des_skb @2405 DATA
+    des_sp_trans @2406 DATA
+    des_test @2407
+    desfire_2k3des_key_new @2408
+    desfire_3k3des_key_new @2409
+    desfire_check_clear_record_transaction_mac @2410
+    desfire_check_write_record_transaction_mac @2411
+    desfire_crc32 @2412
+    desfire_crc32_append @2413
+    desfire_crc32_byte @2414
+    dev_type @2415 DATA
+    device_free_operations @2416
+    device_get_display_params @2417
+    device_get_operations @2418
+    device_get_params @2419
+    device_param_to_str @2420
+    device_print_info_common @2421
+    dfl_change_file_settings @2422
+    dfl_change_file_settingsM @2423
+    dfl_change_file_settings_pk @2424
+    dfl_change_file_settings_pkM @2425
+    dfl_change_tmc_file_settings @2426
+    dfl_change_tmc_file_settingsM @2427
+    dfl_change_tmc_file_settings_pk @2428
+    dfl_change_tmc_file_settings_pkM @2429
+    dfl_check_credit_value_transaction_mac @2430
+    dfl_check_debit_value_transaction_mac @2431
+    dfl_check_write_record_transaction_mac @2432
+    dfl_delete_tmc_file @2433
+    dfl_delete_tmc_fileM @2434
+    dfl_delete_tmc_file_hnd @2435
+    dfl_delete_tmc_file_pk @2436
+    dfl_delete_tmc_file_pkM @2437
+    dfl_get_file_settings @2438
+    dfl_session_transaction_mac_enc_key @2439
+    dfl_session_transaction_mac_mac_key @2440
+    dg1_last_sha256 @2441 DATA
+    dg2_last_sha256 @2442 DATA
+    display_crc8 @2443
+    display_firmware_download @2444
+    display_param_to_str @2445
+    display_print_info_common @2446
+    dl_apdu_des_ecb_encrypt @2447
+    dl_bin_to_hex_str @2448
+    dl_key_type @2449 DATA
+    dl_new_key_type @2450 DATA
+    do_f_to_all_devices @2451
+    dp @2452
+    dp_hex @2453
+    dp_hex_eol @2454
+    dtls_reset_cookie_secret @2455
+    ecc_ansi_x963_export @2456
+    ecc_ansi_x963_import @2457
+    ecc_ansi_x963_import_ex @2458
+    ecc_copy_curve @2459
+    ecc_curve_designators @2460 DATA
+    ecc_curve_names @2461 DATA
+    ecc_find_curve @2462
+    ecc_free @2463
+    ecc_generate_key @2464
+    ecc_get_key @2465
+    ecc_import @2466
+    ecc_import_ex @2467
+    ecc_import_subject_public_key_info @2468
+    ecc_import_x509 @2469
+    ecc_make_key @2470
+    ecc_make_key_ex @2471
+    ecc_set_curve @2472
+    ecc_set_curve_by_size @2473
+    ecc_set_curve_from_mpis @2474
+    ecc_set_key @2475
+    ecc_shared_secret @2476
+    ecc_verify_hash_ex @2477
+    em4237_enable_RID @2478
+    em4237_enable_RID_M @2479
+    em4237_enable_RID_PK @2480
+    em4237_enable_RID_PK_M @2481
+    em4237_enable_rid_hnd @2482
+    em4237_get_multiply_block_security_status @2483
+    em4237_get_multiply_block_security_statusM @2484
+    em4237_get_multiply_block_security_status_hnd @2485
+    em4237_protect_page @2486
+    em4237_protect_pageM @2487
+    em4237_protect_page_PK @2488
+    em4237_protect_page_PK_M @2489
+    em4237_protect_page_hnd @2490
+    emvAflListCleanup @2491
+    emvReadRecord @2492
+    emvTreeCleanup @2493
+    emv_tags @2494 DATA
+    enc_key_schedule @2495
+    enciphered_data_length_des_nl @2496
+    encode_shift_row @2497
+    endianness @2498
+    erase_all_ndef_records @2499
+    erase_all_ndef_recordsHnd @2500
+    erase_all_ndef_recordsM @2501
+    erase_last_ndef_record @2502
+    erase_last_ndef_recordHnd @2503
+    erase_last_ndef_recordM @2504
+    error @2505
+    error_to_string @2506
+    esp_fw_type @2507 DATA
+    esp_hw_type @2508 DATA
+    extract_firmware_package_name @2509
+    fast_mp_invmod @2510
+    fast_mp_montgomery_reduce @2511
+    fast_s_mp_mul_digs @2512
+    fast_s_mp_mul_high_digs @2513
+    fast_s_mp_sqr @2514
+    findCountryIndexByNumCode @2515
+    findCurrencyIndexByNumCode @2516
+    findEMVTagValue @2517
+    findEmvTagIndex @2518
+    find_active_com_ports @2519
+    find_cipher @2520
+    find_hash @2521
+    find_prng @2522
+    firmware_download @2523
+    firmware_get_version_list @2524
+    firmware_install @2525
+    firmware_install_ble_stream @2526
+    firmware_manager_cleanup @2527
+    firmware_manager_init @2528
+    firmware_manager_mutex_cleanup @2529
+    firmware_manager_mutex_init @2530
+    firmware_manager_mutex_lock @2531
+    firmware_manager_mutex_unlock @2532
+    firmware_print_version_list @2533
+    first_udp_init @2534 DATA
+    formatGetProcessingOptionsDataField @2535
+    found_device_info @2536
+    frame_error_detected @2537
+    fsizeof @2538
+    ftdi_CheckRTS @2539
+    ftdi_GetDriverVersion @2540
+    ftdi_configure_hnd @2541
+    ftdi_getDevNum @2542
+    ftdi_getUfrDevices @2543
+    ftdi_get_set_vid_pid @2544
+    ftdi_multiReader_getUfrDevices @2545
+    ftdi_open @2546
+    ftdi_read @2547
+    ftdi_write @2548
+    fw_callback_mutex_lock @2549
+    fw_callback_mutex_unlock @2550
+    fw_modules_cleanup @2551
+    fw_type @2552 DATA
+    gcm_add_aad @2553
+    gcm_add_iv @2554
+    gcm_done @2555
+    gcm_gf_mult @2556
+    gcm_init @2557
+    gcm_mult_h @2558
+    gcm_process @2559
+    gcm_reset @2560
+    getAfl @2561
+    getAflFromResponseMessageTemplateFormat1 @2562
+    getAid @2563
+    getAid__ @2564
+    getBitFromUint32 @2565
+    getBitFromUint32_LE @2566
+    getCardManufacturer @2567
+    getHashByteSize @2568
+    getHashName @2569
+    getListLength @2570
+    getLogEntry @2571
+    getLogEntry__ @2572
+    getPdol @2573
+    getPicturePixelValue @2574
+    getSfi @2575
+    getTlvLen @2576
+    get_ber_tlv_length @2577
+    get_crc_table @2578
+    get_esp_uart_devices @2579
+    get_firmware_list_common @2580
+    get_i2c_device_parameters @2581
+    get_last_line @2582
+    get_local_net_addr @2583
+    get_ndef_card_data @2584
+    get_ndef_record_count @2585
+    get_ndef_record_countHnd @2586
+    get_ndef_record_countM @2587
+    get_ns @2588
+    get_package_manifest @2589
+    getlocalip @2590
+    glob_sig @2591 DATA
+    glob_sig_len @2592 DATA
+    globalCertificateType @2593 DATA
+    globalClientCertificate @2594 DATA
+    globalClientCertificateLen @2595 DATA
+    globalClientPrivateKey @2596 DATA
+    globalClientPrivateKeyLen @2597 DATA
+    globalPIN @2598 DATA
+    globalPINLen @2599 DATA
+    global_ble_context @2600 DATA
+    global_ble_flasher_context @2601 DATA
+    global_nfc_context @2602 DATA
+    gz_error @2603
+    gzbuffer @2604
+    gzclearerr @2605
+    gzclose @2606
+    gzclose_r @2607
+    gzclose_w @2608
+    gzdirect @2609
+    gzdopen @2610
+    gzeof @2611
+    gzerror @2612
+    gzflush @2613
+    gzfread @2614
+    gzfwrite @2615
+    gzgetc @2616
+    gzgetc_ @2617
+    gzgets @2618
+    gzoffset @2619
+    gzoffset64 @2620
+    gzopen @2621
+    gzopen64 @2622
+    gzopen_w @2623
+    gzprintf @2624
+    gzputc @2625
+    gzputs @2626
+    gzread @2627
+    gzrewind @2628
+    gzseek @2629
+    gzseek64 @2630
+    gzsetparams @2631
+    gztell @2632
+    gztell64 @2633
+    gzungetc @2634
+    gzvprintf @2635
+    gzwrite @2636
+    hash_algs_byte_sizes @2637 DATA
+    hash_algs_names @2638 DATA
+    hash_descriptor @2639 DATA
+    hash_is_valid @2640
+    hash_memory @2641
+    hex2bin @2642
+    hex2str @2643
+    hex_str_to_bin @2644
+    hexsprintf @2645
+    hmac_done @2646
+    hmac_init @2647
+    hmac_process @2648
+    http_get_configuration @2649
+    http_get_display_firmware @2650
+    http_get_firmware @2651
+    http_get_package_name_by_firmware_version @2652
+    http_response_free @2653
+    i_block_trans_rcv_chain @2654
+    i_block_trans_rcv_chainM @2655
+    i_block_transceiveHnd @2656
+    i_block_transmitHnd @2657
+    icaoMlClearSearchCriteria @2658
+    icaoMlClose @2659
+    icaoMlFindCert @2660
+    icaoMlGetCurrentCertAndMoveToNext @2661
+    icaoMlMoveToFirstCert @2662
+    icaoMlOpen @2663
+    icode_lock_block @2664
+    icode_lock_blockM @2665
+    icode_lock_block_PK @2666
+    icode_lock_block_PK_M @2667
+    icode_protect_page @2668
+    icode_protect_pageM @2669
+    icode_protect_page_PK @2670
+    icode_protect_page_PK_M @2671
+    icode_protect_page_hnd @2672
+    icode_write_password @2673
+    icode_write_passwordM @2674
+    icode_write_password_PK @2675
+    icode_write_password_PK_M @2676
+    icode_write_password_hnd @2677
+    image_base64_encode @2678
+    inflate @2679
+    inflateBack @2680
+    inflateBackEnd @2681
+    inflateBackInit_ @2682
+    inflateCodesUsed @2683
+    inflateCopy @2684
+    inflateEnd @2685
+    inflateGetDictionary @2686
+    inflateGetHeader @2687
+    inflateInit2_ @2688
+    inflateInit_ @2689
+    inflateMark @2690
+    inflatePrime @2691
+    inflateReset @2692
+    inflateReset2 @2693
+    inflateResetKeep @2694
+    inflateSetDictionary @2695
+    inflateSync @2696
+    inflateSyncPoint @2697
+    inflateUndermine @2698
+    inflateValidate @2699
+    inflate_copyright @2700 DATA
+    inflate_fast @2701
+    inflate_table @2702
+    initCryptoSubsys @2703
+    init_device_params @2704
+    init_package_versions @2705
+    internal_setCardDetectedCallback @2706
+    internal_setCardRemovedCallback @2707
+    internal_setSessionErrorCallback @2708
+    isByteArrayPrintable @2709
+    isCryptoSubsysInitialized @2710
+    isExistATCounter @2711
+    isExistAmountAuthorised @2712
+    isExistTerminalCountry @2713
+    isExistTransactionCurrency @2714
+    isExistTransactionDate @2715
+    isExistTransactionTime @2716
+    isFilePath @2717
+    isFtdiCOMPort @2718
+    isSignatureSchType_ECDSA @2719
+    isSignatureSchType_RSA_PKCS1 @2720
+    isSignatureSchType_RSA_PSS @2721
+    is_array_numeric @2722
+    is_dg_allowed @2723
+    is_init @2724 DATA
+    is_reader_serial_number @2725
+    is_valid_hex_string @2726
+    iso14443a_crc_append_nl @2727
+    iso14443a_crc_nl @2728
+    iso15693_get_multiply_block_security_status @2729
+    iso15693_get_multiply_block_security_statusM @2730
+    iso15693_get_multiply_block_security_status_hnd @2731
+    iso15693_get_system_information @2732
+    iso15693_get_system_informationM @2733
+    iso15693_get_system_information_PK @2734
+    iso15693_get_system_information_PK_M @2735
+    iso15693_get_system_information_hnd @2736
+    iso15693_get_system_information_no_auth @2737
+    iso15693_get_system_information_no_authM @2738
+    iso15693_lock_block_hnd @2739
+    iso15693_lock_block_no_auth @2740
+    iso15693_lock_block_no_authM @2741
+    iso3166_country_codes @2742 DATA
+    iso4217_currency_codes @2743 DATA
+    jc_type @2744 DATA
+    key @2745 DATA
+    key1 @2746 DATA
+    key_version @2747 DATA
+    ks1 @2748 DATA
+    ks2 @2749 DATA
+    ks3 @2750 DATA
+    len_pub_key_ab @2751 DATA
+    len_pub_key_field @2752 DATA
+    len_pub_key_g @2753 DATA
+    len_pub_key_modulus @2754 DATA
+    len_pub_key_r @2755 DATA
+    list_add @2756
+    list_get_by_idx @2757
+    list_multi_remove @2758
+    list_remove @2759
+    list_size @2760
+    lsl @2761
+    ltc_cleanup_multi @2762
+    ltc_deinit_multi @2763
+    ltc_ecc_copy_point @2764
+    ltc_ecc_curves @2765 DATA
+    ltc_ecc_del_point @2766
+    ltc_ecc_export_point @2767
+    ltc_ecc_import_point @2768
+    ltc_ecc_is_point @2769
+    ltc_ecc_is_point_at_infinity @2770
+    ltc_ecc_map @2771
+    ltc_ecc_mulmod @2772
+    ltc_ecc_new_point @2773
+    ltc_ecc_projective_add_point @2774
+    ltc_ecc_projective_dbl_point @2775
+    ltc_ecc_set_point_xyz @2776
+    ltc_ecc_verify_key @2777
+    ltc_init_multi @2778
+    ltc_mp @2779 DATA
+    ltm_desc @2780 DATA
+    ltm_prime_tab @2781 DATA
+    mad @2782 DATA
+    md5_desc @2783 DATA
+    md5_done @2784
+    md5_init @2785
+    md5_process @2786
+    md5_test @2787
+    mem_neq @2788
+    months @2789 DATA
+    mp_2expt @2790
+    mp_abs @2791
+    mp_add @2792
+    mp_add_d @2793
+    mp_addmod @2794
+    mp_clamp @2795
+    mp_clear @2796
+    mp_clear_multi @2797
+    mp_cmp @2798
+    mp_cmp_d @2799
+    mp_cmp_mag @2800
+    mp_cnt_lsb @2801
+    mp_copy @2802
+    mp_count_bits @2803
+    mp_div @2804
+    mp_div_2 @2805
+    mp_div_2d @2806
+    mp_div_3 @2807
+    mp_div_d @2808
+    mp_dr_is_modulus @2809
+    mp_dr_reduce @2810
+    mp_dr_setup @2811
+    mp_exch @2812
+    mp_exptmod @2813
+    mp_exptmod_fast @2814
+    mp_gcd @2815
+    mp_get_bit @2816
+    mp_get_int @2817
+    mp_grow @2818
+    mp_init @2819
+    mp_init_copy @2820
+    mp_init_multi @2821
+    mp_init_set @2822
+    mp_init_set_int @2823
+    mp_init_size @2824
+    mp_invmod @2825
+    mp_invmod_slow @2826
+    mp_is_square @2827
+    mp_jacobi @2828
+    mp_karatsuba_mul @2829
+    mp_karatsuba_sqr @2830
+    mp_kronecker @2831
+    mp_lcm @2832
+    mp_lshd @2833
+    mp_mod @2834
+    mp_mod_2d @2835
+    mp_mod_d @2836
+    mp_montgomery_calc_normalization @2837
+    mp_montgomery_reduce @2838
+    mp_montgomery_setup @2839
+    mp_mul @2840
+    mp_mul_2 @2841
+    mp_mul_2d @2842
+    mp_mul_d @2843
+    mp_mulmod @2844
+    mp_neg @2845
+    mp_prime_is_divisible @2846
+    mp_prime_is_prime @2847
+    mp_prime_miller_rabin @2848
+    mp_prime_rabin_miller_trials @2849
+    mp_prime_strong_lucas_selfridge @2850
+    mp_rand @2851
+    mp_rand_digit @2852
+    mp_read_radix @2853
+    mp_read_unsigned_bin @2854
+    mp_reduce @2855
+    mp_reduce_2k @2856
+    mp_reduce_2k_l @2857
+    mp_reduce_2k_setup @2858
+    mp_reduce_2k_setup_l @2859
+    mp_reduce_is_2k @2860
+    mp_reduce_is_2k_l @2861
+    mp_reduce_setup @2862
+    mp_rshd @2863
+    mp_s_rmap @2864 DATA
+    mp_s_rmap_reverse @2865 DATA
+    mp_s_rmap_reverse_sz @2866 DATA
+    mp_set @2867
+    mp_set_int @2868
+    mp_set_long @2869
+    mp_sqr @2870
+    mp_sqrmod @2871
+    mp_sqrt @2872
+    mp_sqrtmod_prime @2873
+    mp_sub @2874
+    mp_sub_d @2875
+    mp_submod @2876
+    mp_to_unsigned_bin @2877
+    mp_toom_mul @2878
+    mp_toom_sqr @2879
+    mp_toradix @2880
+    mp_unsigned_bin_size @2881
+    mp_zero @2882
+    mrtd_bac_challenge_ok @2883
+    mrtd_bac_check_digit @2884
+    mrtd_bac_cmd_data @2885
+    mrtd_bac_decrypt_response @2886
+    mrtd_bac_eifd_mifd @2887
+    mrtd_bac_get_ssc @2888
+    mrtd_bac_kenc_kmac @2889
+    mrtd_bac_mrz_proto_key_to_kenc_kmac @2890
+    mrtd_bac_protected_apdu @2891
+    mrtd_bac_randomize_rndifd_kifd @2892
+    mrtd_crypto_crypt_3des @2893
+    mrtd_crypto_crypt_des @2894
+    mrtd_crypto_decrypt_3des @2895
+    mrtd_crypto_decrypt_des @2896
+    mrtd_crypto_encrypt_3des @2897
+    mrtd_crypto_encrypt_des @2898
+    mrtd_crypto_fix_parity @2899
+    mrtd_crypto_mac @2900
+    mrtd_crypto_mac_padding @2901
+    mrtd_crypto_padding @2902
+    mrtd_crypto_padding_remove @2903
+    mrtd_crypto_sha1 @2904
+    ndef_card_initialization @2905
+    ndef_card_initializationHnd @2906
+    ndef_card_initializationM @2907
+    ndef_record_to_byte_array @2908
+    ndef_record_to_byte_array_mirroring @2909
+    newAflListItem @2910
+    newEmvTag @2911
+    nt4h_change_file_settings_hnd @2912
+    nt4h_change_key @2913
+    nt4h_change_keyM @2914
+    nt4h_change_key_hnd @2915
+    nt4h_change_key_pk @2916
+    nt4h_change_key_pkM @2917
+    nt4h_change_sdm_file_settings @2918
+    nt4h_change_sdm_file_settingsM @2919
+    nt4h_change_sdm_file_settings_pk @2920
+    nt4h_change_sdm_file_settings_pkM @2921
+    nt4h_change_standard_file_settings @2922
+    nt4h_change_standard_file_settingsM @2923
+    nt4h_change_standard_file_settings_pk @2924
+    nt4h_change_standard_file_settings_pkM @2925
+    nt4h_check_sdm_mac @2926
+    nt4h_decrypt_picc_data @2927
+    nt4h_decrypt_sdm_enc_file_data @2928
+    nt4h_enable_tt @2929
+    nt4h_enable_ttM @2930
+    nt4h_enable_tt_pk @2931
+    nt4h_enable_tt_pkM @2932
+    nt4h_get_file_settings @2933
+    nt4h_get_file_settingsM @2934
+    nt4h_get_file_settings_hnd @2935
+    nt4h_get_sdm_ctr @2936
+    nt4h_get_sdm_ctrM @2937
+    nt4h_get_sdm_ctr_no_auth @2938
+    nt4h_get_sdm_ctr_no_authM @2939
+    nt4h_get_sdm_ctr_pk @2940
+    nt4h_get_sdm_ctr_pkM @2941
+    nt4h_get_sdm_read_ctr_hnd @2942
+    nt4h_get_tt_status @2943
+    nt4h_get_tt_statusM @2944
+    nt4h_get_tt_status_hnd @2945
+    nt4h_get_tt_status_no_auth @2946
+    nt4h_get_tt_status_no_authM @2947
+    nt4h_get_tt_status_pk @2948
+    nt4h_get_tt_status_pkM @2949
+    nt4h_get_uid @2950
+    nt4h_get_uidM @2951
+    nt4h_get_uid_hnd @2952
+    nt4h_get_uid_pk @2953
+    nt4h_get_uid_pkM @2954
+    nt4h_rid_read_ecc_signature @2955
+    nt4h_rid_read_ecc_signatureM @2956
+    nt4h_rid_read_ecc_signature_pk @2957
+    nt4h_rid_read_ecc_signature_pkM @2958
+    nt4h_session_sdm_file_read_enc_key @2959
+    nt4h_session_sdm_file_read_mac_key @2960
+    nt4h_set_configuration_hnd @2961
+    nt4h_set_global_parameters @2962
+    nt4h_set_global_parametersM @2963
+    nt4h_set_global_parameters_hnd @2964
+    nt4h_set_rid @2965
+    nt4h_set_ridM @2966
+    nt4h_set_rid_pk @2967
+    nt4h_set_rid_pkM @2968
+    nt4h_tt_change_sdm_file_settings @2969
+    nt4h_tt_change_sdm_file_settingsM @2970
+    nt4h_tt_change_sdm_file_settings_pk @2971
+    nt4h_tt_change_sdm_file_settings_pkM @2972
+    nt4h_tt_get_file_settings @2973
+    nt4h_tt_get_file_settingsM @2974
+    nt4h_unset_rid_pk @2975
+    oid_countryName @2976 DATA
+    oid_ecc_brainpoolP160r1 @2977 DATA
+    oid_ecc_brainpoolP160t1 @2978 DATA
+    oid_ecc_brainpoolP192r1 @2979 DATA
+    oid_ecc_brainpoolP192t1 @2980 DATA
+    oid_ecc_brainpoolP224r1 @2981 DATA
+    oid_ecc_brainpoolP224t1 @2982 DATA
+    oid_ecc_brainpoolP256r1 @2983 DATA
+    oid_ecc_brainpoolP256t1 @2984 DATA
+    oid_ecc_brainpoolP320r1 @2985 DATA
+    oid_ecc_brainpoolP320t1 @2986 DATA
+    oid_ecc_brainpoolP384r1 @2987 DATA
+    oid_ecc_brainpoolP384t1 @2988 DATA
+    oid_ecc_brainpoolP512r1 @2989 DATA
+    oid_ecc_brainpoolP512t1 @2990 DATA
+    oid_ecc_prime192v2 @2991 DATA
+    oid_ecc_prime192v3 @2992 DATA
+    oid_ecc_prime239v1 @2993 DATA
+    oid_ecc_prime239v2 @2994 DATA
+    oid_ecc_prime239v3 @2995 DATA
+    oid_ecc_secp112r1 @2996 DATA
+    oid_ecc_secp112r2 @2997 DATA
+    oid_ecc_secp128r1 @2998 DATA
+    oid_ecc_secp128r2 @2999 DATA
+    oid_ecc_secp160k1 @3000 DATA
+    oid_ecc_secp160r1 @3001 DATA
+    oid_ecc_secp160r2 @3002 DATA
+    oid_ecc_secp192k1 @3003 DATA
+    oid_ecc_secp192r1 @3004 DATA
+    oid_ecc_secp224k1 @3005 DATA
+    oid_ecc_secp224r1 @3006 DATA
+    oid_ecc_secp256k1 @3007 DATA
+    oid_ecc_secp256r1 @3008 DATA
+    oid_ecc_secp384r1 @3009 DATA
+    oid_ecc_secp521r1 @3010 DATA
+    oid_ecc_sect113r1 @3011 DATA
+    oid_ecc_sect113r2 @3012 DATA
+    oid_ecc_sect131r1 @3013 DATA
+    oid_ecc_sect131r2 @3014 DATA
+    oid_ecc_sect163k1 @3015 DATA
+    oid_ecc_sect163r1 @3016 DATA
+    oid_ecc_sect163r2 @3017 DATA
+    oid_ecc_sect193r1 @3018 DATA
+    oid_ecc_sect193r2 @3019 DATA
+    oid_ecc_sect233k1 @3020 DATA
+    oid_ecc_sect233r1 @3021 DATA
+    oid_ecc_sect239k1 @3022 DATA
+    oid_ecc_sect283k1 @3023 DATA
+    oid_ecc_sect283r1 @3024 DATA
+    oid_ecc_sect409k1 @3025 DATA
+    oid_ecc_sect409r1 @3026 DATA
+    oid_ecc_sect571k1 @3027 DATA
+    oid_ecc_sect571r1 @3028 DATA
+    oid_ecdsa_prime_field @3029 DATA
+    oid_icao_csca_master_list @3030 DATA
+    oid_icao_mrtd_security_object @3031 DATA
+    oid_pkcs1_mgf @3032 DATA
+    oid_pkcs7_signed_data @3033 DATA
+    oid_pkcs9_message_digest @3034 DATA
+    oid_pub_key_ecdsa @3035 DATA
+    oid_pub_key_rsa @3036 DATA
+    oid_sha1 @3037 DATA
+    oid_sha224 @3038 DATA
+    oid_sha256 @3039 DATA
+    oid_sha384 @3040 DATA
+    oid_sha512 @3041 DATA
+    oid_sha512_224 @3042 DATA
+    oid_sha512_256 @3043 DATA
+    oid_sig_sch_ecdsa_with_sha1 @3044 DATA
+    oid_sig_sch_ecdsa_with_sha224 @3045 DATA
+    oid_sig_sch_ecdsa_with_sha256 @3046 DATA
+    oid_sig_sch_ecdsa_with_sha384 @3047 DATA
+    oid_sig_sch_ecdsa_with_sha512 @3048 DATA
+    oid_sig_sch_rsa_pss @3049 DATA
+    oid_sig_sch_rsa_sha1 @3050 DATA
+    oid_sig_sch_rsa_sha224 @3051 DATA
+    oid_sig_sch_rsa_sha256 @3052 DATA
+    oid_sig_sch_rsa_sha384 @3053 DATA
+    oid_sig_sch_rsa_sha512 @3054 DATA
+    oid_sig_sch_rsa_sha512_224 @3055 DATA
+    oid_sig_sch_rsa_sha512_256 @3056 DATA
+    oid_x509ext_aki @3057 DATA
+    oid_x509ext_ski @3058 DATA
+    oids @3059 DATA
+    oids_ecc_curves @3060 DATA
+    oids_hash_algs @3061 DATA
+    oids_pub_key_types @3062 DATA
+    oids_signature_schemes @3063 DATA
+    open_ISO7816_interface @3064
+    open_ISO7816_interfaceHnd @3065
+    open_ISO7816_interfaceM @3066
+    open_devs @3067 DATA
+    padded_data_length @3068
+    parseEmvTag @3069
+    parse_ber_tag @3070
+    parse_dg1_to_JSON @3071
+    parse_dg_filter_string @3072
+    parse_dg_image_to_JSON @3073
+    parse_firmware_manifest @3074
+    parse_open_arg @3075
+    pemCertToDer @3076
+    pk_get_oid @3077
+    pk_oid_cmp_with_asn1 @3078
+    pk_oid_cmp_with_ulong @3079
+    pk_oid_num_to_str @3080
+    pk_oid_str_to_num @3081
+    pkcs7GetCert @3082
+    pkcs7GetCertNodPos @3083
+    pkcs7GetDataGroupHash @3084
+    pkcs7GetDataGroupsHashAlgorithm @3085
+    pkcs7GetDigestAlgorithms @3086
+    pkcs7GetDigestAlgorithmsNodPos @3087
+    pkcs7GetEncapContentInfoNodPos @3088
+    pkcs7GetLDSSecurityObject @3089
+    pkcs7GetLDSSecurityObjectDigest @3090
+    pkcs7GetLDSSecurityObjectPos @3091
+    pkcs7GetSignature @3092
+    pkcs7GetSignatureAlgorithm @3093
+    pkcs7GetSignatureAlgorithmPos @3094
+    pkcs7GetSignaturePos @3095
+    pkcs7GetSignedAttrs @3096
+    pkcs7GetSignedAttrsDigestAlgPos @3097
+    pkcs7GetSignedAttrsDigestAlgorithm @3098
+    pkcs7GetSignedAttrsPos @3099
+    pkcs7GetSignerId @3100
+    pkcs7GetSignerIdPos @3101
+    pkcs7GetSignerIdVersion @3102
+    pkcs7GetSignerInfosNodPos @3103
+    pkcs7ParseDERSignatureScheme @3104
+    pkcs7ParseRsaPSSParams @3105
+    pkcs7VerifySignature @3106
+    pkcs_1_mgf1 @3107
+    pkcs_1_oaep_decode @3108
+    pkcs_1_oaep_encode @3109
+    pkcs_1_pss_decode @3110
+    pkcs_1_pss_encode @3111
+    pkcs_1_v1_5_decode @3112
+    pkcs_1_v1_5_encode @3113
+    pn512_transceiveHnd @3114
+    pn512_transceive_mode_startHnd @3115
+    pn512_transceive_mode_stopHnd @3116
+    pre_multi_open @3117
+    print_com_ports @3118
+    print_index @3119
+    prn_modem_status @3120
+    prng_descriptor @3121 DATA
+    prng_is_valid @3122
+    pub_key_ab @3123 DATA
+    pub_key_designator @3124 DATA
+    pub_key_field @3125 DATA
+    pub_key_g @3126 DATA
+    pub_key_k @3127 DATA
+    pub_key_modulus @3128 DATA
+    pub_key_r @3129 DATA
+    pub_key_size_bits @3130 DATA
+    r_block_transceive @3131
+    r_block_transceiveHnd @3132
+    r_block_transceiveM @3133
+    rand_bn_bits @3134
+    rand_bn_upto @3135
+    rand_prime @3136
+    readAsyncUID @3137
+    readPartialAsyncUID @3138
+    read_ndef_record @3139
+    read_ndef_recordHnd @3140
+    read_ndef_recordM @3141
+    register_cipher @3142
+    register_hash @3143
+    register_prng @3144
+    removeCallbackHandlers @3145
+    removeData @3146
+    reset_pin_set @3147
+    rijndael_desc @3148 DATA
+    rijndael_done @3149
+    rijndael_ecb_decrypt @3150
+    rijndael_ecb_encrypt @3151
+    rijndael_keysize @3152
+    rijndael_setup @3153
+    rijndael_test @3154
+    rng_get_bytes @3155
+    rng_make_prng @3156
+    rol @3157
+    rs232_init_programming @3158
+    rs232_serial_port_init @3159
+    rs232_serial_port_init_Hnd @3160
+    rs232_serial_port_init_Hnd_device_type @3161
+    rsa_decrypt_key_ex @3162
+    rsa_encrypt_key_ex @3163
+    rsa_exptmod @3164
+    rsa_free @3165
+    rsa_import @3166
+    rsa_import_x509 @3167
+    rsa_key_byte_sizes @3168 DATA
+    rsa_make_key @3169
+    rsa_set_crt_params @3170
+    rsa_set_factors @3171
+    rsa_set_key @3172
+    rsa_sign_hash_ex @3173
+    rsa_verify_hash_ex @3174
+    s_block_deselect @3175
+    s_block_deselectHnd @3176
+    s_block_deselectM @3177
+    s_mp_add @3178
+    s_mp_exptmod @3179
+    s_mp_mul_digs @3180
+    s_mp_mul_high_digs @3181
+    s_mp_sqr @3182
+    s_mp_sub @3183
+    send_pending @3184
+    sessionErrorCallback @3185 DATA
+    session_key_new @3186
+    setBit @3187
+    setCardDetectedCallback @3188
+    setCardRemovedCallback @3189
+    setGPIOPin @3190
+    setSessionErrorCallback @3191
+    sha1_desc @3192 DATA
+    sha1_done @3193
+    sha1_init @3194
+    sha1_process @3195
+    sha1_test @3196
+    sha224_desc @3197 DATA
+    sha224_done @3198
+    sha224_init @3199
+    sha224_test @3200
+    sha256_desc @3201 DATA
+    sha256_done @3202
+    sha256_init @3203
+    sha256_process @3204
+    sha256_test @3205
+    sha384_desc @3206 DATA
+    sha384_done @3207
+    sha384_init @3208
+    sha384_test @3209
+    sha512_224_desc @3210 DATA
+    sha512_224_done @3211
+    sha512_224_init @3212
+    sha512_224_test @3213
+    sha512_256_desc @3214 DATA
+    sha512_256_done @3215
+    sha512_256_init @3216
+    sha512_256_test @3217
+    sha512_desc @3218 DATA
+    sha512_done @3219
+    sha512_init @3220
+    sha512_process @3221
+    sha512_test @3222
+    signature_scheme_names @3223 DATA
+    sitable @3224 DATA
+    sorted_uids @3225 DATA
+    sprng_add_entropy @3226
+    sprng_desc @3227 DATA
+    sprng_done @3228
+    sprng_export @3229
+    sprng_import @3230
+    sprng_read @3231
+    sprng_ready @3232
+    sprng_start @3233
+    sprng_test @3234
+    stable @3235 DATA
+    static_internal_store_keys @3236
+    stbi_convert_iphone_png_to_rgb @3237
+    stbi_convert_iphone_png_to_rgb_thread @3238
+    stbi_failure_reason @3239
+    stbi_hdr_to_ldr_gamma @3240
+    stbi_hdr_to_ldr_scale @3241
+    stbi_image_free @3242
+    stbi_info @3243
+    stbi_info_from_callbacks @3244
+    stbi_info_from_file @3245
+    stbi_info_from_memory @3246
+    stbi_is_16_bit @3247
+    stbi_is_16_bit_from_callbacks @3248
+    stbi_is_16_bit_from_file @3249
+    stbi_is_16_bit_from_memory @3250
+    stbi_is_hdr @3251
+    stbi_is_hdr_from_callbacks @3252
+    stbi_is_hdr_from_file @3253
+    stbi_is_hdr_from_memory @3254
+    stbi_ldr_to_hdr_gamma @3255
+    stbi_ldr_to_hdr_scale @3256
+    stbi_load @3257
+    stbi_load_16 @3258
+    stbi_load_16_from_callbacks @3259
+    stbi_load_16_from_memory @3260
+    stbi_load_from_callbacks @3261
+    stbi_load_from_file @3262
+    stbi_load_from_file_16 @3263
+    stbi_load_from_memory @3264
+    stbi_load_gif_from_memory @3265
+    stbi_loadf @3266
+    stbi_loadf_from_callbacks @3267
+    stbi_loadf_from_file @3268
+    stbi_loadf_from_memory @3269
+    stbi_set_flip_vertically_on_load @3270
+    stbi_set_flip_vertically_on_load_thread @3271
+    stbi_set_unpremultiply_on_load @3272
+    stbi_set_unpremultiply_on_load_thread @3273
+    stbi_zlib_decode_buffer @3274
+    stbi_zlib_decode_malloc @3275
+    stbi_zlib_decode_malloc_guesssize @3276
+    stbi_zlib_decode_malloc_guesssize_headerflag @3277
+    stbi_zlib_decode_noheader_buffer @3278
+    stbi_zlib_decode_noheader_malloc @3279
+    strTimeToEpoch @3280
+    str_FilePrefix @3281 DATA
+    str_SubFolder @3282 DATA
+    strmem @3283
+    strmempos @3284
+    szRApdu @3285 DATA
+    tag1 @3286 DATA
+    test_esp_sn @3287
+    test_ptr @3288 DATA
+    test_ptr_size @3289 DATA
+    test_reader_fw_version @3290
+    test_reader_sn @3291
+    timespan_prn @3292
+    timespan_start @3293
+    tls_add_alpn @3294
+    tls_alert @3295
+    tls_alpn @3296
+    tls_alpn_contains @3297
+    tls_buffer_clear @3298
+    tls_build_alert @3299
+    tls_build_certificate @3300
+    tls_build_certificate_verify @3301
+    tls_build_change_cipher_spec @3302
+    tls_build_client_key_exchange @3303
+    tls_build_done @3304
+    tls_build_finished @3305
+    tls_build_hello @3306
+    tls_build_message @3307
+    tls_certificate_chain_is_valid @3308
+    tls_certificate_chain_is_valid_root @3309
+    tls_certificate_is_valid @3310
+    tls_certificate_set_algorithm @3311
+    tls_certificate_set_copy @3312
+    tls_certificate_set_copy_date @3313
+    tls_certificate_set_exponent @3314
+    tls_certificate_set_key @3315
+    tls_certificate_set_priv @3316
+    tls_certificate_set_serial @3317
+    tls_certificate_set_sign_key @3318
+    tls_certificate_to_string @3319
+    tls_certificate_valid_subject @3320
+    tls_certificate_valid_subject_name @3321
+    tls_certificate_verify_signature @3322
+    tls_choose_cipher @3323
+    tls_cipher_is_ephemeral @3324
+    tls_cipher_is_fs @3325
+    tls_cipher_name @3326
+    tls_cipher_supported @3327
+    tls_clear_certificates @3328
+    tls_client_connect @3329
+    tls_client_verified @3330
+    tls_close_notify @3331
+    tls_consume_stream @3332
+    tls_create_certificate @3333
+    tls_create_context @3334
+    tls_create_packet @3335
+    tls_create_packet_alt @3336
+    tls_default_verify @3337
+    tls_destroy_certificate @3338
+    tls_destroy_context @3339
+    tls_destroy_packet @3340
+    tls_established @3341
+    tls_get_message @3342
+    tls_get_write_buffer @3343
+    tls_init @3344
+    tls_is_broken @3345
+    tls_is_ecdsa @3346
+    tls_load_certificates @3347
+    tls_load_private_key @3348
+    tls_load_root_certificates @3349
+    tls_make_exportable @3350
+    tls_make_ktls @3351
+    tls_packet_append @3352
+    tls_packet_uint16 @3353
+    tls_packet_uint24 @3354
+    tls_packet_uint32 @3355
+    tls_packet_uint8 @3356
+    tls_packet_update @3357
+    tls_packet_update_tbs @3358
+    tls_parse_certificate @3359
+    tls_parse_finished @3360
+    tls_parse_hello @3361
+    tls_parse_message @3362
+    tls_parse_payload @3363
+    tls_parse_server_hello_done @3364
+    tls_parse_server_key_exchange @3365
+    tls_parse_verify @3366
+    tls_pem_decode @3367
+    tls_pending @3368
+    tls_random @3369
+    tls_read @3370
+    tls_read_clear @3371
+    tls_remote_error @3372
+    tls_sni @3373
+    tls_sni_set @3374
+    tls_ufr_status @3375 DATA
+    tls_unmake_ktls @3376
+    tls_write @3377
+    tmp_obj @3378 DATA
+    tmp_obj_len @3379 DATA
+    toUpper @3380
+    tohex @3381
+    transferBitmapData @3382
+    uFR_APDU_Start @3383
+    uFR_APDU_StartM @3384
+    uFR_APDU_Stop @3385
+    uFR_APDU_StopM @3386
+    uFR_APDU_Transceive @3387
+    uFR_APDU_TransceiveHnd @3388
+    uFR_APDU_TransceiveM @3389
+    uFR_DESFIRE_SendICFG @3390
+    uFR_DESFIRE_Start @3391
+    uFR_DESFIRE_StartHnd @3392
+    uFR_DESFIRE_StartM @3393
+    uFR_DESFIRE_Stop @3394
+    uFR_DESFIRE_StopHnd @3395
+    uFR_DESFIRE_StopM @3396
+    uFR_Hnd_Create @3397
+    uFR_Hnd_Destroy @3398
+    uFR_Hnd_SetGlobal @3399
+    uFR_Hnd_assign_try_port @3400
+    uFR_SAM_DesfireChange2k3desKey_2k3desAuth @3401
+    uFR_SAM_DesfireChange2k3desKey_2k3desAuthM @3402
+    uFR_SAM_DesfireChange2k3desKey_DesAuth @3403
+    uFR_SAM_DesfireChange2k3desKey_DesAuthM @3404
+    uFR_SAM_DesfireChange3k3desKey_3k3desAuth @3405
+    uFR_SAM_DesfireChange3k3desKey_3k3desAuthM @3406
+    uFR_SAM_DesfireChangeAesKeyHnd @3407
+    uFR_SAM_DesfireChangeAesKey_AesAuth @3408
+    uFR_SAM_DesfireChangeDesKey_2k3desAuth @3409
+    uFR_SAM_DesfireChangeDesKey_2k3desAuthM @3410
+    uFR_SAM_DesfireChangeDesKey_DesAuth @3411
+    uFR_SAM_DesfireChangeDesKey_DesAuthM @3412
+    uFR_SAM_DesfireChangeFileSettings2k3desAuth @3413
+    uFR_SAM_DesfireChangeFileSettings2k3desAuthM @3414
+    uFR_SAM_DesfireChangeFileSettings3k3desAuth @3415
+    uFR_SAM_DesfireChangeFileSettings3k3desAuthM @3416
+    uFR_SAM_DesfireChangeFileSettingsAesAuth @3417
+    uFR_SAM_DesfireChangeFileSettingsAesAuthM @3418
+    uFR_SAM_DesfireChangeFileSettingsDesAuth @3419
+    uFR_SAM_DesfireChangeFileSettingsDesAuthM @3420
+    uFR_SAM_DesfireChangeFileSettingsHnd @3421
+    uFR_SAM_DesfireChangeFileSettingsSdm @3422
+    uFR_SAM_DesfireChangeFileSettingsSdmHnd @3423
+    uFR_SAM_DesfireChangeFileSettingsSdmM @3424
+    uFR_SAM_DesfireChangeKeySettings2k3desAuth @3425
+    uFR_SAM_DesfireChangeKeySettings2k3desAuthM @3426
+    uFR_SAM_DesfireChangeKeySettings3k3desAuth @3427
+    uFR_SAM_DesfireChangeKeySettings3k3desAuthM @3428
+    uFR_SAM_DesfireChangeKeySettingsAesAuth @3429
+    uFR_SAM_DesfireChangeKeySettingsAesAuthM @3430
+    uFR_SAM_DesfireChangeKeySettingsDesAuth @3431
+    uFR_SAM_DesfireChangeKeySettingsDesAuthM @3432
+    uFR_SAM_DesfireChangeKeySettingsHnd @3433
+    uFR_SAM_DesfireChangeKey_AesAuthM @3434
+    uFR_SAM_DesfireChangeMasterKey @3435
+    uFR_SAM_DesfireChangeMasterKeyM @3436
+    uFR_SAM_DesfireClearRecordFile2k3desAuth @3437
+    uFR_SAM_DesfireClearRecordFile2k3desAuth_2 @3438
+    uFR_SAM_DesfireClearRecordFile2k3desAuth_2M @3439
+    uFR_SAM_DesfireClearRecordFile3k3desAuth @3440
+    uFR_SAM_DesfireClearRecordFile3k3desAuthM @3441
+    uFR_SAM_DesfireClearRecordFile3k3desAuth_2 @3442
+    uFR_SAM_DesfireClearRecordFile3k3desAuth_2M @3443
+    uFR_SAM_DesfireClearRecordFileAesAuth @3444
+    uFR_SAM_DesfireClearRecordFileAesAuthM @3445
+    uFR_SAM_DesfireClearRecordFileAesAuth_2 @3446
+    uFR_SAM_DesfireClearRecordFileAesAuth_2M @3447
+    uFR_SAM_DesfireClearRecordFileDesAuth @3448
+    uFR_SAM_DesfireClearRecordFileDesAuth_2 @3449
+    uFR_SAM_DesfireClearRecordFileDesAuth_2M @3450
+    uFR_SAM_DesfireClearRecordFile_TransMac_2k3desAuth @3451
+    uFR_SAM_DesfireClearRecordFile_TransMac_2k3desAuthM @3452
+    uFR_SAM_DesfireClearRecordFile_TransMac_3k3desAuth @3453
+    uFR_SAM_DesfireClearRecordFile_TransMac_3k3desAuthM @3454
+    uFR_SAM_DesfireClearRecordFile_TransMac_AesAuth @3455
+    uFR_SAM_DesfireClearRecordFile_TransMac_AesAuthM @3456
+    uFR_SAM_DesfireClearRecordFile_TransMac_DesAuth @3457
+    uFR_SAM_DesfireClearRecordFile_TransMac_DesAuthM @3458
+    uFR_SAM_DesfireClearRecordHnd @3459
+    uFR_SAM_DesfireCreate3k3desApplication2k3desAuth @3460
+    uFR_SAM_DesfireCreate3k3desApplication2k3desAuthIso @3461
+    uFR_SAM_DesfireCreate3k3desApplication2k3desAuthIsoM @3462
+    uFR_SAM_DesfireCreate3k3desApplication2k3desAuthM @3463
+    uFR_SAM_DesfireCreate3k3desApplication3k3desAuth @3464
+    uFR_SAM_DesfireCreate3k3desApplication3k3desAuthIso @3465
+    uFR_SAM_DesfireCreate3k3desApplication3k3desAuthIsoM @3466
+    uFR_SAM_DesfireCreate3k3desApplication3k3desAuthM @3467
+    uFR_SAM_DesfireCreate3k3desApplicationAesAuth @3468
+    uFR_SAM_DesfireCreate3k3desApplicationAesAuthIso @3469
+    uFR_SAM_DesfireCreate3k3desApplicationAesAuthIsoM @3470
+    uFR_SAM_DesfireCreate3k3desApplicationAesAuthM @3471
+    uFR_SAM_DesfireCreate3k3desApplicationDesAuth @3472
+    uFR_SAM_DesfireCreate3k3desApplicationDesAuthIso @3473
+    uFR_SAM_DesfireCreate3k3desApplicationDesAuthIsoM @3474
+    uFR_SAM_DesfireCreate3k3desApplicationDesAuthM @3475
+    uFR_SAM_DesfireCreateAesApplication2k3desAuth @3476
+    uFR_SAM_DesfireCreateAesApplication2k3desAuthIso @3477
+    uFR_SAM_DesfireCreateAesApplication2k3desAuthIsoM @3478
+    uFR_SAM_DesfireCreateAesApplication2k3desAuthM @3479
+    uFR_SAM_DesfireCreateAesApplication3k3desAuth @3480
+    uFR_SAM_DesfireCreateAesApplication3k3desAuthIso @3481
+    uFR_SAM_DesfireCreateAesApplication3k3desAuthIsoM @3482
+    uFR_SAM_DesfireCreateAesApplication3k3desAuthM @3483
+    uFR_SAM_DesfireCreateAesApplicationAesAuth @3484
+    uFR_SAM_DesfireCreateAesApplicationAesAuthIso @3485
+    uFR_SAM_DesfireCreateAesApplicationAesAuthIsoAscd @3486
+    uFR_SAM_DesfireCreateAesApplicationAesAuthIsoAscdM @3487
+    uFR_SAM_DesfireCreateAesApplicationAesAuthIsoM @3488
+    uFR_SAM_DesfireCreateAesApplicationAesAuthM @3489
+    uFR_SAM_DesfireCreateAesApplicationDesAuth @3490
+    uFR_SAM_DesfireCreateAesApplicationDesAuthIso @3491
+    uFR_SAM_DesfireCreateAesApplicationDesAuthIsoM @3492
+    uFR_SAM_DesfireCreateAesApplicationDesAuthM @3493
+    uFR_SAM_DesfireCreateApplicationHnd @3494
+    uFR_SAM_DesfireCreateApplication_iso_Hnd @3495
+    uFR_SAM_DesfireCreateApplication_iso_ascd_Hnd @3496
+    uFR_SAM_DesfireCreateBackupDataFile2k3desAuth @3497
+    uFR_SAM_DesfireCreateBackupDataFile2k3desAuthM @3498
+    uFR_SAM_DesfireCreateBackupDataFile3k3desAuth @3499
+    uFR_SAM_DesfireCreateBackupDataFile3k3desAuthM @3500
+    uFR_SAM_DesfireCreateBackupDataFileAesAuth @3501
+    uFR_SAM_DesfireCreateBackupDataFileAesAuthM @3502
+    uFR_SAM_DesfireCreateBackupDataFileDesAuth @3503
+    uFR_SAM_DesfireCreateBackupDataFileHnd @3504
+    uFR_SAM_DesfireCreateBackupdDataFileDesAuthM @3505
+    uFR_SAM_DesfireCreateCyclicRecordFile2k3desAuth @3506
+    uFR_SAM_DesfireCreateCyclicRecordFile2k3desAuthM @3507
+    uFR_SAM_DesfireCreateCyclicRecordFile3k3desAuth @3508
+    uFR_SAM_DesfireCreateCyclicRecordFile3k3desAuthM @3509
+    uFR_SAM_DesfireCreateCyclicRecordFileAesAuth @3510
+    uFR_SAM_DesfireCreateCyclicRecordFileAesAuthM @3511
+    uFR_SAM_DesfireCreateCyclicRecordFileDesAuth @3512
+    uFR_SAM_DesfireCreateCyclicRecordFileDesAuthM @3513
+    uFR_SAM_DesfireCreateDesApplication2k3desAuth @3514
+    uFR_SAM_DesfireCreateDesApplication2k3desAuthIso @3515
+    uFR_SAM_DesfireCreateDesApplication2k3desAuthIsoM @3516
+    uFR_SAM_DesfireCreateDesApplication2k3desAuthM @3517
+    uFR_SAM_DesfireCreateDesApplication3k3desAuth @3518
+    uFR_SAM_DesfireCreateDesApplication3k3desAuthIso @3519
+    uFR_SAM_DesfireCreateDesApplication3k3desAuthIsoM @3520
+    uFR_SAM_DesfireCreateDesApplication3k3desAuthM @3521
+    uFR_SAM_DesfireCreateDesApplicationAesAuth @3522
+    uFR_SAM_DesfireCreateDesApplicationAesAuthIso @3523
+    uFR_SAM_DesfireCreateDesApplicationAesAuthIsoM @3524
+    uFR_SAM_DesfireCreateDesApplicationAesAuthM @3525
+    uFR_SAM_DesfireCreateDesApplicationDesAuth @3526
+    uFR_SAM_DesfireCreateDesApplicationDesAuthIso @3527
+    uFR_SAM_DesfireCreateDesApplicationDesAuthIsoM @3528
+    uFR_SAM_DesfireCreateDesApplicationDesAuthM @3529
+    uFR_SAM_DesfireCreateLinearRecordFile2k3desAuth @3530
+    uFR_SAM_DesfireCreateLinearRecordFile2k3desAuthM @3531
+    uFR_SAM_DesfireCreateLinearRecordFile3k3desAuth @3532
+    uFR_SAM_DesfireCreateLinearRecordFile3k3desAuthM @3533
+    uFR_SAM_DesfireCreateLinearRecordFileAesAuth @3534
+    uFR_SAM_DesfireCreateLinearRecordFileAesAuthM @3535
+    uFR_SAM_DesfireCreateLinearRecordFileDesAuth @3536
+    uFR_SAM_DesfireCreateLinearRecordFileDesAuthM @3537
+    uFR_SAM_DesfireCreateRecordFileHnd @3538
+    uFR_SAM_DesfireCreateStdDataFile2k3desAuth @3539
+    uFR_SAM_DesfireCreateStdDataFile2k3desAuthIso @3540
+    uFR_SAM_DesfireCreateStdDataFile2k3desAuthIsoM @3541
+    uFR_SAM_DesfireCreateStdDataFile2k3desAuthM @3542
+    uFR_SAM_DesfireCreateStdDataFile3k3desAuth @3543
+    uFR_SAM_DesfireCreateStdDataFile3k3desAuthIso @3544
+    uFR_SAM_DesfireCreateStdDataFile3k3desAuthIsoM @3545
+    uFR_SAM_DesfireCreateStdDataFile3k3desAuthM @3546
+    uFR_SAM_DesfireCreateStdDataFileAesAuth @3547
+    uFR_SAM_DesfireCreateStdDataFileAesAuthIso @3548
+    uFR_SAM_DesfireCreateStdDataFileAesAuthIsoM @3549
+    uFR_SAM_DesfireCreateStdDataFileAesAuthIsoSdm @3550
+    uFR_SAM_DesfireCreateStdDataFileAesAuthIsoSdmM @3551
+    uFR_SAM_DesfireCreateStdDataFileAesAuthM @3552
+    uFR_SAM_DesfireCreateStdDataFileDesAuth @3553
+    uFR_SAM_DesfireCreateStdDataFileDesAuthIso @3554
+    uFR_SAM_DesfireCreateStdDataFileDesAuthIsoM @3555
+    uFR_SAM_DesfireCreateStdDataFileDesAuthM @3556
+    uFR_SAM_DesfireCreateStdDataFileHnd @3557
+    uFR_SAM_DesfireCreateStdDataFile_iso_Hnd @3558
+    uFR_SAM_DesfireCreateStdDataFile_iso_sdm_Hnd @3559
+    uFR_SAM_DesfireCreateTransMacFile2k3desAuth @3560
+    uFR_SAM_DesfireCreateTransMacFile2k3desAuthM @3561
+    uFR_SAM_DesfireCreateTransMacFile3k3desAuth @3562
+    uFR_SAM_DesfireCreateTransMacFile3k3desAuthM @3563
+    uFR_SAM_DesfireCreateTransMacFileAesAuth @3564
+    uFR_SAM_DesfireCreateTransMacFileAesAuthM @3565
+    uFR_SAM_DesfireCreateTransMacFileDesAuth @3566
+    uFR_SAM_DesfireCreateTransMacFileDesAuthM @3567
+    uFR_SAM_DesfireCreateTransMacFileHnd @3568
+    uFR_SAM_DesfireCreateValueFile2k3desAuth @3569
+    uFR_SAM_DesfireCreateValueFile2k3desAuthM @3570
+    uFR_SAM_DesfireCreateValueFile3k3desAuth @3571
+    uFR_SAM_DesfireCreateValueFile3k3desAuthM @3572
+    uFR_SAM_DesfireCreateValueFileAesAuth @3573
+    uFR_SAM_DesfireCreateValueFileAesAuthM @3574
+    uFR_SAM_DesfireCreateValueFileDesAuth @3575
+    uFR_SAM_DesfireCreateValueFileDesAuthM @3576
+    uFR_SAM_DesfireCreateValueFileHnd @3577
+    uFR_SAM_DesfireDecreaseValueFile2k3desAuth @3578
+    uFR_SAM_DesfireDecreaseValueFile2k3desAuthM @3579
+    uFR_SAM_DesfireDecreaseValueFile3k3desAuth @3580
+    uFR_SAM_DesfireDecreaseValueFile3k3desAuthM @3581
+    uFR_SAM_DesfireDecreaseValueFileAesAuth @3582
+    uFR_SAM_DesfireDecreaseValueFileAesAuthM @3583
+    uFR_SAM_DesfireDecreaseValueFileDesAuth @3584
+    uFR_SAM_DesfireDecreaseValueFileDesAuthM @3585
+    uFR_SAM_DesfireDecreaseValueFileHnd @3586
+    uFR_SAM_DesfireDecreaseValueFile_TransMac_2k3desAuth @3587
+    uFR_SAM_DesfireDecreaseValueFile_TransMac_2k3desAuthM @3588
+    uFR_SAM_DesfireDecreaseValueFile_TransMac_3k3desAuth @3589
+    uFR_SAM_DesfireDecreaseValueFile_TransMac_3k3desAuthM @3590
+    uFR_SAM_DesfireDecreaseValueFile_TransMac_AesAuth @3591
+    uFR_SAM_DesfireDecreaseValueFile_TransMac_AesAuthM @3592
+    uFR_SAM_DesfireDecreaseValueFile_TransMac_DesAuth @3593
+    uFR_SAM_DesfireDecreaseValueFile_TransMac_DesAuthM @3594
+    uFR_SAM_DesfireDeleteApplication2k3desAuth @3595
+    uFR_SAM_DesfireDeleteApplication2k3desAuthM @3596
+    uFR_SAM_DesfireDeleteApplication3k3desAuth @3597
+    uFR_SAM_DesfireDeleteApplication3k3desAuthM @3598
+    uFR_SAM_DesfireDeleteApplicationAesAuth @3599
+    uFR_SAM_DesfireDeleteApplicationAesAuthM @3600
+    uFR_SAM_DesfireDeleteApplicationDesAuth @3601
+    uFR_SAM_DesfireDeleteApplicationDesAuthM @3602
+    uFR_SAM_DesfireDeleteApplicationHnd @3603
+    uFR_SAM_DesfireDeleteApplication_app_master_2k3desAuth @3604
+    uFR_SAM_DesfireDeleteApplication_app_master_2k3desAuthM @3605
+    uFR_SAM_DesfireDeleteApplication_app_master_3k3desAuth @3606
+    uFR_SAM_DesfireDeleteApplication_app_master_3k3desAuthM @3607
+    uFR_SAM_DesfireDeleteApplication_app_master_AesAuth @3608
+    uFR_SAM_DesfireDeleteApplication_app_master_AesAuthM @3609
+    uFR_SAM_DesfireDeleteApplication_app_master_DesAuth @3610
+    uFR_SAM_DesfireDeleteApplication_app_master_DesAuthM @3611
+    uFR_SAM_DesfireDeleteFile2k3desAuth @3612
+    uFR_SAM_DesfireDeleteFile2k3desAuthM @3613
+    uFR_SAM_DesfireDeleteFile3k3desAuth @3614
+    uFR_SAM_DesfireDeleteFile3k3desAuthM @3615
+    uFR_SAM_DesfireDeleteFileAesAuth @3616
+    uFR_SAM_DesfireDeleteFileAesAuthM @3617
+    uFR_SAM_DesfireDeleteFileDesAuth @3618
+    uFR_SAM_DesfireDeleteFileDesAuthM @3619
+    uFR_SAM_DesfireDeleteFileHnd @3620
+    uFR_SAM_DesfireFormatCard2k3desAuth @3621
+    uFR_SAM_DesfireFormatCard2k3desAuthM @3622
+    uFR_SAM_DesfireFormatCard3k3desAuth @3623
+    uFR_SAM_DesfireFormatCard3k3desAuthM @3624
+    uFR_SAM_DesfireFormatCardAesAuth @3625
+    uFR_SAM_DesfireFormatCardAesAuthM @3626
+    uFR_SAM_DesfireFormatCardDesAuth @3627
+    uFR_SAM_DesfireFormatCardDesAuthM @3628
+    uFR_SAM_DesfireFormatCardHnd @3629
+    uFR_SAM_DesfireGetApplicationIds2k3desAuth @3630
+    uFR_SAM_DesfireGetApplicationIds2k3desAuthM @3631
+    uFR_SAM_DesfireGetApplicationIds3k3desAuth @3632
+    uFR_SAM_DesfireGetApplicationIds3k3desAuthM @3633
+    uFR_SAM_DesfireGetApplicationIdsAesAuth @3634
+    uFR_SAM_DesfireGetApplicationIdsAesAuthM @3635
+    uFR_SAM_DesfireGetApplicationIdsDesAuth @3636
+    uFR_SAM_DesfireGetApplicationIdsDesAuthM @3637
+    uFR_SAM_DesfireGetApplicationIdsHnd @3638
+    uFR_SAM_DesfireGetFileSettings2k3desAuth @3639
+    uFR_SAM_DesfireGetFileSettings2k3desAuthM @3640
+    uFR_SAM_DesfireGetFileSettings3k3desAuth @3641
+    uFR_SAM_DesfireGetFileSettings3k3desAuthM @3642
+    uFR_SAM_DesfireGetFileSettingsAesAuth @3643
+    uFR_SAM_DesfireGetFileSettingsAesAuthM @3644
+    uFR_SAM_DesfireGetFileSettingsDesAuth @3645
+    uFR_SAM_DesfireGetFileSettingsDesAuthM @3646
+    uFR_SAM_DesfireGetFileSettingsHnd @3647
+    uFR_SAM_DesfireGetFileSettingsSdmAesAuth @3648
+    uFR_SAM_DesfireGetFileSettingsSdmAesAuthM @3649
+    uFR_SAM_DesfireGetFileSettingsSdmHnd @3650
+    uFR_SAM_DesfireGetKeySettings2k3desAuth @3651
+    uFR_SAM_DesfireGetKeySettings2k3desAuthM @3652
+    uFR_SAM_DesfireGetKeySettings3k3desAuth @3653
+    uFR_SAM_DesfireGetKeySettings3k3desAuthM @3654
+    uFR_SAM_DesfireGetKeySettingsAesAuth @3655
+    uFR_SAM_DesfireGetKeySettingsAesAuthM @3656
+    uFR_SAM_DesfireGetKeySettingsDesAuth @3657
+    uFR_SAM_DesfireGetKeySettingsDesAuthM @3658
+    uFR_SAM_DesfireGetKeySettingsHnd @3659
+    uFR_SAM_DesfireGetStdFileSize2k3desAuth @3660
+    uFR_SAM_DesfireGetStdFileSize2k3desAuthM @3661
+    uFR_SAM_DesfireGetStdFileSize3k3desAuth @3662
+    uFR_SAM_DesfireGetStdFileSize3k3desAuthM @3663
+    uFR_SAM_DesfireGetStdFileSizeAesAuth @3664
+    uFR_SAM_DesfireGetStdFileSizeAesAuthM @3665
+    uFR_SAM_DesfireGetStdFileSizeDesAuth @3666
+    uFR_SAM_DesfireGetStdFileSizeDesAuthM @3667
+    uFR_SAM_DesfireIncreaseValueFile2k3desAuth @3668
+    uFR_SAM_DesfireIncreaseValueFile2k3desAuthM @3669
+    uFR_SAM_DesfireIncreaseValueFile3k3desAuth @3670
+    uFR_SAM_DesfireIncreaseValueFile3k3desAuthM @3671
+    uFR_SAM_DesfireIncreaseValueFileAesAuth @3672
+    uFR_SAM_DesfireIncreaseValueFileAesAuthM @3673
+    uFR_SAM_DesfireIncreaseValueFileDesAuth @3674
+    uFR_SAM_DesfireIncreaseValueFileDesAuthM @3675
+    uFR_SAM_DesfireIncreaseValueFileHnd @3676
+    uFR_SAM_DesfireIncreaseValueFile_TransMac_2k3desAuth @3677
+    uFR_SAM_DesfireIncreaseValueFile_TransMac_2k3desAuthM @3678
+    uFR_SAM_DesfireIncreaseValueFile_TransMac_3k3desAuth @3679
+    uFR_SAM_DesfireIncreaseValueFile_TransMac_3k3desAuthM @3680
+    uFR_SAM_DesfireIncreaseValueFile_TransMac_AesAuth @3681
+    uFR_SAM_DesfireIncreaseValueFile_TransMac_AesAuthM @3682
+    uFR_SAM_DesfireIncreaseValueFile_TransMac_DesAuth @3683
+    uFR_SAM_DesfireIncreaseValueFile_TransMac_DesAuthM @3684
+    uFR_SAM_DesfireReadRecords2k3desAuth @3685
+    uFR_SAM_DesfireReadRecords2k3desAuthM @3686
+    uFR_SAM_DesfireReadRecords3k3desAuth @3687
+    uFR_SAM_DesfireReadRecords3k3desAuthM @3688
+    uFR_SAM_DesfireReadRecordsAesAuth @3689
+    uFR_SAM_DesfireReadRecordsAesAuthM @3690
+    uFR_SAM_DesfireReadRecordsDesAuth @3691
+    uFR_SAM_DesfireReadRecordsDesAuthM @3692
+    uFR_SAM_DesfireReadRecordsHnd @3693
+    uFR_SAM_DesfireReadStdDataFile2k3desAuth @3694
+    uFR_SAM_DesfireReadStdDataFile2k3desAuthM @3695
+    uFR_SAM_DesfireReadStdDataFile3k3desAuth @3696
+    uFR_SAM_DesfireReadStdDataFile3k3desAuthM @3697
+    uFR_SAM_DesfireReadStdDataFileAesAuth @3698
+    uFR_SAM_DesfireReadStdDataFileAesAuthM @3699
+    uFR_SAM_DesfireReadStdDataFileDesAuth @3700
+    uFR_SAM_DesfireReadStdDataFileDesAuthM @3701
+    uFR_SAM_DesfireReadStdDataFileHnd @3702
+    uFR_SAM_DesfireReadValueFile2k3desAuth @3703
+    uFR_SAM_DesfireReadValueFile2k3desAuthM @3704
+    uFR_SAM_DesfireReadValueFile3k3desAuth @3705
+    uFR_SAM_DesfireReadValueFile3k3desAuthM @3706
+    uFR_SAM_DesfireReadValueFileAesAuth @3707
+    uFR_SAM_DesfireReadValueFileAesAuthM @3708
+    uFR_SAM_DesfireReadValueFileDesAuth @3709
+    uFR_SAM_DesfireReadValueFileDesAuthM @3710
+    uFR_SAM_DesfireReadValueFileHnd @3711
+    uFR_SAM_DesfireSetConfiguration2k3desAuth @3712
+    uFR_SAM_DesfireSetConfiguration2k3desAuthM @3713
+    uFR_SAM_DesfireSetConfiguration3k3desAuth @3714
+    uFR_SAM_DesfireSetConfiguration3k3desAuthM @3715
+    uFR_SAM_DesfireSetConfigurationAesAuth @3716
+    uFR_SAM_DesfireSetConfigurationAesAuthM @3717
+    uFR_SAM_DesfireSetConfigurationDesAuth @3718
+    uFR_SAM_DesfireSetConfigurationDesAuthM @3719
+    uFR_SAM_DesfireSetConfigurationExHnd @3720
+    uFR_SAM_DesfireSetConfigurationHnd @3721
+    uFR_SAM_DesfireSetTransactionTimerAesAuth @3722
+    uFR_SAM_DesfireSetTransactionTimerAesAuthM @3723
+    uFR_SAM_DesfireWriteBackupDataFile2k3desAuth @3724
+    uFR_SAM_DesfireWriteBackupDataFile2k3desAuthM @3725
+    uFR_SAM_DesfireWriteBackupDataFile3k3desAuth @3726
+    uFR_SAM_DesfireWriteBackupDataFile3k3desAuthM @3727
+    uFR_SAM_DesfireWriteBackupDataFileAesAuth @3728
+    uFR_SAM_DesfireWriteBackupDataFileAesAuthM @3729
+    uFR_SAM_DesfireWriteBackupDataFileDesAuth @3730
+    uFR_SAM_DesfireWriteBackupDataFileDesAuthM @3731
+    uFR_SAM_DesfireWriteBackupDataFileHnd @3732
+    uFR_SAM_DesfireWriteRecord2k3desAuth @3733
+    uFR_SAM_DesfireWriteRecord2k3desAuthM @3734
+    uFR_SAM_DesfireWriteRecord3k3desAuth @3735
+    uFR_SAM_DesfireWriteRecord3k3desAuthM @3736
+    uFR_SAM_DesfireWriteRecordAesAuth @3737
+    uFR_SAM_DesfireWriteRecordAesAuthM @3738
+    uFR_SAM_DesfireWriteRecordDesAuth @3739
+    uFR_SAM_DesfireWriteRecordDesAuthM @3740
+    uFR_SAM_DesfireWriteRecordHnd @3741
+    uFR_SAM_DesfireWriteRecord_TransMac_2k3desAuth @3742
+    uFR_SAM_DesfireWriteRecord_TransMac_2k3desAuthM @3743
+    uFR_SAM_DesfireWriteRecord_TransMac_3k3desAuth @3744
+    uFR_SAM_DesfireWriteRecord_TransMac_3k3desAuthM @3745
+    uFR_SAM_DesfireWriteRecord_TransMac_AesAuth @3746
+    uFR_SAM_DesfireWriteRecord_TransMac_AesAuthM @3747
+    uFR_SAM_DesfireWriteRecord_TransMac_DesAuth @3748
+    uFR_SAM_DesfireWriteRecord_TransMac_DesAuthM @3749
+    uFR_SAM_DesfireWriteStdDataFile2k3desAuth @3750
+    uFR_SAM_DesfireWriteStdDataFile2k3desAuthM @3751
+    uFR_SAM_DesfireWriteStdDataFile3k3desAuth @3752
+    uFR_SAM_DesfireWriteStdDataFile3k3desAuthM @3753
+    uFR_SAM_DesfireWriteStdDataFileAesAuth @3754
+    uFR_SAM_DesfireWriteStdDataFileAesAuthM @3755
+    uFR_SAM_DesfireWriteStdDataFileDesAuth @3756
+    uFR_SAM_DesfireWriteStdDataFileDesAuthM @3757
+    uFR_SAM_DesfireWriteStdDataFileHnd @3758
+    uFR_SAM_GetDesfireUid2k3desAuth @3759
+    uFR_SAM_GetDesfireUid2k3desAuthM @3760
+    uFR_SAM_GetDesfireUid3k3desAuth @3761
+    uFR_SAM_GetDesfireUid3k3desAuthM @3762
+    uFR_SAM_GetDesfireUidAesAuth @3763
+    uFR_SAM_GetDesfireUidAesAuthM @3764
+    uFR_SAM_GetDesfireUidDesAuth @3765
+    uFR_SAM_GetDesfireUidDesAuthM @3766
+    uFR_SAM_GetDesfireUidHnd @3767
+    uFR_find_first_FTDI_device @3768
+    uFR_i_block_transceive @3769
+    uFR_i_block_transceiveM @3770
+    uFR_int_DesfireChange2K3DesKey_2k3des @3771
+    uFR_int_DesfireChange2K3DesKey_2k3desM @3772
+    uFR_int_DesfireChange2K3DesKey_2k3des_PK @3773
+    uFR_int_DesfireChange2K3DesKey_2k3des_PK_M @3774
+    uFR_int_DesfireChange2K3DesKey_des @3775
+    uFR_int_DesfireChange2K3DesKey_desM @3776
+    uFR_int_DesfireChange2K3DesKey_des_PK @3777
+    uFR_int_DesfireChange2K3DesKey_des_PK_M @3778
+    uFR_int_DesfireChange3K3DesKey_3k3des @3779
+    uFR_int_DesfireChange3K3DesKey_3k3desM @3780
+    uFR_int_DesfireChange3K3DesKey_3k3des_PK @3781
+    uFR_int_DesfireChange3K3DesKey_3k3des_PK_M @3782
+    uFR_int_DesfireChangeAesKey @3783
+    uFR_int_DesfireChangeAesKeyHnd @3784
+    uFR_int_DesfireChangeAesKeyM @3785
+    uFR_int_DesfireChangeAesKey_A @3786
+    uFR_int_DesfireChangeAesKey_PK @3787
+    uFR_int_DesfireChangeAesKey_PK_M @3788
+    uFR_int_DesfireChangeAesKey_aes @3789
+    uFR_int_DesfireChangeAesKey_aesM @3790
+    uFR_int_DesfireChangeAesKey_aes_PK @3791
+    uFR_int_DesfireChangeAesKey_aes_PK_M @3792
+    uFR_int_DesfireChangeDesKey_2k3des @3793
+    uFR_int_DesfireChangeDesKey_2k3desM @3794
+    uFR_int_DesfireChangeDesKey_2k3des_PK @3795
+    uFR_int_DesfireChangeDesKey_2k3des_PK_M @3796
+    uFR_int_DesfireChangeDesKey_des @3797
+    uFR_int_DesfireChangeDesKey_desM @3798
+    uFR_int_DesfireChangeDesKey_des_PK @3799
+    uFR_int_DesfireChangeDesKey_des_PK_M @3800
+    uFR_int_DesfireChangeFileSettingsHnd @3801
+    uFR_int_DesfireChangeFileSettingsSdm @3802
+    uFR_int_DesfireChangeFileSettingsSdmHnd @3803
+    uFR_int_DesfireChangeFileSettingsSdmM @3804
+    uFR_int_DesfireChangeFileSettingsSdm_PK @3805
+    uFR_int_DesfireChangeFileSettingsSdm_PK_M @3806
+    uFR_int_DesfireChangeFileSettings_2k3des @3807
+    uFR_int_DesfireChangeFileSettings_2k3desHnd @3808
+    uFR_int_DesfireChangeFileSettings_2k3desM @3809
+    uFR_int_DesfireChangeFileSettings_2k3des_PK @3810
+    uFR_int_DesfireChangeFileSettings_2k3des_PK_M @3811
+    uFR_int_DesfireChangeFileSettings_3k3des @3812
+    uFR_int_DesfireChangeFileSettings_3k3desHnd @3813
+    uFR_int_DesfireChangeFileSettings_3k3desM @3814
+    uFR_int_DesfireChangeFileSettings_3k3des_PK @3815
+    uFR_int_DesfireChangeFileSettings_3k3des_PK_M @3816
+    uFR_int_DesfireChangeFileSettings_aes @3817
+    uFR_int_DesfireChangeFileSettings_aesM @3818
+    uFR_int_DesfireChangeFileSettings_aes_PK @3819
+    uFR_int_DesfireChangeFileSettings_aes_PK_M @3820
+    uFR_int_DesfireChangeFileSettings_des @3821
+    uFR_int_DesfireChangeFileSettings_desHnd @3822
+    uFR_int_DesfireChangeFileSettings_desM @3823
+    uFR_int_DesfireChangeFileSettings_des_PK @3824
+    uFR_int_DesfireChangeFileSettings_des_PK_M @3825
+    uFR_int_DesfireChangeKeyHnd @3826
+    uFR_int_DesfireChangeKeySettings @3827
+    uFR_int_DesfireChangeKeySettingsHnd @3828
+    uFR_int_DesfireChangeKeySettingsM @3829
+    uFR_int_DesfireChangeKeySettings_2k3des @3830
+    uFR_int_DesfireChangeKeySettings_2k3desHnd @3831
+    uFR_int_DesfireChangeKeySettings_2k3desM @3832
+    uFR_int_DesfireChangeKeySettings_2k3des_PK @3833
+    uFR_int_DesfireChangeKeySettings_2k3des_PK_M @3834
+    uFR_int_DesfireChangeKeySettings_3k3des @3835
+    uFR_int_DesfireChangeKeySettings_3k3desHnd @3836
+    uFR_int_DesfireChangeKeySettings_3k3desM @3837
+    uFR_int_DesfireChangeKeySettings_3k3des_PK @3838
+    uFR_int_DesfireChangeKeySettings_3k3des_PK_M @3839
+    uFR_int_DesfireChangeKeySettings_PK @3840
+    uFR_int_DesfireChangeKeySettings_PK_M @3841
+    uFR_int_DesfireChangeKeySettings_aes @3842
+    uFR_int_DesfireChangeKeySettings_aesM @3843
+    uFR_int_DesfireChangeKeySettings_aes_PK @3844
+    uFR_int_DesfireChangeKeySettings_aes_PK_M @3845
+    uFR_int_DesfireChangeKeySettings_des @3846
+    uFR_int_DesfireChangeKeySettings_desHnd @3847
+    uFR_int_DesfireChangeKeySettings_desM @3848
+    uFR_int_DesfireChangeKeySettings_des_PK @3849
+    uFR_int_DesfireChangeKeySettings_des_PK_M @3850
+    uFR_int_DesfireChangeMasterKey @3851
+    uFR_int_DesfireChangeMasterKeyM @3852
+    uFR_int_DesfireChangeMasterKey_PK @3853
+    uFR_int_DesfireChangeMasterKey_PK_M @3854
+    uFR_int_DesfireClearRecordFile @3855
+    uFR_int_DesfireClearRecordFile_2k3des @3856
+    uFR_int_DesfireClearRecordFile_2k3desM @3857
+    uFR_int_DesfireClearRecordFile_2k3des_2 @3858
+    uFR_int_DesfireClearRecordFile_2k3des_2M @3859
+    uFR_int_DesfireClearRecordFile_2k3des_PK @3860
+    uFR_int_DesfireClearRecordFile_2k3des_PK_2 @3861
+    uFR_int_DesfireClearRecordFile_2k3des_PK_2M @3862
+    uFR_int_DesfireClearRecordFile_2k3des_PK_M @3863
+    uFR_int_DesfireClearRecordFile_3k3des @3864
+    uFR_int_DesfireClearRecordFile_3k3desM @3865
+    uFR_int_DesfireClearRecordFile_3k3des_2 @3866
+    uFR_int_DesfireClearRecordFile_3k3des_2M @3867
+    uFR_int_DesfireClearRecordFile_3k3des_PK @3868
+    uFR_int_DesfireClearRecordFile_3k3des_PK_2 @3869
+    uFR_int_DesfireClearRecordFile_3k3des_PK_2M @3870
+    uFR_int_DesfireClearRecordFile_3k3des_PK_M @3871
+    uFR_int_DesfireClearRecordFile_PK @3872
+    uFR_int_DesfireClearRecordFile_PK_2 @3873
+    uFR_int_DesfireClearRecordFile_TransMac_2k3des @3874
+    uFR_int_DesfireClearRecordFile_TransMac_2k3desM @3875
+    uFR_int_DesfireClearRecordFile_TransMac_2k3des_PK @3876
+    uFR_int_DesfireClearRecordFile_TransMac_2k3des_PK_M @3877
+    uFR_int_DesfireClearRecordFile_TransMac_3k3des @3878
+    uFR_int_DesfireClearRecordFile_TransMac_3k3desM @3879
+    uFR_int_DesfireClearRecordFile_TransMac_3k3des_PK @3880
+    uFR_int_DesfireClearRecordFile_TransMac_3k3des_PK_M @3881
+    uFR_int_DesfireClearRecordFile_TransMac_aes @3882
+    uFR_int_DesfireClearRecordFile_TransMac_aesM @3883
+    uFR_int_DesfireClearRecordFile_TransMac_aes_PK @3884
+    uFR_int_DesfireClearRecordFile_TransMac_aes_PK_M @3885
+    uFR_int_DesfireClearRecordFile_TransMac_des @3886
+    uFR_int_DesfireClearRecordFile_TransMac_desM @3887
+    uFR_int_DesfireClearRecordFile_TransMac_des_PK @3888
+    uFR_int_DesfireClearRecordFile_TransMac_des_PK_M @3889
+    uFR_int_DesfireClearRecordFile_TransMac_no_auth @3890
+    uFR_int_DesfireClearRecordFile_TransMac_no_auth_M @3891
+    uFR_int_DesfireClearRecordFile_aes @3892
+    uFR_int_DesfireClearRecordFile_aesM @3893
+    uFR_int_DesfireClearRecordFile_aes_2 @3894
+    uFR_int_DesfireClearRecordFile_aes_2M @3895
+    uFR_int_DesfireClearRecordFile_aes_PK @3896
+    uFR_int_DesfireClearRecordFile_aes_PK_2 @3897
+    uFR_int_DesfireClearRecordFile_aes_PK_2M @3898
+    uFR_int_DesfireClearRecordFile_aes_PK_M @3899
+    uFR_int_DesfireClearRecordFile_des @3900
+    uFR_int_DesfireClearRecordFile_desM @3901
+    uFR_int_DesfireClearRecordFile_des_2 @3902
+    uFR_int_DesfireClearRecordFile_des_2M @3903
+    uFR_int_DesfireClearRecordFile_des_PK @3904
+    uFR_int_DesfireClearRecordFile_des_PK_2 @3905
+    uFR_int_DesfireClearRecordFile_des_PK_2M @3906
+    uFR_int_DesfireClearRecordFile_des_PK_M @3907
+    uFR_int_DesfireClearRecordFile_no_auth @3908
+    uFR_int_DesfireClearRecordFile_no_authM @3909
+    uFR_int_DesfireClearRecordHnd @3910
+    uFR_int_DesfireClearRecord_2k3desHnd @3911
+    uFR_int_DesfireClearRecord_3k3desHnd @3912
+    uFR_int_DesfireClearRecord_desHnd @3913
+    uFR_int_DesfireCreate3k3desApplication_2k3des @3914
+    uFR_int_DesfireCreate3k3desApplication_2k3desM @3915
+    uFR_int_DesfireCreate3k3desApplication_2k3des_PK @3916
+    uFR_int_DesfireCreate3k3desApplication_2k3des_PK_M @3917
+    uFR_int_DesfireCreate3k3desApplication_2k3des_iso @3918
+    uFR_int_DesfireCreate3k3desApplication_2k3des_isoM @3919
+    uFR_int_DesfireCreate3k3desApplication_2k3des_iso_PK @3920
+    uFR_int_DesfireCreate3k3desApplication_2k3des_iso_PK_M @3921
+    uFR_int_DesfireCreate3k3desApplication_3k3des @3922
+    uFR_int_DesfireCreate3k3desApplication_3k3desM @3923
+    uFR_int_DesfireCreate3k3desApplication_3k3des_PK @3924
+    uFR_int_DesfireCreate3k3desApplication_3k3des_PK_M @3925
+    uFR_int_DesfireCreate3k3desApplication_3k3des_iso @3926
+    uFR_int_DesfireCreate3k3desApplication_3k3des_isoM @3927
+    uFR_int_DesfireCreate3k3desApplication_3k3des_iso_PK @3928
+    uFR_int_DesfireCreate3k3desApplication_3k3des_iso_PK_M @3929
+    uFR_int_DesfireCreate3k3desApplication_aes @3930
+    uFR_int_DesfireCreate3k3desApplication_aesM @3931
+    uFR_int_DesfireCreate3k3desApplication_aes_PK @3932
+    uFR_int_DesfireCreate3k3desApplication_aes_PK_M @3933
+    uFR_int_DesfireCreate3k3desApplication_aes_iso @3934
+    uFR_int_DesfireCreate3k3desApplication_aes_isoM @3935
+    uFR_int_DesfireCreate3k3desApplication_aes_iso_PK @3936
+    uFR_int_DesfireCreate3k3desApplication_aes_iso_PK_M @3937
+    uFR_int_DesfireCreate3k3desApplication_des @3938
+    uFR_int_DesfireCreate3k3desApplication_desM @3939
+    uFR_int_DesfireCreate3k3desApplication_des_PK @3940
+    uFR_int_DesfireCreate3k3desApplication_des_PK_M @3941
+    uFR_int_DesfireCreate3k3desApplication_des_iso @3942
+    uFR_int_DesfireCreate3k3desApplication_des_isoM @3943
+    uFR_int_DesfireCreate3k3desApplication_des_iso_PK @3944
+    uFR_int_DesfireCreate3k3desApplication_des_iso_PK_M @3945
+    uFR_int_DesfireCreate3k3desApplication_no_auth @3946
+    uFR_int_DesfireCreate3k3desApplication_no_auth_M @3947
+    uFR_int_DesfireCreate3k3desApplication_no_auth_iso @3948
+    uFR_int_DesfireCreate3k3desApplication_no_auth_isoM @3949
+    uFR_int_DesfireCreateAesApplication @3950
+    uFR_int_DesfireCreateAesApplicationHnd @3951
+    uFR_int_DesfireCreateAesApplicationM @3952
+    uFR_int_DesfireCreateAesApplication_2k3des @3953
+    uFR_int_DesfireCreateAesApplication_2k3desM @3954
+    uFR_int_DesfireCreateAesApplication_2k3des_PK @3955
+    uFR_int_DesfireCreateAesApplication_2k3des_PK_M @3956
+    uFR_int_DesfireCreateAesApplication_2k3des_iso @3957
+    uFR_int_DesfireCreateAesApplication_2k3des_isoM @3958
+    uFR_int_DesfireCreateAesApplication_2k3des_iso_PK @3959
+    uFR_int_DesfireCreateAesApplication_2k3des_iso_PK_M @3960
+    uFR_int_DesfireCreateAesApplication_3k3des @3961
+    uFR_int_DesfireCreateAesApplication_3k3desM @3962
+    uFR_int_DesfireCreateAesApplication_3k3des_PK @3963
+    uFR_int_DesfireCreateAesApplication_3k3des_PK_M @3964
+    uFR_int_DesfireCreateAesApplication_3k3des_iso @3965
+    uFR_int_DesfireCreateAesApplication_3k3des_isoM @3966
+    uFR_int_DesfireCreateAesApplication_3k3des_iso_PK @3967
+    uFR_int_DesfireCreateAesApplication_3k3des_iso_PK_M @3968
+    uFR_int_DesfireCreateAesApplication_PK @3969
+    uFR_int_DesfireCreateAesApplication_PK_M @3970
+    uFR_int_DesfireCreateAesApplication_aes @3971
+    uFR_int_DesfireCreateAesApplication_aesM @3972
+    uFR_int_DesfireCreateAesApplication_aes_PK @3973
+    uFR_int_DesfireCreateAesApplication_aes_PK_M @3974
+    uFR_int_DesfireCreateAesApplication_aes_iso @3975
+    uFR_int_DesfireCreateAesApplication_aes_isoM @3976
+    uFR_int_DesfireCreateAesApplication_aes_iso_PK @3977
+    uFR_int_DesfireCreateAesApplication_aes_iso_PK_M @3978
+    uFR_int_DesfireCreateAesApplication_aes_iso_ascd @3979
+    uFR_int_DesfireCreateAesApplication_aes_iso_ascdM @3980
+    uFR_int_DesfireCreateAesApplication_aes_iso_ascd_PK @3981
+    uFR_int_DesfireCreateAesApplication_aes_iso_ascd_PK_M @3982
+    uFR_int_DesfireCreateAesApplication_des @3983
+    uFR_int_DesfireCreateAesApplication_desM @3984
+    uFR_int_DesfireCreateAesApplication_des_PK @3985
+    uFR_int_DesfireCreateAesApplication_des_PK_M @3986
+    uFR_int_DesfireCreateAesApplication_des_iso @3987
+    uFR_int_DesfireCreateAesApplication_des_isoM @3988
+    uFR_int_DesfireCreateAesApplication_des_iso_PK @3989
+    uFR_int_DesfireCreateAesApplication_des_iso_PK_M @3990
+    uFR_int_DesfireCreateAesApplication_iso_Hnd @3991
+    uFR_int_DesfireCreateAesApplication_iso_ascd_Hnd @3992
+    uFR_int_DesfireCreateAesApplication_no_auth @3993
+    uFR_int_DesfireCreateAesApplication_no_auth_M @3994
+    uFR_int_DesfireCreateAesApplication_no_auth_iso @3995
+    uFR_int_DesfireCreateAesApplication_no_auth_isoM @3996
+    uFR_int_DesfireCreateApplication_2k3des_Hnd @3997
+    uFR_int_DesfireCreateApplication_2k3des_iso_Hnd @3998
+    uFR_int_DesfireCreateApplication_3k3des_Hnd @3999
+    uFR_int_DesfireCreateApplication_3k3des_iso_Hnd @4000
+    uFR_int_DesfireCreateApplication_des_Hnd @4001
+    uFR_int_DesfireCreateApplication_des_iso_Hnd @4002
+    uFR_int_DesfireCreateBackupDataFile_2k3des @4003
+    uFR_int_DesfireCreateBackupDataFile_2k3desM @4004
+    uFR_int_DesfireCreateBackupDataFile_2k3des_Hnd @4005
+    uFR_int_DesfireCreateBackupDataFile_2k3des_PK @4006
+    uFR_int_DesfireCreateBackupDataFile_2k3des_PK_M @4007
+    uFR_int_DesfireCreateBackupDataFile_3k3des @4008
+    uFR_int_DesfireCreateBackupDataFile_3k3desM @4009
+    uFR_int_DesfireCreateBackupDataFile_3k3des_Hnd @4010
+    uFR_int_DesfireCreateBackupDataFile_3k3des_PK @4011
+    uFR_int_DesfireCreateBackupDataFile_3k3des_PK_M @4012
+    uFR_int_DesfireCreateBackupDataFile_PK @4013
+    uFR_int_DesfireCreateBackupDataFile_aes @4014
+    uFR_int_DesfireCreateBackupDataFile_aesM @4015
+    uFR_int_DesfireCreateBackupDataFile_aes_Hnd @4016
+    uFR_int_DesfireCreateBackupDataFile_aes_PK @4017
+    uFR_int_DesfireCreateBackupDataFile_aes_PK_M @4018
+    uFR_int_DesfireCreateBackupDataFile_des @4019
+    uFR_int_DesfireCreateBackupDataFile_desM @4020
+    uFR_int_DesfireCreateBackupDataFile_des_Hnd @4021
+    uFR_int_DesfireCreateBackupDataFile_des_PK @4022
+    uFR_int_DesfireCreateBackupDataFile_des_PK_M @4023
+    uFR_int_DesfireCreateBackupDataFile_no_auth @4024
+    uFR_int_DesfireCreateBackupDataFile_no_auth_M @4025
+    uFR_int_DesfireCreateCyclicRecordFile_2k3des @4026
+    uFR_int_DesfireCreateCyclicRecordFile_2k3desM @4027
+    uFR_int_DesfireCreateCyclicRecordFile_2k3des_PK @4028
+    uFR_int_DesfireCreateCyclicRecordFile_2k3des_PK_M @4029
+    uFR_int_DesfireCreateCyclicRecordFile_3k3des @4030
+    uFR_int_DesfireCreateCyclicRecordFile_3k3desM @4031
+    uFR_int_DesfireCreateCyclicRecordFile_3k3des_PK @4032
+    uFR_int_DesfireCreateCyclicRecordFile_3k3des_PK_M @4033
+    uFR_int_DesfireCreateCyclicRecordFile_aes @4034
+    uFR_int_DesfireCreateCyclicRecordFile_aesM @4035
+    uFR_int_DesfireCreateCyclicRecordFile_aes_PK @4036
+    uFR_int_DesfireCreateCyclicRecordFile_aes_PK_M @4037
+    uFR_int_DesfireCreateCyclicRecordFile_des @4038
+    uFR_int_DesfireCreateCyclicRecordFile_desM @4039
+    uFR_int_DesfireCreateCyclicRecordFile_des_PK @4040
+    uFR_int_DesfireCreateCyclicRecordFile_des_PK_M @4041
+    uFR_int_DesfireCreateCyclicRecordFile_no_auth @4042
+    uFR_int_DesfireCreateCyclicRecordFile_no_authM @4043
+    uFR_int_DesfireCreateDesApplication_2k3des @4044
+    uFR_int_DesfireCreateDesApplication_2k3desM @4045
+    uFR_int_DesfireCreateDesApplication_2k3des_PK @4046
+    uFR_int_DesfireCreateDesApplication_2k3des_PK_M @4047
+    uFR_int_DesfireCreateDesApplication_2k3des_iso @4048
+    uFR_int_DesfireCreateDesApplication_2k3des_isoM @4049
+    uFR_int_DesfireCreateDesApplication_2k3des_iso_PK @4050
+    uFR_int_DesfireCreateDesApplication_2k3des_iso_PK_M @4051
+    uFR_int_DesfireCreateDesApplication_3k3des @4052
+    uFR_int_DesfireCreateDesApplication_3k3desM @4053
+    uFR_int_DesfireCreateDesApplication_3k3des_PK @4054
+    uFR_int_DesfireCreateDesApplication_3k3des_PK_M @4055
+    uFR_int_DesfireCreateDesApplication_3k3des_iso @4056
+    uFR_int_DesfireCreateDesApplication_3k3des_isoM @4057
+    uFR_int_DesfireCreateDesApplication_3k3des_iso_PK @4058
+    uFR_int_DesfireCreateDesApplication_3k3des_iso_PK_M @4059
+    uFR_int_DesfireCreateDesApplication_aes @4060
+    uFR_int_DesfireCreateDesApplication_aesM @4061
+    uFR_int_DesfireCreateDesApplication_aes_PK @4062
+    uFR_int_DesfireCreateDesApplication_aes_PK_M @4063
+    uFR_int_DesfireCreateDesApplication_aes_iso @4064
+    uFR_int_DesfireCreateDesApplication_aes_isoM @4065
+    uFR_int_DesfireCreateDesApplication_aes_iso_PK @4066
+    uFR_int_DesfireCreateDesApplication_aes_iso_PK_M @4067
+    uFR_int_DesfireCreateDesApplication_des @4068
+    uFR_int_DesfireCreateDesApplication_desM @4069
+    uFR_int_DesfireCreateDesApplication_des_PK @4070
+    uFR_int_DesfireCreateDesApplication_des_PK_M @4071
+    uFR_int_DesfireCreateDesApplication_des_iso @4072
+    uFR_int_DesfireCreateDesApplication_des_isoM @4073
+    uFR_int_DesfireCreateDesApplication_des_iso_PK @4074
+    uFR_int_DesfireCreateDesApplication_des_iso_PK_M @4075
+    uFR_int_DesfireCreateDesApplication_no_auth @4076
+    uFR_int_DesfireCreateDesApplication_no_auth_M @4077
+    uFR_int_DesfireCreateDesApplication_no_auth_iso @4078
+    uFR_int_DesfireCreateDesApplication_no_auth_isoM @4079
+    uFR_int_DesfireCreateLinearRecordFile_2k3des @4080
+    uFR_int_DesfireCreateLinearRecordFile_2k3desM @4081
+    uFR_int_DesfireCreateLinearRecordFile_2k3des_PK @4082
+    uFR_int_DesfireCreateLinearRecordFile_2k3des_PK_M @4083
+    uFR_int_DesfireCreateLinearRecordFile_3k3des @4084
+    uFR_int_DesfireCreateLinearRecordFile_3k3desM @4085
+    uFR_int_DesfireCreateLinearRecordFile_3k3des_PK @4086
+    uFR_int_DesfireCreateLinearRecordFile_3k3des_PK_M @4087
+    uFR_int_DesfireCreateLinearRecordFile_aes @4088
+    uFR_int_DesfireCreateLinearRecordFile_aesM @4089
+    uFR_int_DesfireCreateLinearRecordFile_aes_PK @4090
+    uFR_int_DesfireCreateLinearRecordFile_aes_PK_M @4091
+    uFR_int_DesfireCreateLinearRecordFile_des @4092
+    uFR_int_DesfireCreateLinearRecordFile_desM @4093
+    uFR_int_DesfireCreateLinearRecordFile_des_PK @4094
+    uFR_int_DesfireCreateLinearRecordFile_des_PK_M @4095
+    uFR_int_DesfireCreateLinearRecordFile_no_auth @4096
+    uFR_int_DesfireCreateLinearRecordFile_no_authM @4097
+    uFR_int_DesfireCreateRecordFileHnd @4098
+    uFR_int_DesfireCreateRecordFile_2k3desHnd @4099
+    uFR_int_DesfireCreateRecordFile_3k3desHnd @4100
+    uFR_int_DesfireCreateRecordFile_desHnd @4101
+    uFR_int_DesfireCreateStdDataFile @4102
+    uFR_int_DesfireCreateStdDataFileHnd @4103
+    uFR_int_DesfireCreateStdDataFileM @4104
+    uFR_int_DesfireCreateStdDataFile_2k3des @4105
+    uFR_int_DesfireCreateStdDataFile_2k3desM @4106
+    uFR_int_DesfireCreateStdDataFile_2k3des_Hnd @4107
+    uFR_int_DesfireCreateStdDataFile_2k3des_PK @4108
+    uFR_int_DesfireCreateStdDataFile_2k3des_PK_M @4109
+    uFR_int_DesfireCreateStdDataFile_2k3des_iso @4110
+    uFR_int_DesfireCreateStdDataFile_2k3des_isoM @4111
+    uFR_int_DesfireCreateStdDataFile_2k3des_iso_Hnd @4112
+    uFR_int_DesfireCreateStdDataFile_2k3des_iso_PK @4113
+    uFR_int_DesfireCreateStdDataFile_2k3des_iso_PK_M @4114
+    uFR_int_DesfireCreateStdDataFile_3k3des @4115
+    uFR_int_DesfireCreateStdDataFile_3k3desM @4116
+    uFR_int_DesfireCreateStdDataFile_3k3des_Hnd @4117
+    uFR_int_DesfireCreateStdDataFile_3k3des_PK @4118
+    uFR_int_DesfireCreateStdDataFile_3k3des_PK_M @4119
+    uFR_int_DesfireCreateStdDataFile_3k3des_iso @4120
+    uFR_int_DesfireCreateStdDataFile_3k3des_isoM @4121
+    uFR_int_DesfireCreateStdDataFile_3k3des_iso_Hnd @4122
+    uFR_int_DesfireCreateStdDataFile_3k3des_iso_PK @4123
+    uFR_int_DesfireCreateStdDataFile_3k3des_iso_PK_M @4124
+    uFR_int_DesfireCreateStdDataFile_PK @4125
+    uFR_int_DesfireCreateStdDataFile_PK_M @4126
+    uFR_int_DesfireCreateStdDataFile_aes @4127
+    uFR_int_DesfireCreateStdDataFile_aesM @4128
+    uFR_int_DesfireCreateStdDataFile_aes_PK @4129
+    uFR_int_DesfireCreateStdDataFile_aes_PK_M @4130
+    uFR_int_DesfireCreateStdDataFile_aes_iso @4131
+    uFR_int_DesfireCreateStdDataFile_aes_isoM @4132
+    uFR_int_DesfireCreateStdDataFile_aes_iso_PK @4133
+    uFR_int_DesfireCreateStdDataFile_aes_iso_PK_M @4134
+    uFR_int_DesfireCreateStdDataFile_aes_iso_sdm @4135
+    uFR_int_DesfireCreateStdDataFile_aes_iso_sdmM @4136
+    uFR_int_DesfireCreateStdDataFile_aes_iso_sdm_PK @4137
+    uFR_int_DesfireCreateStdDataFile_aes_iso_sdm_PK_M @4138
+    uFR_int_DesfireCreateStdDataFile_des @4139
+    uFR_int_DesfireCreateStdDataFile_desM @4140
+    uFR_int_DesfireCreateStdDataFile_des_Hnd @4141
+    uFR_int_DesfireCreateStdDataFile_des_PK @4142
+    uFR_int_DesfireCreateStdDataFile_des_PK_M @4143
+    uFR_int_DesfireCreateStdDataFile_des_iso @4144
+    uFR_int_DesfireCreateStdDataFile_des_isoM @4145
+    uFR_int_DesfireCreateStdDataFile_des_iso_Hnd @4146
+    uFR_int_DesfireCreateStdDataFile_des_iso_PK @4147
+    uFR_int_DesfireCreateStdDataFile_des_iso_PK_M @4148
+    uFR_int_DesfireCreateStdDataFile_iso_Hnd @4149
+    uFR_int_DesfireCreateStdDataFile_iso_sdm_Hnd @4150
+    uFR_int_DesfireCreateStdDataFile_no_auth @4151
+    uFR_int_DesfireCreateStdDataFile_no_auth_M @4152
+    uFR_int_DesfireCreateStdDataFile_no_auth_iso @4153
+    uFR_int_DesfireCreateStdDataFile_no_auth_isoM @4154
+    uFR_int_DesfireCreateTransMacFileHnd @4155
+    uFR_int_DesfireCreateTransMacFile_2k3des @4156
+    uFR_int_DesfireCreateTransMacFile_2k3des_Hnd @4157
+    uFR_int_DesfireCreateTransMacFile_2k3des_M @4158
+    uFR_int_DesfireCreateTransMacFile_2k3des_PK @4159
+    uFR_int_DesfireCreateTransMacFile_2k3des_PK_M @4160
+    uFR_int_DesfireCreateTransMacFile_3k3des @4161
+    uFR_int_DesfireCreateTransMacFile_3k3des_Hnd @4162
+    uFR_int_DesfireCreateTransMacFile_3k3des_M @4163
+    uFR_int_DesfireCreateTransMacFile_3k3des_PK @4164
+    uFR_int_DesfireCreateTransMacFile_3k3des_PK_M @4165
+    uFR_int_DesfireCreateTransMacFile_aes @4166
+    uFR_int_DesfireCreateTransMacFile_aes_M @4167
+    uFR_int_DesfireCreateTransMacFile_aes_PK @4168
+    uFR_int_DesfireCreateTransMacFile_aes_PK_M @4169
+    uFR_int_DesfireCreateTransMacFile_des @4170
+    uFR_int_DesfireCreateTransMacFile_des_Hnd @4171
+    uFR_int_DesfireCreateTransMacFile_des_M @4172
+    uFR_int_DesfireCreateTransMacFile_des_PK @4173
+    uFR_int_DesfireCreateTransMacFile_des_PK_M @4174
+    uFR_int_DesfireCreateValueFile @4175
+    uFR_int_DesfireCreateValueFileHnd @4176
+    uFR_int_DesfireCreateValueFileM @4177
+    uFR_int_DesfireCreateValueFile_2k3des @4178
+    uFR_int_DesfireCreateValueFile_2k3desHnd @4179
+    uFR_int_DesfireCreateValueFile_2k3desM @4180
+    uFR_int_DesfireCreateValueFile_2k3des_PK @4181
+    uFR_int_DesfireCreateValueFile_2k3des_PK_M @4182
+    uFR_int_DesfireCreateValueFile_3k3des @4183
+    uFR_int_DesfireCreateValueFile_3k3desHnd @4184
+    uFR_int_DesfireCreateValueFile_3k3desM @4185
+    uFR_int_DesfireCreateValueFile_3k3des_PK @4186
+    uFR_int_DesfireCreateValueFile_3k3des_PK_M @4187
+    uFR_int_DesfireCreateValueFile_PK @4188
+    uFR_int_DesfireCreateValueFile_PK_M @4189
+    uFR_int_DesfireCreateValueFile_aes @4190
+    uFR_int_DesfireCreateValueFile_aesM @4191
+    uFR_int_DesfireCreateValueFile_aes_PK @4192
+    uFR_int_DesfireCreateValueFile_aes_PK_M @4193
+    uFR_int_DesfireCreateValueFile_des @4194
+    uFR_int_DesfireCreateValueFile_desHnd @4195
+    uFR_int_DesfireCreateValueFile_desM @4196
+    uFR_int_DesfireCreateValueFile_des_PK @4197
+    uFR_int_DesfireCreateValueFile_des_PK_M @4198
+    uFR_int_DesfireCreateValueFile_no_auth @4199
+    uFR_int_DesfireCreateValueFile_no_auth_M @4200
+    uFR_int_DesfireDecreaseValueFile @4201
+    uFR_int_DesfireDecreaseValueFileHnd @4202
+    uFR_int_DesfireDecreaseValueFileM @4203
+    uFR_int_DesfireDecreaseValueFile_2k3des @4204
+    uFR_int_DesfireDecreaseValueFile_2k3desHnd @4205
+    uFR_int_DesfireDecreaseValueFile_2k3desM @4206
+    uFR_int_DesfireDecreaseValueFile_2k3des_PK @4207
+    uFR_int_DesfireDecreaseValueFile_2k3des_PK_M @4208
+    uFR_int_DesfireDecreaseValueFile_3k3des @4209
+    uFR_int_DesfireDecreaseValueFile_3k3desHnd @4210
+    uFR_int_DesfireDecreaseValueFile_3k3desM @4211
+    uFR_int_DesfireDecreaseValueFile_3k3des_PK @4212
+    uFR_int_DesfireDecreaseValueFile_3k3des_PK_M @4213
+    uFR_int_DesfireDecreaseValueFile_PK @4214
+    uFR_int_DesfireDecreaseValueFile_PK_M @4215
+    uFR_int_DesfireDecreaseValueFile_TransMac_2k3des @4216
+    uFR_int_DesfireDecreaseValueFile_TransMac_2k3desM @4217
+    uFR_int_DesfireDecreaseValueFile_TransMac_2k3des_PK @4218
+    uFR_int_DesfireDecreaseValueFile_TransMac_2k3des_PK_M @4219
+    uFR_int_DesfireDecreaseValueFile_TransMac_3k3des @4220
+    uFR_int_DesfireDecreaseValueFile_TransMac_3k3desM @4221
+    uFR_int_DesfireDecreaseValueFile_TransMac_3k3des_PK @4222
+    uFR_int_DesfireDecreaseValueFile_TransMac_3k3des_PK_M @4223
+    uFR_int_DesfireDecreaseValueFile_TransMac_aes @4224
+    uFR_int_DesfireDecreaseValueFile_TransMac_aesM @4225
+    uFR_int_DesfireDecreaseValueFile_TransMac_aes_PK @4226
+    uFR_int_DesfireDecreaseValueFile_TransMac_aes_PK_M @4227
+    uFR_int_DesfireDecreaseValueFile_TransMac_des @4228
+    uFR_int_DesfireDecreaseValueFile_TransMac_desM @4229
+    uFR_int_DesfireDecreaseValueFile_TransMac_des_PK @4230
+    uFR_int_DesfireDecreaseValueFile_TransMac_des_PK_M @4231
+    uFR_int_DesfireDecreaseValueFile_TransMac_no_auth @4232
+    uFR_int_DesfireDecreaseValueFile_TransMac_no_auth_M @4233
+    uFR_int_DesfireDecreaseValueFile_aes @4234
+    uFR_int_DesfireDecreaseValueFile_aesM @4235
+    uFR_int_DesfireDecreaseValueFile_aes_PK @4236
+    uFR_int_DesfireDecreaseValueFile_aes_PK_M @4237
+    uFR_int_DesfireDecreaseValueFile_des @4238
+    uFR_int_DesfireDecreaseValueFile_desHnd @4239
+    uFR_int_DesfireDecreaseValueFile_desM @4240
+    uFR_int_DesfireDecreaseValueFile_des_PK @4241
+    uFR_int_DesfireDecreaseValueFile_des_PK_M @4242
+    uFR_int_DesfireDecreaseValueFile_no_auth @4243
+    uFR_int_DesfireDecreaseValueFile_no_auth_M @4244
+    uFR_int_DesfireDeleteApplication @4245
+    uFR_int_DesfireDeleteApplicationHnd @4246
+    uFR_int_DesfireDeleteApplicationM @4247
+    uFR_int_DesfireDeleteApplication_2k3des @4248
+    uFR_int_DesfireDeleteApplication_2k3desHnd @4249
+    uFR_int_DesfireDeleteApplication_2k3desM @4250
+    uFR_int_DesfireDeleteApplication_2k3des_PK @4251
+    uFR_int_DesfireDeleteApplication_2k3des_PK_M @4252
+    uFR_int_DesfireDeleteApplication_3k3des @4253
+    uFR_int_DesfireDeleteApplication_3k3desHnd @4254
+    uFR_int_DesfireDeleteApplication_3k3desM @4255
+    uFR_int_DesfireDeleteApplication_3k3des_PK @4256
+    uFR_int_DesfireDeleteApplication_3k3des_PK_M @4257
+    uFR_int_DesfireDeleteApplication_PK @4258
+    uFR_int_DesfireDeleteApplication_PK_M @4259
+    uFR_int_DesfireDeleteApplication_aes @4260
+    uFR_int_DesfireDeleteApplication_aesM @4261
+    uFR_int_DesfireDeleteApplication_aes_PK @4262
+    uFR_int_DesfireDeleteApplication_aes_PK_M @4263
+    uFR_int_DesfireDeleteApplication_app_master_2k3des @4264
+    uFR_int_DesfireDeleteApplication_app_master_2k3desM @4265
+    uFR_int_DesfireDeleteApplication_app_master_2k3des_PK @4266
+    uFR_int_DesfireDeleteApplication_app_master_2k3des_PK_M @4267
+    uFR_int_DesfireDeleteApplication_app_master_3k3des @4268
+    uFR_int_DesfireDeleteApplication_app_master_3k3desM @4269
+    uFR_int_DesfireDeleteApplication_app_master_3k3des_PK @4270
+    uFR_int_DesfireDeleteApplication_app_master_3k3des_PK_M @4271
+    uFR_int_DesfireDeleteApplication_app_master_PK @4272
+    uFR_int_DesfireDeleteApplication_app_master_aes @4273
+    uFR_int_DesfireDeleteApplication_app_master_aesM @4274
+    uFR_int_DesfireDeleteApplication_app_master_aes_PK @4275
+    uFR_int_DesfireDeleteApplication_app_master_aes_PK_M @4276
+    uFR_int_DesfireDeleteApplication_app_master_des @4277
+    uFR_int_DesfireDeleteApplication_app_master_desM @4278
+    uFR_int_DesfireDeleteApplication_app_master_des_PK @4279
+    uFR_int_DesfireDeleteApplication_app_master_des_PK_M @4280
+    uFR_int_DesfireDeleteApplication_des @4281
+    uFR_int_DesfireDeleteApplication_desHnd @4282
+    uFR_int_DesfireDeleteApplication_desM @4283
+    uFR_int_DesfireDeleteApplication_des_PK @4284
+    uFR_int_DesfireDeleteApplication_des_PK_M @4285
+    uFR_int_DesfireDeleteFile @4286
+    uFR_int_DesfireDeleteFileHnd @4287
+    uFR_int_DesfireDeleteFileM @4288
+    uFR_int_DesfireDeleteFile_2k3des @4289
+    uFR_int_DesfireDeleteFile_2k3desHnd @4290
+    uFR_int_DesfireDeleteFile_2k3desM @4291
+    uFR_int_DesfireDeleteFile_2k3des_PK @4292
+    uFR_int_DesfireDeleteFile_2k3des_PK_M @4293
+    uFR_int_DesfireDeleteFile_3k3des @4294
+    uFR_int_DesfireDeleteFile_3k3desHnd @4295
+    uFR_int_DesfireDeleteFile_3k3desM @4296
+    uFR_int_DesfireDeleteFile_3k3des_PK @4297
+    uFR_int_DesfireDeleteFile_3k3des_PK_M @4298
+    uFR_int_DesfireDeleteFile_PK @4299
+    uFR_int_DesfireDeleteFile_PK_M @4300
+    uFR_int_DesfireDeleteFile_aes @4301
+    uFR_int_DesfireDeleteFile_aesM @4302
+    uFR_int_DesfireDeleteFile_aes_PK @4303
+    uFR_int_DesfireDeleteFile_aes_PK_M @4304
+    uFR_int_DesfireDeleteFile_des @4305
+    uFR_int_DesfireDeleteFile_desHnd @4306
+    uFR_int_DesfireDeleteFile_desM @4307
+    uFR_int_DesfireDeleteFile_des_PK @4308
+    uFR_int_DesfireDeleteFile_des_PK_M @4309
+    uFR_int_DesfireDeleteFile_no_auth @4310
+    uFR_int_DesfireDeleteFile_no_auth_M @4311
+    uFR_int_DesfireFormatCard @4312
+    uFR_int_DesfireFormatCardHnd @4313
+    uFR_int_DesfireFormatCardM @4314
+    uFR_int_DesfireFormatCard_2k3des @4315
+    uFR_int_DesfireFormatCard_2k3desHnd @4316
+    uFR_int_DesfireFormatCard_2k3desM @4317
+    uFR_int_DesfireFormatCard_2k3des_PK @4318
+    uFR_int_DesfireFormatCard_2k3des_PK_M @4319
+    uFR_int_DesfireFormatCard_3k3des @4320
+    uFR_int_DesfireFormatCard_3k3desHnd @4321
+    uFR_int_DesfireFormatCard_3k3desM @4322
+    uFR_int_DesfireFormatCard_3k3des_PK @4323
+    uFR_int_DesfireFormatCard_3k3des_PK_M @4324
+    uFR_int_DesfireFormatCard_PK @4325
+    uFR_int_DesfireFormatCard_PK_M @4326
+    uFR_int_DesfireFormatCard_aes @4327
+    uFR_int_DesfireFormatCard_aesM @4328
+    uFR_int_DesfireFormatCard_aes_PK @4329
+    uFR_int_DesfireFormatCard_aes_PK_M @4330
+    uFR_int_DesfireFormatCard_des @4331
+    uFR_int_DesfireFormatCard_desHnd @4332
+    uFR_int_DesfireFormatCard_desM @4333
+    uFR_int_DesfireFormatCard_des_PK @4334
+    uFR_int_DesfireFormatCard_des_PK_M @4335
+    uFR_int_DesfireFreeMem @4336
+    uFR_int_DesfireFreeMemHnd @4337
+    uFR_int_DesfireFreeMemM @4338
+    uFR_int_DesfireGetApplicationIds @4339
+    uFR_int_DesfireGetApplicationIdsHnd @4340
+    uFR_int_DesfireGetApplicationIdsM @4341
+    uFR_int_DesfireGetApplicationIds_2k3des @4342
+    uFR_int_DesfireGetApplicationIds_2k3desHnd @4343
+    uFR_int_DesfireGetApplicationIds_2k3desM @4344
+    uFR_int_DesfireGetApplicationIds_2k3des_PK @4345
+    uFR_int_DesfireGetApplicationIds_2k3des_PK_M @4346
+    uFR_int_DesfireGetApplicationIds_3k3des @4347
+    uFR_int_DesfireGetApplicationIds_3k3desHnd @4348
+    uFR_int_DesfireGetApplicationIds_3k3desM @4349
+    uFR_int_DesfireGetApplicationIds_3k3des_PK @4350
+    uFR_int_DesfireGetApplicationIds_3k3des_PK_M @4351
+    uFR_int_DesfireGetApplicationIds_PK @4352
+    uFR_int_DesfireGetApplicationIds_PK_M @4353
+    uFR_int_DesfireGetApplicationIds_aes @4354
+    uFR_int_DesfireGetApplicationIds_aesM @4355
+    uFR_int_DesfireGetApplicationIds_aes_PK @4356
+    uFR_int_DesfireGetApplicationIds_aes_PK_M @4357
+    uFR_int_DesfireGetApplicationIds_des @4358
+    uFR_int_DesfireGetApplicationIds_desHnd @4359
+    uFR_int_DesfireGetApplicationIds_desM @4360
+    uFR_int_DesfireGetApplicationIds_des_PK @4361
+    uFR_int_DesfireGetApplicationIds_des_PK_M @4362
+    uFR_int_DesfireGetApplicationIds_no_auth @4363
+    uFR_int_DesfireGetApplicationIds_no_auth_M @4364
+    uFR_int_DesfireGetFileSettingsHnd @4365
+    uFR_int_DesfireGetFileSettingsSdmHnd @4366
+    uFR_int_DesfireGetFileSettingsSdm_aes @4367
+    uFR_int_DesfireGetFileSettingsSdm_aes_M @4368
+    uFR_int_DesfireGetFileSettingsSdm_aes_PK @4369
+    uFR_int_DesfireGetFileSettingsSdm_aes_PK_M @4370
+    uFR_int_DesfireGetFileSettings_2k3des @4371
+    uFR_int_DesfireGetFileSettings_2k3desHnd @4372
+    uFR_int_DesfireGetFileSettings_2k3des_M @4373
+    uFR_int_DesfireGetFileSettings_2k3des_PK @4374
+    uFR_int_DesfireGetFileSettings_2k3des_PK_M @4375
+    uFR_int_DesfireGetFileSettings_3k3des @4376
+    uFR_int_DesfireGetFileSettings_3k3desHnd @4377
+    uFR_int_DesfireGetFileSettings_3k3des_M @4378
+    uFR_int_DesfireGetFileSettings_3k3des_PK @4379
+    uFR_int_DesfireGetFileSettings_3k3des_PK_M @4380
+    uFR_int_DesfireGetFileSettings_aes @4381
+    uFR_int_DesfireGetFileSettings_aes_M @4382
+    uFR_int_DesfireGetFileSettings_aes_PK @4383
+    uFR_int_DesfireGetFileSettings_aes_PK_M @4384
+    uFR_int_DesfireGetFileSettings_des @4385
+    uFR_int_DesfireGetFileSettings_desHnd @4386
+    uFR_int_DesfireGetFileSettings_des_M @4387
+    uFR_int_DesfireGetFileSettings_des_PK @4388
+    uFR_int_DesfireGetFileSettings_des_PK_M @4389
+    uFR_int_DesfireGetFileSettings_no_auth @4390
+    uFR_int_DesfireGetFileSettings_no_auth_M @4391
+    uFR_int_DesfireGetKeySettings @4392
+    uFR_int_DesfireGetKeySettingsHnd @4393
+    uFR_int_DesfireGetKeySettingsM @4394
+    uFR_int_DesfireGetKeySettings_2k3des @4395
+    uFR_int_DesfireGetKeySettings_2k3desHnd @4396
+    uFR_int_DesfireGetKeySettings_2k3desM @4397
+    uFR_int_DesfireGetKeySettings_2k3des_PK @4398
+    uFR_int_DesfireGetKeySettings_2k3des_PK_M @4399
+    uFR_int_DesfireGetKeySettings_3k3des @4400
+    uFR_int_DesfireGetKeySettings_3k3desHnd @4401
+    uFR_int_DesfireGetKeySettings_3k3desM @4402
+    uFR_int_DesfireGetKeySettings_3k3des_PK @4403
+    uFR_int_DesfireGetKeySettings_3k3des_PK_M @4404
+    uFR_int_DesfireGetKeySettings_PK @4405
+    uFR_int_DesfireGetKeySettings_PK_M @4406
+    uFR_int_DesfireGetKeySettings_aes @4407
+    uFR_int_DesfireGetKeySettings_aesM @4408
+    uFR_int_DesfireGetKeySettings_aes_PK @4409
+    uFR_int_DesfireGetKeySettings_aes_PK_M @4410
+    uFR_int_DesfireGetKeySettings_des @4411
+    uFR_int_DesfireGetKeySettings_desHnd @4412
+    uFR_int_DesfireGetKeySettings_desM @4413
+    uFR_int_DesfireGetKeySettings_des_PK @4414
+    uFR_int_DesfireGetKeySettings_des_PK_M @4415
+    uFR_int_DesfireGetKeySettings_no_auth @4416
+    uFR_int_DesfireGetKeySettings_no_auth_M @4417
+    uFR_int_DesfireGetStdFileSize_2k3des @4418
+    uFR_int_DesfireGetStdFileSize_2k3des_M @4419
+    uFR_int_DesfireGetStdFileSize_2k3des_PK @4420
+    uFR_int_DesfireGetStdFileSize_2k3des_PK_M @4421
+    uFR_int_DesfireGetStdFileSize_3k3des @4422
+    uFR_int_DesfireGetStdFileSize_3k3des_M @4423
+    uFR_int_DesfireGetStdFileSize_3k3des_PK @4424
+    uFR_int_DesfireGetStdFileSize_3k3des_PK_M @4425
+    uFR_int_DesfireGetStdFileSize_aes @4426
+    uFR_int_DesfireGetStdFileSize_aes_M @4427
+    uFR_int_DesfireGetStdFileSize_aes_PK @4428
+    uFR_int_DesfireGetStdFileSize_aes_PK_M @4429
+    uFR_int_DesfireGetStdFileSize_des @4430
+    uFR_int_DesfireGetStdFileSize_des_M @4431
+    uFR_int_DesfireGetStdFileSize_des_PK @4432
+    uFR_int_DesfireGetStdFileSize_des_PK_M @4433
+    uFR_int_DesfireGetStdFileSize_no_auth @4434
+    uFR_int_DesfireGetStdFileSize_no_auth_M @4435
+    uFR_int_DesfireIncreaseValueFile @4436
+    uFR_int_DesfireIncreaseValueFileHnd @4437
+    uFR_int_DesfireIncreaseValueFileM @4438
+    uFR_int_DesfireIncreaseValueFile_2k3des @4439
+    uFR_int_DesfireIncreaseValueFile_2k3desHnd @4440
+    uFR_int_DesfireIncreaseValueFile_2k3desM @4441
+    uFR_int_DesfireIncreaseValueFile_2k3des_PK @4442
+    uFR_int_DesfireIncreaseValueFile_2k3des_PK_M @4443
+    uFR_int_DesfireIncreaseValueFile_3k3des @4444
+    uFR_int_DesfireIncreaseValueFile_3k3desHnd @4445
+    uFR_int_DesfireIncreaseValueFile_3k3desM @4446
+    uFR_int_DesfireIncreaseValueFile_3k3des_PK @4447
+    uFR_int_DesfireIncreaseValueFile_3k3des_PK_M @4448
+    uFR_int_DesfireIncreaseValueFile_PK @4449
+    uFR_int_DesfireIncreaseValueFile_PK_M @4450
+    uFR_int_DesfireIncreaseValueFile_TransMac_2k3des @4451
+    uFR_int_DesfireIncreaseValueFile_TransMac_2k3desM @4452
+    uFR_int_DesfireIncreaseValueFile_TransMac_2k3des_PK @4453
+    uFR_int_DesfireIncreaseValueFile_TransMac_2k3des_PK_M @4454
+    uFR_int_DesfireIncreaseValueFile_TransMac_3k3des @4455
+    uFR_int_DesfireIncreaseValueFile_TransMac_3k3desM @4456
+    uFR_int_DesfireIncreaseValueFile_TransMac_3k3des_PK @4457
+    uFR_int_DesfireIncreaseValueFile_TransMac_3k3des_PK_M @4458
+    uFR_int_DesfireIncreaseValueFile_TransMac_aes @4459
+    uFR_int_DesfireIncreaseValueFile_TransMac_aesM @4460
+    uFR_int_DesfireIncreaseValueFile_TransMac_aes_PK @4461
+    uFR_int_DesfireIncreaseValueFile_TransMac_aes_PK_M @4462
+    uFR_int_DesfireIncreaseValueFile_TransMac_des @4463
+    uFR_int_DesfireIncreaseValueFile_TransMac_desM @4464
+    uFR_int_DesfireIncreaseValueFile_TransMac_des_PK @4465
+    uFR_int_DesfireIncreaseValueFile_TransMac_des_PK_M @4466
+    uFR_int_DesfireIncreaseValueFile_TransMac_no_auth @4467
+    uFR_int_DesfireIncreaseValueFile_TransMac_no_auth_M @4468
+    uFR_int_DesfireIncreaseValueFile_aes @4469
+    uFR_int_DesfireIncreaseValueFile_aesM @4470
+    uFR_int_DesfireIncreaseValueFile_aes_PK @4471
+    uFR_int_DesfireIncreaseValueFile_aes_PK_M @4472
+    uFR_int_DesfireIncreaseValueFile_des @4473
+    uFR_int_DesfireIncreaseValueFile_desHnd @4474
+    uFR_int_DesfireIncreaseValueFile_desM @4475
+    uFR_int_DesfireIncreaseValueFile_des_PK @4476
+    uFR_int_DesfireIncreaseValueFile_des_PK_M @4477
+    uFR_int_DesfireIncreaseValueFile_no_auth @4478
+    uFR_int_DesfireIncreaseValueFile_no_auth_M @4479
+    uFR_int_DesfireNDEFFormat @4480
+    uFR_int_DesfireNDEFFormatHnd @4481
+    uFR_int_DesfireReadNDEFMessage @4482
+    uFR_int_DesfireReadNDEFMessageHnd @4483
+    uFR_int_DesfireReadNDEFPayload @4484
+    uFR_int_DesfireReadNDEFPayloadEx @4485
+    uFR_int_DesfireReadNDEFPayloadExHnd @4486
+    uFR_int_DesfireReadNDEFPayloadHnd @4487
+    uFR_int_DesfireReadRecordsHnd @4488
+    uFR_int_DesfireReadRecords_2k3des @4489
+    uFR_int_DesfireReadRecords_2k3desHnd @4490
+    uFR_int_DesfireReadRecords_2k3desM @4491
+    uFR_int_DesfireReadRecords_2k3des_PK @4492
+    uFR_int_DesfireReadRecords_2k3des_PK_M @4493
+    uFR_int_DesfireReadRecords_3k3des @4494
+    uFR_int_DesfireReadRecords_3k3desHnd @4495
+    uFR_int_DesfireReadRecords_3k3desM @4496
+    uFR_int_DesfireReadRecords_3k3des_PK @4497
+    uFR_int_DesfireReadRecords_3k3des_PK_M @4498
+    uFR_int_DesfireReadRecords_aes @4499
+    uFR_int_DesfireReadRecords_aesM @4500
+    uFR_int_DesfireReadRecords_aes_PK @4501
+    uFR_int_DesfireReadRecords_aes_PK_M @4502
+    uFR_int_DesfireReadRecords_des @4503
+    uFR_int_DesfireReadRecords_desHnd @4504
+    uFR_int_DesfireReadRecords_desM @4505
+    uFR_int_DesfireReadRecords_des_PK @4506
+    uFR_int_DesfireReadRecords_des_PK_M @4507
+    uFR_int_DesfireReadRecords_no_auth @4508
+    uFR_int_DesfireReadRecords_no_authM @4509
+    uFR_int_DesfireReadStdDataFile @4510
+    uFR_int_DesfireReadStdDataFileHnd @4511
+    uFR_int_DesfireReadStdDataFile_2k3des @4512
+    uFR_int_DesfireReadStdDataFile_2k3desHnd @4513
+    uFR_int_DesfireReadStdDataFile_2k3desM @4514
+    uFR_int_DesfireReadStdDataFile_2k3des_PK @4515
+    uFR_int_DesfireReadStdDataFile_2k3des_PK_M @4516
+    uFR_int_DesfireReadStdDataFile_3k3des @4517
+    uFR_int_DesfireReadStdDataFile_3k3desHnd @4518
+    uFR_int_DesfireReadStdDataFile_3k3desM @4519
+    uFR_int_DesfireReadStdDataFile_3k3des_PK @4520
+    uFR_int_DesfireReadStdDataFile_3k3des_PK_M @4521
+    uFR_int_DesfireReadStdDataFile_PK @4522
+    uFR_int_DesfireReadStdDataFile_PK_M @4523
+    uFR_int_DesfireReadStdDataFile_aes @4524
+    uFR_int_DesfireReadStdDataFile_aesM @4525
+    uFR_int_DesfireReadStdDataFile_aes_PK @4526
+    uFR_int_DesfireReadStdDataFile_aes_PK_M @4527
+    uFR_int_DesfireReadStdDataFile_des @4528
+    uFR_int_DesfireReadStdDataFile_desHnd @4529
+    uFR_int_DesfireReadStdDataFile_desM @4530
+    uFR_int_DesfireReadStdDataFile_des_PK @4531
+    uFR_int_DesfireReadStdDataFile_des_PK_M @4532
+    uFR_int_DesfireReadStdDataFile_no_auth @4533
+    uFR_int_DesfireReadStdDataFile_no_auth_M @4534
+    uFR_int_DesfireReadStddDataFileM @4535
+    uFR_int_DesfireReadStddDataFile_aesM @4536
+    uFR_int_DesfireReadValueFile @4537
+    uFR_int_DesfireReadValueFileHnd @4538
+    uFR_int_DesfireReadValueFileM @4539
+    uFR_int_DesfireReadValueFile_2k3des @4540
+    uFR_int_DesfireReadValueFile_2k3desHnd @4541
+    uFR_int_DesfireReadValueFile_2k3desM @4542
+    uFR_int_DesfireReadValueFile_2k3des_PK @4543
+    uFR_int_DesfireReadValueFile_2k3des_PK_M @4544
+    uFR_int_DesfireReadValueFile_3k3des @4545
+    uFR_int_DesfireReadValueFile_3k3desHnd @4546
+    uFR_int_DesfireReadValueFile_3k3desM @4547
+    uFR_int_DesfireReadValueFile_3k3des_PK @4548
+    uFR_int_DesfireReadValueFile_3k3des_PK_M @4549
+    uFR_int_DesfireReadValueFile_PK @4550
+    uFR_int_DesfireReadValueFile_PK_M @4551
+    uFR_int_DesfireReadValueFile_aes @4552
+    uFR_int_DesfireReadValueFile_aesM @4553
+    uFR_int_DesfireReadValueFile_aes_PK @4554
+    uFR_int_DesfireReadValueFile_aes_PK_M @4555
+    uFR_int_DesfireReadValueFile_des @4556
+    uFR_int_DesfireReadValueFile_desHnd @4557
+    uFR_int_DesfireReadValueFile_desM @4558
+    uFR_int_DesfireReadValueFile_des_PK @4559
+    uFR_int_DesfireReadValueFile_des_PK_M @4560
+    uFR_int_DesfireReadValueFile_no_auth @4561
+    uFR_int_DesfireReadValueFile_no_auth_M @4562
+    uFR_int_DesfireRidReadECCSignature_2k3des @4563
+    uFR_int_DesfireRidReadECCSignature_2k3desM @4564
+    uFR_int_DesfireRidReadECCSignature_2k3des_PK @4565
+    uFR_int_DesfireRidReadECCSignature_2k3des_PK_M @4566
+    uFR_int_DesfireRidReadECCSignature_3k3des @4567
+    uFR_int_DesfireRidReadECCSignature_3k3desM @4568
+    uFR_int_DesfireRidReadECCSignature_3k3des_PK @4569
+    uFR_int_DesfireRidReadECCSignature_3k3des_PK_M @4570
+    uFR_int_DesfireRidReadECCSignature_aes @4571
+    uFR_int_DesfireRidReadECCSignature_aesM @4572
+    uFR_int_DesfireRidReadECCSignature_aes_PK @4573
+    uFR_int_DesfireRidReadECCSignature_aes_PK_M @4574
+    uFR_int_DesfireRidReadECCSignature_des @4575
+    uFR_int_DesfireRidReadECCSignature_desM @4576
+    uFR_int_DesfireRidReadECCSignature_des_PK @4577
+    uFR_int_DesfireRidReadECCSignature_des_PK_M @4578
+    uFR_int_DesfireSetConfiguration @4579
+    uFR_int_DesfireSetConfigurationExHnd @4580
+    uFR_int_DesfireSetConfigurationHnd @4581
+    uFR_int_DesfireSetConfigurationM @4582
+    uFR_int_DesfireSetConfiguration_2k3des @4583
+    uFR_int_DesfireSetConfiguration_2k3desHnd @4584
+    uFR_int_DesfireSetConfiguration_2k3desM @4585
+    uFR_int_DesfireSetConfiguration_2k3des_PK @4586
+    uFR_int_DesfireSetConfiguration_2k3des_PK_M @4587
+    uFR_int_DesfireSetConfiguration_3k3des @4588
+    uFR_int_DesfireSetConfiguration_3k3desHnd @4589
+    uFR_int_DesfireSetConfiguration_3k3desM @4590
+    uFR_int_DesfireSetConfiguration_3k3des_PK @4591
+    uFR_int_DesfireSetConfiguration_3k3des_PK_M @4592
+    uFR_int_DesfireSetConfiguration_PK @4593
+    uFR_int_DesfireSetConfiguration_PK_M @4594
+    uFR_int_DesfireSetConfiguration_aes @4595
+    uFR_int_DesfireSetConfiguration_aesM @4596
+    uFR_int_DesfireSetConfiguration_aes_PK @4597
+    uFR_int_DesfireSetConfiguration_aes_PK_M @4598
+    uFR_int_DesfireSetConfiguration_des @4599
+    uFR_int_DesfireSetConfiguration_desHnd @4600
+    uFR_int_DesfireSetConfiguration_desM @4601
+    uFR_int_DesfireSetConfiguration_des_PK @4602
+    uFR_int_DesfireSetConfiguration_des_PK_M @4603
+    uFR_int_DesfireSetTransactionTimer_aes @4604
+    uFR_int_DesfireSetTransactionTimer_aesM @4605
+    uFR_int_DesfireSetTransactionTimer_aes_PK @4606
+    uFR_int_DesfireSetTransactionTimer_aes_PK_M @4607
+    uFR_int_DesfireUidReadECCSignature @4608
+    uFR_int_DesfireUidReadECCSignatureM @4609
+    uFR_int_DesfireWriteAesKey @4610
+    uFR_int_DesfireWriteAesKeyHnd @4611
+    uFR_int_DesfireWriteAesKeyM @4612
+    uFR_int_DesfireWriteBackupDataFile_2k3des @4613
+    uFR_int_DesfireWriteBackupDataFile_2k3desHnd @4614
+    uFR_int_DesfireWriteBackupDataFile_2k3desM @4615
+    uFR_int_DesfireWriteBackupDataFile_2k3des_PK @4616
+    uFR_int_DesfireWriteBackupDataFile_2k3des_PK_M @4617
+    uFR_int_DesfireWriteBackupDataFile_3k3des @4618
+    uFR_int_DesfireWriteBackupDataFile_3k3desHnd @4619
+    uFR_int_DesfireWriteBackupDataFile_3k3desM @4620
+    uFR_int_DesfireWriteBackupDataFile_3k3des_PK @4621
+    uFR_int_DesfireWriteBackupDataFile_3k3des_PK_M @4622
+    uFR_int_DesfireWriteBackupDataFile_aes @4623
+    uFR_int_DesfireWriteBackupDataFile_aesM @4624
+    uFR_int_DesfireWriteBackupDataFile_aes_Hnd @4625
+    uFR_int_DesfireWriteBackupDataFile_aes_PK @4626
+    uFR_int_DesfireWriteBackupDataFile_aes_PK_M @4627
+    uFR_int_DesfireWriteBackupDataFile_des @4628
+    uFR_int_DesfireWriteBackupDataFile_desHnd @4629
+    uFR_int_DesfireWriteBackupDataFile_desM @4630
+    uFR_int_DesfireWriteBackupDataFile_des_PK @4631
+    uFR_int_DesfireWriteBackupDataFile_des_PK_M @4632
+    uFR_int_DesfireWriteBackupDataFile_no_auth @4633
+    uFR_int_DesfireWriteBackupDataFile_no_auth_M @4634
+    uFR_int_DesfireWriteKey @4635
+    uFR_int_DesfireWriteKeyHnd @4636
+    uFR_int_DesfireWriteKeyM @4637
+    uFR_int_DesfireWriteNDEFMessage @4638
+    uFR_int_DesfireWriteNDEFMessageHnd @4639
+    uFR_int_DesfireWriteNDEFPayload @4640
+    uFR_int_DesfireWriteNDEFPayloadHnd @4641
+    uFR_int_DesfireWriteRecordHnd @4642
+    uFR_int_DesfireWriteRecord_2k3des @4643
+    uFR_int_DesfireWriteRecord_2k3desHnd @4644
+    uFR_int_DesfireWriteRecord_2k3desM @4645
+    uFR_int_DesfireWriteRecord_2k3des_PK @4646
+    uFR_int_DesfireWriteRecord_2k3des_PK_M @4647
+    uFR_int_DesfireWriteRecord_3k3des @4648
+    uFR_int_DesfireWriteRecord_3k3desHnd @4649
+    uFR_int_DesfireWriteRecord_3k3desM @4650
+    uFR_int_DesfireWriteRecord_3k3des_PK @4651
+    uFR_int_DesfireWriteRecord_3k3des_PK_M @4652
+    uFR_int_DesfireWriteRecord_TransMac_2k3des @4653
+    uFR_int_DesfireWriteRecord_TransMac_2k3desM @4654
+    uFR_int_DesfireWriteRecord_TransMac_2k3des_PK @4655
+    uFR_int_DesfireWriteRecord_TransMac_2k3des_PK_M @4656
+    uFR_int_DesfireWriteRecord_TransMac_3k3des @4657
+    uFR_int_DesfireWriteRecord_TransMac_3k3desM @4658
+    uFR_int_DesfireWriteRecord_TransMac_3k3des_PK @4659
+    uFR_int_DesfireWriteRecord_TransMac_3k3des_PK_M @4660
+    uFR_int_DesfireWriteRecord_TransMac_aes @4661
+    uFR_int_DesfireWriteRecord_TransMac_aesM @4662
+    uFR_int_DesfireWriteRecord_TransMac_aes_PK @4663
+    uFR_int_DesfireWriteRecord_TransMac_aes_PK_M @4664
+    uFR_int_DesfireWriteRecord_TransMac_des @4665
+    uFR_int_DesfireWriteRecord_TransMac_desM @4666
+    uFR_int_DesfireWriteRecord_TransMac_des_PK @4667
+    uFR_int_DesfireWriteRecord_TransMac_des_PK_M @4668
+    uFR_int_DesfireWriteRecord_TransMac_no_auth @4669
+    uFR_int_DesfireWriteRecord_TransMac_no_auth_M @4670
+    uFR_int_DesfireWriteRecord_aes @4671
+    uFR_int_DesfireWriteRecord_aesM @4672
+    uFR_int_DesfireWriteRecord_aes_PK @4673
+    uFR_int_DesfireWriteRecord_aes_PK_M @4674
+    uFR_int_DesfireWriteRecord_des @4675
+    uFR_int_DesfireWriteRecord_desHnd @4676
+    uFR_int_DesfireWriteRecord_desM @4677
+    uFR_int_DesfireWriteRecord_des_PK @4678
+    uFR_int_DesfireWriteRecord_des_PK_M @4679
+    uFR_int_DesfireWriteRecord_no_auth @4680
+    uFR_int_DesfireWriteRecord_no_authM @4681
+    uFR_int_DesfireWriteStdDataFile @4682
+    uFR_int_DesfireWriteStdDataFileHnd @4683
+    uFR_int_DesfireWriteStdDataFileM @4684
+    uFR_int_DesfireWriteStdDataFile_2k3des @4685
+    uFR_int_DesfireWriteStdDataFile_2k3desHnd @4686
+    uFR_int_DesfireWriteStdDataFile_2k3desM @4687
+    uFR_int_DesfireWriteStdDataFile_2k3des_PK @4688
+    uFR_int_DesfireWriteStdDataFile_2k3des_PK_M @4689
+    uFR_int_DesfireWriteStdDataFile_3k3des @4690
+    uFR_int_DesfireWriteStdDataFile_3k3desHnd @4691
+    uFR_int_DesfireWriteStdDataFile_3k3desM @4692
+    uFR_int_DesfireWriteStdDataFile_3k3des_PK @4693
+    uFR_int_DesfireWriteStdDataFile_3k3des_PK_M @4694
+    uFR_int_DesfireWriteStdDataFile_PK @4695
+    uFR_int_DesfireWriteStdDataFile_PK_M @4696
+    uFR_int_DesfireWriteStdDataFile_aes @4697
+    uFR_int_DesfireWriteStdDataFile_aesM @4698
+    uFR_int_DesfireWriteStdDataFile_aes_PK @4699
+    uFR_int_DesfireWriteStdDataFile_aes_PK_M @4700
+    uFR_int_DesfireWriteStdDataFile_des @4701
+    uFR_int_DesfireWriteStdDataFile_desHnd @4702
+    uFR_int_DesfireWriteStdDataFile_desM @4703
+    uFR_int_DesfireWriteStdDataFile_des_PK @4704
+    uFR_int_DesfireWriteStdDataFile_des_PK_M @4705
+    uFR_int_DesfireWriteStdDataFile_no_auth @4706
+    uFR_int_DesfireWriteStdDataFile_no_auth_M @4707
+    uFR_int_GetDesfireUid @4708
+    uFR_int_GetDesfireUidHnd @4709
+    uFR_int_GetDesfireUidM @4710
+    uFR_int_GetDesfireUid_2k3des @4711
+    uFR_int_GetDesfireUid_2k3desHnd @4712
+    uFR_int_GetDesfireUid_2k3desM @4713
+    uFR_int_GetDesfireUid_2k3des_PK @4714
+    uFR_int_GetDesfireUid_2k3des_PK_M @4715
+    uFR_int_GetDesfireUid_3k3des @4716
+    uFR_int_GetDesfireUid_3k3desHnd @4717
+    uFR_int_GetDesfireUid_3k3desM @4718
+    uFR_int_GetDesfireUid_3k3des_PK @4719
+    uFR_int_GetDesfireUid_3k3des_PK_M @4720
+    uFR_int_GetDesfireUid_PK @4721
+    uFR_int_GetDesfireUid_PK_M @4722
+    uFR_int_GetDesfireUid_aes @4723
+    uFR_int_GetDesfireUid_aesM @4724
+    uFR_int_GetDesfireUid_aes_PK @4725
+    uFR_int_GetDesfireUid_aes_PK_M @4726
+    uFR_int_GetDesfireUid_des @4727
+    uFR_int_GetDesfireUid_desHnd @4728
+    uFR_int_GetDesfireUid_desM @4729
+    uFR_int_GetDesfireUid_des_PK @4730
+    uFR_int_GetDesfireUid_des_PK_M @4731
+    uart_transceive @4732
+    uart_transceiveHnd @4733
+    uart_transceiveM @4734
+    udp_close @4735
+    udp_init @4736
+    udp_purge @4737
+    udp_reader_list @4738
+    udp_rx @4739
+    udp_set_timeout_ms @4740
+    udp_tx @4741
+    ufr_SSL_CTX_check_private_key @4742
+    ufr_SSL_CTX_free @4743
+    ufr_SSL_CTX_new @4744
+    ufr_SSL_CTX_set_verify @4745
+    ufr_SSL_CTX_use_PrivateKey_file @4746
+    ufr_SSL_CTX_use_certificate_file @4747
+    ufr_SSL_accept @4748
+    ufr_SSL_connect @4749
+    ufr_SSL_free @4750
+    ufr_SSL_get_error @4751
+    ufr_SSL_pending @4752
+    ufr_SSL_read @4753
+    ufr_SSL_set_fd @4754
+    ufr_SSL_shutdown @4755
+    ufr_SSL_write @4756
+    ufr_handle_init @4757
+    ufr_sleep @4758
+    uid_list_size @4759 DATA
+    uint32_to_bytes_le @4760
+    uncompress @4761
+    uncompress2 @4762
+    unit_check_available @4763
+    unit_delete_if_not_opened @4764
+    unpackBytes @4765
+    update_key_schedules @4766
+    valid_esp_module @4767
+    validate_TD1_format @4768
+    validate_TD3_format @4769
+    validate_certificate @4770
+    win_frequency @4771 DATA
+    write_callback @4772
+    write_ndef_record @4773
+    write_ndef_recordHnd @4774
+    write_ndef_recordM @4775
+    write_ndef_record_mirroring @4776
+    write_ndef_record_mirroringHnd @4777
+    write_ndef_record_mirroringM @4778
+    write_ndef_record_mirroring_tt @4779
+    write_ndef_record_mirroring_ttM @4780
+    write_ptr @4781 DATA
+    x1 @4782 DATA
+    x2 @4783 DATA
+    x3 @4784 DATA
+    x509GetSignatureNodePos @4785
+    x509_decode_public_key_from_certificate @4786
+    x509_decode_subject_public_key_info @4787
+    xor @4788
+    zError @4789
+    z_errmsg @4790 DATA
+    zcalloc @4791
+    zcfree @4792
+    zeromem @4793
+    zlibCompileFlags @4794
+    zlibVersion @4795
