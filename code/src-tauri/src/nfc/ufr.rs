@@ -9,6 +9,12 @@ pub struct UfrReader {
     lib: Arc<Library>,
 }
 
+impl Drop for UfrReader {
+    fn drop(&mut self) {
+        let _ = self.close();
+    }
+}
+
 impl UfrReader {
     pub fn new() -> Result<Self, NfcError> {
         let lib_path = Self::get_lib_path()?;
@@ -48,17 +54,6 @@ impl UfrReader {
 
         Ok(full_path)
     }
-
-    fn status_to_result(&self, status: u32) -> Result<(), NfcError> {
-        match status {
-            0x00 => Ok(()),
-            0x08 => Err(NfcError::NoCardPresent),
-            0x52 | 0x55 => Err(NfcError::DeviceNotFound),
-            0x80 | 0x81 | 0x83 => Err(NfcError::InvalidNdefFormat),
-            0x86 => Err(NfcError::NotInitialized),
-            _ => Err(NfcError::Unknown(format!("uFR Error: 0x{:02X}", status))),
-        }
-    }
 }
 
 impl NfcReader for UfrReader {
@@ -68,7 +63,7 @@ impl NfcReader for UfrReader {
                 .lib
                 .get(b"ReaderOpen")
                 .map_err(|e| NfcError::Unknown(e.to_string()))?;
-            self.status_to_result(func())
+            crate::nfc::handler::translate_ufr_status(func())
         }
     }
 
@@ -78,7 +73,7 @@ impl NfcReader for UfrReader {
                 .lib
                 .get(b"ReaderClose")
                 .map_err(|e| NfcError::Unknown(e.to_string()))?;
-            self.status_to_result(func())
+            crate::nfc::handler::translate_ufr_status(func())
         }
     }
 
@@ -90,7 +85,7 @@ impl NfcReader for UfrReader {
                 .map_err(|e| NfcError::Unknown(e.to_string()))?;
 
             let mut buffer = [0i8; 1024];
-            self.status_to_result(read_text(buffer.as_mut_ptr()))?;
+            crate::nfc::handler::translate_ufr_status(read_text(buffer.as_mut_ptr()))?;
 
             let c_str = CStr::from_ptr(buffer.as_ptr());
             Ok(c_str.to_string_lossy().into_owned())
@@ -106,7 +101,7 @@ impl NfcReader for UfrReader {
 
             let c_text = CString::new(text).map_err(|e| NfcError::Unknown(e.to_string()))?;
             // 1 for NDEF storage (internal memory)
-            self.status_to_result(write_text(1, c_text.as_ptr()))
+            crate::nfc::handler::translate_ufr_status(write_text(1, c_text.as_ptr()))
         }
     }
 }

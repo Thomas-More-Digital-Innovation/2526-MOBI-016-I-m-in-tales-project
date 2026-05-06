@@ -66,20 +66,6 @@ fn nfc_start_polling(app_handle: AppHandle, state: State<'_, NfcManager>) -> Res
         return Ok(());
     }
 
-    // Initialize reader if not already done
-    {
-        let mut reader_guard = state.reader.lock().map_err(|e| e.to_string())?;
-        if reader_guard.is_none() {
-            let reader = UfrReader::new().map_err(|e| e.to_string())?;
-            reader.open().map_err(|e| e.to_string())?;
-            *reader_guard = Some(Box::new(reader));
-        } else {
-            // Even if reader exists, make sure it's open
-            let reader = reader_guard.as_ref().unwrap();
-            reader.open().ok(); // Ignore error if already open
-        }
-    }
-
     state.is_polling.store(true, Ordering::SeqCst);
     let is_polling = state.is_polling.clone();
 
@@ -88,12 +74,32 @@ fn nfc_start_polling(app_handle: AppHandle, state: State<'_, NfcManager>) -> Res
 
         while is_polling.load(Ordering::SeqCst) {
             let state: State<'_, NfcManager> = app_handle.state::<NfcManager>();
-            let reader_guard: MutexGuard<'_, Option<Box<dyn NfcReader>>> = match state.reader.lock()
-            {
+            
+            let mut reader_guard: MutexGuard<'_, Option<Box<dyn NfcReader>>> = match state.reader.lock() {
                 Ok(guard) => guard,
                 Err(_) => break,
             };
 
+            if reader_guard.is_none() {
+                match UfrReader::new() {
+                    Ok(reader) => {
+                        match reader.open() {
+                            Ok(_) => {
+                                *reader_guard = Some(Box::new(reader));
+                                app_handle.emit("nfc://status", NfcStatusEvent { connected: true, error: None }).ok();
+                            }
+                            Err(e) => {
+                                app_handle.emit("nfc://status", NfcStatusEvent { connected: false, error: Some(e.to_string()) }).ok();
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        app_handle.emit("nfc://status", NfcStatusEvent { connected: false, error: Some(e.to_string()) }).ok();
+                    }
+                }
+            }
+
+            // 2. Perform read if reader is available
             if let Some(reader) = reader_guard.as_ref() {
                 match reader.read_ndef_text() {
                     Ok(text) => {
@@ -103,12 +109,20 @@ fn nfc_start_polling(app_handle: AppHandle, state: State<'_, NfcManager>) -> Res
                                 .ok();
                             last_text = text;
                         }
+                        app_handle.emit("nfc://status", NfcStatusEvent { connected: true, error: None }).ok();
                     }
                     Err(NfcError::NoCardPresent) => {
                         if !last_text.is_empty() {
                             app_handle.emit("nfc://tag-lost", ()).ok();
                             last_text = String::new();
                         }
+                        app_handle.emit("nfc://status", NfcStatusEvent { connected: true, error: None }).ok();
+                    }
+                    Err(NfcError::DeviceNotFound) | Err(NfcError::CommunicationError(_)) => {
+                        // Device lost! Reset reader for re-init on next loop
+                        *reader_guard = None;
+                        app_handle.emit("nfc://status", NfcStatusEvent { connected: false, error: Some("Device disconnected".to_string()) }).ok();
+                        last_text = String::new();
                     }
                     Err(e) => {
                         app_handle
