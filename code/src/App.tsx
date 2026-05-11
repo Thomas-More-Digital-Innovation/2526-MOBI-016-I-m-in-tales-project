@@ -8,9 +8,12 @@ import Help from "./app/help/page";
 import TestBoard from "./app/testBoard/page";
 import StoryConfigurator from "./app/makeStory/storyConfigurator/page";
 
+import { NfcProvider } from "./app/components/NfcProvider";
+
 function App() {
   return (
-    <BrowserRouter>
+    <NfcProvider>
+      <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/makeStory" element={<MakeStory />} />
@@ -22,7 +25,8 @@ function App() {
         <Route path="/help" element={<Help />} />
         <Route path="/testBoard" element={<TestBoard />} />
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </NfcProvider>
   );
 }
 
