@@ -14,7 +14,8 @@ pub struct NfcManager {
 
 #[derive(serde::Serialize, Clone)]
 struct NfcTagEvent {
-    text: String,
+    uid: String,
+    text: Option<String>,
 }
 
 #[derive(serde::Serialize, Clone)]
@@ -70,59 +71,113 @@ fn nfc_start_polling(app_handle: AppHandle, state: State<'_, NfcManager>) -> Res
     let is_polling = state.is_polling.clone();
 
     std::thread::spawn(move || {
-        let mut last_text = String::new();
+        let mut last_uid = String::new();
 
         while is_polling.load(Ordering::SeqCst) {
             let state: State<'_, NfcManager> = app_handle.state::<NfcManager>();
-            
-            let mut reader_guard: MutexGuard<'_, Option<Box<dyn NfcReader>>> = match state.reader.lock() {
-                Ok(guard) => guard,
-                Err(_) => break,
-            };
+
+            let mut reader_guard: MutexGuard<'_, Option<Box<dyn NfcReader>>> =
+                match state.reader.lock() {
+                    Ok(guard) => guard,
+                    Err(_) => break,
+                };
 
             if reader_guard.is_none() {
                 match UfrReader::new() {
-                    Ok(reader) => {
-                        match reader.open() {
-                            Ok(_) => {
-                                *reader_guard = Some(Box::new(reader));
-                                app_handle.emit("nfc://status", NfcStatusEvent { connected: true, error: None }).ok();
-                            }
-                            Err(e) => {
-                                app_handle.emit("nfc://status", NfcStatusEvent { connected: false, error: Some(e.to_string()) }).ok();
-                            }
+                    Ok(reader) => match reader.open() {
+                        Ok(_) => {
+                            *reader_guard = Some(Box::new(reader));
+                            app_handle
+                                .emit(
+                                    "nfc://status",
+                                    NfcStatusEvent {
+                                        connected: true,
+                                        error: None,
+                                    },
+                                )
+                                .ok();
                         }
-                    }
+                        Err(e) => {
+                            app_handle
+                                .emit(
+                                    "nfc://status",
+                                    NfcStatusEvent {
+                                        connected: false,
+                                        error: Some(e.to_string()),
+                                    },
+                                )
+                                .ok();
+                        }
+                    },
                     Err(e) => {
-                        app_handle.emit("nfc://status", NfcStatusEvent { connected: false, error: Some(e.to_string()) }).ok();
+                        app_handle
+                            .emit(
+                                "nfc://status",
+                                NfcStatusEvent {
+                                    connected: false,
+                                    error: Some(e.to_string()),
+                                },
+                            )
+                            .ok();
                     }
                 }
             }
 
             // 2. Perform read if reader is available
             if let Some(reader) = reader_guard.as_ref() {
-                match reader.read_ndef_text() {
-                    Ok(text) => {
-                        if text != last_text {
+                match reader.get_tag_uid() {
+                    Ok(uid) => {
+                        let text = reader.read_ndef_text().ok();
+
+                        if uid != last_uid {
                             app_handle
-                                .emit("nfc://tag", NfcTagEvent { text: text.clone() })
+                                .emit(
+                                    "nfc://tag",
+                                    NfcTagEvent {
+                                        uid: uid.clone(),
+                                        text,
+                                    },
+                                )
                                 .ok();
-                            last_text = text;
+                            last_uid = uid;
                         }
-                        app_handle.emit("nfc://status", NfcStatusEvent { connected: true, error: None }).ok();
+                        app_handle
+                            .emit(
+                                "nfc://status",
+                                NfcStatusEvent {
+                                    connected: true,
+                                    error: None,
+                                },
+                            )
+                            .ok();
                     }
                     Err(NfcError::NoCardPresent) => {
-                        if !last_text.is_empty() {
+                        if !last_uid.is_empty() {
                             app_handle.emit("nfc://tag-lost", ()).ok();
-                            last_text = String::new();
+                            last_uid = String::new();
                         }
-                        app_handle.emit("nfc://status", NfcStatusEvent { connected: true, error: None }).ok();
+                        app_handle
+                            .emit(
+                                "nfc://status",
+                                NfcStatusEvent {
+                                    connected: true,
+                                    error: None,
+                                },
+                            )
+                            .ok();
                     }
                     Err(NfcError::DeviceNotFound) | Err(NfcError::CommunicationError(_)) => {
                         // Device lost! Reset reader for re-init on next loop
                         *reader_guard = None;
-                        app_handle.emit("nfc://status", NfcStatusEvent { connected: false, error: Some("Device disconnected".to_string()) }).ok();
-                        last_text = String::new();
+                        app_handle
+                            .emit(
+                                "nfc://status",
+                                NfcStatusEvent {
+                                    connected: false,
+                                    error: Some("Device disconnected".to_string()),
+                                },
+                            )
+                            .ok();
                     }
                     Err(e) => {
                         app_handle

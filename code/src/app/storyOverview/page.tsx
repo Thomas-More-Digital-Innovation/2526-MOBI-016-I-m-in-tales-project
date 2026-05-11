@@ -5,6 +5,7 @@ import Modal from "../components/Modal";
 import { ToolTip } from "@components";
 import PlayStoryButton from "./PlayStoryButton";
 import { getStoriesOverview, StoryPreview } from "@/utils/storyIO";
+import CalibrationModal from "../components/CalibrationModal";
 
 type Mode = "view" | "edit";
 
@@ -20,6 +21,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedStory, setSelectedStory] = useState<StoryCardData | null>(null);
   const [showToolTip, setShowToolTip] = useState(false);
+  const [isCalibrationOpen, setIsCalibrationOpen] = useState(false);
   const [isLoading, setLoading] = useState(true);
 
 
@@ -68,13 +70,22 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
         height="70%"
         setIsOpen={setIsOpen}
         onClose={() => setSelectedStory(null)}>
-        {selectedStory ? StoryModal(selectedStory, mode) : null}
+        {selectedStory ? StoryModal(selectedStory, mode, () => setIsCalibrationOpen(true)) : null}
       </Modal>
+
+      {selectedStory && (
+        <CalibrationModal 
+            isOpen={isCalibrationOpen} 
+            setIsOpen={setIsCalibrationOpen} 
+            storyId={selectedStory.id} 
+            storyName={selectedStory.name} 
+        />
+      )}
     </main>
   );
 }
 
-function StoryModal(selectedStory: StoryCardData, mode: Mode) {
+function StoryModal(selectedStory: StoryCardData, mode: Mode, onCalibrate: () => void) {
   return (
     <div className="relative h-full">
       <img
@@ -89,8 +100,15 @@ function StoryModal(selectedStory: StoryCardData, mode: Mode) {
           <h1 className="text-2xl text-white">{selectedStory.name}</h1>
           <p className="text-white">{selectedStory.description}</p>
         </div>
-        {mode == "view" ? <PlayStoryButton id={selectedStory.id} /> : <h1>edit</h1>}{" "}
-        {/* TODO add edit button */}
+        <div className="flex items-center gap-3">
+            {mode == "view" ? <PlayStoryButton id={selectedStory.id} /> : <h1>edit</h1>}
+            <button 
+                onClick={onCalibrate}
+                className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-colors backdrop-blur-sm border border-white/30"
+            >
+                Calibrate Tags
+            </button>
+        </div>
       </div>
     </div>
   );

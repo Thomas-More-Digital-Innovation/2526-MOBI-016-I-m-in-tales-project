@@ -25,6 +25,7 @@ export interface Story {
 export interface Item {
   item_id: string;
   linkedTo: string;
+  label?: string;
 }
 
 export interface StoriesData {

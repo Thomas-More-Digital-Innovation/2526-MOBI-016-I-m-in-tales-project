@@ -26,4 +26,5 @@ pub trait NfcReader: Send + Sync {
     fn close(&self) -> Result<(), NfcError>;
     fn read_ndef_text(&self) -> Result<String, NfcError>;
     fn write_ndef_text(&self, text: &str) -> Result<(), NfcError>;
+    fn get_tag_uid(&self) -> Result<String, NfcError>;
 }
