@@ -1,67 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { invoke } from "@tauri-apps/api/core";
-import { listen } from "@tauri-apps/api/event";
-import { Header } from "@components";
-
-interface NfcTagEvent {
-  text: string;
-}
-
-interface NfcStatusEvent {
-  connected: boolean;
-  error?: string;
-}
+import Header from "../components/Header";
+import { useNfc } from "../components/NfcProvider";
 
 export default function TestBoard() {
-  const [tagContent, setTagContent] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [status, setStatus] = useState<string>("Initializing...");
-
-  useEffect(() => {
-    let unlistenTag: (() => void) | null = null;
-    let unlistenTagLost: (() => void) | null = null;
-    let unlistenStatus: (() => void) | null = null;
-
-    async function setupNfc() {
-      try {
-        unlistenTag = await listen<NfcTagEvent>("nfc://tag", (event) => {
-          setTagContent(event.payload.text);
-          setError(null);
-        });
-
-        unlistenTagLost = await listen("nfc://tag-lost", () => {
-          setTagContent(null);
-        });
-
-        unlistenStatus = await listen<NfcStatusEvent>("nfc://status", (event) => {
-          if (event.payload.error) {
-            setError(event.payload.error);
-          } else {
-            setError(null);
-          }
-          setStatus(event.payload.connected ? "Active" : "Disconnected");
-        });
-
-        // Auto-start polling on mount
-        await invoke("nfc_start_polling");
-        setStatus("Active");
-      } catch (e: any) {
-        setError(e.toString());
-        setStatus("Error");
-      }
-    }
-
-    setupNfc();
-
-    return () => {
-      if (unlistenTag) unlistenTag();
-      if (unlistenTagLost) unlistenTagLost();
-      if (unlistenStatus) unlistenStatus();
-      invoke("nfc_stop_polling").catch(console.error);
-    };
-  }, []);
+  const { status, tagContent, error } = useNfc();
 
   return (
     <main className="min-h-screen bg-white text-talesblu-900 font-sans">
