@@ -33,16 +33,16 @@ export default function PlayStory() {
 
     // NFC Tag Handling
     useEffect(() => {
-        if (!tagUid || !id || !currentChapter) return;
+        if (!tagUid || !story?.id || !currentChapter) return;
 
-        const resolvedItemId = resolveTagForStory(tagUid, id, calibrations);
+        const resolvedItemId = resolveTagForStory(tagUid, story.id, calibrations);
         if (resolvedItemId) {
             const matchingOption = currentChapter.option.find(o => o.item === resolvedItemId);
             if (matchingOption) {
                 nextChapter(matchingOption);
             }
         }
-    }, [tagUid, id, currentChapter, calibrations, nextChapter]);
+    }, [tagUid, story?.id, currentChapter, calibrations, nextChapter]);
 
     const closeStory = useCallback(() => {
         stopAudio();

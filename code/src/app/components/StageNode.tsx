@@ -5,6 +5,8 @@ import { Button, TextAreaLabel, InputLabel, ImageUpload, AudioUpload, ToolTip } 
 import { useNavigate } from "react-router-dom";
 import { getEdgePoints } from "./StageNodeFunctions";
 import { loadStoryData, saveStoryData } from "@utils/storyIO";
+import { useNfc } from "./NfcProvider";
+import { addCalibration, getStoryCalibration } from "@utils/tagMapping";
 
 // Defining how we store each node
 type StoryLink = {
@@ -41,6 +43,9 @@ const clamp = (val: number, min: number, max: number) => Math.min(Math.max(val, 
 export default function StageNode({ folderName = "", showToolTipState = false }: StageNodeProps) {
   const [scale, setScale] = useState(1);
   const navigate = useNavigate();
+  const { tagUid, status } = useNfc();
+  const [storyId, setStoryId] = useState<string | null>(null);
+  const [calibrations, setCalibrations] = useState<Record<string, string>>({});
   // Where we store the nodes, using intro to initialize
   const [nodes, setNodes] = useState<StoryNode[]>([
     {
@@ -59,6 +64,16 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
   // Track available space for the stage so it stays responsive.
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    loadStoryData(folderName).then(async (data) => {
+      if (data.story?.id) {
+        setStoryId(data.story.id);
+        const storyCalibrations = await getStoryCalibration(data.story.id);
+        setCalibrations(storyCalibrations);
+      }
+    });
+  }, [folderName]);
 
   useEffect(() => {
     const updateStageSize = () => {
@@ -196,18 +211,18 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
       // if linking is true we change our linkingroots array to include the nodeId passed in this function
       setNodes((prev) =>
         prev.map((n) =>
-          n.id === linkingRootId 
-            ? { 
-                ...n, 
-                links: [
-                    ...n.links, 
-                    { 
-                        targetId: nodeId, 
-                        itemId: crypto.randomUUID(), 
-                        itemLabel: "New Item" 
-                    }
-                ] 
-              } 
+          n.id === linkingRootId
+            ? {
+              ...n,
+              links: [
+                ...n.links,
+                {
+                  targetId: nodeId,
+                  itemId: crypto.randomUUID(),
+                  itemLabel: "New Item"
+                }
+              ]
+            }
             : n
         )
       );
@@ -218,17 +233,24 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
       setSelectedId(nodeId);
     }
   };
+  const handleQuickLink = async (itemId: string) => {
+    if (!storyId || !tagUid) return;
+    await addCalibration(storyId, itemId, tagUid);
+    const updated = await getStoryCalibration(storyId);
+    setCalibrations(updated);
+  };
+
   // Saving the file by getting the json that was saved in the previous page
   // appending each node as a chapter, in options we put the linkednodes
   const saveFile = async () => {
     let NewJSON = await loadStoryData(folderName);
-    const items: { item_id: string; linkedTo: string; label: string }[] = [];
+    const items: { itemId: string; linkedTo: string; label: string }[] = [];
     const chapter = nodes.map((node) => {
       const option = node.links.map((link) => {
-        items.push({ 
-            item_id: link.itemId, 
-            linkedTo: link.targetId,
-            label: link.itemLabel 
+        items.push({
+          itemId: link.itemId,
+          linkedTo: link.targetId,
+          label: link.itemLabel
         });
         return {
           nextChapter: link.targetId,
@@ -251,7 +273,7 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
     NewJSON = {
       ...NewJSON,
       story: { ...(NewJSON.story ?? {}), chapter },
-      item: items,
+      items: items,
     };
 
     await saveStoryData(folderName, NewJSON);
@@ -382,31 +404,55 @@ export default function StageNode({ folderName = "", showToolTipState = false }:
                 return (
                   <li key={link.itemId} className="border p-4 rounded-2xl border-gray-200 bg-white shadow-sm space-y-3">
                     <div className="flex justify-between items-start">
-                        <div>
-                            <p className="font-bold text-talesblu-800">{linkedNode.title}</p>
-                            <p className="text-[10px] text-gray-400 uppercase font-black">Target Node</p>
-                        </div>
-                    </div>
-                    
-                    <div className="space-y-1">
-                        <label className="text-[10px] font-black text-talesblu-400 uppercase tracking-widest">Item Name (Label)</label>
-                        <input 
-                            type="text"
-                            value={link.itemLabel}
-                            onChange={(e) => {
-                                const newLabel = e.target.value;
-                                setNodes(prev => prev.map(n => 
-                                    n.id === selectedId 
-                                        ? { ...n, links: n.links.map(l => l.itemId === link.itemId ? { ...l, itemLabel: newLabel } : l) }
-                                        : n
-                                ));
-                            }}
-                            className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:border-talesorang-500 outline-none transition-colors"
-                        />
+                      <div>
+                        <p className="font-bold text-talesblu-800">{linkedNode.title}</p>
+                        <p className="text-[10px] text-gray-400 uppercase font-black">Target Node</p>
+                      </div>
                     </div>
 
-                    <div className="flex gap-2 text-[10px] text-gray-400">
-                        <span className="font-mono">ID: {link.itemId.slice(0,8)}...</span>
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-black text-talesblu-400 uppercase tracking-widest">Item Name (Label)</label>
+                      <input
+                        type="text"
+                        value={link.itemLabel}
+                        onChange={(e) => {
+                          const newLabel = e.target.value;
+                          setNodes(prev => prev.map(n =>
+                            n.id === selectedId
+                              ? { ...n, links: n.links.map(l => l.itemId === link.itemId ? { ...l, itemLabel: newLabel } : l) }
+                              : n
+                          ));
+                        }}
+                        className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:border-talesorang-500 outline-none transition-colors"
+                      />
+                    </div>
+
+                    <div className="flex justify-between items-center gap-2">
+                      <span className="font-mono text-[10px] text-gray-400">ID: {link.itemId.slice(0, 8)}...</span>
+                      <div className="flex items-center gap-2">
+                        {calibrations[link.itemId] && (
+                          <div className="bg-emerald-100 text-emerald-600 p-1 rounded-full" title={`Linked to: ${calibrations[link.itemId]}`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                        )}
+
+                        {status === "Active" ? (
+                          tagUid ? (
+                            <button
+                              onClick={() => handleQuickLink(link.itemId)}
+                              className="bg-talesorang-500 hover:bg-talesorang-600 text-white text-[9px] px-2 py-1 rounded font-black uppercase tracking-widest transition-colors shadow-sm"
+                            >
+                              {calibrations[link.itemId] ? 'Update Link' : 'Link Tag'}
+                            </button>
+                          ) : (
+                            <span className="text-[9px] text-amber-500 font-bold italic uppercase animate-pulse">Waiting for tag...</span>
+                          )
+                        ) : (
+                          <span className="text-[9px] text-gray-300 font-bold italic uppercase">Reader offline</span>
+                        )}
+                      </div>
                     </div>
                   </li>
                 );
