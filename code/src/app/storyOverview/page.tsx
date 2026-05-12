@@ -10,7 +10,8 @@ import CalibrationModal from "../components/CalibrationModal";
 type Mode = "view" | "edit";
 
 interface StoryCardData {
-  id: string;
+  id: string; // filename
+  internalId: string; // internal UUID
   name: string;
   description: string;
   image: string;
@@ -30,6 +31,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
       .then((previews: StoryPreview[]) => {
         const storyCards = previews.map((preview) => ({
           id: preview.id,
+          internalId: preview.internalId,
           name: preview.name,
           description: preview.description,
           image: preview.thumbnailUrl,
@@ -77,8 +79,8 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
         <CalibrationModal 
             isOpen={isCalibrationOpen} 
             setIsOpen={setIsCalibrationOpen} 
-            storyId={selectedStory.id} 
-            storyName={selectedStory.name} 
+            storyId={selectedStory.internalId} 
+            storyName={selectedStory.id} 
         />
       )}
     </main>

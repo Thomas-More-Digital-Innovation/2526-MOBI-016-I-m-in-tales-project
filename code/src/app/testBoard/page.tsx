@@ -1,10 +1,64 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { useNfc } from "../components/NfcProvider";
+import { loadAllCalibrations } from "@/utils/tagMapping";
+import { getStoriesOverview, loadStoryData } from "@/utils/storyIO";
+import { TagMatch } from "@/types/story.type";
+import { AssignedLabelsTable } from "./AssignedLabelsTable";
+
+
 
 export default function TestBoard() {
   const { status, tagUid, tagContent, error } = useNfc();
+  const [matches, setMatches] = useState<TagMatch[]>([]);
+  const [isLoadingMatches, setIsLoadingMatches] = useState(false);
+
+  useEffect(() => {
+    if (!tagUid) {
+      setMatches([]);
+      return;
+    }
+
+    async function findMatches() {
+      setIsLoadingMatches(true);
+      try {
+        const allCalibrations = await loadAllCalibrations();
+        const storyPreviews = await getStoriesOverview();
+        const foundMatches: TagMatch[] = [];
+
+        for (const preview of storyPreviews) {
+          const storyCalib = allCalibrations[preview.internalId];
+          if (storyCalib) {
+            const itemIds = Object.entries(storyCalib)
+              .filter(([_, uid]) => uid === tagUid)
+              .map(([itemId, _]) => itemId);
+
+            if (itemIds.length > 0) {
+              const storyData = await loadStoryData(preview.id);
+              for (const itemId of itemIds) {
+                const item = storyData.items?.find(i => i.itemId === itemId);
+                if (item) {
+                  foundMatches.push({
+                    storyName: preview.name,
+                    label: item.label || itemId
+                  });
+                }
+              }
+            }
+          }
+        }
+        setMatches(foundMatches);
+      } catch (err) {
+        console.error("Failed to find tag matches:", err);
+      } finally {
+        setIsLoadingMatches(false);
+      }
+    }
+
+    findMatches();
+  }, [tagUid]);
 
   return (
     <main className="min-h-screen bg-white text-talesblu-900 font-sans">
@@ -47,19 +101,35 @@ export default function TestBoard() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  
+
                   <div className="space-y-4">
                     <div className="bg-talesblu-50 px-6 py-4 rounded-xl border-2 border-talesblu-100">
-                        <span className="text-[10px] font-black text-talesblu-400 uppercase tracking-widest block mb-1">Hardware UID</span>
-                        <p className="text-2xl font-mono font-bold text-talesblu-800 break-all">{tagUid}</p>
+                      <span className="text-[10px] font-black text-talesblu-400 uppercase tracking-widest block mb-1">Hardware UID</span>
+                      <p className="text-2xl font-mono font-bold text-talesblu-800 break-all">{tagUid}</p>
                     </div>
 
                     {tagContent && (
-                        <div className="bg-slate-50 px-6 py-4 rounded-xl border-2 border-slate-100">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">NDEF Content</span>
-                            <p className="text-sm font-medium text-slate-600 italic break-all">"{tagContent}"</p>
-                        </div>
+                      <div className="bg-slate-50 px-6 py-4 rounded-xl border-2 border-slate-100">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">NDEF Content</span>
+                        <p className="text-sm font-medium text-slate-600 italic break-all">"{tagContent}"</p>
+                      </div>
                     )}
+
+                    {/* Assigned Labels Section */}
+                    <div className="mt-6 pt-6 border-t border-talesblu-100">
+                      <span className="text-[10px] font-black text-talesblu-400 uppercase tracking-widest block mb-3 text-left">Assigned Labels</span>
+
+                      {isLoadingMatches ? (
+                        <div className="py-4 text-talesblu-300 text-sm animate-pulse">Searching stories...</div>
+                      ) : matches.length > 0 ? (
+
+                        <AssignedLabelsTable matches={matches} />
+                      ) : (
+                        <div className="py-4 px-6 bg-slate-50 rounded-xl border-2 border-dashed border-slate-100 text-slate-400 text-xs font-medium">
+                          No active calibrations found for this tag in any story.
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               ) : (

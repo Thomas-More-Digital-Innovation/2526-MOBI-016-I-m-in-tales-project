@@ -32,3 +32,8 @@ export interface StoriesData {
   story: Story[];
   item: Item[];
 }
+
+export interface TagMatch {
+  storyName: string;
+  label: string;
+}

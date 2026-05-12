@@ -238,7 +238,8 @@ export const loadStoryData = async (storyName: string): Promise<StoryData> => {
 // ============================================
 
 export interface StoryPreview {
-  id: string;
+  id: string; // filename
+  internalId: string; // internal UUID
   name: string;
   description: string;
   thumbnailUrl: string;
@@ -275,6 +276,7 @@ export const getStoriesOverview = async (): Promise<StoryPreview[]> => {
 
           previews.push({
             id: storyName,
+            internalId: metadata.id,
             name: metadata.name,
             description: metadata.description,
             thumbnailUrl,
