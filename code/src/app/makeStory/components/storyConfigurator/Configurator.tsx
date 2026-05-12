@@ -87,7 +87,7 @@ export default function Configurator({
     <div className="flex flex-col w-full h-screen">
       <Header onBack={handleBack} onHelpHover={setShowToolTip} />
 
-      <div className="flex gap-4 w-full h-[calc(100vh-100px)] px-4 mt-2">
+      <div className="flex gap-4 w-full h-[calc(100vh-100px)] px-4">
         <div className="flex-[2.5] flex flex-col min-w-0">
           <div className="flex justify-between items-center mb-2 px-2">
             <div className="flex items-center gap-4">

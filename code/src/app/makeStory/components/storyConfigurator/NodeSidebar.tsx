@@ -64,7 +64,7 @@ const NodeSidebar = memo(({
   };
 
   return (
-    <div className="flex flex-col h-full min-w-[320px] border-2 border-gray-100 rounded-3xl m-3 p-6 space-y-6 overflow-y-auto max-h-[calc(100vh-120px)] shadow-sm">
+    <div className="flex flex-col h-full min-w-[320px] border-2 border-gray-100 rounded-3xl m-3 p-4 space-y-6 overflow-y-auto max-h-[calc(100vh-120px)] shadow-sm">
       <div className="flex justify-between items-center border-b border-gray-100 pb-4">
         <h3 className="text-talesblu-900 text-xl font-black uppercase tracking-tight">Edit Chapter</h3>
         {selectedNode.title !== "Intro" && (
