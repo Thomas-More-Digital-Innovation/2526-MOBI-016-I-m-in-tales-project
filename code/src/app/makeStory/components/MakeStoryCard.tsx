@@ -1,12 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { ImageUpload, Button } from "@components";
 import { useNavigate } from "react-router-dom";
+import { loadStoryData, bytesToUrl } from "@utils/storyIO";
 
-export default function MakeStoryCard() {
+export default function MakeStoryCard({ folderName }: { folderName?: string }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [thumbnailBytes, setThumbnailBytes] = useState<Uint8Array | null>(null);
+  const [existingStory, setExistingStory] = useState<any>(null);
   const navigate = useNavigate();
+
+  const thumbnailUrl = useMemo(() => {
+    if (thumbnailBytes) {
+      return bytesToUrl(thumbnailBytes, "image/png");
+    }
+    return null;
+  }, [thumbnailBytes]);
+
+  useEffect(() => {
+    if (folderName) {
+      loadStoryData(folderName).then((data) => {
+        setName(data.story.name);
+        setDescription(data.story.description);
+        setThumbnailBytes(data.story.thumbnail as Uint8Array | null);
+        setExistingStory(data.story);
+      });
+    }
+  }, [folderName]);
 
   const handleNext = () => {
     if (!name.trim()) {
@@ -14,13 +34,17 @@ export default function MakeStoryCard() {
       return;
     }
 
-    // Generate a temporary folder name (based on story name)
-    const folderName = name.trim().replace(/\s+/g, "_").toLowerCase();
+    const finalFolderName = name.trim().replace(/\s+/g, "_").toLowerCase();
+    
+    // If folderName changed (name changed), we might need to handle renaming, 
+    // but for now let's just pass the data. 
+    // The Configurator will use the finalFolderName to save.
 
-    navigate(`/makeStory/storyConfigurator/${folderName}`, {
+    navigate(`/makeStory/storyConfigurator/${finalFolderName}`, {
       state: {
         story: {
-          id: crypto.randomUUID(),
+          ...existingStory,
+          id: existingStory?.id || crypto.randomUUID(),
           name: name.trim(),
           description: description.trim(),
           thumbnail: thumbnailBytes ? Array.from(thumbnailBytes) : null,
@@ -34,6 +58,7 @@ export default function MakeStoryCard() {
       <div className="w-full h-48 mb-6 overflow-hidden rounded-2xl">
         <ImageUpload
           onImageBytes={(bytes) => setThumbnailBytes(bytes)}
+          value={thumbnailUrl}
         />
       </div>
 
@@ -63,7 +88,7 @@ export default function MakeStoryCard() {
 
       <div className="mt-auto w-full pt-4">
         <Button onClick={handleNext} cls="w-full !rounded-2xl !py-4 shadow-lg shadow-talesorang-100 hover:scale-[1.02] active:scale-[0.98] transition-transform">
-          Start Telling Your Story
+          {folderName ? "Update & Continue" : "Start Telling Your Story"}
         </Button>
       </div>
     </div>
