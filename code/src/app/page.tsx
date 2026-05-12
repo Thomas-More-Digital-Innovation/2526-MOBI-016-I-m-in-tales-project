@@ -4,10 +4,10 @@ export default function Home() {
   const [showToolTip, setShowToolTip] = useState(false);
   return (
     <div className="flex flex-col justify-between items-center h-screen">
-      <Header mainPage={true} onHelpHover={setShowToolTip} />
+      <Header showPreviousButton={false} onHelpHover={setShowToolTip} />
       <div className="gap-3 justify-between flex">
         <div className="relative">
-          {showToolTip && <ToolTip text="Play stories made by you or others!" absolute cls="max-w-[250px]"/>}
+          {showToolTip && <ToolTip text="Play stories made by you or others!" absolute cls="max-w-[250px]" />}
           <LargerButton label="Play a story" link="/storyOverview" imageLink="/PlayStory.svg" />
         </div>
         <div className="relative">

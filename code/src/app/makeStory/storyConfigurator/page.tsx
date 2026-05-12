@@ -1,14 +1,13 @@
-import { Header, StageNode } from "@components";
-import { useState } from "react";
+import { Header } from "@components";
 import { useParams } from "react-router-dom";
+import Configurator from "../components/storyConfigurator/Configurator";
+
 export default function storyConfigurator() {
   const { folderName } = useParams();
-  const [ showToolTip, setShowToolTip ] = useState(false);
 
   return (
-    <main className="flex flex-col">
-      <Header onHelpHover={setShowToolTip} />
-      <StageNode folderName={folderName} showToolTipState={showToolTip} />
+    <main className="flex flex-col bg-white min-h-screen">
+      <Configurator folderName={folderName} />
     </main>
   );
 }

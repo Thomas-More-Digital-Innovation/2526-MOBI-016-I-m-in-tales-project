@@ -50,18 +50,18 @@ export default function ImageUpload({
 
     return (
         <div
-            className={`${cls} flex justify-center items-center w-[10vw] h-[10vw] bg-foreground/10 rounded-2xl border-3 border-foreground/20`}>
+            className={`${cls} relative flex justify-center items-center w-full h-full bg-foreground/10 rounded-2xl border-3 border-foreground/20 overflow-hidden`}>
             {thumbnail ? (
                 <img
                     src={thumbnail}
-                    className="object-cover rounded-2xl w-full h-full"
-                    alt="no image found"
+                    className="object-cover w-full h-full"
+                    alt="preview"
                 />
             ) : (
-                ""
+                <div className="text-gray-400 text-xs font-medium uppercase tracking-wider">No Image</div>
             )}
             <button
-                className="absolute text-2xl font-bold bg-white px-2 rounded-full hover:cursor-pointer hover:scale-125 duration-200 ease-in-out hover:shadow"
+                className="absolute text-2xl font-bold bg-white/80 backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-full hover:cursor-pointer hover:scale-110 duration-200 ease-in-out hover:shadow-lg text-talesorang-500 border border-talesorang-200"
                 type="button"
                 onClick={fileSelector}>
                 +
