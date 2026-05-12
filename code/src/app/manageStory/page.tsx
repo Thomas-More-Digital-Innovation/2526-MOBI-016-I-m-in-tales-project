@@ -38,7 +38,7 @@ export default function ManageStory() {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <Header />
+      <Header title="Manage My Stories" />
       <div className=" mx-auto px-6">
         {loading ? (
           <div className="flex justify-center items-center h-64">

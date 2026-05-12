@@ -62,14 +62,9 @@ export default function TestBoard() {
 
   return (
     <main className="min-h-screen bg-white text-talesblu-900 font-sans">
-      <Header />
+      <Header title="Whisper Tester" />
 
-      <div className="max-w-2xl mx-auto py-12 px-6">
-        <div className="p-8 border-b-4 border-talesblu-500 rounded-2xl bg-talesblu-500 text-white">
-          <h1 className="text-3xl font-bold mb-2">Whisper Tester</h1>
-          <p className="text-talesblu-100 font-medium">Hardware diagnostic and connection verification.</p>
-        </div>
-
+      <div className="max-w-2xl mx-auto">
         <div className="p-8 space-y-8">
           {/* Status Section */}
           <div className="flex items-center justify-between bg-talesblu-50 p-6 rounded-2xl border-2 border-talesblu-100">

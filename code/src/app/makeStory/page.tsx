@@ -9,16 +9,8 @@ export default function makeStory() {
 
   return (
     <main className="h-screen bg-gray-50">
-      <Header onHelpHover={setShowToolTip} />
+      <Header onHelpHover={setShowToolTip} title={folderName ? 'Edit Your Story' : 'Create A New Story'} />
       <div className="h-[calc(100vh-80px)] flex flex-col justify-center items-center gap-8">
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl font-black text-talesblu-900 uppercase tracking-tight">
-            {folderName ? "Edit Your Story" : "Create a New Story"}
-          </h1>
-          <p className="text-gray-500 font-medium">
-            {folderName ? "Update the foundation of your tale" : "Set the foundation for your interactive tale"}
-          </p>
-        </div>
         <MakeStoryCard folderName={folderName} />
       </div>
     </main>
