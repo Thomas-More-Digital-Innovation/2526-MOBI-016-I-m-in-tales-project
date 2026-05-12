@@ -18,10 +18,10 @@ export default function TextArea({
     value?: string;
 }) {
     return (
-        <div className="flex flex-col">
-            <label htmlFor={nameId}>{label}</label>
+        <div className="flex flex-col space-y-1">
+            <label htmlFor={nameId} className="text-[10px] text-gray-400 uppercase font-black tracking-widest">{label}</label>
             <textarea
-                className="border rounded p-1 h-full"
+                className="w-full text-sm border-2 border-dashed border-gray-200 focus:border-talesorang-500 bg-gray-50/50 rounded-xl px-4 py-3 outline-none transition-all focus:ring-0 text-gray-700 placeholder:text-gray-300 resize-none leading-relaxed"
                 onChange={onChangeText}
                 cols={cols}
                 rows={rows}

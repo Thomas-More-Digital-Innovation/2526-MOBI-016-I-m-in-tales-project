@@ -21,7 +21,12 @@ export default function CalibrationModal({ isOpen, setIsOpen, storyId, storyName
     useEffect(() => {
         if (isOpen) {
             loadStoryData(storyName).then(data => {
-                setItems(data.item || []);
+                const mappedItems: Item[] = (data.items || []).map(i => ({
+                    item_id: i.itemId,
+                    linkedTo: i.linkedTo,
+                    label: i.label
+                }));
+                setItems(mappedItems);
             });
             getStoryCalibration(storyId).then(setCalibrations);
         }
