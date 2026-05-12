@@ -1,10 +1,64 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { useNfc } from "../components/NfcProvider";
+import { loadAllCalibrations } from "@/utils/tagMapping";
+import { getStoriesOverview, loadStoryData } from "@/utils/storyIO";
+import { TagMatch } from "@/types/story.type";
+import { AssignedLabelsTable } from "./AssignedLabelsTable";
+
+
 
 export default function TestBoard() {
-  const { status, tagContent, error } = useNfc();
+  const { status, tagUid, tagContent, error } = useNfc();
+  const [matches, setMatches] = useState<TagMatch[]>([]);
+  const [isLoadingMatches, setIsLoadingMatches] = useState(false);
+
+  useEffect(() => {
+    if (!tagUid) {
+      setMatches([]);
+      return;
+    }
+
+    async function findMatches() {
+      setIsLoadingMatches(true);
+      try {
+        const allCalibrations = await loadAllCalibrations();
+        const storyPreviews = await getStoriesOverview();
+        const foundMatches: TagMatch[] = [];
+
+        for (const preview of storyPreviews) {
+          const storyCalib = allCalibrations[preview.internalId];
+          if (storyCalib) {
+            const itemIds = Object.entries(storyCalib)
+              .filter(([_, uid]) => uid === tagUid)
+              .map(([itemId, _]) => itemId);
+
+            if (itemIds.length > 0) {
+              const storyData = await loadStoryData(preview.id);
+              for (const itemId of itemIds) {
+                const item = storyData.items?.find(i => i.itemId === itemId);
+                if (item) {
+                  foundMatches.push({
+                    storyName: preview.name,
+                    label: item.label || itemId
+                  });
+                }
+              }
+            }
+          }
+        }
+        setMatches(foundMatches);
+      } catch (err) {
+        console.error("Failed to find tag matches:", err);
+      } finally {
+        setIsLoadingMatches(false);
+      }
+    }
+
+    findMatches();
+  }, [tagUid]);
 
   return (
     <main className="min-h-screen bg-white text-talesblu-900 font-sans">
@@ -12,8 +66,8 @@ export default function TestBoard() {
 
       <div className="max-w-2xl mx-auto py-12 px-6">
         <div className="p-8 border-b-4 border-talesblu-500 rounded-2xl bg-talesblu-500 text-white">
-          <h1 className="text-3xl font-bold mb-2">NFC Board Tester</h1>
-          <p className="text-talesblu-100 font-medium">Automatic scanning is active. Place a tag on the reader.</p>
+          <h1 className="text-3xl font-bold mb-2">Whisper Tester</h1>
+          <p className="text-talesblu-100 font-medium">Hardware diagnostic and connection verification.</p>
         </div>
 
         <div className="p-8 space-y-8">
@@ -32,24 +86,50 @@ export default function TestBoard() {
 
             {status === 'Active' && (
               <div className="px-4 py-2 bg-talesorang-100 text-talesorang-600 rounded-full text-xs font-black uppercase tracking-tighter animate-pulse">
-                Polling 5Hz
+                Active & Polling
               </div>
             )}
           </div>
 
           {/* Tag Display */}
           <div className="relative group">
-            <div className={`relative bg-white border-4 ${(status !== 'Disconnected' && tagContent) ? 'border-talesorang-500 shadow-[0_0_20px_rgba(246,116,94,0.3)]' : 'border-talesblu-100'} rounded-2xl p-10 min-h-64 flex flex-col items-center justify-center text-center transition-all duration-300`}>
-              {(status !== 'Disconnected' && tagContent) ? (
-                <div className="animate-in fade-in zoom-in duration-300">
-                  <div className="w-20 h-20 bg-talesorang-500 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-lg shadow-talesorang-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className={`relative bg-white border-4 ${(status !== 'Disconnected' && tagUid) ? 'border-talesorang-500 shadow-[0_0_20px_rgba(246,116,94,0.3)]' : 'border-talesblu-100'} rounded-2xl p-10 min-h-64 flex flex-col items-center justify-center text-center transition-all duration-300`}>
+              {(status !== 'Disconnected' && tagUid) ? (
+                <div className="animate-in fade-in zoom-in duration-300 w-full max-w-md">
+                  <div className="w-16 h-16 bg-talesorang-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-xs font-black text-talesblu-400 uppercase tracking-widest mb-2">Tag Content Detected</h3>
-                  <div className="bg-talesblu-50 px-6 py-4 rounded-xl border-2 border-talesblu-100">
-                    <p className="text-3xl font-black text-talesblu-500 break-all leading-tight">{tagContent}</p>
+
+                  <div className="space-y-4">
+                    <div className="bg-talesblu-50 px-6 py-4 rounded-xl border-2 border-talesblu-100">
+                      <span className="text-[10px] font-black text-talesblu-400 uppercase tracking-widest block mb-1">Hardware UID</span>
+                      <p className="text-2xl font-mono font-bold text-talesblu-800 break-all">{tagUid}</p>
+                    </div>
+
+                    {tagContent && (
+                      <div className="bg-slate-50 px-6 py-4 rounded-xl border-2 border-slate-100">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">NDEF Content</span>
+                        <p className="text-sm font-medium text-slate-600 italic break-all">"{tagContent}"</p>
+                      </div>
+                    )}
+
+                    {/* Assigned Labels Section */}
+                    <div className="mt-6 pt-6 border-t border-talesblu-100">
+                      <span className="text-[10px] font-black text-talesblu-400 uppercase tracking-widest block mb-3 text-left">Assigned Labels</span>
+
+                      {isLoadingMatches ? (
+                        <div className="py-4 text-talesblu-300 text-sm animate-pulse">Searching stories...</div>
+                      ) : matches.length > 0 ? (
+
+                        <AssignedLabelsTable matches={matches} />
+                      ) : (
+                        <div className="py-4 px-6 bg-slate-50 rounded-xl border-2 border-dashed border-slate-100 text-slate-400 text-xs font-medium">
+                          No active calibrations found for this tag in any story.
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -60,7 +140,7 @@ export default function TestBoard() {
                     </svg>
                   </div>
                   <p className="text-xl font-bold mb-1">
-                    {status === 'Disconnected' ? "Can't read without a reader" : "Waiting for Tag..."}
+                    {status === 'Disconnected' ? "Whisper Offline" : "Waiting for Tag..."}
                   </p>
                 </div>
               )}

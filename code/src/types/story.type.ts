@@ -25,9 +25,15 @@ export interface Story {
 export interface Item {
   item_id: string;
   linkedTo: string;
+  label?: string;
 }
 
 export interface StoriesData {
   story: Story[];
   item: Item[];
+}
+
+export interface TagMatch {
+  storyName: string;
+  label: string;
 }

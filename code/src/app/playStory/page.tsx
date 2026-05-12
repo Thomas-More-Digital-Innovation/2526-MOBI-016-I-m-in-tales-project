@@ -11,6 +11,8 @@ import StoryHeader from "./components/StoryHeader";
 import { playAudio, stopAudio } from "./AudioPlayer";
 import { StorySettings } from "@/types";
 import { Center } from "../components";
+import { useNfc } from "../components/NfcProvider";
+import { loadAllCalibrations, resolveTagForStory } from "@utils/tagMapping";
 
 export default function PlayStory() {
     const { id } = useParams();
@@ -21,6 +23,26 @@ export default function PlayStory() {
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [settings, setSettings] = useState<StorySettings>(storySettings);
     const [isLoading, setLoading] = useState(true);
+    const [calibrations, setCalibrations] = useState({});
+
+    const { tagUid } = useNfc();
+
+    useEffect(() => {
+        loadAllCalibrations().then(setCalibrations);
+    }, []);
+
+    // NFC Tag Handling
+    useEffect(() => {
+        if (!tagUid || !story?.id || !currentChapter) return;
+
+        const resolvedItemId = resolveTagForStory(tagUid, story.id, calibrations);
+        if (resolvedItemId) {
+            const matchingOption = currentChapter.option.find(o => o.item === resolvedItemId);
+            if (matchingOption) {
+                nextChapter(matchingOption);
+            }
+        }
+    }, [tagUid, story?.id, currentChapter, calibrations, nextChapter]);
 
     const closeStory = useCallback(() => {
         stopAudio();

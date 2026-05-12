@@ -104,4 +104,27 @@ impl NfcReader for UfrReader {
             crate::nfc::handler::translate_ufr_status(write_text(1, c_text.as_ptr()))
         }
     }
+
+    fn get_tag_uid(&self) -> Result<String, NfcError> {
+        unsafe {
+            let get_uid: Symbol<unsafe extern "C" fn(*mut u8, *mut u8, *mut u8) -> u32> = self
+                .lib
+                .get(b"GetCardIdEx")
+                .map_err(|e| NfcError::Unknown(e.to_string()))?;
+
+            let mut sak = 0u8;
+            let mut uid = [0u8; 10];
+            let mut uid_size = 0u8;
+
+            crate::nfc::handler::translate_ufr_status(get_uid(&mut sak, uid.as_mut_ptr(), &mut uid_size))?;
+
+            let uid_hex = uid[..uid_size as usize]
+                .iter()
+                .map(|b| format!("{:02X}", b))
+                .collect::<Vec<String>>()
+                .join(":");
+            
+            Ok(uid_hex)
+        }
+    }
 }

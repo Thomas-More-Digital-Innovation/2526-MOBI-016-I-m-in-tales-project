@@ -32,6 +32,7 @@ export interface OptionMetadata {
 export interface ItemMetadata {
   itemId: string;
   linkedTo: string;
+  label?: string;
 }
 
 export interface StoryData {
@@ -42,7 +43,7 @@ export interface StoryData {
     thumbnail?: Uint8Array | number[] | null;
     chapter?: ChapterData[];
   };
-  item?: ItemData[];
+  items?: ItemData[];
 }
 
 export interface ChapterData {
@@ -64,6 +65,7 @@ export interface OptionData {
 export interface ItemData {
   itemId: string;
   linkedTo: string;
+  label?: string;
 }
 
 // ============================================
@@ -104,7 +106,7 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
         item: opt.item,
       })),
     })),
-    items: data.item,
+    items: data.items,
   };
 
   zip.file("metadata.json", JSON.stringify(metadata, null, 2));
@@ -227,7 +229,7 @@ export const loadStoryData = async (storyName: string): Promise<StoryData> => {
       thumbnail,
       chapter: chapters,
     },
-    item: metadata.items || [],
+    items: metadata.items || [],
   };
 };
 
@@ -236,7 +238,8 @@ export const loadStoryData = async (storyName: string): Promise<StoryData> => {
 // ============================================
 
 export interface StoryPreview {
-  id: string;
+  id: string; // filename
+  internalId: string; // internal UUID
   name: string;
   description: string;
   thumbnailUrl: string;
@@ -273,6 +276,7 @@ export const getStoriesOverview = async (): Promise<StoryPreview[]> => {
 
           previews.push({
             id: storyName,
+            internalId: metadata.id,
             name: metadata.name,
             description: metadata.description,
             thumbnailUrl,

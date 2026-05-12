@@ -14,8 +14,8 @@ export function NfcBadge() {
         >
             <div className={`w-2 h-2 rounded-full ${status === "Active" ? "bg-emerald-500 animate-pulse" : status === "Error" ? "bg-red-500" : "bg-slate-400"
                 }`} />
-            <span title="Whisper is de werknaam voor de NFC reader" className="text-[10px] font-black uppercase tracking-widest leading-none">
-                {status === "Active" ? "Whisper Actief" : status === "Error" ? "Whisper Error" : "Whisper Niet Verbonden"}
+            <span title="Whisper is the codename for the NFC reader" className="text-[10px] font-black uppercase tracking-widest leading-none">
+                {status === "Active" ? "Whisper Active" : status === "Error" ? "Whisper Error" : "Whisper Offline"}
             </span>
         </div>
     )

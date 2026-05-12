@@ -5,7 +5,8 @@ import { listen } from "@tauri-apps/api/event";
 import { invoke } from "@tauri-apps/api/core";
 
 interface NfcTagEvent {
-  text: string;
+  uid: String;
+  text: string | null;
 }
 
 interface NfcStatusEvent {
@@ -15,6 +16,7 @@ interface NfcStatusEvent {
 
 interface NfcContextType {
   status: "Initializing" | "Active" | "Disconnected" | "Error";
+  tagUid: string | null;
   tagContent: string | null;
   error: string | null;
 }
@@ -23,6 +25,7 @@ const NfcContext = createContext<NfcContextType | undefined>(undefined);
 
 export function NfcProvider({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState<NfcContextType["status"]>("Initializing");
+  const [tagUid, setTagUid] = useState<string | null>(null);
   const [tagContent, setTagContent] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -34,11 +37,13 @@ export function NfcProvider({ children }: { children: React.ReactNode }) {
     async function setupNfc() {
       try {
         unlistenTag = await listen<NfcTagEvent>("nfc://tag", (event) => {
+          setTagUid(event.payload.uid.toString());
           setTagContent(event.payload.text);
           setError(null);
         });
 
         unlistenTagLost = await listen("nfc://tag-lost", () => {
+          setTagUid(null);
           setTagContent(null);
         });
 
@@ -73,7 +78,7 @@ export function NfcProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <NfcContext.Provider value={{ status, tagContent, error }}>
+    <NfcContext.Provider value={{ status, tagUid, tagContent, error }}>
       {children}
     </NfcContext.Provider>
   );
