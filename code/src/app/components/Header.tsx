@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import FullScreenButton from "./FullScreenButton";
 import HeaderButton from "./HeaderLink";
 import { NfcBadge } from "./NfcBadge";
@@ -6,18 +7,14 @@ interface HeaderProps {
   showPreviousButton?: boolean;
   onBack?: () => void;
   onHelpHover?: (visible: boolean) => void;
+  rightExtra?: ReactNode;
 }
 
-export default function Header({ showPreviousButton = true, onBack, onHelpHover }: HeaderProps) {
+export default function Header({ showPreviousButton = true, onBack, onHelpHover, rightExtra }: HeaderProps) {
 
   // for the main page, no point in having a back button
   const backButton = onBack ? (
-    <button
-      onClick={onBack}
-      className="text-3xl cursor-pointer font-semibold duration-150 text-white ease-in-out py-3 px-8 h-fit hover:scale-85 hover:drop-shadow-none rounded bg-[#f6745e] shadow-[0px_1px_2px_1px_#faac9e]"
-    >
-      &lt;
-    </button>
+    <HeaderButton label="<" onClick={onBack} />
   ) : (showPreviousButton ? <HeaderButton label="<" link="../" /> : null);
 
   const helpHoverHandlers = onHelpHover
@@ -36,6 +33,7 @@ export default function Header({ showPreviousButton = true, onBack, onHelpHover 
       <div className="flex items-center gap-3 p-3">
         {/* NFC Status Indicator */}
         {backButton}
+        {rightExtra}
         <FullScreenButton />
         <HeaderButton label="?" {...helpHoverHandlers} />
       </div>

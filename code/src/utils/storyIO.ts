@@ -5,6 +5,7 @@ import {
   exists,
   mkdir,
   readDir,
+  remove,
 } from "@tauri-apps/plugin-fs";
 import { join } from "@tauri-apps/api/path";
 import JSZip from "jszip";
@@ -312,6 +313,51 @@ export const getAllAvailableStories = async (): Promise<string[]> => {
     console.error("Error reading stories:", e);
     return [];
   }
+};
+
+// ============================================
+// Export / Import Story
+// ============================================
+
+export const deleteStory = async (storyId: string): Promise<void> => {
+  const zipPath = await join("stories", `${storyId}.zip`);
+  await remove(zipPath, { baseDir: BaseDirectory.AppData });
+};
+
+export const exportStory = async (storyId: string): Promise<void> => {
+  const { save } = await import("@tauri-apps/plugin-dialog");
+  const savePath = await save({
+    defaultPath: `${storyId}.zip`,
+    filters: [{ name: "Story", extensions: ["zip"] }],
+  });
+  if (!savePath) return;
+
+  const zipPath = await join("stories", `${storyId}.zip`);
+  const zipContent = await readFile(zipPath, { baseDir: BaseDirectory.AppData });
+  await writeFile(savePath, zipContent);
+};
+
+export const importStory = async (): Promise<string | null> => {
+  const { open } = await import("@tauri-apps/plugin-dialog");
+  const filePath = await open({
+    multiple: false,
+    filters: [{ name: "Story", extensions: ["zip"] }],
+  });
+  if (!filePath || Array.isArray(filePath)) return null;
+
+  const zipContent = await readFile(filePath as string);
+  const zip = await JSZip.loadAsync(zipContent);
+
+  const metadataFile = zip.file("metadata.json");
+  if (!metadataFile) throw new Error("Invalid story file: no metadata.json");
+  const metadataText = await metadataFile.async("string");
+  const metadata: StoryMetadata = JSON.parse(metadataText);
+
+  await ensureStoriesDir();
+  const destPath = await join("stories", `${metadata.name}.zip`);
+  await writeFile(destPath, zipContent, { baseDir: BaseDirectory.AppData });
+
+  return metadata.name;
 };
 
 // ============================================
