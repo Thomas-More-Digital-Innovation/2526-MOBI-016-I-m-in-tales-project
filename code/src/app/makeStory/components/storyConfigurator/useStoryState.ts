@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { loadStoryData, saveStoryData } from "@utils/storyIO";
 import { getStoryCalibration } from "@utils/tagMapping";
+import { message } from "@tauri-apps/plugin-dialog";
 
 export type StoryLink = {
   targetId: string;
@@ -168,6 +169,18 @@ export function useStoryState(folderName: string) {
   };
 
   const saveFile = async () => {
+    const hasEmptyLabels = nodes.some((node) =>
+      node.links.some((link) => !link.itemLabel.trim())
+    );
+
+    if (hasEmptyLabels) {
+      await message("Please fill in all interaction labels before saving.", {
+        title: "Validation Error",
+        kind: "error",
+      });
+      return;
+    }
+
     const items: { itemId: string; linkedTo: string; label: string }[] = [];
     const chapters = nodes.map((node) => {
       const options = node.links.map((link) => {
