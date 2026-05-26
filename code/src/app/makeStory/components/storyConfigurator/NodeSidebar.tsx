@@ -166,15 +166,29 @@ const NodeSidebar = memo(({
 });
 
 function LinkItem({ link, calibratedTag, onUpdateLabel, onDelete, onLinkTag, tagUid, nfcStatus }: any) {
+  const isLabelEmpty = !link.itemLabel.trim();
+
   return (
     <li className="bg-gray-50 p-3 rounded-2xl border border-gray-100 space-y-2 transition-all hover:border-talesorang-200">
       <div className="flex justify-between items-center">
-        <input
-          className="bg-transparent border-none outline-none text-sm font-bold text-talesblu-700 w-full"
-          value={link.itemLabel}
-          onChange={(e) => onUpdateLabel(e.target.value)}
-        />
-        <button onClick={onDelete} className="text-gray-300 hover:text-red-400 transition-colors">
+        <div className="flex-1 flex flex-col min-w-0">
+          <input
+            className={`w-full text-sm font-bold placeholder:italic border-2 border-dashed rounded-xl px-3 py-1.5 outline-none transition-all focus:ring-0 text-talesblu-800 placeholder:text-gray-400 mr-2 ${
+              isLabelEmpty
+                ? "border-red-300 focus:border-red-500 bg-red-50/20"
+                : "border-gray-200 focus:border-talesorang-500 focus:bg-white bg-white/60 hover:bg-white hover:border-gray-300"
+            }`}
+            value={link.itemLabel}
+            onChange={(e) => onUpdateLabel(e.target.value)}
+            placeholder="Name your interaction..."
+          />
+          {isLabelEmpty && (
+            <span className="text-[10px] text-red-500 font-semibold mt-1 block">
+              Label is required for this interaction
+            </span>
+          )}
+        </div>
+        <button onClick={onDelete} className="text-gray-300 hover:text-red-400 transition-colors ml-1">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
           </svg>

@@ -20,6 +20,10 @@ const router = createBrowserRouter([
     element: <MakeStory />,
   },
   {
+    path: "/makeStory/:folderName",
+    element: <MakeStory />,
+  },
+  {
     path: "/manageStory",
     element: <ManageStory />,
   },

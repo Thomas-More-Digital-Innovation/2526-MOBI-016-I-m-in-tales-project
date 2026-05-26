@@ -376,3 +376,14 @@ export const bytesToUrl = (bytes: Uint8Array | number[] | null | undefined, mime
   const base64 = typeof btoa === "function" ? btoa(binary) : "";
   return base64 ? `data:${mimeType};base64,${base64}` : "/placeholder.png"
 };
+// ============================================
+// Delete Story
+// ============================================
+
+export const removeStoryData = async (storyName: string): Promise<void> => {
+  const zipPath = await join("stories", `${storyName}.zip`);
+  const fileExists = await exists(zipPath, { baseDir: BaseDirectory.AppData });
+  if (fileExists) {
+    await remove(zipPath, { baseDir: BaseDirectory.AppData });
+  }
+};

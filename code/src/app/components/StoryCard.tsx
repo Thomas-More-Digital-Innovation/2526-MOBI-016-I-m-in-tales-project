@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { Story } from "@/types/story.type";
 
 interface Props {
@@ -6,21 +6,23 @@ interface Props {
   onClick?: (story: Story) => void;
   onDelete?: (story: Story) => void;
   onExport?: (story: Story) => void;
+  actions?: ReactNode;
 }
 
-export default function StoryCard({ story, onClick, onDelete, onExport }: Props) {
+export default function StoryCard({ story, onClick, onDelete, onExport, actions }: Props) {
   const [showConfirm, setShowConfirm] = useState(false);
 
   return (
     <div
       onClick={onClick ? () => onClick(story) : undefined}
-      className="
-            relative flex flex-col items-center border border-talesblu-400 hover:bg-talesorang-400
-            hover:text-white hover:border-white ease-in-out duration-300 p-2 rounded-2xl m-2
-            w-xs h-96 min-h-0 cursor-pointer">
+      className={`
+            relative flex flex-col items-center border border-talesblu-400 bg-white ease-in-out duration-300 p-2 rounded-2xl m-2
+            w-xs h-96 min-h-0 ${onClick ? 'cursor-pointer hover:bg-talesorang-400  hover:text-white hover:border-white' : ''}`}
+    >
       <img src={story.image} alt="cover" className="w-full h-48 object-cover rounded-lg mb-2" />
-      <h3 className="text-2xl text-center">{story.name}</h3>
-      <p className="text-center text-sm">{story.description}</p>
+      <h3 className="text-2xl text-center font-bold">{story.name}</h3>
+      <p className="text-center text-sm flex-1">{story.description}</p>
+
       <div className="absolute bottom-3 right-3 flex gap-1">
         {onExport && (
           <button
@@ -70,6 +72,12 @@ export default function StoryCard({ story, onClick, onDelete, onExport }: Props)
               Verwijderen
             </button>
           </div>
+        </div>
+      )}
+
+      {actions && (
+        <div className="w-full mt-2" onClick={(e) => e.stopPropagation()}>
+          {actions}
         </div>
       )}
     </div>

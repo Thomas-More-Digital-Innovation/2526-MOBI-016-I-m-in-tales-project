@@ -27,7 +27,7 @@ export default function SettingsModal({
         <Modal isOpen={isOpen} setIsOpen={setIsOpen} width="70%" height="70%">
             <div className="p-4">
                 {/* font size */}
-                <h1 className="text-3xl py-2">Tekst Groote</h1>
+                <h3 className="text-3xl py-2">Tekst Groote</h3>
                 <div className="flex flex-wrap justify-between gap-1">
                     {Object.entries(fontSize).map(([key, value]) => (
                         <Button
@@ -49,7 +49,7 @@ export default function SettingsModal({
                     ))}
                 </div>
                 <div>
-                    <h1 className="text-3xl py-2">Volume</h1>
+                    <h3 className="text-3xl py-2">Volume</h3>
                     <span className="w-full flex gap-4">
                         <span>{settings.volume * 100}%</span>
                         <input
