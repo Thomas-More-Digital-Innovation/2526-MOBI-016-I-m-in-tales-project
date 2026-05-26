@@ -1,4 +1,8 @@
 onlyBuiltDependencies:
   - esbuild
+  - optipng-bin
+  - pngquant-bin
   - sharp
+  - tauri
   - unrs-resolver
+  - zopflipng-bin

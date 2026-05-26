@@ -1,11 +1,10 @@
-import { Center, Header, LargerButton } from "@components";
-import { useState, useEffect } from "react";
+import { Center, Header, LargerButton, ToolTip } from "@components";
+import { useState, useEffect, useCallback } from "react";
 import StoryCard from "../components/StoryCard";
 import Modal from "../components/Modal";
-import { ToolTip } from "@components";
 import PlayStoryButton from "./PlayStoryButton";
-import { getStoriesOverview, StoryPreview } from "@/utils/storyIO";
 import CalibrationModal from "../components/CalibrationModal";
+import { getStoriesOverview, StoryPreview } from "@/utils/storyIO";
 
 type Mode = "view" | "edit";
 
@@ -25,8 +24,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
   const [isCalibrationOpen, setIsCalibrationOpen] = useState(false);
   const [isLoading, setLoading] = useState(true);
 
-
-  useEffect(() => {
+  const fetchStories = useCallback(() => {
     getStoriesOverview()
       .then((previews: StoryPreview[]) => {
         const storyCards = previews.map((preview) => ({
@@ -42,6 +40,10 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
       .catch((error) => console.error("Error fetching stories:", error))
       .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    fetchStories();
+  }, [fetchStories]);
 
   return (
     <main className="bg-white h-screen">
