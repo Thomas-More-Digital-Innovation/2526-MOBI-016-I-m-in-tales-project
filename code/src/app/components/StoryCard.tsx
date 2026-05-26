@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Story } from "@/types/story.type";
 
 interface Props {
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export default function StoryCard({ story, onClick, onDelete, onExport }: Props) {
+  const [showConfirm, setShowConfirm] = useState(false);
+
   return (
     <div
       onClick={onClick ? () => onClick(story) : undefined}
@@ -31,7 +34,7 @@ export default function StoryCard({ story, onClick, onDelete, onExport }: Props)
         )}
         {onDelete && (
           <button
-            onClick={(e) => { e.stopPropagation(); onDelete(story); }}
+            onClick={(e) => { e.stopPropagation(); setShowConfirm(true); }}
             className="p-2 rounded-lg cursor-pointer transition-all duration-150
                        hover:scale-110 hover:border hover:border-gray-300 hover:bg-white/90 hover:shadow-sm"
             title="Delete story"
@@ -40,6 +43,35 @@ export default function StoryCard({ story, onClick, onDelete, onExport }: Props)
           </button>
         )}
       </div>
+
+      {showConfirm && (
+        <div
+          className="absolute inset-0 bg-talesblu-500/95 rounded-2xl flex flex-col items-center justify-center gap-3 z-10"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <img src="/trash.svg" alt="" width={28} height={28} style={{ filter: "brightness(0) invert(1)" }} />
+          <p className="text-white text-center font-semibold px-4 text-lg">
+            Verhaal verwijderen?
+          </p>
+          <p className="text-talesblu-100 text-sm text-center px-6">
+            "{story.name}" wordt permanent verwijderd.
+          </p>
+          <div className="flex gap-2 mt-1">
+            <button
+              onClick={(e) => { e.stopPropagation(); setShowConfirm(false); }}
+              className="px-4 py-2 rounded-xl bg-talesblu-400 hover:bg-talesblu-300 text-white text-sm font-medium transition-colors duration-150"
+            >
+              Annuleren
+            </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); onDelete!(story); setShowConfirm(false); }}
+              className="px-4 py-2 rounded-xl bg-talesorang-400 hover:bg-talesorang-500 text-white text-sm font-medium transition-colors duration-150"
+            >
+              Verwijderen
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

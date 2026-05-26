@@ -13,9 +13,11 @@ interface HeaderProps {
 export default function Header({ showPreviousButton = true, onBack, onHelpHover, rightExtra }: HeaderProps) {
 
   // for the main page, no point in having a back button
+  const backIcon = <img src="/back.svg" alt="back" width={36} height={36} style={{ filter: "brightness(0) invert(1)" }} />;
+
   const backButton = onBack ? (
-    <HeaderButton label="<" onClick={onBack} />
-  ) : (showPreviousButton ? <HeaderButton label="<" link="../" /> : null);
+    <HeaderButton label={backIcon} onClick={onBack} />
+  ) : (showPreviousButton ? <HeaderButton label={backIcon} link="../" /> : null);
 
   const helpHoverHandlers = onHelpHover
     ? {
