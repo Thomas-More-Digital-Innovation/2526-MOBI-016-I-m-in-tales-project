@@ -5,7 +5,7 @@ import StoryCard from "../components/StoryCard";
 import Modal from "../components/Modal";
 import { ToolTip } from "@components";
 import PlayStoryButton from "./PlayStoryButton";
-import { getStoriesOverview, StoryPreview, deleteStory, exportStory, importStory } from "@/utils/storyIO";
+import { getStoriesOverview, StoryPreview, importStory } from "@/utils/storyIO";
 import CalibrationModal from "../components/CalibrationModal";
 
 type Mode = "view" | "edit";
@@ -45,14 +45,6 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
 
   useEffect(() => { fetchStories(); }, [fetchStories]);
 
-  const handleDelete = useCallback((story: any) => {
-    deleteStory(story.id).then(fetchStories).catch((e) => console.error("Delete failed:", e));
-  }, [fetchStories]);
-
-  const handleExport = useCallback((story: any) => {
-    exportStory(story.id).catch((e) => console.error("Export failed:", e));
-  }, []);
-
   const handleImport = useCallback(() => {
     importStory()
       .then((name) => { if (name) fetchStories(); })
@@ -82,8 +74,6 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
               setSelectedStory(story as any);
               setIsOpen(true);
             }}
-            onDelete={handleDelete}
-            onExport={handleExport}
           />
         )) : <Center>
           <p className="text-2xl py-4">Geen verhalen gevonden</p>
