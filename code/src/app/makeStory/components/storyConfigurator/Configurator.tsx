@@ -45,7 +45,7 @@ export default function Configurator({
         {
           targetId: nodeId,
           itemId: crypto.randomUUID(),
-          itemLabel: "New Interaction"
+          itemLabel: ""
         }
       ];
       updateNode(linkingRootId, { links: newLinks });

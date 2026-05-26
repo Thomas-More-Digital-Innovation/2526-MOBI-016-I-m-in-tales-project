@@ -45,7 +45,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
 
   return (
     <main className="bg-white h-screen">
-      <Header onHelpHover={setShowToolTip} />
+      <Header onHelpHover={setShowToolTip} title="My Stories" />
       {showToolTip && (<ToolTip text="Select a story to play" cls="top-20 right-4" absolute />)}
       <div className="h-80 flex justify-center items-center flex-wrap">
         {isLoading ? <Center>
@@ -76,11 +76,11 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
       </Modal>
 
       {selectedStory && (
-        <CalibrationModal 
-            isOpen={isCalibrationOpen} 
-            setIsOpen={setIsCalibrationOpen} 
-            storyId={selectedStory.internalId} 
-            storyName={selectedStory.id} 
+        <CalibrationModal
+          isOpen={isCalibrationOpen}
+          setIsOpen={setIsCalibrationOpen}
+          storyId={selectedStory.internalId}
+          storyName={selectedStory.id}
         />
       )}
     </main>
@@ -103,13 +103,13 @@ function StoryModal(selectedStory: StoryCardData, mode: Mode, onCalibrate: () =>
           <p className="text-white">{selectedStory.description}</p>
         </div>
         <div className="flex items-center gap-3">
-            {mode == "view" ? <PlayStoryButton id={selectedStory.id} /> : <h1>edit</h1>}
-            <button 
-                onClick={onCalibrate}
-                className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-colors backdrop-blur-sm border border-white/30"
-            >
-                Calibrate Tags
-            </button>
+          {mode == "view" ? <PlayStoryButton id={selectedStory.id} /> : <h3 className="text-white">Edit story</h3>}
+          <button
+            onClick={onCalibrate}
+            className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-colors backdrop-blur-sm border border-white/30"
+          >
+            Calibrate Tags
+          </button>
         </div>
       </div>
     </div>
