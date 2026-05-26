@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Header, Button, StoryCard } from "@components";
+import { Header, Button, StoryCard, ImportButton } from "@components";
 import { getStoriesOverview, removeStoryData, StoryPreview, exportStory } from "@utils/storyIO";
 import { useNavigate } from "react-router-dom";
 import { ask } from "@tauri-apps/plugin-dialog";
@@ -46,7 +46,7 @@ export default function ManageStory() {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <Header title="Manage My Stories" />
+      <Header title="Manage My Stories" rightExtra={<ImportButton onImportSuccess={loadStories} />} />
       <div className=" mx-auto px-6">
         {loading ? (
           <div className="flex justify-center items-center h-64">
@@ -96,7 +96,6 @@ export default function ManageStory() {
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
-
                     </Button>
                   </div>
                 }

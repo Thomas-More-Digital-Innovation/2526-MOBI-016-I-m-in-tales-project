@@ -1,12 +1,10 @@
-import { Center, Header, LargerButton } from "@components";
-import HeaderButton from "../components/HeaderLink";
+import { Center, Header, LargerButton, ToolTip } from "@components";
 import { useState, useEffect, useCallback } from "react";
 import StoryCard from "../components/StoryCard";
 import Modal from "../components/Modal";
-import { ToolTip } from "@components";
 import PlayStoryButton from "./PlayStoryButton";
-import { getStoriesOverview, StoryPreview, importStory } from "@/utils/storyIO";
 import CalibrationModal from "../components/CalibrationModal";
+import { getStoriesOverview, StoryPreview } from "@/utils/storyIO";
 
 type Mode = "view" | "edit";
 
@@ -43,25 +41,13 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
       .finally(() => setLoading(false));
   }, []);
 
-  useEffect(() => { fetchStories(); }, [fetchStories]);
-
-  const handleImport = useCallback(() => {
-    importStory()
-      .then((name) => { if (name) fetchStories(); })
-      .catch((e) => console.error("Import failed:", e));
+  useEffect(() => {
+    fetchStories();
   }, [fetchStories]);
-
-  const importButton = (
-    <HeaderButton
-      onClick={handleImport}
-      cls="px-3"
-      label={<img src="/import.svg" alt="import" width={36} height={36} style={{ filter: "brightness(0) invert(1)" }} />}
-    />
-  );
 
   return (
     <main className="bg-white h-screen">
-      <Header onHelpHover={setShowToolTip} title="My Stories" rightExtra={importButton} />
+      <Header onHelpHover={setShowToolTip} title="My Stories" />
       {showToolTip && (<ToolTip text="Select a story to play" cls="top-20 right-4" absolute />)}
       <div className="h-80 flex justify-center items-center flex-wrap">
         {isLoading ? <Center>
