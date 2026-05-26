@@ -235,6 +235,7 @@ export function useStoryState(folderName: string) {
     calibrations,
     setCalibrations: updateCalibrations,
     storyMetadata,
-    isDirty
+    isDirty,
+    loading
   };
 }

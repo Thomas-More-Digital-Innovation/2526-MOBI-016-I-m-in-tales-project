@@ -1,4 +1,4 @@
-import { Center, Header, LargerButton, ToolTip } from "@components";
+import { Center, Header, LargerButton, ToolTip, ImportButton, LoadingScreen } from "@components";
 import { useState, useEffect, useCallback } from "react";
 import StoryCard from "../components/StoryCard";
 import Modal from "../components/Modal";
@@ -50,9 +50,13 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
       <Header onHelpHover={setShowToolTip} title="My Stories" />
       {showToolTip && (<ToolTip text="Select a story to play" cls="top-20 right-4" absolute />)}
       <div className="h-80 flex justify-center items-center flex-wrap">
-        {isLoading ? <Center>
-          <p className="text-2xl">Verhalen aan het laden...</p>
-        </Center> : stories.length > 0 ? stories.map((element) => (
+        {isLoading ? (
+          <LoadingScreen
+            title="Loading stories..."
+            description="Please wait a moment, we're loading your library..."
+            imageSrc="/PlayStory.svg"
+          />
+        ) : stories.length > 0 ? stories.map((element) => (
           <StoryCard
             key={element.id}
             story={element as any}
@@ -62,8 +66,8 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
             }}
           />
         )) : <Center>
-          <p className="text-2xl py-4">Geen verhalen gevonden</p>
-          <LargerButton label="Maak je eerste verhaal" link="/makeStory" imageLink="/MakeStory.svg" />
+          <p className="text-2xl py-4">No stories found</p>
+          <LargerButton label="Make your first story" link="/makeStory" imageLink="/MakeStory.svg" />
 
         </Center>}
       </div>

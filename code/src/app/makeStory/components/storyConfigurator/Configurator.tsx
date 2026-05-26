@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Header } from "@components";
+import { Button, Header, LoadingScreen } from "@components";
 import { useNavigate, useBlocker } from "react-router-dom";
 import { ask } from "@tauri-apps/plugin-dialog";
 import { useEffect } from "react";
@@ -31,12 +31,23 @@ export default function Configurator({
     calibrations,
     setCalibrations,
     storyMetadata,
-    isDirty
+    isDirty,
+    loading
   } = useStoryState(folderName);
 
   const navigate = useNavigate();
 
   const [scale, setScale] = useState(1);
+
+  if (loading) {
+    return (
+      <LoadingScreen
+        title="Ontwerpomgeving laden"
+        description="We laden de hoofdstukken en interactieve paden in..."
+        imageSrc="/MakeStory.svg"
+      />
+    );
+  }
 
   const handleSelect = (nodeId: string) => {
     if (linking && linkingRootId) {

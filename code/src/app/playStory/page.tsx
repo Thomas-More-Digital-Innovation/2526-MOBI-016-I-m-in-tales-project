@@ -10,7 +10,7 @@ import StoryOptions from "./components/StoryOptions";
 import StoryHeader from "./components/StoryHeader";
 import { playAudio, stopAudio } from "./AudioPlayer";
 import { StorySettings } from "@/types";
-import { Center } from "../components";
+import { Center, LoadingScreen } from "../components";
 import { useNfc } from "../components/NfcProvider";
 import { loadAllCalibrations, resolveTagForStory } from "@utils/tagMapping";
 
@@ -74,9 +74,13 @@ export default function PlayStory() {
     }, [story]);
 
     if (isLoading) {
-        return <Center>
-            <p className="text-2xl">Verhaal aan het laden...</p> // TODO: loading animation
-        </Center>
+        return (
+            <LoadingScreen
+                title="Verhaal laden"
+                description="We maken de interactieve ervaring voor je klaar..."
+                imageSrc="/PlayStory.svg"
+            />
+        );
     } else if (!currentChapter && !story) {
         return <Center>
             <p className="text-2xl">Verhaal niet gevonden</p>

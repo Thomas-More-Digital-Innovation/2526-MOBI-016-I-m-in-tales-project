@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Header, Button, StoryCard, ImportButton } from "@components";
+import { Header, Button, StoryCard, ImportButton, LoadingScreen } from "@components";
 import { getStoriesOverview, removeStoryData, StoryPreview, exportStory } from "@utils/storyIO";
 import { useNavigate } from "react-router-dom";
 import { ask } from "@tauri-apps/plugin-dialog";
@@ -49,9 +49,11 @@ export default function ManageStory() {
       <Header title="Manage My Stories" rightExtra={<ImportButton onImportSuccess={loadStories} />} />
       <div className=" mx-auto px-6">
         {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="w-12 h-12 border-4 border-talesorang-400 border-t-transparent rounded-full animate-spin" />
-          </div>
+          <LoadingScreen
+            title="Managing stories..."
+            description="Please wait a moment, we're loading your library..."
+            imageSrc="/ManageStory.svg"
+          />
         ) : stories.length === 0 ? (
           <div className="text-center py-24 bg-white rounded-3xl border-2 border-dashed border-gray-200">
             <p className="text-gray-400 text-xl font-medium">No stories found yet.</p>
