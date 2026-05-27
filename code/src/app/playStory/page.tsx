@@ -13,6 +13,7 @@ import { StorySettings } from "@/types";
 import { Center, LoadingScreen } from "../components";
 import { useNfc } from "../components/NfcProvider";
 import { loadAllCalibrations, resolveTagForStory } from "@utils/tagMapping";
+import { useI18nContext } from "@/i18n/i18n-react";
 
 export default function PlayStory() {
     const { id } = useParams();
@@ -24,6 +25,7 @@ export default function PlayStory() {
     const [settings, setSettings] = useState<StorySettings>(storySettings);
     const [isLoading, setLoading] = useState(true);
     const [calibrations, setCalibrations] = useState({});
+    const { LL } = useI18nContext();
 
     const { tagUid } = useNfc();
 
@@ -31,7 +33,6 @@ export default function PlayStory() {
         loadAllCalibrations().then(setCalibrations);
     }, []);
 
-    // NFC Tag Handling
     useEffect(() => {
         if (!tagUid || !story?.id || !currentChapter) return;
 
@@ -49,7 +50,6 @@ export default function PlayStory() {
         window.history.back();
     }, []);
 
-    // Keyboard handling
     useEffect(() => {
         function handleKeyPressed(e: KeyboardEvent) {
             if (showSettingsModal) return;
@@ -76,18 +76,16 @@ export default function PlayStory() {
     if (isLoading) {
         return (
             <LoadingScreen
-                title="Verhaal laden"
-                description="We maken de interactieve ervaring voor je klaar..."
+                title={LL.PLAY_LOADING_TITLE()}
+                description={LL.PLAY_LOADING_DESC()}
                 imageSrc="/PlayStory.svg"
             />
         );
     } else if (!currentChapter && !story) {
         return <Center>
-            <p className="text-2xl">Verhaal niet gevonden</p>
+            <p className="text-2xl">{LL.PLAY_NOT_FOUND()}</p>
         </Center>
     }
-
-
 
     return (
         <main className="bg-white min-h-screen">
@@ -112,7 +110,7 @@ export default function PlayStory() {
                     />
                 </div>
             ) : (
-                <p>Loading...</p>
+                <p>{LL.PLAY_LOADING()}</p>
             )}
 
             <StoryOptions

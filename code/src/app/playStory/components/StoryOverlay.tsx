@@ -1,5 +1,6 @@
 import { fontSize } from "../Settings";
 import { Option, FontSize } from "@/types";
+import { useI18nContext } from "@/i18n/i18n-react";
 
 export interface StoryOverlayProps {
     title: string | undefined;
@@ -15,6 +16,7 @@ export default function StoryOverlay({
     options,
 }: StoryOverlayProps) {
     const baseFontSize = fontSize[fontSizeSetting];
+    const { LL } = useI18nContext();
 
     return (
         <>
@@ -42,8 +44,7 @@ export default function StoryOverlay({
                     style={{
                         fontSize: baseFontSize + "px",
                     }}>
-                    Dit is het einde van het verhaal. Druk op een toets om het
-                    verhaal af te sluiten.
+                    {LL.STORY_END()}
                 </div>
             )}
         </>

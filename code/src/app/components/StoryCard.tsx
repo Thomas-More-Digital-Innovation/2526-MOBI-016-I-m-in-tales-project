@@ -1,5 +1,6 @@
 import { useState, ReactNode } from "react";
 import { Story } from "@/types/story.type";
+import { useI18nContext } from "@/i18n/i18n-react";
 
 interface Props {
   story: Story;
@@ -11,6 +12,7 @@ interface Props {
 
 export default function StoryCard({ story, onClick, onDelete, onExport, actions }: Props) {
   const [showConfirm, setShowConfirm] = useState(false);
+  const { LL } = useI18nContext();
 
   return (
     <div
@@ -29,7 +31,7 @@ export default function StoryCard({ story, onClick, onDelete, onExport, actions 
             onClick={(e) => { e.stopPropagation(); onExport(story); }}
             className="p-2 rounded-lg cursor-pointer transition-all duration-150
                        hover:scale-110 hover:border hover:border-gray-300 hover:bg-white/90 hover:shadow-sm"
-            title="Export story"
+            title={LL.STORY_CARD_EXPORT()}
           >
             <img src="/export.svg" alt="export" width={18} height={18} />
           </button>
@@ -39,7 +41,7 @@ export default function StoryCard({ story, onClick, onDelete, onExport, actions 
             onClick={(e) => { e.stopPropagation(); setShowConfirm(true); }}
             className="p-2 rounded-lg cursor-pointer transition-all duration-150
                        hover:scale-110 hover:border hover:border-gray-300 hover:bg-white/90 hover:shadow-sm"
-            title="Delete story"
+            title={LL.STORY_CARD_DELETE()}
           >
             <img src="/trash.svg" alt="delete" width={18} height={18} />
           </button>
@@ -53,23 +55,23 @@ export default function StoryCard({ story, onClick, onDelete, onExport, actions 
         >
           <img src="/trash.svg" alt="" width={28} height={28} style={{ filter: "brightness(0) invert(1)" }} />
           <p className="text-white text-center font-semibold px-4 text-lg">
-            Verhaal verwijderen?
+            {LL.STORY_CARD_CONFIRM_TITLE()}
           </p>
           <p className="text-talesblu-100 text-sm text-center px-6">
-            "{story.name}" wordt permanent verwijderd.
+            {LL.STORY_CARD_CONFIRM_MSG({ name: story.name })}
           </p>
           <div className="flex gap-2 mt-1">
             <button
               onClick={(e) => { e.stopPropagation(); setShowConfirm(false); }}
               className="px-4 py-2 rounded-xl bg-talesblu-400 hover:bg-talesblu-300 text-white text-sm font-medium transition-colors duration-150"
             >
-              Annuleren
+              {LL.STORY_CARD_CANCEL()}
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); onDelete!(story); setShowConfirm(false); }}
               className="px-4 py-2 rounded-xl bg-talesorang-400 hover:bg-talesorang-500 text-white text-sm font-medium transition-colors duration-150"
             >
-              Verwijderen
+              {LL.STORY_CARD_DELETE_BTN()}
             </button>
           </div>
         </div>

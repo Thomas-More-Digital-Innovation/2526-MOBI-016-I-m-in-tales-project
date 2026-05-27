@@ -7,7 +7,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "typesafe-i18n": "typesafe-i18n"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.11.0",
@@ -18,7 +19,8 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-konva": "^19.2.4",
-    "react-router-dom": "^7.15.0"
+    "react-router-dom": "^7.15.0",
+    "typesafe-i18n": "^5.27.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.0",

@@ -1,16 +1,19 @@
 import type { TagMatch } from "@/types/story.type";
+import { useI18nContext } from "@/i18n/i18n-react";
 
 interface AssignedLabelProps {
     matches: TagMatch[];
 }
 
 export function AssignedLabelsTable({ matches }: AssignedLabelProps) {
+    const { LL } = useI18nContext();
+
     return (
         <table className="w-full text-left border-collapse">
             <thead className="border-b-2 border-talesblu-500">
                 <tr>
-                    <th className="px-4 py-2 text-[10px] font-black text-talesblu-400 uppercase tracking-widest">Story</th>
-                    <th className="px-4 py-2 text-[10px] font-black text-talesblu-400 uppercase tracking-widest text-right">Label</th>
+                    <th className="px-4 py-2 text-[10px] font-black text-talesblu-400 uppercase tracking-widest">{LL.TABLE_STORY()}</th>
+                    <th className="px-4 py-2 text-[10px] font-black text-talesblu-400 uppercase tracking-widest text-right">{LL.TABLE_LABEL()}</th>
                 </tr>
             </thead>
             <tbody className="divide-y divide-talesblu-100">

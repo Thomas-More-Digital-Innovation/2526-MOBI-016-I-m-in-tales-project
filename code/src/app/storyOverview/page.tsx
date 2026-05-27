@@ -5,12 +5,14 @@ import Modal from "../components/Modal";
 import PlayStoryButton from "./PlayStoryButton";
 import CalibrationModal from "../components/CalibrationModal";
 import { getStoriesOverview, StoryPreview } from "@/utils/storyIO";
+import { useI18nContext } from "@/i18n/i18n-react";
+import type { TranslationFunctions } from "@/i18n/i18n-types";
 
 type Mode = "view" | "edit";
 
 interface StoryCardData {
-  id: string; // filename
-  internalId: string; // internal UUID
+  id: string;
+  internalId: string;
   name: string;
   description: string;
   image: string;
@@ -23,6 +25,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
   const [showToolTip, setShowToolTip] = useState(false);
   const [isCalibrationOpen, setIsCalibrationOpen] = useState(false);
   const [isLoading, setLoading] = useState(true);
+  const { LL } = useI18nContext();
 
   const fetchStories = useCallback(() => {
     getStoriesOverview()
@@ -47,13 +50,13 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
 
   return (
     <main className="bg-white h-screen">
-      <Header onHelpHover={setShowToolTip} title="My Stories" />
-      {showToolTip && (<ToolTip text="Select a story to play" cls="top-20 right-4" absolute />)}
+      <Header onHelpHover={setShowToolTip} title={LL.OVERVIEW_TITLE()} />
+      {showToolTip && (<ToolTip text={LL.OVERVIEW_TOOLTIP()} cls="top-20 right-4" absolute />)}
       <div className="h-80 flex justify-center items-center flex-wrap">
         {isLoading ? (
           <LoadingScreen
-            title="Loading stories..."
-            description="Please wait a moment, we're loading your library..."
+            title={LL.OVERVIEW_LOADING_TITLE()}
+            description={LL.OVERVIEW_LOADING_DESC()}
             imageSrc="/PlayStory.svg"
           />
         ) : stories.length > 0 ? stories.map((element) => (
@@ -65,11 +68,12 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
               setIsOpen(true);
             }}
           />
-        )) : <Center>
-          <p className="text-2xl py-4">No stories found</p>
-          <LargerButton label="Make your first story" link="/makeStory" imageLink="/MakeStory.svg" />
-
-        </Center>}
+        )) : (
+          <Center>
+            <p className="text-2xl py-4">{LL.OVERVIEW_EMPTY()}</p>
+            <LargerButton label={LL.OVERVIEW_MAKE_FIRST()} link="/makeStory" imageLink="/MakeStory.svg" />
+          </Center>
+        )}
       </div>
 
       <Modal
@@ -77,8 +81,9 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
         width="70%"
         height="70%"
         setIsOpen={setIsOpen}
-        onClose={() => setSelectedStory(null)}>
-        {selectedStory ? StoryModal(selectedStory, mode, () => setIsCalibrationOpen(true)) : null}
+        onClose={() => setSelectedStory(null)}
+      >
+        {selectedStory ? StoryModal(selectedStory, mode, () => setIsCalibrationOpen(true), LL) : null}
       </Modal>
 
       {selectedStory && (
@@ -93,7 +98,12 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
   );
 }
 
-function StoryModal(selectedStory: StoryCardData, mode: Mode, onCalibrate: () => void) {
+function StoryModal(
+  selectedStory: StoryCardData,
+  mode: Mode,
+  onCalibrate: () => void,
+  LL: TranslationFunctions,
+) {
   return (
     <div className="relative h-full">
       <img
@@ -101,7 +111,7 @@ function StoryModal(selectedStory: StoryCardData, mode: Mode, onCalibrate: () =>
         height={"100%"}
         src={selectedStory.image}
         className="h-full w-full object-cover rounded-2xl"
-        alt="verhaal afbeelding niet gevonden"
+        alt={LL.OVERVIEW_IMAGE_ALT()}
       />
       <div className="p-4 absolute bottom-0 w-full bg-black/70 rounded-b-2xl">
         <div className="py-2">
@@ -109,12 +119,12 @@ function StoryModal(selectedStory: StoryCardData, mode: Mode, onCalibrate: () =>
           <p className="text-white">{selectedStory.description}</p>
         </div>
         <div className="flex items-center gap-3">
-          {mode == "view" ? <PlayStoryButton id={selectedStory.id} /> : <h3 className="text-white">Edit story</h3>}
+          {mode === "view" ? <PlayStoryButton id={selectedStory.id} /> : <h3 className="text-white">{LL.OVERVIEW_EDIT_STORY()}</h3>}
           <button
             onClick={onCalibrate}
             className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-colors backdrop-blur-sm border border-white/30"
           >
-            Calibrate Tags
+            {LL.OVERVIEW_CALIBRATE()}
           </button>
         </div>
       </div>

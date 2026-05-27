@@ -1,6 +1,7 @@
 import { open } from "@tauri-apps/plugin-dialog";
 import { readFile } from "@tauri-apps/plugin-fs";
 import { useEffect, useState, useRef } from "react";
+import { useI18nContext } from "@/i18n/i18n-react";
 
 type ImageUploadProps = {
     onImageBytes?: (bytes: Uint8Array<ArrayBuffer>) => void;
@@ -15,6 +16,7 @@ export default function ImageUpload({
 }: ImageUploadProps) {
     const [thumbnail, setThumbnail] = useState<string | null>(value);
     const createdUrlRef = useRef<string | null>(null);
+    const { LL } = useI18nContext();
 
     useEffect(() => {
         setThumbnail(value);
@@ -58,7 +60,7 @@ export default function ImageUpload({
                     alt="preview"
                 />
             ) : (
-                <div className="text-gray-400 text-xs font-medium uppercase tracking-wider">No Image</div>
+                <div className="text-gray-400 text-xs font-medium uppercase tracking-wider">{LL.IMAGE_NO_IMAGE()}</div>
             )}
             <button
                 className="absolute text-2xl font-bold bg-white/80 backdrop-blur-sm w-10 h-10 flex items-center justify-center rounded-full hover:cursor-pointer hover:scale-110 duration-200 ease-in-out hover:shadow-lg text-talesorang-500 border border-talesorang-200"

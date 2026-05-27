@@ -2,6 +2,7 @@ import { useState } from "react";
 import { fontSize, storySettings } from "./Settings";
 import { Button, Modal } from "@components";
 import { StorySettings, FontSize } from "@/types";
+import { useI18nContext } from "@/i18n/i18n-react";
 
 interface Props {
     isOpen: boolean;
@@ -15,6 +16,7 @@ export default function SettingsModal({
     onSettingsChange,
 }: Props) {
     const [settings, setSettings] = useState<StorySettings>(storySettings);
+    const { LL } = useI18nContext();
 
     const updateSettings = (next: StorySettings) => {
         setSettings(next);
@@ -26,8 +28,7 @@ export default function SettingsModal({
     return (
         <Modal isOpen={isOpen} setIsOpen={setIsOpen} width="70%" height="70%">
             <div className="p-4">
-                {/* font size */}
-                <h3 className="text-3xl py-2">Tekst Groote</h3>
+                <h3 className="text-3xl py-2">{LL.SETTINGS_TEXT_SIZE()}</h3>
                 <div className="flex flex-wrap justify-between gap-1">
                     {Object.entries(fontSize).map(([key, value]) => (
                         <Button
@@ -49,7 +50,7 @@ export default function SettingsModal({
                     ))}
                 </div>
                 <div>
-                    <h3 className="text-3xl py-2">Volume</h3>
+                    <h3 className="text-3xl py-2">{LL.SETTINGS_VOLUME()}</h3>
                     <span className="w-full flex gap-4">
                         <span>{settings.volume * 100}%</span>
                         <input
