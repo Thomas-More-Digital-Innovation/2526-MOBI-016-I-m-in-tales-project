@@ -24,7 +24,7 @@ export default function Home() {
         </div>
       </div>
       <div className="w-screen p-5 flex flex-col gap-2 items-end relative">
-        {showToolTip && <ToolTip text="Test the connection to the board!" absolute cls="-top-5 right-20" />}
+        {showToolTip && <ToolTip text={LL.HOME_TOOLTIP_TEST_CONNECTION()} absolute cls="-top-5 right-20" />}
         <HeaderButton link="/testBoard" label={LL.HOME_TEST_CONNECTION()} />
       </div>
     </div>

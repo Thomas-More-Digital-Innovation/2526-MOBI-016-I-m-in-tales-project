@@ -77,8 +77,8 @@ const nl = {
   CALIB_DONE: 'Klaar',
 
   // MakeStoryCard component
-  MAKE_CARD_NAME_REQUIRED: 'Voer een verhaalname in',
-  MAKE_CARD_NAME_LABEL: 'Verhaalname',
+  MAKE_CARD_NAME_REQUIRED: 'Voer een verhaalnaam in',
+  MAKE_CARD_NAME_LABEL: 'Verhaalnaam',
   MAKE_CARD_NAME_PLACEHOLDER: 'Verhaal titel',
   MAKE_CARD_DESC_LABEL: 'Beschrijving',
   MAKE_CARD_DESC_PLACEHOLDER: 'Vertel iets over je verhaal...',
