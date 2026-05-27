@@ -2,11 +2,12 @@ import { open } from "@tauri-apps/plugin-dialog";
 import { readFile } from "@tauri-apps/plugin-fs";
 import { useEffect, useState, useRef } from "react";
 import { Button } from "@components";
+import { useI18nContext } from "@/i18n/i18n-react";
 
 type AudioUploadProps = {
     onAudioBytes?: (bytes: Uint8Array<ArrayBuffer>) => void;
     cls?: string;
-    value?: string | null; // This will now be a URL string (blob url)
+    value?: string | null;
 };
 
 export default function AudioUpload({
@@ -16,6 +17,7 @@ export default function AudioUpload({
 }: AudioUploadProps) {
     const [audioSrc, setAudioSrc] = useState<string | null>(value);
     const createdUrlRef = useRef<string | null>(null);
+    const { LL } = useI18nContext();
 
     useEffect(() => {
         setAudioSrc(value);
@@ -59,7 +61,7 @@ export default function AudioUpload({
                 onClick={fileSelector}
                 cls="text-sm !px-4 !py-2 w-full"
             >
-                {audioSrc ? "Change Audio" : "Upload Audio"}
+                {audioSrc ? LL.AUDIO_CHANGE() : LL.AUDIO_UPLOAD()}
             </Button>
         </div>
     );

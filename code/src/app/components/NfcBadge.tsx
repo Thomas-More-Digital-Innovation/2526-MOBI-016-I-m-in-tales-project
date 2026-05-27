@@ -1,7 +1,12 @@
 import { useNfc } from "@components/NfcProvider";
+import { useI18nContext } from "@/i18n/i18n-react";
 
 export function NfcBadge() {
     const { status, error } = useNfc();
+    const { LL } = useI18nContext();
+
+    const label = status === "Active" ? LL.NFC_ACTIVE() : status === "Error" ? LL.NFC_ERROR() : LL.NFC_OFFLINE();
+
     return (
         <div
             className={`flex items-center gap-2 px-3 py-1.5 rounded-full border-2 transition-colors duration-300 ${status === "Active"
@@ -14,8 +19,8 @@ export function NfcBadge() {
         >
             <div className={`w-2 h-2 rounded-full ${status === "Active" ? "bg-emerald-500 animate-pulse" : status === "Error" ? "bg-red-500" : "bg-slate-400"
                 }`} />
-            <span title="Whisper is the codename for the NFC reader" className="text-[10px] font-black uppercase tracking-widest leading-none">
-                {status === "Active" ? "Whisper Active" : status === "Error" ? "Whisper Error" : "Whisper Offline"}
+            <span title={LL.NFC_TITLE()} className="text-[10px] font-black uppercase tracking-widest leading-none">
+                {label}
             </span>
         </div>
     )

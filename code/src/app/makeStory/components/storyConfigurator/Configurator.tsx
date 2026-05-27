@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useStoryState } from "./useStoryState";
 import StoryCanvas from "./StoryCanvas";
 import NodeSidebar from "./NodeSidebar";
+import { useI18nContext } from "@/i18n/i18n-react";
 
 type ConfiguratorProps = {
   folderName?: string;
@@ -36,14 +37,15 @@ export default function Configurator({
   } = useStoryState(folderName);
 
   const navigate = useNavigate();
+  const { LL } = useI18nContext();
 
   const [scale, setScale] = useState(1);
 
   if (loading) {
     return (
       <LoadingScreen
-        title="Ontwerpomgeving laden"
-        description="We laden de hoofdstukken en interactieve paden in..."
+        title={LL.CONFIG_LOADING_TITLE()}
+        description={LL.CONFIG_LOADING_DESC()}
         imageSrc="/MakeStory.svg"
       />
     );
@@ -75,8 +77,8 @@ export default function Configurator({
     if (blocker.state === "blocked") {
       const confirmLeave = async () => {
         const confirmed = await ask(
-          "Are you sure you want to leave? Unsaved changes will not be saved.",
-          { title: "Unsaved Changes", kind: "warning" }
+          LL.CONFIG_UNSAVED_MSG(),
+          { title: LL.CONFIG_UNSAVED_TITLE(), kind: "warning" }
         );
         if (confirmed) {
           blocker.proceed();
@@ -102,17 +104,19 @@ export default function Configurator({
         <div className="flex-[2.5] flex flex-col min-w-0">
           <div className="flex justify-between items-center mb-2 px-2">
             <div className="flex items-center gap-4">
-              <h2 className="text-2xl font-black text-talesblu-900 uppercase">{storyMetadata?.name || 'New Story'}</h2>
+              <h2 className="text-2xl font-black text-talesblu-900 uppercase">{storyMetadata?.name || LL.CONFIG_NEW_STORY()}</h2>
               <div className="h-6 w-px bg-gray-200" />
-              <p className="text-gray-400 text-sm font-medium">{nodes.length} Chapter{nodes.length !== 1 ? 's' : ''}</p>
+              <p className="text-gray-400 text-sm font-medium">
+                {nodes.length} {nodes.length !== 1 ? LL.CONFIG_CHAPTER_PLURAL() : LL.CONFIG_CHAPTER_SINGULAR()}
+              </p>
             </div>
             <div className="flex gap-2">
               <Button onClick={createNewNode} cls="text-[12px] !px-6 !py-2 !rounded-full shadow-md hover:shadow-lg transition-all bg-white !text-talesblu-800 border-2 border-gray-100">
-                + Add New Chapter
+                {LL.CONFIG_ADD_CHAPTER()}
               </Button>
               <Button onClick={saveFile} cls={`text-[12px] !px-8 !py-2 !rounded-full shadow-lg transition-all flex items-center gap-2 ${isDirty ? 'shadow-talesorang-200 ring-2 ring-talesorang-100' : 'shadow-gray-100 opacity-80 hover:opacity-100'}`}>
                 {isDirty && <div className="w-2 h-2 rounded-full bg-white animate-pulse" />}
-                {isDirty ? 'Save Changes' : 'Saved'}
+                {isDirty ? LL.CONFIG_SAVE() : LL.CONFIG_SAVED()}
               </Button>
             </div>
           </div>

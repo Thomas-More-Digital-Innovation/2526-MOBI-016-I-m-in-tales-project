@@ -9,6 +9,13 @@ import TestBoard from "./app/testBoard/page";
 import StoryConfigurator from "./app/makeStory/storyConfigurator/page";
 
 import { NfcProvider } from "./app/components/NfcProvider";
+import TypesafeI18n from "./i18n/i18n-react";
+import { detectLocale } from "./i18n/i18n-util";
+import { loadAllLocales } from "./i18n/i18n-util.sync";
+import { localStorageDetector } from "typesafe-i18n/detectors";
+
+loadAllLocales();
+const locale = detectLocale(localStorageDetector);
 
 const router = createBrowserRouter([
   {
@@ -52,7 +59,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <NfcProvider>
-      <RouterProvider router={router} />
+      <TypesafeI18n locale={locale}>
+        <RouterProvider router={router} />
+      </TypesafeI18n>
     </NfcProvider>
   );
 }

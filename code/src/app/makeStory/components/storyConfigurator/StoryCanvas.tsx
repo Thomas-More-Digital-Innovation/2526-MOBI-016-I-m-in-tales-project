@@ -4,6 +4,7 @@ import { ToolTip } from "@components";
 import { getEdgePoints, clamp } from "./StageNodeFunctions";
 import { ChapterNode } from "./useStoryState";
 import { useState, useRef, useEffect, memo } from "react";
+import { useI18nContext } from "@/i18n/i18n-react";
 
 type StoryCanvasProps = {
   nodes: ChapterNode[];
@@ -17,7 +18,6 @@ type StoryCanvasProps = {
   linkingRootId?: string | null;
 };
 
-// Memoized Chapter Node to avoid unnecessary re-renders of all nodes on selection change
 const ChapterNodeView = memo(({
   node,
   isSelected,
@@ -32,6 +32,8 @@ const ChapterNodeView = memo(({
   isLinking: boolean
 }) => {
   const [hovered, setHovered] = useState(false);
+  const { LL } = useI18nContext();
+
   return (
     <Group
       x={node.x}
@@ -67,7 +69,7 @@ const ChapterNodeView = memo(({
       ) : (
         <Group listening={false}>
           <Rect x={4} y={4} width={142} height={106} cornerRadius={16} fill="#f3f4f6" />
-          <Text text="No Image" x={45} y={50} fontSize={10} fill="#9ca3af" fontStyle="bold uppercase" />
+          <Text text={LL.CANVAS_NO_IMAGE()} x={45} y={50} fontSize={10} fill="#9ca3af" fontStyle="bold uppercase" />
         </Group>
       )}
       <Text
@@ -99,6 +101,7 @@ export default function StoryCanvas({
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const { LL } = useI18nContext();
 
   const linkingRootNode = linkingRootId ? nodes.find(n => n.id === linkingRootId) : null;
 
@@ -142,7 +145,7 @@ export default function StoryCanvas({
     <div ref={stageContainerRef} className="p-2 flex-1 min-w-0 flex flex-col items-end relative overflow-hidden">
       {showToolTipState && (
         <ToolTip
-          text={`Click + drag to pan \n Click on a chapter to select it \n Scroll to zoom in \n Use the button above to add a new chapter`}
+          text={LL.CANVAS_HINT()}
           absolute
           cls="left-4 top-4"
         />
@@ -158,12 +161,11 @@ export default function StoryCanvas({
         onMouseMove={handleMouseMove}
       >
         <Layer>
-          {/* Ghost Arrow for Linking */}
           {linking && linkingRootNode && (
             <Arrow
               points={[
-                linkingRootNode.x + 75, // Center X
-                linkingRootNode.y + 75, // Center Y
+                linkingRootNode.x + 75,
+                linkingRootNode.y + 75,
                 mousePos.x,
                 mousePos.y
               ]}
@@ -176,7 +178,6 @@ export default function StoryCanvas({
               listening={false}
             />
           )}
-          {/* Draw Arrows First */}
           {nodes.map((node) =>
             node.links.map((link) => {
               const destination = nodes.find((n) => n.id === link.targetId);
@@ -197,8 +198,6 @@ export default function StoryCanvas({
               );
             })
           )}
-
-          {/* Draw Nodes */}
           {nodes.map((node) => (
             <ChapterNodeView
               key={node.id}

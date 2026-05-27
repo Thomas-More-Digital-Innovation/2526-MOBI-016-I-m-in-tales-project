@@ -7,13 +7,13 @@ import { loadAllCalibrations } from "@/utils/tagMapping";
 import { getStoriesOverview, loadStoryData } from "@/utils/storyIO";
 import { TagMatch } from "@/types/story.type";
 import { AssignedLabelsTable } from "./AssignedLabelsTable";
-
-
+import { useI18nContext } from "@/i18n/i18n-react";
 
 export default function TestBoard() {
   const { status, tagUid, tagContent, error } = useNfc();
   const [matches, setMatches] = useState<TagMatch[]>([]);
   const [isLoadingMatches, setIsLoadingMatches] = useState(false);
+  const { LL } = useI18nContext();
 
   useEffect(() => {
     if (!tagUid) {
@@ -62,7 +62,7 @@ export default function TestBoard() {
 
   return (
     <main className="min-h-screen bg-white text-talesblu-900 font-sans">
-      <Header title="Whisper Tester" />
+      <Header title={LL.TEST_TITLE()} />
 
       <div className="max-w-2xl mx-auto">
         <div className="p-8 space-y-8">
@@ -74,14 +74,14 @@ export default function TestBoard() {
                 <div className={`absolute inset-0 w-4 h-4 rounded-full ${status === 'Active' ? 'bg-talesorang-500' : 'bg-slate-300'}`} />
               </div>
               <div>
-                <p className="text-xs font-black text-talesblu-400 uppercase tracking-widest">Scanner Status</p>
+                <p className="text-xs font-black text-talesblu-400 uppercase tracking-widest">{LL.TEST_SCANNER_STATUS()}</p>
                 <p className="text-xl font-bold text-talesblu-800">{status}</p>
               </div>
             </div>
 
             {status === 'Active' && (
               <div className="px-4 py-2 bg-talesorang-100 text-talesorang-600 rounded-full text-xs font-black uppercase tracking-tighter animate-pulse">
-                Active & Polling
+                {LL.TEST_ACTIVE_POLLING()}
               </div>
             )}
           </div>
@@ -99,29 +99,27 @@ export default function TestBoard() {
 
                   <div className="space-y-4">
                     <div className="bg-talesblu-50 px-6 py-4 rounded-xl border-2 border-talesblu-100">
-                      <span className="text-[10px] font-black text-talesblu-400 uppercase tracking-widest block mb-1">Hardware UID</span>
+                      <span className="text-[10px] font-black text-talesblu-400 uppercase tracking-widest block mb-1">{LL.TEST_HARDWARE_UID()}</span>
                       <p className="text-2xl font-mono font-bold text-talesblu-800 break-all">{tagUid}</p>
                     </div>
 
                     {tagContent && (
                       <div className="bg-slate-50 px-6 py-4 rounded-xl border-2 border-slate-100">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">NDEF Content</span>
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">{LL.TEST_NDEF_CONTENT()}</span>
                         <p className="text-sm font-medium text-slate-600 italic break-all">"{tagContent}"</p>
                       </div>
                     )}
 
-                    {/* Assigned Labels Section */}
                     <div className="mt-6 pt-6 border-t border-talesblu-100">
-                      <span className="text-[10px] font-black text-talesblu-400 uppercase tracking-widest block mb-3 text-left">Assigned Labels</span>
+                      <span className="text-[10px] font-black text-talesblu-400 uppercase tracking-widest block mb-3 text-left">{LL.TEST_ASSIGNED_LABELS()}</span>
 
                       {isLoadingMatches ? (
-                        <div className="py-4 text-talesblu-300 text-sm animate-pulse">Searching stories...</div>
+                        <div className="py-4 text-talesblu-300 text-sm animate-pulse">{LL.TEST_SEARCHING()}</div>
                       ) : matches.length > 0 ? (
-
                         <AssignedLabelsTable matches={matches} />
                       ) : (
                         <div className="py-4 px-6 bg-slate-50 rounded-xl border-2 border-dashed border-slate-100 text-slate-400 text-xs font-medium">
-                          No active calibrations found for this tag in any story.
+                          {LL.TEST_NO_CALIBRATIONS()}
                         </div>
                       )}
                     </div>
@@ -135,14 +133,13 @@ export default function TestBoard() {
                     </svg>
                   </div>
                   <p className="text-xl font-bold mb-1">
-                    {status === 'Disconnected' ? "Whisper Offline" : "Waiting for Tag..."}
+                    {status === 'Disconnected' ? LL.TEST_OFFLINE() : LL.TEST_WAITING()}
                   </p>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Error Message */}
           {error && (
             <div className="bg-red-50 border-2 border-red-200 text-red-700 p-5 rounded-2xl flex items-start gap-4 animate-in slide-in-from-bottom-4">
               <div className="bg-red-100 p-2 rounded-lg">
@@ -151,7 +148,7 @@ export default function TestBoard() {
                 </svg>
               </div>
               <div className="flex-1">
-                <p className="font-bold text-lg mb-1">Connection Issue</p>
+                <p className="font-bold text-lg mb-1">{LL.TEST_CONNECTION_ISSUE()}</p>
                 <p className="text-sm font-medium opacity-80">{error}</p>
               </div>
             </div>

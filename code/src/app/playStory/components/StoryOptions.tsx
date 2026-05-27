@@ -1,7 +1,6 @@
 import { Button } from "@components";
 import { Option } from "@/types";
-
-// this is just a temporary placeholder for the options until it is worked out with the NFC sensor
+import { useI18nContext } from "@/i18n/i18n-react";
 
 export interface StoryOptionsProps {
     options: Option[] | undefined;
@@ -14,6 +13,8 @@ export default function StoryOptions({
     onErrorClick,
     onOptionClick,
 }: StoryOptionsProps) {
+    const { LL } = useI18nContext();
+
     if (!options) return null;
 
     return (
@@ -27,7 +28,7 @@ export default function StoryOptions({
                     {option.audio && (
                         <>
                             <br />
-                            (Audio)
+                            {LL.STORY_OPTION_AUDIO()}
                         </>
                     )}
                 </Button>
