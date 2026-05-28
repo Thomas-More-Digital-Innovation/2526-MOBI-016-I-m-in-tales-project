@@ -128,6 +128,7 @@ const nl = {
   // StoryCanvas component
   CANVAS_NO_IMAGE: 'Geen afbeelding',
   CANVAS_HINT: 'Klik + sleep om te pannen \n Klik op een hoofdstuk om het te selecteren \n Scroll om in te zoomen \n Gebruik de knop hierboven om een nieuw hoofdstuk toe te voegen',
+  CANVAS_RECENTER: 'Canvas hercentreren & zoom herstellen',
 
   // PlayStory page
   PLAY_LOADING_TITLE: 'Verhaal laden',

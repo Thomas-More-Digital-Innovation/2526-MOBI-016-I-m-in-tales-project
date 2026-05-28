@@ -128,6 +128,7 @@ const en = {
   // StoryCanvas component
   CANVAS_NO_IMAGE: 'No Image',
   CANVAS_HINT: 'Click + drag to pan \n Click on a chapter to select it \n Scroll to zoom in \n Use the button above to add a new chapter',
+  CANVAS_RECENTER: 'Recenter Canvas & Reset Zoom',
 
   // PlayStory page
   PLAY_LOADING_TITLE: 'Loading story',

@@ -420,6 +420,10 @@ type RootTranslation = {
 	 */
 	CANVAS_HINT: string
 	/**
+	 * R​e​c​e​n​t​e​r​ ​C​a​n​v​a​s​ ​&​ ​R​e​s​e​t​ ​Z​o​o​m
+	 */
+	CANVAS_RECENTER: string
+	/**
 	 * L​o​a​d​i​n​g​ ​s​t​o​r​y
 	 */
 	PLAY_LOADING_TITLE: string
@@ -925,6 +929,10 @@ export type TranslationFunctions = {
  Use the button above to add a new chapter
 	 */
 	CANVAS_HINT: () => LocalizedString
+	/**
+	 * Recenter Canvas & Reset Zoom
+	 */
+	CANVAS_RECENTER: () => LocalizedString
 	/**
 	 * Loading story
 	 */

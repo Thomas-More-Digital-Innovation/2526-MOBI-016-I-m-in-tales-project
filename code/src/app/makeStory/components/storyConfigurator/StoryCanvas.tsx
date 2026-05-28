@@ -124,6 +124,7 @@ export default function StoryCanvas({
   linkingRootId = null
 }: StoryCanvasProps) {
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
+  const stageRef = useRef<any>(null);
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [localPositions, setLocalPositions] = useState<Record<string, { x: number, y: number }>>({});
@@ -143,6 +144,15 @@ export default function StoryCanvas({
       return next;
     });
     onNodeDragEnd(id, x, y);
+  };
+
+  const handleRecenter = () => {
+    const stage = stageRef.current;
+    if (stage) {
+      onScaleChange(1);
+      stage.position({ x: 0, y: 0 });
+      stage.batchDraw();
+    }
   };
 
   const effectiveNodes = nodes.map((node) => {
@@ -201,6 +211,7 @@ export default function StoryCanvas({
         />
       )}
       <Stage
+        ref={stageRef}
         width={stageSize.width}
         height={stageSize.height}
         className="border-2 border-gray-100 rounded-3xl bg-gray-50 shadow-inner overflow-hidden"
@@ -263,6 +274,16 @@ export default function StoryCanvas({
           ))}
         </Layer>
       </Stage>
+
+      {/* Recenter Button */}
+      <button
+        onClick={handleRecenter}
+        type="button"
+        className="absolute bottom-6 right-6 z-10 flex items-center justify-center cursor-pointer bg-white hover:bg-talesorang-50 text-talesblu-800 hover:text-talesorang-600 border border-gray-200 hover:border-talesorang-200 rounded-2xl p-3 shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 select-none group"
+        title={LL.CANVAS_RECENTER()}
+      >
+        <img src="/frame.svg" alt={LL.CANVAS_RECENTER()} />
+      </button>
     </div>
   );
 }
