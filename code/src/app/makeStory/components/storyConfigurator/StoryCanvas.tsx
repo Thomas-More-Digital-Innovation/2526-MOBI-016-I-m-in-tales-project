@@ -56,7 +56,7 @@ const ChapterNodeView = memo(({
         width={150}
         height={150}
       />
-      {node.image ? (
+      {node.image && node.image instanceof HTMLImageElement && node.image.complete && node.image.naturalWidth > 0 ? (
         <Image
           image={node.image}
           cornerRadius={16}

@@ -21,12 +21,16 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
 
   useEffect(() => {
     if (folderName) {
-      loadStoryData(folderName).then((data) => {
-        setName(data.story.name);
-        setDescription(data.story.description);
-        setThumbnailBytes(data.story.thumbnail as Uint8Array | null);
-        setExistingStory(data.story);
-      });
+      loadStoryData(folderName)
+        .then((data) => {
+          setName(data.story.name);
+          setDescription(data.story.description);
+          setThumbnailBytes(data.story.thumbnail as Uint8Array | null);
+          setExistingStory(data.story);
+        })
+        .catch((err) => {
+          console.error("Failed to load story for editing:", err);
+        });
     }
   }, [folderName]);
 
@@ -37,7 +41,7 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
     }
 
     const finalFolderName = name.trim().replace(/\s+/g, "_").toLowerCase();
-    
+
     // If folderName changed (name changed), we might need to handle renaming, 
     // but for now let's just pass the data. 
     // The Configurator will use the finalFolderName to save.

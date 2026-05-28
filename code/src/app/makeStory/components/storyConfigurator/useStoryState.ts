@@ -55,49 +55,55 @@ export function useStoryState(folderName: string) {
 
   useEffect(() => {
     if (folderName && folderName !== "new") {
-      loadStoryData(folderName).then(async (data) => {
-        if (data.story?.id) {
-          setStoryId(data.story.id);
-          setStoryMetadata(data.story);
+      loadStoryData(folderName)
+        .then(async (data) => {
+          if (data.story?.id) {
+            setStoryId(data.story.id);
+            setStoryMetadata(data.story);
 
-          if (data.story.chapter && data.story.chapter.length > 0) {
-            const loadedNodes = data.story.chapter.map((ch: any) => {
-              const node: ChapterNode = {
-                id: ch.id,
-                title: ch.title,
-                description: ch.description,
-                audio: null,
-                audioBytes: ch.audio,
-                audioSrc: ch.audio ? URL.createObjectURL(new Blob([ch.audio as any])) : null,
-                image: null,
-                imageBytes: ch.image,
-                imageSrc: ch.image ? URL.createObjectURL(new Blob([ch.image as any])) : null,
-                failAudioBytes: ch.failAudio,
-                failAudioSrc: ch.failAudio ? URL.createObjectURL(new Blob([ch.failAudio as any])) : null,
-                x: Math.random() * 400,
-                y: Math.random() * 400,
-                links: ch.option?.map((opt: any) => ({
-                  targetId: opt.nextChapter,
-                  itemId: opt.item,
-                  itemLabel: "Loaded Item"
-                })) || []
-              };
-
-              if (node.imageSrc) {
-                const img = new window.Image();
-                img.onload = () => {
-                  setNodes((prev) => prev.map((n) => (n.id === node.id ? { ...n, image: img } : n)));
+            if (data.story.chapter && data.story.chapter.length > 0) {
+              const loadedNodes = data.story.chapter.map((ch: any) => {
+                const node: ChapterNode = {
+                  id: ch.id,
+                  title: ch.title,
+                  description: ch.description,
+                  audio: null,
+                  audioBytes: ch.audio,
+                  audioSrc: ch.audio ? URL.createObjectURL(new Blob([ch.audio as any])) : null,
+                  image: null,
+                  imageBytes: ch.image,
+                  imageSrc: ch.image ? URL.createObjectURL(new Blob([ch.image as any])) : null,
+                  failAudioBytes: ch.failAudio,
+                  failAudioSrc: ch.failAudio ? URL.createObjectURL(new Blob([ch.failAudio as any])) : null,
+                  x: Math.random() * 400,
+                  y: Math.random() * 400,
+                  links: ch.option?.map((opt: any) => ({
+                    targetId: opt.nextChapter,
+                    itemId: opt.item,
+                    itemLabel: "Loaded Item"
+                  })) || []
                 };
-                img.src = node.imageSrc;
-              }
-              return node;
-            });
-            setNodes(loadedNodes);
-            setSelectedId(loadedNodes[0].id);
+
+                if (node.imageSrc) {
+                  const img = new window.Image();
+                  img.onload = () => {
+                    setNodes((prev) => prev.map((n) => (n.id === node.id ? { ...n, image: img } : n)));
+                  };
+                  img.src = node.imageSrc;
+                }
+                return node;
+              });
+              setNodes(loadedNodes);
+              setSelectedId(loadedNodes[0].id);
+            }
           }
-        }
-        setLoading(false);
-      });
+          setLoading(false);
+        })
+        .catch((err) => {
+          // if the zip doesn't exist, we treat it as a new story
+          console.warn("Story file not found, initializing as new story:", err);
+          setLoading(false);
+        });
     } else {
       setLoading(false);
     }

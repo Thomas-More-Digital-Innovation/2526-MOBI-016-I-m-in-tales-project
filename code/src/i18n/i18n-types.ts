@@ -43,6 +43,10 @@ type RootTranslation = {
 	 */
 	HOME_TEST_CONNECTION: string
 	/**
+	 * T​e​s​t​ ​y​o​u​r​ ​W​h​i​s​p​e​r​ ​r​e​a​d​e​r​ ​c​o​n​n​e​c​t​i​o​n​!
+	 */
+	HOME_TOOLTIP_TEST_CONNECTION: string
+	/**
 	 * M​a​n​a​g​e​ ​M​y​ ​S​t​o​r​i​e​s
 	 */
 	MANAGE_TITLE: string
@@ -386,9 +390,9 @@ type RootTranslation = {
 	CANVAS_NO_IMAGE: string
 	/**
 	 * C​l​i​c​k​ ​+​ ​d​r​a​g​ ​t​o​ ​p​a​n​ ​
-   C​l​i​c​k​ ​o​n​ ​a​ ​c​h​a​p​t​e​r​ ​t​o​ ​s​e​l​e​c​t​ ​i​t​ ​
-   S​c​r​o​l​l​ ​t​o​ ​z​o​o​m​ ​i​n​ ​
-   U​s​e​ ​t​h​e​ ​b​u​t​t​o​n​ ​a​b​o​v​e​ ​t​o​ ​a​d​d​ ​a​ ​n​e​w​ ​c​h​a​p​t​e​r
+​ ​C​l​i​c​k​ ​o​n​ ​a​ ​c​h​a​p​t​e​r​ ​t​o​ ​s​e​l​e​c​t​ ​i​t​ ​
+​ ​S​c​r​o​l​l​ ​t​o​ ​z​o​o​m​ ​i​n​ ​
+​ ​U​s​e​ ​t​h​e​ ​b​u​t​t​o​n​ ​a​b​o​v​e​ ​t​o​ ​a​d​d​ ​a​ ​n​e​w​ ​c​h​a​p​t​e​r
 	 */
 	CANVAS_HINT: string
 	/**
@@ -522,6 +526,10 @@ export type TranslationFunctions = {
 	 * test connection
 	 */
 	HOME_TEST_CONNECTION: () => LocalizedString
+	/**
+	 * Test your Whisper reader connection!
+	 */
+	HOME_TOOLTIP_TEST_CONNECTION: () => LocalizedString
 	/**
 	 * Manage My Stories
 	 */

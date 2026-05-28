@@ -9,6 +9,7 @@ const en = {
   HOME_TOOLTIP_MANAGE: 'Click here to edit stories!',
   HOME_TOOLTIP_MAKE: 'Click here to make a new story!',
   HOME_TEST_CONNECTION: 'test connection',
+  HOME_TOOLTIP_TEST_CONNECTION: 'Test your Whisper reader connection!',
 
   // Manage Story page
   MANAGE_TITLE: 'Manage My Stories',

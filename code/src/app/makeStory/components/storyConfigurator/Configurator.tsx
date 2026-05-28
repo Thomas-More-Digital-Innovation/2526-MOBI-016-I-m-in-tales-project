@@ -41,6 +41,28 @@ export default function Configurator({
 
   const [scale, setScale] = useState(1);
 
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      isDirty && currentLocation.pathname !== nextLocation.pathname
+  );
+
+  useEffect(() => {
+    if (blocker.state === "blocked") {
+      const confirmLeave = async () => {
+        const confirmed = await ask(
+          LL.CONFIG_UNSAVED_MSG(),
+          { title: LL.CONFIG_UNSAVED_TITLE(), kind: "warning" }
+        );
+        if (confirmed) {
+          blocker.proceed();
+        } else {
+          blocker.reset();
+        }
+      };
+      confirmLeave();
+    }
+  }, [blocker]);
+
   if (loading) {
     return (
       <LoadingScreen
@@ -67,28 +89,6 @@ export default function Configurator({
       setSelectedId(nodeId);
     }
   };
-
-  const blocker = useBlocker(
-    ({ currentLocation, nextLocation }) =>
-      isDirty && currentLocation.pathname !== nextLocation.pathname
-  );
-
-  useEffect(() => {
-    if (blocker.state === "blocked") {
-      const confirmLeave = async () => {
-        const confirmed = await ask(
-          LL.CONFIG_UNSAVED_MSG(),
-          { title: LL.CONFIG_UNSAVED_TITLE(), kind: "warning" }
-        );
-        if (confirmed) {
-          blocker.proceed();
-        } else {
-          blocker.reset();
-        }
-      };
-      confirmLeave();
-    }
-  }, [blocker]);
 
   const handleBack = () => {
     navigate("/");

@@ -9,6 +9,7 @@ const nl = {
   HOME_TOOLTIP_MANAGE: 'Klik hier om verhalen te bewerken!',
   HOME_TOOLTIP_MAKE: 'Klik hier om een nieuw verhaal te maken!',
   HOME_TEST_CONNECTION: 'test verbinding',
+  HOME_TOOLTIP_TEST_CONNECTION: 'Test je Whisper-lezer verbinding!',
 
   // Manage Story page
   MANAGE_TITLE: 'Beheer Mijn Verhalen',
