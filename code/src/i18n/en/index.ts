@@ -172,6 +172,31 @@ const en = {
 
   // PlayStoryButton component
   PLAY_BTN: 'Start story',
+
+  // AudioSettingsModal component
+  AUDIO_SETTINGS_TITLE: 'Chapter Audio Manager',
+  AUDIO_SETTINGS_DESC: 'Configure and record/upload narration and incorrect action (fail) feedback audio.',
+  AUDIO_NARRATION_TITLE: 'Narration Audio',
+  AUDIO_NARRATION_DESC: 'Played when the user enters this chapter.',
+  AUDIO_FAIL_TITLE: 'Feedback / Fail Audio',
+  AUDIO_FAIL_DESC: 'Played when the user uses an incorrect tag during this chapter (optional).',
+  AUDIO_RECORD: 'Record Audio',
+  AUDIO_RECORDING: 'Recording...',
+  AUDIO_STOP_RECORD: 'Stop & Save',
+  AUDIO_UPLOAD_FILE: 'Upload File',
+  AUDIO_PLAYBACK: 'Playback Preview',
+  AUDIO_NO_AUDIO: 'No audio configured.',
+  AUDIO_CLEAR: 'Remove Audio',
+  AUDIO_STATUS_READY: 'Ready',
+  AUDIO_STATUS_EMPTY: 'Empty',
+  AUDIO_TAP_RECORD: 'Tap Record to start speaking',
+  AUDIO_MIC_PERMISSION_ERROR: 'Could not access the microphone. Please check system permissions.',
+  AUDIO_MIC_LINUX_ERROR: 'Microphone recording is currently not supported in Tauri on Linux due to WebKit2GTK limitations. Please record using your system\'s default Sound Recorder and upload the file instead.',
+  AUDIO_SETUP: 'Audio Setup',
+  AUDIO_MANAGE_BUTTON: 'Manage Audio',
+  AUDIO_READY: 'Ready',
+  AUDIO_OPTIONAL: 'Optional',
+  AUDIO_MISSING: 'Missing',
 } satisfies BaseTranslation
 
 export default en

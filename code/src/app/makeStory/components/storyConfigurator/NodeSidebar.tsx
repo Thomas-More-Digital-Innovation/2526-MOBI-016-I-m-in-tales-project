@@ -1,4 +1,4 @@
-import { InputLabel, TextAreaLabel, ImageUpload, AudioUpload, Button, ToolTip } from "@components";
+import { InputLabel, TextAreaLabel, ImageUpload, Button, ToolTip } from "@components";
 import { ChapterNode, StoryLink } from "./useStoryState";
 import { useNfc } from "../../../components/NfcProvider";
 import { addCalibration, getStoryCalibration } from "@utils/tagMapping";
@@ -21,7 +21,8 @@ type NodeSidebarProps = {
   showToolTipState?: boolean;
 };
 
-import { memo } from "react";
+import { memo, useState } from "react";
+import AudioSettingsModal from "./AudioSettingsModal";
 
 const NodeSidebar = memo(({
   selectedNode,
@@ -39,6 +40,7 @@ const NodeSidebar = memo(({
 }: NodeSidebarProps) => {
   const { tagUid, status } = useNfc();
   const { LL } = useI18nContext();
+  const [showAudioModal, setShowAudioModal] = useState(false);
 
   if (!selectedNode) {
     return (
@@ -118,23 +120,42 @@ const NodeSidebar = memo(({
             />
           </div>
         </div>
-        <div className="space-y-2">
-          <p className="text-[10px] text-gray-400 uppercase font-black tracking-widest">{LL.NODE_NARRATION()}</p>
-          <div className="h-32">
-            <AudioUpload
-              onAudioBytes={(b) => handleMediaBytes('audioBytes', b)}
-              value={selectedNode.audioSrc}
-            />
-          </div>
-        </div>
-      </div>
 
-      <div className="space-y-2 pt-4 border-t border-gray-50">
-        <p className="text-[10px] text-gray-400 uppercase font-black tracking-widest">{LL.NODE_FAIL_AUDIO()}</p>
-        <AudioUpload
-          onAudioBytes={(b) => handleMediaBytes('failAudioBytes', b)}
-          value={selectedNode.failAudioSrc}
-        />
+        <div className="space-y-2 flex flex-col justify-between h-32">
+          <div>
+            <p className="text-[10px] text-gray-400 uppercase font-black tracking-widest">{LL.AUDIO_SETUP()}</p>
+            <div className="bg-gray-50/80 rounded-2xl border border-gray-150 p-2.5 mt-2 space-y-1.5 text-[10px] font-bold">
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500">{LL.NODE_NARRATION()}</span>
+                {selectedNode.audioSrc ? (
+                  <span className="text-green-600 flex items-center gap-0.5 font-extrabold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                    {LL.AUDIO_READY()}
+                  </span>
+                ) : (
+                  <span className="text-red-400 font-extrabold">{LL.AUDIO_MISSING()}</span>
+                )}
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500">{LL.AUDIO_FAIL_TITLE().split(' ')[0]}</span>
+                {selectedNode.failAudioSrc ? (
+                  <span className="text-talesorang-500 flex items-center gap-0.5 font-extrabold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-talesorang-500 animate-pulse" />
+                    {LL.AUDIO_READY()}
+                  </span>
+                ) : (
+                  <span className="text-gray-400 font-medium italic">{LL.AUDIO_OPTIONAL()}</span>
+                )}
+              </div>
+            </div>
+          </div>
+          <Button
+            onClick={() => setShowAudioModal(true)}
+            cls="text-[10px] !px-3 !py-1.5 w-full shadow-sm"
+          >
+            {LL.AUDIO_MANAGE_BUTTON()}
+          </Button>
+        </div>
       </div>
 
       <div className="pt-4 border-t border-gray-50 flex items-center justify-between">
@@ -205,6 +226,13 @@ const NodeSidebar = memo(({
           })}
         </ul>
       </div>
+
+      <AudioSettingsModal
+        isOpen={showAudioModal}
+        setIsOpen={setShowAudioModal}
+        selectedNode={selectedNode}
+        onUpdate={onUpdate}
+      />
     </div>
   );
 });

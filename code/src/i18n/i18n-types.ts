@@ -523,6 +523,98 @@ type RootTranslation = {
 	 * S​t​a​r​t​ ​s​t​o​r​y
 	 */
 	PLAY_BTN: string
+	/**
+	 * C​h​a​p​t​e​r​ ​A​u​d​i​o​ ​M​a​n​a​g​e​r
+	 */
+	AUDIO_SETTINGS_TITLE: string
+	/**
+	 * C​o​n​f​i​g​u​r​e​ ​a​n​d​ ​r​e​c​o​r​d​/​u​p​l​o​a​d​ ​n​a​r​r​a​t​i​o​n​ ​a​n​d​ ​i​n​c​o​r​r​e​c​t​ ​a​c​t​i​o​n​ ​(​f​a​i​l​)​ ​f​e​e​d​b​a​c​k​ ​a​u​d​i​o​.
+	 */
+	AUDIO_SETTINGS_DESC: string
+	/**
+	 * N​a​r​r​a​t​i​o​n​ ​A​u​d​i​o
+	 */
+	AUDIO_NARRATION_TITLE: string
+	/**
+	 * P​l​a​y​e​d​ ​w​h​e​n​ ​t​h​e​ ​u​s​e​r​ ​e​n​t​e​r​s​ ​t​h​i​s​ ​c​h​a​p​t​e​r​.
+	 */
+	AUDIO_NARRATION_DESC: string
+	/**
+	 * F​e​e​d​b​a​c​k​ ​/​ ​F​a​i​l​ ​A​u​d​i​o
+	 */
+	AUDIO_FAIL_TITLE: string
+	/**
+	 * P​l​a​y​e​d​ ​w​h​e​n​ ​t​h​e​ ​u​s​e​r​ ​u​s​e​s​ ​a​n​ ​i​n​c​o​r​r​e​c​t​ ​t​a​g​ ​d​u​r​i​n​g​ ​t​h​i​s​ ​c​h​a​p​t​e​r​ ​(​o​p​t​i​o​n​a​l​)​.
+	 */
+	AUDIO_FAIL_DESC: string
+	/**
+	 * R​e​c​o​r​d​ ​A​u​d​i​o
+	 */
+	AUDIO_RECORD: string
+	/**
+	 * R​e​c​o​r​d​i​n​g​.​.​.
+	 */
+	AUDIO_RECORDING: string
+	/**
+	 * S​t​o​p​ ​&​ ​S​a​v​e
+	 */
+	AUDIO_STOP_RECORD: string
+	/**
+	 * U​p​l​o​a​d​ ​F​i​l​e
+	 */
+	AUDIO_UPLOAD_FILE: string
+	/**
+	 * P​l​a​y​b​a​c​k​ ​P​r​e​v​i​e​w
+	 */
+	AUDIO_PLAYBACK: string
+	/**
+	 * N​o​ ​a​u​d​i​o​ ​c​o​n​f​i​g​u​r​e​d​.
+	 */
+	AUDIO_NO_AUDIO: string
+	/**
+	 * R​e​m​o​v​e​ ​A​u​d​i​o
+	 */
+	AUDIO_CLEAR: string
+	/**
+	 * R​e​a​d​y
+	 */
+	AUDIO_STATUS_READY: string
+	/**
+	 * E​m​p​t​y
+	 */
+	AUDIO_STATUS_EMPTY: string
+	/**
+	 * T​a​p​ ​R​e​c​o​r​d​ ​t​o​ ​s​t​a​r​t​ ​s​p​e​a​k​i​n​g
+	 */
+	AUDIO_TAP_RECORD: string
+	/**
+	 * C​o​u​l​d​ ​n​o​t​ ​a​c​c​e​s​s​ ​t​h​e​ ​m​i​c​r​o​p​h​o​n​e​.​ ​P​l​e​a​s​e​ ​c​h​e​c​k​ ​s​y​s​t​e​m​ ​p​e​r​m​i​s​s​i​o​n​s​.
+	 */
+	AUDIO_MIC_PERMISSION_ERROR: string
+	/**
+	 * M​i​c​r​o​p​h​o​n​e​ ​r​e​c​o​r​d​i​n​g​ ​i​s​ ​c​u​r​r​e​n​t​l​y​ ​n​o​t​ ​s​u​p​p​o​r​t​e​d​ ​i​n​ ​T​a​u​r​i​ ​o​n​ ​L​i​n​u​x​ ​d​u​e​ ​t​o​ ​W​e​b​K​i​t​2​G​T​K​ ​l​i​m​i​t​a​t​i​o​n​s​.​ ​P​l​e​a​s​e​ ​r​e​c​o​r​d​ ​u​s​i​n​g​ ​y​o​u​r​ ​s​y​s​t​e​m​'​s​ ​d​e​f​a​u​l​t​ ​S​o​u​n​d​ ​R​e​c​o​r​d​e​r​ ​a​n​d​ ​u​p​l​o​a​d​ ​t​h​e​ ​f​i​l​e​ ​i​n​s​t​e​a​d​.
+	 */
+	AUDIO_MIC_LINUX_ERROR: string
+	/**
+	 * A​u​d​i​o​ ​S​e​t​u​p
+	 */
+	AUDIO_SETUP: string
+	/**
+	 * M​a​n​a​g​e​ ​A​u​d​i​o
+	 */
+	AUDIO_MANAGE_BUTTON: string
+	/**
+	 * R​e​a​d​y
+	 */
+	AUDIO_READY: string
+	/**
+	 * O​p​t​i​o​n​a​l
+	 */
+	AUDIO_OPTIONAL: string
+	/**
+	 * M​i​s​s​i​n​g
+	 */
+	AUDIO_MISSING: string
 }
 
 export type TranslationFunctions = {
@@ -1033,6 +1125,98 @@ export type TranslationFunctions = {
 	 * Start story
 	 */
 	PLAY_BTN: () => LocalizedString
+	/**
+	 * Chapter Audio Manager
+	 */
+	AUDIO_SETTINGS_TITLE: () => LocalizedString
+	/**
+	 * Configure and record/upload narration and incorrect action (fail) feedback audio.
+	 */
+	AUDIO_SETTINGS_DESC: () => LocalizedString
+	/**
+	 * Narration Audio
+	 */
+	AUDIO_NARRATION_TITLE: () => LocalizedString
+	/**
+	 * Played when the user enters this chapter.
+	 */
+	AUDIO_NARRATION_DESC: () => LocalizedString
+	/**
+	 * Feedback / Fail Audio
+	 */
+	AUDIO_FAIL_TITLE: () => LocalizedString
+	/**
+	 * Played when the user uses an incorrect tag during this chapter (optional).
+	 */
+	AUDIO_FAIL_DESC: () => LocalizedString
+	/**
+	 * Record Audio
+	 */
+	AUDIO_RECORD: () => LocalizedString
+	/**
+	 * Recording...
+	 */
+	AUDIO_RECORDING: () => LocalizedString
+	/**
+	 * Stop & Save
+	 */
+	AUDIO_STOP_RECORD: () => LocalizedString
+	/**
+	 * Upload File
+	 */
+	AUDIO_UPLOAD_FILE: () => LocalizedString
+	/**
+	 * Playback Preview
+	 */
+	AUDIO_PLAYBACK: () => LocalizedString
+	/**
+	 * No audio configured.
+	 */
+	AUDIO_NO_AUDIO: () => LocalizedString
+	/**
+	 * Remove Audio
+	 */
+	AUDIO_CLEAR: () => LocalizedString
+	/**
+	 * Ready
+	 */
+	AUDIO_STATUS_READY: () => LocalizedString
+	/**
+	 * Empty
+	 */
+	AUDIO_STATUS_EMPTY: () => LocalizedString
+	/**
+	 * Tap Record to start speaking
+	 */
+	AUDIO_TAP_RECORD: () => LocalizedString
+	/**
+	 * Could not access the microphone. Please check system permissions.
+	 */
+	AUDIO_MIC_PERMISSION_ERROR: () => LocalizedString
+	/**
+	 * Microphone recording is currently not supported in Tauri on Linux due to WebKit2GTK limitations. Please record using your system's default Sound Recorder and upload the file instead.
+	 */
+	AUDIO_MIC_LINUX_ERROR: () => LocalizedString
+	/**
+	 * Audio Setup
+	 */
+	AUDIO_SETUP: () => LocalizedString
+	/**
+	 * Manage Audio
+	 */
+	AUDIO_MANAGE_BUTTON: () => LocalizedString
+	/**
+	 * Ready
+	 */
+	AUDIO_READY: () => LocalizedString
+	/**
+	 * Optional
+	 */
+	AUDIO_OPTIONAL: () => LocalizedString
+	/**
+	 * Missing
+	 */
+	AUDIO_MISSING: () => LocalizedString
 }
 
 export type Formatters = {}

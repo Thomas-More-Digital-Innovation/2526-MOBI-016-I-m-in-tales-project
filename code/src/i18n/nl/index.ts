@@ -172,6 +172,31 @@ const nl = {
 
   // PlayStoryButton component
   PLAY_BTN: 'Start verhaal',
+
+  // AudioSettingsModal component
+  AUDIO_SETTINGS_TITLE: 'Hoofdstuk Geluidsbeheer',
+  AUDIO_SETTINGS_DESC: 'Configureer en neem vertel- en foutieve actie (fail) feedback-audio op/upload.',
+  AUDIO_NARRATION_TITLE: 'Vertel-audio',
+  AUDIO_NARRATION_DESC: 'Wordt afgespeeld wanneer de gebruiker dit hoofdstuk opent.',
+  AUDIO_FAIL_TITLE: 'Feedback / Fout-audio',
+  AUDIO_FAIL_DESC: 'Wordt afgespeeld als de gebruiker een onjuist label gebruikt in dit hoofdstuk (optioneel).',
+  AUDIO_RECORD: 'Neem audio op',
+  AUDIO_RECORDING: 'Opnemen...',
+  AUDIO_STOP_RECORD: 'Stop & Opslaan',
+  AUDIO_UPLOAD_FILE: 'Upload Bestand',
+  AUDIO_PLAYBACK: 'Afspeelvoorbeeld',
+  AUDIO_NO_AUDIO: 'Geen audio geconfigureerd.',
+  AUDIO_CLEAR: 'Verwijder Audio',
+  AUDIO_STATUS_READY: 'Gereed',
+  AUDIO_STATUS_EMPTY: 'Leeg',
+  AUDIO_TAP_RECORD: 'Tik op opnemen om te beginnen met spreken',
+  AUDIO_MIC_PERMISSION_ERROR: 'Kan geen toegang krijgen tot de microfoon. Controleer uw systeemrechten.',
+  AUDIO_MIC_LINUX_ERROR: 'Microfoonopname wordt momenteel niet ondersteund in Tauri op Linux vanwege WebKit2GTK-beperkingen. Neem op met de standaard geluidsrecorder van uw systeem en upload het bestand.',
+  AUDIO_SETUP: 'Audio-instellingen',
+  AUDIO_MANAGE_BUTTON: 'Beheer Audio',
+  AUDIO_READY: 'Gereed',
+  AUDIO_OPTIONAL: 'Optioneel',
+  AUDIO_MISSING: 'Ontbreekt',
 } satisfies Translation
 
 export default nl
