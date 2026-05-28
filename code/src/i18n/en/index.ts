@@ -118,6 +118,9 @@ const en = {
   NODE_LINK_TAG: 'Link Tag',
   NODE_WAIT_TAG: 'Wait Tag...',
   NODE_OFFLINE: 'Offline',
+  NODE_AUTO_ADVANCE: 'Auto-advance on audio completion',
+  NODE_AUTO_ADVANCE_DESC: 'Proceed automatically once narration ends',
+  NODE_AUTO_ADVANCE_DISABLED: '* Disabled due to Auto-Advance',
 
   // StoryCanvas component
   CANVAS_NO_IMAGE: 'No Image',

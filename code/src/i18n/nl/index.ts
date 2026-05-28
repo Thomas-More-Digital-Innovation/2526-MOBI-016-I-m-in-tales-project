@@ -118,6 +118,9 @@ const nl = {
   NODE_LINK_TAG: 'Label koppelen',
   NODE_WAIT_TAG: 'Wacht op label...',
   NODE_OFFLINE: 'Offline',
+  NODE_AUTO_ADVANCE: 'Automatisch doorgaan na afronding audio',
+  NODE_AUTO_ADVANCE_DESC: 'Ga automatisch door zodra de vertelling eindigt',
+  NODE_AUTO_ADVANCE_DISABLED: '* Uitgeschakeld door automatisch doorgaan',
 
   // StoryCanvas component
   CANVAS_NO_IMAGE: 'Geen afbeelding',

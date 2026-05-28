@@ -133,12 +133,41 @@ const NodeSidebar = memo(({
         />
       </div>
 
-      <div className="pt-6 border-t border-gray-50 space-y-4">
+      <div className="pt-4 border-t border-gray-50 flex items-center justify-between">
+        <div className="flex flex-col pr-2">
+          <p className="text-xs font-bold text-talesblu-800">{LL.NODE_AUTO_ADVANCE()}</p>
+          <p className="text-[10px] text-gray-400">{LL.NODE_AUTO_ADVANCE_DESC()}</p>
+        </div>
+        <button
+          onClick={() => {
+            const newVal = !selectedNode.autoAdvance;
+            onUpdate(selectedNode.id, { autoAdvance: newVal });
+          }}
+          type="button"
+          className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${selectedNode.autoAdvance ? "bg-talesorang-500" : "bg-gray-200"
+            }`}
+        >
+          <span
+            className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${selectedNode.autoAdvance ? "translate-x-4" : "translate-x-0"
+              }`}
+          />
+        </button>
+      </div>
+
+      <div className={`pt-6 border-t border-gray-50 space-y-4 ${selectedNode.autoAdvance ? 'opacity-40 pointer-events-none select-none' : ''}`}>
         <div className="flex justify-between items-center">
-          <p className="text-[10px] text-gray-400 uppercase font-black tracking-widest">{LL.NODE_LINKS()}</p>
+          <div className="flex flex-col">
+            <p className="text-[10px] text-gray-400 uppercase font-black tracking-widest">{LL.NODE_LINKS()}</p>
+            {selectedNode.autoAdvance && (
+              <span className="text-[9px] text-talesorang-500 font-bold italic mt-0.5">
+                {LL.NODE_AUTO_ADVANCE_DISABLED()}
+              </span>
+            )}
+          </div>
           <Button
             onClick={() => onLink(selectedNode.id)}
             cls={`text-[10px] !px-3 !py-1 ${linking ? 'bg-talesorang-600' : ''}`}
+            disabled={selectedNode.autoAdvance}
           >
             {linking ? LL.NODE_LINKING() : LL.NODE_ADD_LINK()}
           </Button>
@@ -178,11 +207,10 @@ function LinkItem({ link, calibratedTag, onUpdateLabel, onDelete, onLinkTag, tag
       <div className="flex justify-between items-center">
         <div className="flex-1 flex flex-col min-w-0">
           <input
-            className={`w-full text-sm font-bold placeholder:italic border-2 border-dashed rounded-xl px-3 py-1.5 outline-none transition-all focus:ring-0 text-talesblu-800 placeholder:text-gray-400 mr-2 ${
-              isLabelEmpty
+            className={`w-full text-sm font-bold placeholder:italic border-2 border-dashed rounded-xl px-3 py-1.5 outline-none transition-all focus:ring-0 text-talesblu-800 placeholder:text-gray-400 mr-2 ${isLabelEmpty
                 ? "border-red-300 focus:border-red-500 bg-red-50/20"
                 : "border-gray-200 focus:border-talesorang-500 focus:bg-white bg-white/60 hover:bg-white hover:border-gray-300"
-            }`}
+              }`}
             value={link.itemLabel}
             onChange={(e) => onUpdateLabel(e.target.value)}
             placeholder={LL.NODE_INTERACTION_PH()}

@@ -385,6 +385,18 @@ type RootTranslation = {
 	 */
 	NODE_OFFLINE: string
 	/**
+	 * A​u​t​o​-​a​d​v​a​n​c​e​ ​o​n​ ​a​u​d​i​o​ ​c​o​m​p​l​e​t​i​o​n
+	 */
+	NODE_AUTO_ADVANCE: string
+	/**
+	 * P​r​o​c​e​e​d​ ​a​u​t​o​m​a​t​i​c​a​l​l​y​ ​o​n​c​e​ ​n​a​r​r​a​t​i​o​n​ ​e​n​d​s
+	 */
+	NODE_AUTO_ADVANCE_DESC: string
+	/**
+	 * *​ ​D​i​s​a​b​l​e​d​ ​d​u​e​ ​t​o​ ​A​u​t​o​-​A​d​v​a​n​c​e
+	 */
+	NODE_AUTO_ADVANCE_DISABLED: string
+	/**
 	 * N​o​ ​I​m​a​g​e
 	 */
 	CANVAS_NO_IMAGE: string
@@ -866,6 +878,18 @@ export type TranslationFunctions = {
 	 * Offline
 	 */
 	NODE_OFFLINE: () => LocalizedString
+	/**
+	 * Auto-advance on audio completion
+	 */
+	NODE_AUTO_ADVANCE: () => LocalizedString
+	/**
+	 * Proceed automatically once narration ends
+	 */
+	NODE_AUTO_ADVANCE_DESC: () => LocalizedString
+	/**
+	 * * Disabled due to Auto-Advance
+	 */
+	NODE_AUTO_ADVANCE_DISABLED: () => LocalizedString
 	/**
 	 * No Image
 	 */

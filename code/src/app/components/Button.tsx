@@ -7,16 +7,18 @@ interface ButtonProps {
     primary?: boolean;
     style?: CSSProperties;
     title?: string;
+    disabled?: boolean;
 }
 
-export default function Button({ children, cls = "", onClick, style, primary = false, title = "" }: ButtonProps) {
+export default function Button({ children, cls = "", onClick, style, primary = false, title = "", disabled = false }: ButtonProps) {
     const variantClass = primary ? "bg-[#0d4254] shadow-[0px_1px_2px_1px_#6e8e98]" : "bg-[#f6745e] shadow-[0px_1px_2px_1px_#faac9e]";
 
     return (
         <button
             onClick={onClick}
             style={style}
-            className={`text-3xl cursor-pointer font-semibold duration-150 ease-in-out py-3 px-8 h-fit hover:scale-85 hover:drop-shadow-none text-white rounded ${cls} ${variantClass}`}
+            disabled={disabled}
+            className={`text-3xl cursor-pointer font-semibold duration-150 ease-in-out py-3 px-8 h-fit hover:scale-85 hover:drop-shadow-none text-white rounded ${cls} ${variantClass} ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}
             title={title}
         >
             {children}

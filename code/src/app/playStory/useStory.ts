@@ -43,6 +43,9 @@ export function useStory(storyId: string | undefined) {
             loadChapter(chapter);
             if (chapter?.audio) {
                 await playAudio(chapter.audio);
+                if (chapter.autoAdvance && chapter.option && chapter.option.length === 1) {
+                    nextChapter(chapter.option[0]);
+                }
             }
         },
         [getChapterById]
@@ -52,7 +55,7 @@ export function useStory(storyId: string | undefined) {
         if (!storyId) return;
 
         loadStoryData(storyId)
-            .then((data) => {
+            .then(async (data) => {
                 const loadedStory: Story = {
                     id: data.story.id,
                     name: data.story.name,
@@ -65,6 +68,7 @@ export function useStory(storyId: string | undefined) {
                         audio: bytesToUrl(ch.audio, "audio/mpeg"),
                         image: bytesToUrl(ch.image, "image/png"),
                         failAudio: bytesToUrl(ch.failAudio, "audio/mpeg"),
+                        autoAdvance: ch.autoAdvance ?? false,
                         option: (ch.option || []).map((opt) => ({
                             nextChapter: opt.nextChapter,
                             audio: bytesToUrl(opt.audio, "audio/mpeg"),
@@ -76,9 +80,16 @@ export function useStory(storyId: string | undefined) {
                 setStory(loadedStory);
                 const chapter = loadedStory.chapter[0];
                 loadChapter(chapter);
+
+                if (chapter?.audio) {
+                    await playAudio(chapter.audio);
+                    if (chapter.autoAdvance && chapter.option && chapter.option.length === 1) {
+                        nextChapter(chapter.option[0]);
+                    }
+                }
             })
             .catch((err) => console.error("Failed to load story:", err));
-    }, [storyId]);
+    }, [storyId, nextChapter]);
 
     return {
         story,

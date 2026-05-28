@@ -26,6 +26,7 @@ export type ChapterNode = {
   x: number;
   y: number;
   links: StoryLink[];
+  autoAdvance?: boolean;
 };
 
 export function useStoryState(folderName: string) {
@@ -81,13 +82,17 @@ export function useStoryState(folderName: string) {
                   imageSrc: ch.image ? URL.createObjectURL(new Blob([ch.image as any])) : null,
                   failAudioBytes: ch.failAudio,
                   failAudioSrc: ch.failAudio ? URL.createObjectURL(new Blob([ch.failAudio as any])) : null,
+                  autoAdvance: ch.autoAdvance ?? false,
                   x: Math.random() * 400,
                   y: Math.random() * 400,
-                  links: ch.option?.map((opt: any) => ({
-                    targetId: opt.nextChapter,
-                    itemId: opt.item,
-                    itemLabel: "Loaded Item"
-                  })) || []
+                  links: ch.option?.map((opt: any) => {
+                    const matchedItem = data.items?.find((item: any) => item.itemId === opt.item);
+                    return {
+                      targetId: opt.nextChapter,
+                      itemId: opt.item,
+                      itemLabel: matchedItem?.label || opt.item || "Loaded Item"
+                    };
+                  }) || []
                 };
 
                 if (node.imageSrc) {
@@ -214,6 +219,7 @@ export function useStoryState(folderName: string) {
         audio: node.audioBytes ?? null,
         image: node.imageBytes ?? null,
         failAudio: node.failAudioBytes ?? null,
+        autoAdvance: node.autoAdvance ?? false,
         option: options,
       };
     });
