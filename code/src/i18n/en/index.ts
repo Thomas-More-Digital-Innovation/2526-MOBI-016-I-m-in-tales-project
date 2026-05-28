@@ -192,6 +192,7 @@ const en = {
   AUDIO_TAP_RECORD: 'Tap Record to start speaking',
   AUDIO_MIC_PERMISSION_ERROR: 'Could not access the microphone. Please check system permissions.',
   AUDIO_MIC_LINUX_ERROR: 'Microphone recording is currently not supported in Tauri on Linux due to WebKit2GTK limitations. Please record using your system\'s default Sound Recorder and upload the file instead.',
+  AUDIO_DROP_HERE: 'Drop Audio File Here',
   AUDIO_SETUP: 'Audio Setup',
   AUDIO_MANAGE_BUTTON: 'Manage Audio',
   AUDIO_READY: 'Ready',

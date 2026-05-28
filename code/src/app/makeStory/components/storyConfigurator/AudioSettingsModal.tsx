@@ -105,14 +105,92 @@ function AudioSection({
   const [isRecording, setIsRecording] = useState(false);
   const [recordingDuration, setRecordingDuration] = useState(0);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const onAudioBytesRef = useRef(onAudioBytes);
+  const dragCounterRef = useRef(0);
+
+  useEffect(() => {
+    onAudioBytesRef.current = onAudioBytes;
+  }, [onAudioBytes]);
 
   useEffect(() => {
     return () => {
       stopRecordingResources();
+    };
+  }, []);
+
+  useEffect(() => {
+    let cleanup: (() => void) | null = null;
+
+    const register = async () => {
+      try {
+        const { getCurrentWebview } = await import("@tauri-apps/api/webview");
+        const unlisten = await getCurrentWebview().onDragDropEvent((event) => {
+          if (!containerRef.current) return;
+
+          if (event.payload.type === "leave") {
+            setIsDragging(false);
+            dragCounterRef.current = 0;
+            return;
+          }
+
+          const rect = containerRef.current.getBoundingClientRect();
+          const { x, y } = event.payload.position;
+          const isInside = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+
+          if (event.payload.type === "over") {
+            setIsDragging((p) => {
+              if (isInside) {
+                if (!p) dragCounterRef.current = 1;
+                return true;
+              } else {
+                if (p) dragCounterRef.current = 0;
+                return false;
+              }
+            });
+          } else if (event.payload.type === "drop") {
+            setIsDragging(false);
+            dragCounterRef.current = 0;
+            if (!isInside || !event.payload.paths.length) return;
+
+            const filePath = event.payload.paths[0];
+            const lower = filePath.toLowerCase();
+            const isAudio =
+              lower.endsWith(".mp3") ||
+              lower.endsWith(".wav") ||
+              lower.endsWith(".m4a") ||
+              lower.endsWith(".webm") ||
+              lower.endsWith(".ogg");
+
+            if (isAudio) {
+              readFile(filePath)
+                .then((bytes) => {
+                  onAudioBytesRef.current(bytes);
+                  setErrorMsg(null);
+                })
+                .catch((err) => {
+                  console.error("Failed to read dropped file:", err);
+                  setErrorMsg("Failed to read the dropped file.");
+                });
+            } else {
+              setErrorMsg("Please drop a valid audio file (.mp3, .wav, .m4a, .webm, .ogg).");
+            }
+          }
+        });
+        cleanup = unlisten;
+      } catch (err) {
+        console.error("Failed to register Tauri drag-drop handler:", err);
+      }
+    };
+
+    register();
+    return () => {
+      cleanup?.();
     };
   }, []);
 
@@ -201,8 +279,85 @@ function AudioSection({
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDragEnter = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounterRef.current += 1;
+    if (dragCounterRef.current === 1) {
+      setIsDragging(true);
+    }
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounterRef.current -= 1;
+    if (dragCounterRef.current <= 0) {
+      setIsDragging(false);
+    }
+  };
+
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    dragCounterRef.current = 0;
+
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const nameLower = file.name.toLowerCase();
+      const isAudio =
+        file.type.startsWith("audio/") ||
+        nameLower.endsWith(".mp3") ||
+        nameLower.endsWith(".wav") ||
+        nameLower.endsWith(".m4a") ||
+        nameLower.endsWith(".webm") ||
+        nameLower.endsWith(".ogg");
+
+      if (isAudio) {
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          onAudioBytes(new Uint8Array(arrayBuffer));
+          setErrorMsg(null);
+        } catch (err) {
+          console.error("failed to read dropped file:", err);
+          setErrorMsg("Failed to read the dropped file.");
+        }
+      } else {
+        setErrorMsg("Please drop a valid audio file (.mp3, .wav, .m4a, .webm, .ogg).");
+      }
+    }
+  };
+
   return (
-    <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 flex flex-col justify-between h-96 shadow-sm">
+    <div
+      ref={containerRef}
+      onDragOver={handleDragOver}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      className={`relative border-2 rounded-2xl p-5 flex flex-col justify-between h-96 shadow-sm transition-all duration-200 ${
+        isDragging
+          ? "border-dashed border-talesorang-500 bg-talesorang-50/40 scale-[1.01] ring-4 ring-talesorang-100"
+          : "border-slate-200/80 bg-slate-50"
+      }`}
+    >
+      {isDragging && (
+        <div className="absolute inset-0 bg-white/95 rounded-2xl flex flex-col items-center justify-center z-20 animate-in fade-in zoom-in-95 duration-150">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-talesorang-500 animate-bounce mb-2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+          </svg>
+          <p className="text-sm font-black text-talesblu-800 uppercase tracking-wider pointer-events-none">{LL.AUDIO_DROP_HERE()}</p>
+          <p className="text-[10px] text-gray-400 font-bold mt-1 uppercase tracking-widest pointer-events-none">.mp3, .wav, .m4a, .webm, .ogg</p>
+        </div>
+      )}
+
       <div className="space-y-4">
         <div className="flex justify-between items-start">
           <div>

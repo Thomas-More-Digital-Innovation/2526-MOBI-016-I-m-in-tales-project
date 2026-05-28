@@ -596,6 +596,10 @@ type RootTranslation = {
 	 */
 	AUDIO_MIC_LINUX_ERROR: string
 	/**
+	 * D​r​o​p​ ​A​u​d​i​o​ ​F​i​l​e​ ​H​e​r​e
+	 */
+	AUDIO_DROP_HERE: string
+	/**
 	 * A​u​d​i​o​ ​S​e​t​u​p
 	 */
 	AUDIO_SETUP: string
@@ -1197,6 +1201,10 @@ export type TranslationFunctions = {
 	 * Microphone recording is currently not supported in Tauri on Linux due to WebKit2GTK limitations. Please record using your system's default Sound Recorder and upload the file instead.
 	 */
 	AUDIO_MIC_LINUX_ERROR: () => LocalizedString
+	/**
+	 * Drop Audio File Here
+	 */
+	AUDIO_DROP_HERE: () => LocalizedString
 	/**
 	 * Audio Setup
 	 */

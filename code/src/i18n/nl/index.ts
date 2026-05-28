@@ -192,6 +192,7 @@ const nl = {
   AUDIO_TAP_RECORD: 'Tik op opnemen om te beginnen met spreken',
   AUDIO_MIC_PERMISSION_ERROR: 'Kan geen toegang krijgen tot de microfoon. Controleer uw systeemrechten.',
   AUDIO_MIC_LINUX_ERROR: 'Microfoonopname wordt momenteel niet ondersteund in Tauri op Linux vanwege WebKit2GTK-beperkingen. Neem op met de standaard geluidsrecorder van uw systeem en upload het bestand.',
+  AUDIO_DROP_HERE: 'Sleep audiobestand hierheen',
   AUDIO_SETUP: 'Audio-instellingen',
   AUDIO_MANAGE_BUTTON: 'Beheer Audio',
   AUDIO_READY: 'Gereed',
