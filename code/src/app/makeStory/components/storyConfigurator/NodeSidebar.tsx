@@ -4,6 +4,7 @@ import { useNfc } from "../../../components/NfcProvider";
 import { addCalibration, getStoryCalibration } from "@utils/tagMapping";
 import { useI18nContext } from "@/i18n/i18n-react";
 import type { TranslationFunctions } from "@/i18n/i18n-types";
+import { createCanvasThumbnail } from "./StageNodeFunctions";
 
 type NodeSidebarProps = {
   selectedNode: ChapterNode | null;
@@ -50,15 +51,15 @@ const NodeSidebar = memo(({
     onCalibrationsUpdate(updated);
   };
 
-  const handleMediaBytes = (field: keyof ChapterNode, bytes: Uint8Array) => {
+  const handleMediaBytes = async (field: keyof ChapterNode, bytes: Uint8Array) => {
     const blob = new Blob([bytes as any]);
     const url = URL.createObjectURL(blob);
-
     const updates: Partial<ChapterNode> = { [field]: bytes };
+
     if (field === 'imageBytes') {
-      const img = new window.Image();
-      img.onload = () => onUpdate(selectedNode.id, { ...updates, image: img, imageSrc: url });
-      img.src = url;
+      // createCanvasThumbnail uses createImageBitmap which decodes off the main thread
+      const canvas = await createCanvasThumbnail(blob);
+      onUpdate(selectedNode.id, { ...updates, image: canvas, imageSrc: url });
     } else if (field === 'audioBytes') {
       onUpdate(selectedNode.id, { ...updates, audioSrc: url });
     } else if (field === 'failAudioBytes') {

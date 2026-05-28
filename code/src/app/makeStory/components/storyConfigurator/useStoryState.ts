@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { loadStoryData, saveStoryData } from "@utils/storyIO";
 import { getStoryCalibration } from "@utils/tagMapping";
 import { message } from "@tauri-apps/plugin-dialog";
+import { createCanvasThumbnail } from "./StageNodeFunctions";
 
 export type StoryLink = {
   targetId: string;
@@ -59,7 +60,12 @@ export function useStoryState(folderName: string) {
         .then(async (data) => {
           if (data.story?.id) {
             setStoryId(data.story.id);
-            setStoryMetadata(data.story);
+            setStoryMetadata({
+              ...data.story,
+              name: initialState?.story?.name || data.story.name,
+              description: initialState?.story?.description || data.story.description,
+              thumbnail: initialState?.story?.thumbnail !== undefined ? initialState.story.thumbnail : data.story.thumbnail,
+            });
 
             if (data.story.chapter && data.story.chapter.length > 0) {
               const loadedNodes = data.story.chapter.map((ch: any) => {
@@ -85,11 +91,10 @@ export function useStoryState(folderName: string) {
                 };
 
                 if (node.imageSrc) {
-                  const img = new window.Image();
-                  img.onload = () => {
-                    setNodes((prev) => prev.map((n) => (n.id === node.id ? { ...n, image: img } : n)));
-                  };
-                  img.src = node.imageSrc;
+                  const blob = new Blob([ch.image as any]);
+                  createCanvasThumbnail(blob).then((canvas) => {
+                    setNodes((prev) => prev.map((n) => (n.id === node.id ? { ...n, image: canvas } : n)));
+                  });
                 }
                 return node;
               });

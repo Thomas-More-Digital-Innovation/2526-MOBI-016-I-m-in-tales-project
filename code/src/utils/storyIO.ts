@@ -9,6 +9,7 @@ import {
 } from "@tauri-apps/plugin-fs";
 import { join } from "@tauri-apps/api/path";
 import JSZip from "jszip";
+import { downscaleImageBytes } from "../app/makeStory/components/storyConfigurator/StageNodeFunctions";
 
 export interface StoryMetadata {
   id: string;
@@ -114,7 +115,8 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
 
   const thumbBytes = toUint8Array(data.story.thumbnail);
   if (thumbBytes && thumbBytes.length > 0) {
-    zip.file("thumbnail.png", thumbBytes);
+    const downscaledThumb = await downscaleImageBytes(thumbBytes, 1920, 1080);
+    zip.file("thumbnail.png", downscaledThumb);
   }
 
   if (data.story.chapter) {
@@ -124,7 +126,8 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
     for (const chapter of data.story.chapter) {
       const imgBytes = toUint8Array(chapter.image);
       if (imgBytes && imgBytes.length > 0) {
-        imagesFolder?.file(`${chapter.id}.png`, imgBytes);
+        const downscaledImg = await downscaleImageBytes(imgBytes, 1920, 1080);
+        imagesFolder?.file(`${chapter.id}.png`, downscaledImg);
       }
 
       const audBytes = toUint8Array(chapter.audio);
