@@ -125,8 +125,7 @@ export default function Configurator({
             nodes={nodes}
             selectedId={selectedId}
             onSelect={handleSelect}
-            onNodeDragMove={(id, e) => {
-              const { x, y } = e.target.position();
+            onNodeDragEnd={(id, x, y) => {
               updateNode(id, { x, y });
             }}
             scale={scale}

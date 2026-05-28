@@ -75,7 +75,13 @@ export function useStoryState(folderName: string) {
             });
 
             if (data.story.chapter && data.story.chapter.length > 0) {
-              const loadedNodes = data.story.chapter.map((ch: any) => {
+              const cols = 3;
+              const spacingX = 280;
+              const spacingY = 220;
+              const startX = 100;
+              const startY = 100;
+
+              const loadedNodes = data.story.chapter.map((ch: any, i: number) => {
                 // Populate the media bytes ref to avoid reactive state overhead
                 mediaBytesRef.current[ch.id] = {
                   audioBytes: ch.audio,
@@ -93,8 +99,8 @@ export function useStoryState(folderName: string) {
                   imageSrc: ch.image ? URL.createObjectURL(new Blob([ch.image as any])) : null,
                   failAudioSrc: ch.failAudio ? URL.createObjectURL(new Blob([ch.failAudio as any])) : null,
                   autoAdvance: ch.autoAdvance ?? false,
-                  x: Math.random() * 400,
-                  y: Math.random() * 400,
+                  x: typeof ch.x === "number" && typeof ch.y === "number" ? ch.x : startX + (i % cols) * spacingX,
+                  y: typeof ch.x === "number" && typeof ch.y === "number" ? ch.y : startY + Math.floor(i / cols) * spacingY,
                   links: ch.option?.map((opt: any) => {
                     const matchedItem = data.items?.find((item: any) => item.itemId === opt.item);
                     return {
@@ -250,6 +256,8 @@ export function useStoryState(folderName: string) {
         image: media.imageBytes ?? null,
         failAudio: media.failAudioBytes ?? null,
         autoAdvance: node.autoAdvance ?? false,
+        x: node.x,
+        y: node.y,
         option: options,
       };
     });

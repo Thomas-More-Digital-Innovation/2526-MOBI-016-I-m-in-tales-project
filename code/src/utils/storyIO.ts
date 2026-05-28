@@ -24,6 +24,8 @@ export interface ChapterMetadata {
   title: string;
   description: string;
   autoAdvance?: boolean;
+  x?: number;
+  y?: number;
   options?: OptionMetadata[];
 }
 
@@ -57,6 +59,8 @@ export interface ChapterData {
   audio?: Uint8Array | number[] | null;
   failAudio?: Uint8Array | number[] | null;
   autoAdvance?: boolean;
+  x?: number;
+  y?: number;
   option?: OptionData[];
 }
 
@@ -106,6 +110,8 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
       title: ch.title,
       description: ch.description,
       autoAdvance: ch.autoAdvance ?? false,
+      x: ch.x,
+      y: ch.y,
       options: ch.option?.map(opt => ({
         nextChapter: opt.nextChapter,
         item: opt.item,
@@ -224,6 +230,8 @@ export const loadStoryData = async (storyName: string): Promise<StoryData> => {
         audio,
         failAudio,
         autoAdvance: ch.autoAdvance ?? false,
+        x: ch.x,
+        y: ch.y,
         option: options,
       };
     })

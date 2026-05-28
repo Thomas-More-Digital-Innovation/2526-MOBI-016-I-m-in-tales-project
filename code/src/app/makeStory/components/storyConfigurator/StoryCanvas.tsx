@@ -10,7 +10,7 @@ type StoryCanvasProps = {
   nodes: ChapterNode[];
   selectedId: string | null;
   onSelect: (id: string) => void;
-  onNodeDragMove: (id: string, e: KonvaEventObject<DragEvent>) => void;
+  onNodeDragEnd: (id: string, x: number, y: number) => void;
   scale: number;
   onScaleChange: (newScale: number) => void;
   showToolTipState?: boolean;
@@ -23,12 +23,14 @@ const ChapterNodeView = memo(({
   isSelected,
   onSelect,
   onDragMove,
+  onDragEnd,
   isLinking
 }: {
   node: ChapterNode,
   isSelected: boolean,
   onSelect: (id: string) => void,
-  onDragMove: (id: string, e: KonvaEventObject<DragEvent>) => void,
+  onDragMove: (id: string, x: number, y: number) => void,
+  onDragEnd: (id: string, x: number, y: number) => void,
   isLinking: boolean
 }) => {
   const [hovered, setHovered] = useState(false);
@@ -42,7 +44,14 @@ const ChapterNodeView = memo(({
       draggable={!isLinking}
       onClick={() => onSelect(node.id)}
       onTap={() => onSelect(node.id)}
-      onDragMove={(e) => onDragMove(node.id, e)}
+      onDragMove={(e) => {
+        const { x, y } = e.target.position();
+        onDragMove(node.id, x, y);
+      }}
+      onDragEnd={(e) => {
+        const { x, y } = e.target.position();
+        onDragEnd(node.id, x, y);
+      }}
       onMouseEnter={(e) => {
         setHovered(true);
         const container = e.target.getStage()?.container();
@@ -107,7 +116,7 @@ export default function StoryCanvas({
   nodes,
   selectedId,
   onSelect,
-  onNodeDragMove,
+  onNodeDragEnd,
   scale,
   onScaleChange,
   showToolTipState = false,
@@ -117,9 +126,34 @@ export default function StoryCanvas({
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [localPositions, setLocalPositions] = useState<Record<string, { x: number, y: number }>>({});
   const { LL } = useI18nContext();
 
-  const linkingRootNode = linkingRootId ? nodes.find(n => n.id === linkingRootId) : null;
+  const handleLocalDragMove = (id: string, x: number, y: number) => {
+    setLocalPositions((prev) => ({
+      ...prev,
+      [id]: { x, y }
+    }));
+  };
+
+  const handleDragEnd = (id: string, x: number, y: number) => {
+    setLocalPositions((prev) => {
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
+    onNodeDragEnd(id, x, y);
+  };
+
+  const effectiveNodes = nodes.map((node) => {
+    const local = localPositions[node.id];
+    if (local) {
+      return { ...node, x: local.x, y: local.y };
+    }
+    return node;
+  });
+
+  const linkingRootNode = linkingRootId ? effectiveNodes.find(n => n.id === linkingRootId) : null;
 
   useEffect(() => {
     if (!stageContainerRef.current) return;
@@ -194,9 +228,9 @@ export default function StoryCanvas({
               listening={false}
             />
           )}
-          {nodes.map((node) =>
+          {effectiveNodes.map((node) =>
             node.links.map((link) => {
-              const destination = nodes.find((n) => n.id === link.targetId);
+              const destination = effectiveNodes.find((n) => n.id === link.targetId);
               if (!destination) return null;
               const fromHeight = getNodeHeight(node.title);
               const toHeight = getNodeHeight(destination.title);
@@ -216,13 +250,14 @@ export default function StoryCanvas({
               );
             })
           )}
-          {nodes.map((node) => (
+          {effectiveNodes.map((node) => (
             <ChapterNodeView
               key={node.id}
               node={node}
               isSelected={selectedId === node.id}
               onSelect={onSelect}
-              onDragMove={onNodeDragMove}
+              onDragMove={handleLocalDragMove}
+              onDragEnd={handleDragEnd}
               isLinking={linking}
             />
           ))}

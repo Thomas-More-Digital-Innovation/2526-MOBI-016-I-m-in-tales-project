@@ -12,6 +12,8 @@ export interface Chapter {
   image: string;
   failAudio: string | null;
   autoAdvance?: boolean;
+  x?: number;
+  y?: number;
   option: Option[];
 }
 
