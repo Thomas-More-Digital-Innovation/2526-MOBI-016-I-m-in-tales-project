@@ -120,7 +120,10 @@ const en = {
   NODE_OFFLINE: 'Offline',
   NODE_AUTO_ADVANCE: 'Auto-advance on audio completion',
   NODE_AUTO_ADVANCE_DESC: 'Proceed automatically once narration ends',
-  NODE_AUTO_ADVANCE_DISABLED: '* Disabled due to Auto-Advance',
+  NODE_AUTO_ADVANCE_DISABLED: '* NFC tags ignored due to Auto-Advance',
+  NODE_TRANSITION_LABEL_OPTIONAL: 'Transition label (optional)',
+  NODE_LINK_TO: 'To:',
+  NODE_LINK_SELECT_HINT: 'Click to select this chapter on canvas',
 
   // StoryCanvas component
   CANVAS_NO_IMAGE: 'No Image',

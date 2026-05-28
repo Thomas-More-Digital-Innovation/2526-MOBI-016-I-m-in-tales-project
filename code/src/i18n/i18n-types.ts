@@ -393,9 +393,21 @@ type RootTranslation = {
 	 */
 	NODE_AUTO_ADVANCE_DESC: string
 	/**
-	 * *​ ​D​i​s​a​b​l​e​d​ ​d​u​e​ ​t​o​ ​A​u​t​o​-​A​d​v​a​n​c​e
+	 * *​ ​N​F​C​ ​t​a​g​s​ ​i​g​n​o​r​e​d​ ​d​u​e​ ​t​o​ ​A​u​t​o​-​A​d​v​a​n​c​e
 	 */
 	NODE_AUTO_ADVANCE_DISABLED: string
+	/**
+	 * T​r​a​n​s​i​t​i​o​n​ ​l​a​b​e​l​ ​(​o​p​t​i​o​n​a​l​)
+	 */
+	NODE_TRANSITION_LABEL_OPTIONAL: string
+	/**
+	 * T​o​:
+	 */
+	NODE_LINK_TO: string
+	/**
+	 * C​l​i​c​k​ ​t​o​ ​s​e​l​e​c​t​ ​t​h​i​s​ ​c​h​a​p​t​e​r​ ​o​n​ ​c​a​n​v​a​s
+	 */
+	NODE_LINK_SELECT_HINT: string
 	/**
 	 * N​o​ ​I​m​a​g​e
 	 */
@@ -887,9 +899,21 @@ export type TranslationFunctions = {
 	 */
 	NODE_AUTO_ADVANCE_DESC: () => LocalizedString
 	/**
-	 * * Disabled due to Auto-Advance
+	 * * NFC tags ignored due to Auto-Advance
 	 */
 	NODE_AUTO_ADVANCE_DISABLED: () => LocalizedString
+	/**
+	 * Transition label (optional)
+	 */
+	NODE_TRANSITION_LABEL_OPTIONAL: () => LocalizedString
+	/**
+	 * To:
+	 */
+	NODE_LINK_TO: () => LocalizedString
+	/**
+	 * Click to select this chapter on canvas
+	 */
+	NODE_LINK_SELECT_HINT: () => LocalizedString
 	/**
 	 * No Image
 	 */

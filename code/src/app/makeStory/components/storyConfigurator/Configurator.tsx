@@ -140,6 +140,8 @@ export default function Configurator({
         <div className="w-100 flex-none">
           <NodeSidebar
             selectedNode={selectedNode}
+            nodes={nodes}
+            onSelectNode={setSelectedId}
             onUpdate={updateNode}
             onDelete={deleteNode}
             onLink={toggleLinking}

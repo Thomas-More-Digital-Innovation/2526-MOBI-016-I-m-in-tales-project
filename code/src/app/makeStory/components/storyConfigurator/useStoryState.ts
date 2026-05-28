@@ -214,7 +214,7 @@ export function useStoryState(folderName: string) {
 
   const saveFile = async () => {
     const hasEmptyLabels = nodes.some((node) =>
-      node.links.some((link) => !link.itemLabel.trim())
+      !node.autoAdvance && node.links.some((link) => !link.itemLabel.trim())
     );
 
     if (hasEmptyLabels) {

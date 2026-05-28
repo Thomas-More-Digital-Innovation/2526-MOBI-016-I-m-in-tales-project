@@ -35,6 +35,7 @@ export default function PlayStory() {
 
     useEffect(() => {
         if (!tagUid || !story?.id || !currentChapter) return;
+        if (currentChapter.autoAdvance) return; // Ignore NFC scans during auto-advance chapters
 
         const resolvedItemId = resolveTagForStory(tagUid, story.id, calibrations);
         if (resolvedItemId) {
