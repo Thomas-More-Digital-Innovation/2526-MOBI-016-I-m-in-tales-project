@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Story, StoriesData, Chapter, Option } from "@/types";
-import { playAudio, preloadChapterAudio } from "./AudioPlayer";
+import { playAudio, preloadChapterAudio, stopAudio } from "./AudioPlayer";
 import { loadStoryData, bytesToUrl } from "@/utils/storyIO";
 
 export function useStory(storyId: string | undefined) {
@@ -10,7 +10,7 @@ export function useStory(storyId: string | undefined) {
     );
     const currentChapterRef = useRef<Chapter | undefined>(undefined);
 
-    // Keep ref in sync
+    // keep ref in sync
     useEffect(() => {
         currentChapterRef.current = currentChapter;
     }, [currentChapter]);
@@ -24,7 +24,7 @@ export function useStory(storyId: string | undefined) {
         [story]
     );
 
-    function loadChapter(chapter: Chapter | undefined) {
+    const loadChapter = useCallback((chapter: Chapter | undefined) => {
         if (!chapter) {
             console.error("Chapter not found");
             return;
@@ -32,7 +32,7 @@ export function useStory(storyId: string | undefined) {
         setCurrentChapter(chapter);
         preloadChapterAudio(chapter);
         currentChapterRef.current = chapter;
-    }
+    }, []);
 
     const nextChapter = useCallback(
         async (option: Option) => {
@@ -48,9 +48,15 @@ export function useStory(storyId: string | undefined) {
                 }
             }
         },
-        [getChapterById]
+        [getChapterById, loadChapter]
     );
 
+    const nextChapterRef = useRef<typeof nextChapter | null>(null);
+    useEffect(() => {
+        nextChapterRef.current = nextChapter;
+    }, [nextChapter]);
+
+    // load story once and play initial chapter audio
     useEffect(() => {
         if (!storyId) return;
 
@@ -84,12 +90,19 @@ export function useStory(storyId: string | undefined) {
                 if (chapter?.audio) {
                     await playAudio(chapter.audio);
                     if (chapter.autoAdvance && chapter.option && chapter.option.length === 1) {
-                        nextChapter(chapter.option[0]);
+                        nextChapterRef.current?.(chapter.option[0]);
                     }
                 }
             })
             .catch((err) => console.error("Failed to load story:", err));
-    }, [storyId, nextChapter]);
+    }, [storyId, loadChapter]);
+
+    // stop audio on unmount to prevent lingering playback
+    useEffect(() => {
+        return () => {
+            stopAudio();
+        };
+    }, []);
 
     return {
         story,
