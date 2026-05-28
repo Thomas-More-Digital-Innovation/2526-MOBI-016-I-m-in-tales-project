@@ -1,7 +1,7 @@
 import { Stage, Layer, Group, Rect, Text, Image, Arrow } from "react-konva";
 import type { KonvaEventObject } from "konva/lib/Node";
 import { ToolTip } from "@components";
-import { getEdgePoints, clamp } from "./StageNodeFunctions";
+import { getEdgePoints, clamp, getNodeHeight } from "./StageNodeFunctions";
 import { ChapterNode } from "./useStoryState";
 import { useState, useRef, useEffect, memo } from "react";
 import { useI18nContext } from "@/i18n/i18n-react";
@@ -33,6 +33,7 @@ const ChapterNodeView = memo(({
 }) => {
   const [hovered, setHovered] = useState(false);
   const { LL } = useI18nContext();
+  const cardHeight = getNodeHeight(node.title);
 
   return (
     <Group
@@ -54,7 +55,7 @@ const ChapterNodeView = memo(({
         shadowColor="rgba(0,0,0,0.1)"
         cornerRadius={20}
         width={150}
-        height={150}
+        height={cardHeight}
       />
       {node.image && (
         (node.image instanceof HTMLImageElement && node.image.complete && node.image.naturalWidth > 0) ||
@@ -168,7 +169,7 @@ export default function StoryCanvas({
             <Arrow
               points={[
                 linkingRootNode.x + 75,
-                linkingRootNode.y + 75,
+                linkingRootNode.y + getNodeHeight(linkingRootNode.title) / 2,
                 mousePos.x,
                 mousePos.y
               ]}
@@ -185,7 +186,9 @@ export default function StoryCanvas({
             node.links.map((link) => {
               const destination = nodes.find((n) => n.id === link.targetId);
               if (!destination) return null;
-              const pts = getEdgePoints(node, destination);
+              const fromHeight = getNodeHeight(node.title);
+              const toHeight = getNodeHeight(destination.title);
+              const pts = getEdgePoints(node, destination, fromHeight, toHeight);
               const isSourceSelected = selectedId === node.id;
               return (
                 <Arrow

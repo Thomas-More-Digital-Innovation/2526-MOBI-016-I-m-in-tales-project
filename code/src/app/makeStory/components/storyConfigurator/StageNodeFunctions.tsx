@@ -7,25 +7,57 @@ export type PositionalNode = {
 // Clamping limiting zooming in/out
 export const clamp = (val: number, min: number, max: number) => Math.min(Math.max(val, min), max);
 
-// depending on the position of our destination (top left top right bottom left bottom right) we change the arrow to point FROM a particular point on the chapter
-// We do the same for the destination chapter.
-export const getEdgePoints = (from: PositionalNode, to: PositionalNode) => {
+export const getEdgePoints = (
+  from: PositionalNode,
+  to: PositionalNode,
+  fromHeight = 150,
+  toHeight = 150
+) => {
   const NODE_W = 150;
-  const NODE_H = 150;
 
   const dx = to.x - from.x;
   const dy = to.y - from.y;
   const goSideways = Math.abs(dx) >= Math.abs(dy);
 
   const sourcePoint = goSideways
-    ? [from.x + (dx >= 0 ? NODE_W : 0), from.y + NODE_H / 2]
-    : [from.x + NODE_W / 2, from.y + (dy >= 0 ? NODE_H : 0)];
+    ? [from.x + (dx >= 0 ? NODE_W : 0), from.y + fromHeight / 2]
+    : [from.x + NODE_W / 2, from.y + (dy >= 0 ? fromHeight : 0)];
 
   const destPoint = goSideways
-    ? [to.x + (dx >= 0 ? 0 : NODE_W), to.y + NODE_H / 2]
-    : [to.x + NODE_W / 2, to.y + (dy >= 0 ? 0 : NODE_H)];
+    ? [to.x + (dx >= 0 ? 0 : NODE_W), to.y + toHeight / 2]
+    : [to.x + NODE_W / 2, to.y + (dy >= 0 ? 0 : toHeight)];
 
   return [...sourcePoint, ...destPoint];
+};
+
+export const measureTextHeight = (text: string, width: number, fontSize: number, fontStyle: string): number => {
+  if (typeof document === "undefined") return fontSize * 1.3;
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return fontSize * 1.3;
+  ctx.font = `${fontStyle} ${fontSize}px sans-serif`;
+
+  const words = text.split(" ");
+  let line = "";
+  let linesCount = 1;
+
+  for (let n = 0; n < words.length; n++) {
+    const testLine = line + words[n] + " ";
+    const testWidth = ctx.measureText(testLine).width;
+    if (testWidth > width && n > 0) {
+      linesCount++;
+      line = words[n] + " ";
+    } else {
+      line = testLine;
+    }
+  }
+
+  return linesCount * (fontSize * 1.3);
+};
+
+export const getNodeHeight = (title: string): number => {
+  const textHeight = measureTextHeight(title || "", 130, 14, "bold");
+  return Math.max(150, 120 + textHeight + 12);
 };
 
 const fitDimensions = (w: number, h: number, maxW: number, maxH: number) => {
