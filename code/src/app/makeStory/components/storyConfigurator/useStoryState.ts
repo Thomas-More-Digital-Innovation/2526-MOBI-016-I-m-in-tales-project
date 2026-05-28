@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { loadStoryData, saveStoryData } from "@utils/storyIO";
 import { getStoryCalibration } from "@utils/tagMapping";
@@ -33,6 +33,12 @@ export function useStoryState(folderName: string) {
   const navigate = useNavigate();
   const location = useLocation();
   const initialState = location.state as { story: any } | null;
+
+  const mediaBytesRef = useRef<Record<string, {
+    imageBytes?: Uint8Array | null;
+    audioBytes?: Uint8Array | null;
+    failAudioBytes?: Uint8Array | null;
+  }>>({});
 
   const [storyId, setStoryId] = useState<string | null>(initialState?.story?.id || null);
   const [storyMetadata, setStoryMetadata] = useState<any>(initialState?.story || null);
@@ -70,17 +76,21 @@ export function useStoryState(folderName: string) {
 
             if (data.story.chapter && data.story.chapter.length > 0) {
               const loadedNodes = data.story.chapter.map((ch: any) => {
+                // Populate the media bytes ref to avoid reactive state overhead
+                mediaBytesRef.current[ch.id] = {
+                  audioBytes: ch.audio,
+                  imageBytes: ch.image,
+                  failAudioBytes: ch.failAudio,
+                };
+
                 const node: ChapterNode = {
                   id: ch.id,
                   title: ch.title,
                   description: ch.description,
                   audio: null,
-                  audioBytes: ch.audio,
                   audioSrc: ch.audio ? URL.createObjectURL(new Blob([ch.audio as any])) : null,
                   image: null,
-                  imageBytes: ch.image,
                   imageSrc: ch.image ? URL.createObjectURL(new Blob([ch.image as any])) : null,
-                  failAudioBytes: ch.failAudio,
                   failAudioSrc: ch.failAudio ? URL.createObjectURL(new Blob([ch.failAudio as any])) : null,
                   autoAdvance: ch.autoAdvance ?? false,
                   x: Math.random() * 400,
@@ -155,6 +165,7 @@ export function useStoryState(folderName: string) {
 
   const deleteNode = (id: string) => {
     if (nodes.length <= 1) return; // Keep at least one node
+    delete mediaBytesRef.current[id];
     setNodes((prev) => {
       const filtered = prev.filter((n) => n.id !== id);
       // Also remove any links pointing to this node
@@ -170,7 +181,24 @@ export function useStoryState(folderName: string) {
   };
 
   const updateNode = (id: string, updates: Partial<ChapterNode>) => {
-    setNodes((prev) => prev.map((n) => (n.id === id ? { ...n, ...updates } : n)));
+    const cleanUpdates = { ...updates };
+    if ('imageBytes' in cleanUpdates) {
+      if (!mediaBytesRef.current[id]) mediaBytesRef.current[id] = {};
+      mediaBytesRef.current[id].imageBytes = cleanUpdates.imageBytes;
+      delete cleanUpdates.imageBytes;
+    }
+    if ('audioBytes' in cleanUpdates) {
+      if (!mediaBytesRef.current[id]) mediaBytesRef.current[id] = {};
+      mediaBytesRef.current[id].audioBytes = cleanUpdates.audioBytes;
+      delete cleanUpdates.audioBytes;
+    }
+    if ('failAudioBytes' in cleanUpdates) {
+      if (!mediaBytesRef.current[id]) mediaBytesRef.current[id] = {};
+      mediaBytesRef.current[id].failAudioBytes = cleanUpdates.failAudioBytes;
+      delete cleanUpdates.failAudioBytes;
+    }
+
+    setNodes((prev) => prev.map((n) => (n.id === id ? { ...n, ...cleanUpdates } : n)));
     setIsDirty(true);
   };
 
@@ -212,13 +240,15 @@ export function useStoryState(folderName: string) {
         };
       });
 
+      const media = mediaBytesRef.current[node.id] || {};
+
       return {
         id: node.id,
         title: node.title,
         description: node.description,
-        audio: node.audioBytes ?? null,
-        image: node.imageBytes ?? null,
-        failAudio: node.failAudioBytes ?? null,
+        audio: media.audioBytes ?? null,
+        image: media.imageBytes ?? null,
+        failAudio: media.failAudioBytes ?? null,
         autoAdvance: node.autoAdvance ?? false,
         option: options,
       };
