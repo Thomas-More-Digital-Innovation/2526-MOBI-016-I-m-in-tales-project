@@ -55,10 +55,6 @@ type RootTranslation = {
 	 */
 	MANAGE_LOADING_DESC: string
 	/**
-	 * N​o​ ​s​t​o​r​i​e​s​ ​f​o​u​n​d​ ​y​e​t​.
-	 */
-	MANAGE_EMPTY: string
-	/**
 	 * S​t​a​r​t​ ​b​y​ ​c​r​e​a​t​i​n​g​ ​y​o​u​r​ ​f​i​r​s​t​ ​s​t​o​r​y
 	 */
 	MANAGE_CREATE_FIRST: string
@@ -390,9 +386,9 @@ type RootTranslation = {
 	CANVAS_NO_IMAGE: string
 	/**
 	 * C​l​i​c​k​ ​+​ ​d​r​a​g​ ​t​o​ ​p​a​n​ ​
-​ ​C​l​i​c​k​ ​o​n​ ​a​ ​c​h​a​p​t​e​r​ ​t​o​ ​s​e​l​e​c​t​ ​i​t​ ​
-​ ​S​c​r​o​l​l​ ​t​o​ ​z​o​o​m​ ​i​n​ ​
-​ ​U​s​e​ ​t​h​e​ ​b​u​t​t​o​n​ ​a​b​o​v​e​ ​t​o​ ​a​d​d​ ​a​ ​n​e​w​ ​c​h​a​p​t​e​r
+   C​l​i​c​k​ ​o​n​ ​a​ ​c​h​a​p​t​e​r​ ​t​o​ ​s​e​l​e​c​t​ ​i​t​ ​
+   S​c​r​o​l​l​ ​t​o​ ​z​o​o​m​ ​i​n​ ​
+   U​s​e​ ​t​h​e​ ​b​u​t​t​o​n​ ​a​b​o​v​e​ ​t​o​ ​a​d​d​ ​a​ ​n​e​w​ ​c​h​a​p​t​e​r
 	 */
 	CANVAS_HINT: string
 	/**
@@ -538,10 +534,6 @@ export type TranslationFunctions = {
 	 * Please wait a moment, we're loading your library...
 	 */
 	MANAGE_LOADING_DESC: () => LocalizedString
-	/**
-	 * No stories found yet.
-	 */
-	MANAGE_EMPTY: () => LocalizedString
 	/**
 	 * Start by creating your first story
 	 */

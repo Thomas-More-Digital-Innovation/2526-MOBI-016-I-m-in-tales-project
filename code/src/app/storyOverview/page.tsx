@@ -1,4 +1,4 @@
-import { Center, Header, LargerButton, ToolTip, ImportButton, LoadingScreen } from "@components";
+import { Center, Header, LargerButton, ToolTip, ImportButton, LoadingScreen, NoStoriesCTA } from "@components";
 import { useState, useEffect, useCallback } from "react";
 import StoryCard from "../components/StoryCard";
 import Modal from "../components/Modal";
@@ -69,10 +69,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
             }}
           />
         )) : (
-          <Center>
-            <p className="text-2xl py-4">{LL.OVERVIEW_EMPTY()}</p>
-            <LargerButton label={LL.OVERVIEW_MAKE_FIRST()} link="/makeStory" imageLink="/MakeStory.svg" />
-          </Center>
+          <NoStoriesCTA />
         )}
       </div>
 

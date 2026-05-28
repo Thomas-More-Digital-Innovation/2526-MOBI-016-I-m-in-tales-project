@@ -14,7 +14,6 @@ const en = {
   MANAGE_TITLE: 'Manage My Stories',
   MANAGE_LOADING_TITLE: 'Managing stories...',
   MANAGE_LOADING_DESC: "Please wait a moment, we're loading your library...",
-  MANAGE_EMPTY: 'No stories found yet.',
   MANAGE_CREATE_FIRST: 'Start by creating your first story',
   MANAGE_EDIT_STORY: 'Edit Story',
   MANAGE_EXPORT_STORY: 'Export Story',

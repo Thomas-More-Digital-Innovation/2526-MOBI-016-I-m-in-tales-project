@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Header, Button, StoryCard, ImportButton, LoadingScreen } from "@components";
+import { Header, Button, StoryCard, ImportButton, LoadingScreen, NoStoriesCTA } from "@components";
 import { getStoriesOverview, removeStoryData, StoryPreview, exportStory } from "@utils/storyIO";
 import { useNavigate } from "react-router-dom";
 import { ask } from "@tauri-apps/plugin-dialog";
@@ -57,12 +57,7 @@ export default function ManageStory() {
             imageSrc="/ManageStory.svg"
           />
         ) : stories.length === 0 ? (
-          <div className="text-center py-24 bg-white rounded-3xl border-2 border-dashed border-gray-200">
-            <p className="text-gray-400 text-xl font-medium">{LL.MANAGE_EMPTY()}</p>
-            <Button onClick={() => navigate('/makeStory')} cls="mt-6 !bg-transparent !text-talesorang-500 hover:underline">
-              {LL.MANAGE_CREATE_FIRST()}
-            </Button>
-          </div>
+          <NoStoriesCTA />
         ) : (
           <div className="flex flex-wrap justify-center gap-4">
             {stories.map((story) => (

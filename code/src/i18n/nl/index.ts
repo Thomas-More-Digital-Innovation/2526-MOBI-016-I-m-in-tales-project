@@ -14,7 +14,6 @@ const nl = {
   MANAGE_TITLE: 'Beheer Mijn Verhalen',
   MANAGE_LOADING_TITLE: 'Verhalen beheren...',
   MANAGE_LOADING_DESC: 'Even geduld, we laden je bibliotheek...',
-  MANAGE_EMPTY: 'Nog geen verhalen gevonden.',
   MANAGE_CREATE_FIRST: 'Begin door je eerste verhaal te maken',
   MANAGE_EDIT_STORY: 'Bewerk verhaal',
   MANAGE_EXPORT_STORY: 'Exporteer verhaal',
