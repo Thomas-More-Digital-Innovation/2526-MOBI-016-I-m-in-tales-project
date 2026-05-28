@@ -43,8 +43,20 @@ const ChapterNodeView = memo(({
       onClick={() => onSelect(node.id)}
       onTap={() => onSelect(node.id)}
       onDragMove={(e) => onDragMove(node.id, e)}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={(e) => {
+        setHovered(true);
+        const container = e.target.getStage()?.container();
+        if (container) {
+          container.style.cursor = isLinking ? "crosshair" : "grab";
+        }
+      }}
+      onMouseLeave={(e) => {
+        setHovered(false);
+        const container = e.target.getStage()?.container();
+        if (container) {
+          container.style.cursor = "default";
+        }
+      }}
     >
       <Rect
         fill={isSelected ? "#ffffff" : "#fdfdfd"}

@@ -74,7 +74,7 @@ const NodeSidebar = memo(({
         {selectedNode.title !== "Intro" && (
           <button
             onClick={() => onDelete(selectedNode.id)}
-            className="text-red-400 hover:text-red-600 transition-colors"
+            className="text-red-400 hover:text-red-600 transition-colors cursor-pointer"
             title={LL.NODE_DELETE_CHAPTER()}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -208,8 +208,8 @@ function LinkItem({ link, calibratedTag, onUpdateLabel, onDelete, onLinkTag, tag
         <div className="flex-1 flex flex-col min-w-0">
           <input
             className={`w-full text-sm font-bold placeholder:italic border-2 border-dashed rounded-xl px-3 py-1.5 outline-none transition-all focus:ring-0 text-talesblu-800 placeholder:text-gray-400 mr-2 ${isLabelEmpty
-                ? "border-red-300 focus:border-red-500 bg-red-50/20"
-                : "border-gray-200 focus:border-talesorang-500 focus:bg-white bg-white/60 hover:bg-white hover:border-gray-300"
+              ? "border-red-300 focus:border-red-500 bg-red-50/20"
+              : "border-gray-200 focus:border-talesorang-500 focus:bg-white bg-white/60 hover:bg-white hover:border-gray-300"
               }`}
             value={link.itemLabel}
             onChange={(e) => onUpdateLabel(e.target.value)}
