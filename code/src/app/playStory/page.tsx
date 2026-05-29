@@ -23,6 +23,7 @@ export default function PlayStory() {
         nextChapter,
         triggerError,
         replayAudio,
+        cancelPendingAction,
         currentChapterRef,
     } = useStory(id);
     useFullscreen();
@@ -44,6 +45,7 @@ export default function PlayStory() {
     useEffect(() => {
         if (!tagUid) {
             lastProcessedTagUid.current = null;
+            cancelPendingAction();
             return;
         }
 

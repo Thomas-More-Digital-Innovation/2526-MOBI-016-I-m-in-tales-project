@@ -97,6 +97,10 @@ export function useStory(storyId: string | undefined) {
         setActiveAudioType("none");
     }, [currentChapter]);
 
+    const cancelPendingAction = useCallback(() => {
+        setPendingAction(null);
+    }, []);
+
     // smart pre-buffering and initial playback cycle on chapter change
     useEffect(() => {
         if (!currentChapter) return;
@@ -217,5 +221,6 @@ export function useStory(storyId: string | undefined) {
         nextChapter: handleSelectOption,
         triggerError: handleTriggerError,
         replayAudio: handleReplayAudio,
+        cancelPendingAction,
     };
 }
