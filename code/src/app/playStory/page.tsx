@@ -38,10 +38,15 @@ export default function PlayStory() {
         if (currentChapter.autoAdvance) return; // Ignore NFC scans during auto-advance chapters
 
         const resolvedItemId = resolveTagForStory(tagUid, story.id, calibrations);
-        if (resolvedItemId) {
-            const matchingOption = currentChapter.option.find(o => o.item === resolvedItemId);
-            if (matchingOption) {
-                nextChapter(matchingOption);
+        const matchingOption = resolvedItemId
+            ? currentChapter.option.find(o => o.item === resolvedItemId)
+            : undefined;
+
+        if (matchingOption) {
+            nextChapter(matchingOption);
+        } else {
+            if (currentChapter.failAudio) {
+                playAudio(currentChapter.failAudio);
             }
         }
     }, [tagUid, story?.id, currentChapter, calibrations, nextChapter]);

@@ -3,6 +3,14 @@ import { Story, StoriesData, Chapter, Option } from "@/types";
 import { playAudio, preloadChapterAudio, stopAudio } from "./AudioPlayer";
 import { loadStoryData, bytesToUrl } from "@/utils/storyIO";
 
+const getAudioUrl = (bytes: Uint8Array | number[] | null | undefined): string | null => {
+    if (!bytes) return null;
+    const length = bytes instanceof Uint8Array ? bytes.length : (Array.isArray(bytes) ? bytes.length : 0);
+    if (length === 0) return null;
+    const url = bytesToUrl(bytes, "audio/mpeg");
+    return url === "/placeholder.png" ? null : url;
+};
+
 export function useStory(storyId: string | undefined) {
     const [story, setStory] = useState<Story | null>(null);
     const [currentChapter, setCurrentChapter] = useState<Chapter | undefined>(
@@ -71,13 +79,13 @@ export function useStory(storyId: string | undefined) {
                         id: ch.id,
                         title: ch.title,
                         description: ch.description,
-                        audio: bytesToUrl(ch.audio, "audio/mpeg"),
+                        audio: getAudioUrl(ch.audio) ?? "",
                         image: bytesToUrl(ch.image, "image/png"),
-                        failAudio: bytesToUrl(ch.failAudio, "audio/mpeg"),
+                        failAudio: getAudioUrl(ch.failAudio),
                         autoAdvance: ch.autoAdvance ?? false,
                         option: (ch.option || []).map((opt) => ({
                             nextChapter: opt.nextChapter,
-                            audio: bytesToUrl(opt.audio, "audio/mpeg"),
+                            audio: getAudioUrl(opt.audio) ?? "",
                             item: opt.item,
                         })),
                     })),
