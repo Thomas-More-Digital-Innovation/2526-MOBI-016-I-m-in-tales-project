@@ -1,7 +1,15 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Story, StoriesData, Chapter, Option } from "@/types";
-import { playAudio, preloadChapterAudio, stopAudio } from "./AudioPlayer";
+import { Story, Chapter, Option } from "@/types";
+import { playAudio, preloadAudios, stopAudio, resetAudioPlayer } from "./AudioPlayer";
 import { loadStoryData, bytesToUrl } from "@/utils/storyIO";
+
+type AudioType = "none" | "narration" | "option" | "error";
+
+interface PendingAction {
+    type: "next" | "error";
+    option?: Option;
+    failAudioUrl?: string | null;
+}
 
 const getAudioUrl = (bytes: Uint8Array | number[] | null | undefined): string | null => {
     if (!bytes) return null;
@@ -13,63 +21,158 @@ const getAudioUrl = (bytes: Uint8Array | number[] | null | undefined): string | 
 
 export function useStory(storyId: string | undefined) {
     const [story, setStory] = useState<Story | null>(null);
-    const [currentChapter, setCurrentChapter] = useState<Chapter | undefined>(
-        undefined
-    );
+    const [currentChapter, setCurrentChapter] = useState<Chapter | undefined>(undefined);
     const currentChapterRef = useRef<Chapter | undefined>(undefined);
 
-    // keep ref in sync
+    const [isInitialPlaying, setIsInitialPlaying] = useState(false);
+    const [activeAudioType, setActiveAudioType] = useState<AudioType>("none");
+    const [pendingAction, setPendingAction] = useState<PendingAction | null>(null);
+
     useEffect(() => {
         currentChapterRef.current = currentChapter;
     }, [currentChapter]);
 
     const getChapterById = useCallback(
         (chapterId: string | undefined): Chapter | undefined => {
-            return story?.chapter.find(
-                (chapter: Chapter) => chapter.id === chapterId
-            );
+            return story?.chapter.find((ch: Chapter) => ch.id === chapterId);
         },
         [story]
     );
 
-    const loadChapter = useCallback((chapter: Chapter | undefined) => {
-        if (!chapter) {
-            console.error("Chapter not found");
-            return;
-        }
-        setCurrentChapter(chapter);
-        preloadChapterAudio(chapter);
-        currentChapterRef.current = chapter;
-    }, []);
-
-    const nextChapter = useCallback(
+    const transitionTo = useCallback(
         async (option: Option) => {
+            stopAudio();
+            setActiveAudioType("option");
+            setIsInitialPlaying(false);
+            setPendingAction(null);
+
             if (option.audio) {
                 await playAudio(option.audio);
             }
+
             const chapter = getChapterById(option.nextChapter);
-            loadChapter(chapter);
-            if (chapter?.audio) {
-                await playAudio(chapter.audio);
-                if (chapter.autoAdvance && chapter.option && chapter.option.length === 1) {
-                    nextChapter(chapter.option[0]);
+            if (chapter) {
+                setCurrentChapter(chapter);
+            } else {
+                setActiveAudioType("none");
+            }
+        },
+        [getChapterById]
+    );
+
+    const handleSelectOption = useCallback(
+        async (option: Option) => {
+            if (isInitialPlaying) {
+                setPendingAction({ type: "next", option });
+            } else {
+                await transitionTo(option);
+            }
+        },
+        [isInitialPlaying, transitionTo]
+    );
+
+    const handleTriggerError = useCallback(
+        async (failAudioUrl: string | null | undefined) => {
+            if (isInitialPlaying) {
+                setPendingAction({ type: "error", failAudioUrl });
+            } else {
+                stopAudio();
+                if (failAudioUrl) {
+                    setActiveAudioType("error");
+                    setIsInitialPlaying(false);
+                    await playAudio(failAudioUrl);
+                    setActiveAudioType("none");
                 }
             }
         },
-        [getChapterById, loadChapter]
+        [isInitialPlaying]
     );
 
-    const nextChapterRef = useRef<typeof nextChapter | null>(null);
-    useEffect(() => {
-        nextChapterRef.current = nextChapter;
-    }, [nextChapter]);
+    const handleReplayAudio = useCallback(async () => {
+        if (!currentChapter?.audio) return;
+        stopAudio();
+        setIsInitialPlaying(false);
+        setActiveAudioType("narration");
+        await playAudio(currentChapter.audio);
+        setActiveAudioType("none");
+    }, [currentChapter]);
 
-    // load story once and play initial chapter audio
+    // smart pre-buffering and initial playback cycle on chapter change
+    useEffect(() => {
+        if (!currentChapter) return;
+
+        let active = true;
+
+        // collect all audios for preloading
+        const pathsToPreload: string[] = [];
+        if (currentChapter.audio) pathsToPreload.push(currentChapter.audio);
+        if (currentChapter.failAudio) pathsToPreload.push(currentChapter.failAudio);
+        currentChapter.option.forEach((opt) => {
+            if (opt.audio) pathsToPreload.push(opt.audio);
+        });
+
+        // preload next possible chapters' audio assets to pre-buffer
+        currentChapter.option.forEach((opt) => {
+            const nextCh = getChapterById(opt.nextChapter);
+            if (nextCh) {
+                if (nextCh.audio) pathsToPreload.push(nextCh.audio);
+                if (nextCh.failAudio) pathsToPreload.push(nextCh.failAudio);
+                nextCh.option.forEach((nextOpt) => {
+                    if (nextOpt.audio) pathsToPreload.push(nextOpt.audio);
+                });
+            }
+        });
+
+        preloadAudios(pathsToPreload);
+
+        async function startNarration() {
+            if (!currentChapter) return;
+            if (currentChapter.audio) {
+                setIsInitialPlaying(true);
+                setActiveAudioType("narration");
+                await playAudio(currentChapter.audio);
+                if (!active) return;
+            }
+            setIsInitialPlaying(false);
+            setActiveAudioType("none");
+        }
+
+        startNarration();
+
+        return () => {
+            active = false;
+        };
+    }, [currentChapter, getChapterById]);
+
+    // process pending actions or auto advance when initial narration finishes
+    useEffect(() => {
+        if (isInitialPlaying) return;
+
+        if (pendingAction) {
+            const action = pendingAction;
+            setPendingAction(null);
+            if (action.type === "next" && action.option) {
+                transitionTo(action.option);
+            } else if (action.type === "error") {
+                handleTriggerError(action.failAudioUrl ?? null);
+            }
+        } else {
+            if (
+                currentChapter?.autoAdvance &&
+                currentChapter.option &&
+                currentChapter.option.length === 1
+            ) {
+                transitionTo(currentChapter.option[0]);
+            }
+        }
+    }, [isInitialPlaying, pendingAction, currentChapter, transitionTo, handleTriggerError]);
+
+    // load story structure
     useEffect(() => {
         if (!storyId) return;
 
         loadStoryData(storyId)
-            .then(async (data) => {
+            .then((data) => {
                 const loadedStory: Story = {
                     id: data.story.id,
                     name: data.story.name,
@@ -92,23 +195,18 @@ export function useStory(storyId: string | undefined) {
                 };
 
                 setStory(loadedStory);
-                const chapter = loadedStory.chapter[0];
-                loadChapter(chapter);
-
-                if (chapter?.audio) {
-                    await playAudio(chapter.audio);
-                    if (chapter.autoAdvance && chapter.option && chapter.option.length === 1) {
-                        nextChapterRef.current?.(chapter.option[0]);
-                    }
+                const firstChapter = loadedStory.chapter[0];
+                if (firstChapter) {
+                    setCurrentChapter(firstChapter);
                 }
             })
             .catch((err) => console.error("Failed to load story:", err));
-    }, [storyId, loadChapter]);
+    }, [storyId]);
 
-    // stop audio on unmount to prevent lingering playback
+    // fully clear media session and buffers on component unmount
     useEffect(() => {
         return () => {
-            stopAudio();
+            resetAudioPlayer();
         };
     }, []);
 
@@ -116,6 +214,8 @@ export function useStory(storyId: string | undefined) {
         story,
         currentChapter,
         currentChapterRef,
-        nextChapter,
+        nextChapter: handleSelectOption,
+        triggerError: handleTriggerError,
+        replayAudio: handleReplayAudio,
     };
 }

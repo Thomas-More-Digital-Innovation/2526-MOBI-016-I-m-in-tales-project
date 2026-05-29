@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import SettingsModal from "./SettingsModal";
 import { storySettings } from "./Settings";
 import { useStory } from "./useStory";
@@ -8,7 +8,7 @@ import StoryVisuals from "./components/StoryVisuals";
 import StoryOverlay from "./components/StoryOverlay";
 import StoryOptions from "./components/StoryOptions";
 import StoryHeader from "./components/StoryHeader";
-import { playAudio, stopAudio } from "./AudioPlayer";
+import { resetAudioPlayer } from "./AudioPlayer";
 import { StorySettings } from "@/types";
 import { Center, LoadingScreen } from "../components";
 import { useNfc } from "../components/NfcProvider";
@@ -17,8 +17,14 @@ import { useI18nContext } from "@/i18n/i18n-react";
 
 export default function PlayStory() {
     const { id } = useParams();
-    const { story, currentChapter, nextChapter, currentChapterRef } =
-        useStory(id);
+    const {
+        story,
+        currentChapter,
+        nextChapter,
+        triggerError,
+        replayAudio,
+        currentChapterRef,
+    } = useStory(id);
     useFullscreen();
 
     const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -28,14 +34,27 @@ export default function PlayStory() {
     const { LL } = useI18nContext();
 
     const { tagUid } = useNfc();
+    const lastProcessedTagUid = useRef<string | null>(null);
 
     useEffect(() => {
         loadAllCalibrations().then(setCalibrations);
     }, []);
 
+    // handle physical board tag scans as discrete single-trigger events
     useEffect(() => {
-        if (!tagUid || !story?.id || !currentChapter) return;
-        if (currentChapter.autoAdvance) return; // Ignore NFC scans during auto-advance chapters
+        if (!tagUid) {
+            lastProcessedTagUid.current = null;
+            return;
+        }
+
+        if (tagUid === lastProcessedTagUid.current) {
+            return;
+        }
+
+        if (!story?.id || !currentChapter) return;
+        if (currentChapter.autoAdvance) return;
+
+        lastProcessedTagUid.current = tagUid;
 
         const resolvedItemId = resolveTagForStory(tagUid, story.id, calibrations);
         const matchingOption = resolvedItemId
@@ -45,14 +64,12 @@ export default function PlayStory() {
         if (matchingOption) {
             nextChapter(matchingOption);
         } else {
-            if (currentChapter.failAudio) {
-                playAudio(currentChapter.failAudio);
-            }
+            triggerError(currentChapter.failAudio);
         }
-    }, [tagUid, story?.id, currentChapter, calibrations, nextChapter]);
+    }, [tagUid, story?.id, currentChapter, calibrations, nextChapter, triggerError]);
 
     const closeStory = useCallback(() => {
-        stopAudio();
+        resetAudioPlayer();
         window.history.back();
     }, []);
 
@@ -90,7 +107,7 @@ export default function PlayStory() {
     } else if (!currentChapter && !story) {
         return <Center>
             <p className="text-2xl">{LL.PLAY_NOT_FOUND()}</p>
-        </Center>
+        </Center>;
     }
 
     return (
@@ -99,10 +116,7 @@ export default function PlayStory() {
                 fontSizeSetting={settings.fontSize}
                 onSettingsClick={() => setShowSettingsModal(true)}
                 onCloseClick={closeStory}
-                onReplayAudioClick={() => {
-                    if (!currentChapter?.audio) return;
-                    playAudio(currentChapter.audio);
-                }}
+                onReplayAudioClick={replayAudio}
             />
 
             {currentChapter ? (
@@ -122,10 +136,7 @@ export default function PlayStory() {
             <StoryOptions
                 options={currentChapter?.option}
                 onOptionClick={nextChapter}
-                onErrorClick={() => {
-                    if (!currentChapter?.failAudio) return;
-                    playAudio(currentChapter.failAudio);
-                }}
+                onErrorClick={() => triggerError(currentChapter?.failAudio)}
             />
 
             <SettingsModal
