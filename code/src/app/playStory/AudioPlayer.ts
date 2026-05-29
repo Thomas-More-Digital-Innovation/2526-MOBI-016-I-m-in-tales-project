@@ -3,6 +3,7 @@ import { storySettings } from "./Settings";
 
 let audioRecord: Record<string, HTMLAudioElement> = {};
 let activeAudio: HTMLAudioElement | null = null;
+let activeAudioCleanup: (() => void) | null = null;
 
 export function playAudio(audioPath: string): Promise<void> {
     return new Promise((resolve) => {
@@ -12,30 +13,36 @@ export function playAudio(audioPath: string): Promise<void> {
             resolve();
             return;
         }
+
         stopAudio();
+
         activeAudio = audio;
 
-        const onCleanUp = () => {
+        const handleEnded = () => cleanup();
+        const handleError = (e: any) => {
+            console.error("Audio playback failed", e);
+            cleanup();
+        };
+
+        const cleanup = () => {
             audio.removeEventListener("ended", handleEnded);
             audio.removeEventListener("error", handleError);
-            activeAudio = null;
+            if (activeAudio === audio) {
+                activeAudio = null;
+                activeAudioCleanup = null;
+            }
             resolve();
         };
 
-        const handleEnded = () => {
-            onCleanUp();
-        };
-
-        const handleError = (e: ErrorEvent) => {
-            console.error("Audio playback failed", e);
-            onCleanUp();
-        };
-
+        activeAudioCleanup = cleanup;
         audio.addEventListener("ended", handleEnded);
         audio.addEventListener("error", handleError);
 
         audio.volume = storySettings.volume;
-        audio.play().catch(handleError);
+        audio.play().catch((err) => {
+            console.error("Playback start failed", err);
+            cleanup();
+        });
     });
 }
 
@@ -44,10 +51,22 @@ export function stopAudio() {
         activeAudio.pause();
         activeAudio.currentTime = 0;
     }
+    if (activeAudioCleanup) {
+        activeAudioCleanup();
+    }
+}
+
+export function resetAudioPlayer() {
+    stopAudio();
+    for (const path in audioRecord) {
+        audioRecord[path].pause();
+        audioRecord[path].src = "";
+        audioRecord[path].load();
+    }
+    audioRecord = {};
 }
 
 export function loadAudio(audioPath: string): HTMLAudioElement {
-    // If it's a blob URL or an absolute web URL, use it directly
     const isFullUrl =
         audioPath.startsWith("blob:") ||
         audioPath.startsWith("data:") ||
@@ -60,17 +79,32 @@ export function loadAudio(audioPath: string): HTMLAudioElement {
     return audio;
 }
 
-export function preloadChapterAudio(chapter: Chapter) {
-    audioRecord = {};
-    chapter.option.forEach((option: Option) => {
-        if (option.audio) {
-            audioRecord[option.audio] = loadAudio(option.audio);
+export function preloadAudios(audioPaths: string[]) {
+    const newRecord: Record<string, HTMLAudioElement> = {};
+    audioPaths.forEach((path) => {
+        if (!path) return;
+        if (audioRecord[path]) {
+            newRecord[path] = audioRecord[path];
+        } else {
+            newRecord[path] = loadAudio(path);
         }
     });
-    if (chapter.audio) {
-        audioRecord[chapter.audio] = loadAudio(chapter.audio);
+
+    for (const path in audioRecord) {
+        if (!newRecord[path]) {
+            audioRecord[path].pause();
+            audioRecord[path].src = "";
+        }
     }
-    if (chapter.failAudio) {
-        audioRecord[chapter.failAudio] = loadAudio(chapter.failAudio);
-    }
+    audioRecord = newRecord;
+}
+
+export function preloadChapterAudio(chapter: Chapter) {
+    const paths: string[] = [];
+    chapter.option.forEach((option: Option) => {
+        if (option.audio) paths.push(option.audio);
+    });
+    if (chapter.audio) paths.push(chapter.audio);
+    if (chapter.failAudio) paths.push(chapter.failAudio);
+    preloadAudios(paths);
 }
