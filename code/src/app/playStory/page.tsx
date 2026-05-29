@@ -58,7 +58,8 @@ export default function PlayStory() {
 
         lastProcessedTagUid.current = tagUid;
 
-        const resolvedItemId = resolveTagForStory(tagUid, story.id, calibrations);
+        const allowedItemIds = (currentChapter.option || []).map(o => o.item).filter((item): item is string => !!item);
+        const resolvedItemId = resolveTagForStory(tagUid, story.id, calibrations, allowedItemIds);
         const matchingOption = resolvedItemId
             ? currentChapter.option.find(o => o.item === resolvedItemId)
             : undefined;
@@ -68,7 +69,7 @@ export default function PlayStory() {
         } else {
             triggerError(currentChapter.failAudio);
         }
-    }, [tagUid, story?.id, currentChapter, calibrations, nextChapter, triggerError]);
+    }, [tagUid, story?.id, currentChapter, calibrations, nextChapter, triggerError, cancelPendingAction]);
 
     const closeStory = useCallback(() => {
         resetAudioPlayer();

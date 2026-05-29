@@ -53,12 +53,27 @@ export async function addCalibration(storyId: string, itemId: string, hardwareUi
 
 /**
  * Resolves a hardware UID to a Story Item ID based on the active story context.
+ * Allows prioritization of specific allowed item IDs to handle physical tag reuse.
  */
-export function resolveTagForStory(uid: string, storyId: string, calibrations: StoryCalibrations): string | null {
+export function resolveTagForStory(
+    uid: string,
+    storyId: string,
+    calibrations: StoryCalibrations,
+    allowedItemIds?: string[]
+): string | null {
     const storyMap = calibrations[storyId];
     if (!storyMap) return null;
 
-    // Find the item ID that is mapped to this UID
-    const entry = Object.entries(storyMap).find(([_, hUid]) => hUid === uid);
-    return entry ? entry[0] : null;
+    // Find all item IDs mapped to this UID
+    const entries = Object.entries(storyMap).filter(([_, hUid]) => hUid === uid);
+    if (entries.length === 0) return null;
+
+    if (allowedItemIds && allowedItemIds.length > 0) {
+        // Prioritize the entry that matches one of the allowed item IDs
+        const allowedEntry = entries.find(([itemId]) => allowedItemIds.includes(itemId));
+        if (allowedEntry) return allowedEntry[0];
+    }
+
+    // Fallback to the first matched item ID
+    return entries[0][0];
 }
