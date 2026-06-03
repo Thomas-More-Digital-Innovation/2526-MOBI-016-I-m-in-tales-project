@@ -139,6 +139,8 @@ const nl = {
   // SettingsModal component
   SETTINGS_TEXT_SIZE: 'Tekst grootte',
   SETTINGS_VOLUME: 'Volume',
+  SETTINGS_SHOW_STORY_OPTIONS: 'Handmatige opties weergeven',
+  SETTINGS_SHOW_STORY_OPTIONS_DESC: 'Toon handmatige knoppen in de rechterbenedenhoek om hoofdstukkeuzes te forceren.',
 
   // StoryHeader component
   STORY_SETTINGS: 'Instellingen',
@@ -149,6 +151,10 @@ const nl = {
 
   // StoryOptions component
   STORY_OPTION_AUDIO: '(Audio)',
+  STORY_OPTION_NEXT_CHAPTER: 'Volgend hoofdstuk:',
+  STORY_OPTION_PLAY_ERROR_SOUND: 'Foutgeluid afspelen',
+  STORY_OPTION_HIDE_OPTIONS: 'Opties verbergen',
+  STORY_OPTION_SHOW_OPTIONS: 'Opties tonen',
 
   // StoryVisuals component
   STORY_BG_ALT: 'Verhaal achtergrond',

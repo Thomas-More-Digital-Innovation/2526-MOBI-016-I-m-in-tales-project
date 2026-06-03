@@ -139,6 +139,8 @@ const en = {
   // SettingsModal component
   SETTINGS_TEXT_SIZE: 'Text Size',
   SETTINGS_VOLUME: 'Volume',
+  SETTINGS_SHOW_STORY_OPTIONS: 'Show Override Options',
+  SETTINGS_SHOW_STORY_OPTIONS_DESC: 'Display manual buttons in the bottom right corner to override chapter choices.',
 
   // StoryHeader component
   STORY_SETTINGS: 'Settings',
@@ -149,6 +151,10 @@ const en = {
 
   // StoryOptions component
   STORY_OPTION_AUDIO: '(Audio)',
+  STORY_OPTION_NEXT_CHAPTER: 'Next chapter:',
+  STORY_OPTION_PLAY_ERROR_SOUND: 'Play error sound',
+  STORY_OPTION_HIDE_OPTIONS: 'Hide Options',
+  STORY_OPTION_SHOW_OPTIONS: 'Show Options',
 
   // StoryVisuals component
   STORY_BG_ALT: 'Story Background',

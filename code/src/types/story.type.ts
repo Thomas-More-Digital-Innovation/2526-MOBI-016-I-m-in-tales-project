@@ -2,6 +2,7 @@ export interface Option {
   nextChapter: string;
   audio: string;
   item: string | null;
+  itemLabel?: string;
 }
 
 export interface Chapter {

@@ -21,7 +21,16 @@ export default function StoryHeader({
 
     return (
         <>
-            <div className="absolute top-3 left-2 z-100 flex gap-2">
+
+            <Button
+                onClick={onReplayAudioClick}
+                cls="absolute top-3 left-2 z-100"
+                style={{
+                    fontSize: baseFontSize + "px",
+                }}>
+                {LL.STORY_REPLAY_AUDIO()}
+            </Button>
+            <div className="absolute top-3 right-2 z-100 flex gap-2">
                 <Button
                     onClick={onSettingsClick}
                     style={{
@@ -30,21 +39,13 @@ export default function StoryHeader({
                     {LL.STORY_SETTINGS()}
                 </Button>
                 <Button
-                    onClick={onReplayAudioClick}
+                    onClick={onCloseClick}
                     style={{
                         fontSize: baseFontSize + "px",
                     }}>
-                    {LL.STORY_REPLAY_AUDIO()}
+                    X
                 </Button>
             </div>
-            <Button
-                onClick={onCloseClick}
-                cls="absolute top-3 right-2 z-100"
-                style={{
-                    fontSize: baseFontSize + "px",
-                }}>
-                X
-            </Button>
         </>
     );
 }

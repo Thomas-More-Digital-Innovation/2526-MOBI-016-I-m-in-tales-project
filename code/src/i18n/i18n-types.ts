@@ -448,6 +448,14 @@ type RootTranslation = {
 	 */
 	SETTINGS_VOLUME: string
 	/**
+	 * S​h​o​w​ ​O​v​e​r​r​i​d​e​ ​O​p​t​i​o​n​s
+	 */
+	SETTINGS_SHOW_STORY_OPTIONS: string
+	/**
+	 * D​i​s​p​l​a​y​ ​m​a​n​u​a​l​ ​b​u​t​t​o​n​s​ ​i​n​ ​t​h​e​ ​b​o​t​t​o​m​ ​r​i​g​h​t​ ​c​o​r​n​e​r​ ​t​o​ ​o​v​e​r​r​i​d​e​ ​c​h​a​p​t​e​r​ ​c​h​o​i​c​e​s​.
+	 */
+	SETTINGS_SHOW_STORY_OPTIONS_DESC: string
+	/**
 	 * S​e​t​t​i​n​g​s
 	 */
 	STORY_SETTINGS: string
@@ -463,6 +471,22 @@ type RootTranslation = {
 	 * (​A​u​d​i​o​)
 	 */
 	STORY_OPTION_AUDIO: string
+	/**
+	 * N​e​x​t​ ​c​h​a​p​t​e​r​:
+	 */
+	STORY_OPTION_NEXT_CHAPTER: string
+	/**
+	 * P​l​a​y​ ​e​r​r​o​r​ ​s​o​u​n​d
+	 */
+	STORY_OPTION_PLAY_ERROR_SOUND: string
+	/**
+	 * H​i​d​e​ ​O​p​t​i​o​n​s
+	 */
+	STORY_OPTION_HIDE_OPTIONS: string
+	/**
+	 * S​h​o​w​ ​O​p​t​i​o​n​s
+	 */
+	STORY_OPTION_SHOW_OPTIONS: string
 	/**
 	 * S​t​o​r​y​ ​B​a​c​k​g​r​o​u​n​d
 	 */
@@ -1054,6 +1078,14 @@ export type TranslationFunctions = {
 	 */
 	SETTINGS_VOLUME: () => LocalizedString
 	/**
+	 * Show Override Options
+	 */
+	SETTINGS_SHOW_STORY_OPTIONS: () => LocalizedString
+	/**
+	 * Display manual buttons in the bottom right corner to override chapter choices.
+	 */
+	SETTINGS_SHOW_STORY_OPTIONS_DESC: () => LocalizedString
+	/**
 	 * Settings
 	 */
 	STORY_SETTINGS: () => LocalizedString
@@ -1069,6 +1101,22 @@ export type TranslationFunctions = {
 	 * (Audio)
 	 */
 	STORY_OPTION_AUDIO: () => LocalizedString
+	/**
+	 * Next chapter:
+	 */
+	STORY_OPTION_NEXT_CHAPTER: () => LocalizedString
+	/**
+	 * Play error sound
+	 */
+	STORY_OPTION_PLAY_ERROR_SOUND: () => LocalizedString
+	/**
+	 * Hide Options
+	 */
+	STORY_OPTION_HIDE_OPTIONS: () => LocalizedString
+	/**
+	 * Show Options
+	 */
+	STORY_OPTION_SHOW_OPTIONS: () => LocalizedString
 	/**
 	 * Story Background
 	 */

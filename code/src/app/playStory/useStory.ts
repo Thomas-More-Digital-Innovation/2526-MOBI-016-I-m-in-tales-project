@@ -190,11 +190,15 @@ export function useStory(storyId: string | undefined) {
                         image: bytesToUrl(ch.image, "image/png"),
                         failAudio: getAudioUrl(ch.failAudio),
                         autoAdvance: ch.autoAdvance ?? false,
-                        option: (ch.option || []).map((opt) => ({
-                            nextChapter: opt.nextChapter,
-                            audio: getAudioUrl(opt.audio) ?? "",
-                            item: opt.item,
-                        })),
+                        option: (ch.option || []).map((opt) => {
+                            const itemData = data.items?.find((i) => i.itemId === opt.item);
+                            return {
+                                nextChapter: opt.nextChapter,
+                                audio: getAudioUrl(opt.audio) ?? "",
+                                item: opt.item,
+                                itemLabel: itemData?.label || opt.item || undefined,
+                            };
+                        }),
                     })),
                 };
 

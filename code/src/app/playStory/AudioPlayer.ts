@@ -56,6 +56,13 @@ export function stopAudio() {
     }
 }
 
+export function setVolume(volume: number) {
+    storySettings.volume = volume;
+    if (activeAudio) {
+        activeAudio.volume = volume;
+    }
+}
+
 export function resetAudioPlayer() {
     stopAudio();
     for (const path in audioRecord) {
