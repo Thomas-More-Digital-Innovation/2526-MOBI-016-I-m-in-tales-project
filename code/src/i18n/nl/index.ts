@@ -149,6 +149,8 @@ const nl = {
 
   // StoryOptions component
   STORY_OPTION_AUDIO: '(Audio)',
+  STORY_OPTION_NEXT_CHAPTER: 'Volgend hoofdstuk:',
+  STORY_OPTION_PLAY_ERROR_SOUND: 'Foutgeluid afspelen',
 
   // StoryVisuals component
   STORY_BG_ALT: 'Verhaal achtergrond',

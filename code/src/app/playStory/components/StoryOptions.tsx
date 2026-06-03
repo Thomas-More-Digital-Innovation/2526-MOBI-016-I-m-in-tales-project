@@ -24,17 +24,11 @@ export default function StoryOptions({
                     key={option.nextChapter}
                     onClick={() => onOptionClick(option)}
                     cls="m-2">
-                    {option.item ?? "null"}
-                    {option.audio && (
-                        <>
-                            <br />
-                            {LL.STORY_OPTION_AUDIO()}
-                        </>
-                    )}
+                    {LL.STORY_OPTION_NEXT_CHAPTER()} {option.itemLabel ?? option.item ?? "null"}
                 </Button>
             ))}
             <Button onClick={() => onErrorClick()} cls="m-2 bg-red-500!">
-                Error
+                {LL.STORY_OPTION_PLAY_ERROR_SOUND()}
             </Button>
         </div>
     );

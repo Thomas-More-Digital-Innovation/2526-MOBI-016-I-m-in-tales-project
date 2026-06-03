@@ -464,6 +464,14 @@ type RootTranslation = {
 	 */
 	STORY_OPTION_AUDIO: string
 	/**
+	 * N​e​x​t​ ​c​h​a​p​t​e​r​:
+	 */
+	STORY_OPTION_NEXT_CHAPTER: string
+	/**
+	 * P​l​a​y​ ​e​r​r​o​r​ ​s​o​u​n​d
+	 */
+	STORY_OPTION_PLAY_ERROR_SOUND: string
+	/**
 	 * S​t​o​r​y​ ​B​a​c​k​g​r​o​u​n​d
 	 */
 	STORY_BG_ALT: string
@@ -1069,6 +1077,14 @@ export type TranslationFunctions = {
 	 * (Audio)
 	 */
 	STORY_OPTION_AUDIO: () => LocalizedString
+	/**
+	 * Next chapter:
+	 */
+	STORY_OPTION_NEXT_CHAPTER: () => LocalizedString
+	/**
+	 * Play error sound
+	 */
+	STORY_OPTION_PLAY_ERROR_SOUND: () => LocalizedString
 	/**
 	 * Story Background
 	 */

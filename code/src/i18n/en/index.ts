@@ -149,6 +149,8 @@ const en = {
 
   // StoryOptions component
   STORY_OPTION_AUDIO: '(Audio)',
+  STORY_OPTION_NEXT_CHAPTER: 'Next chapter:',
+  STORY_OPTION_PLAY_ERROR_SOUND: 'Play error sound',
 
   // StoryVisuals component
   STORY_BG_ALT: 'Story Background',
