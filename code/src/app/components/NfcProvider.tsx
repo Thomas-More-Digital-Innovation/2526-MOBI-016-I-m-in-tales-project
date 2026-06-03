@@ -87,7 +87,14 @@ export function NfcProvider({ children }: { children: React.ReactNode }) {
 export function useNfc() {
   const context = useContext(NfcContext);
   if (context === undefined) {
-    throw new Error("useNfc must be used within an NfcProvider");
+    // fallback state prevents application crashes during hmr or navigation glitches
+    console.warn("useNfc was used outside of an NfcProvider. Returning fallback state.");
+    return {
+      status: "Disconnected" as const,
+      tagUid: null,
+      tagContent: null,
+      error: "NfcProvider not found in context",
+    };
   }
   return context;
 }

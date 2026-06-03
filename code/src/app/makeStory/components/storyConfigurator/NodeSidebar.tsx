@@ -1,6 +1,6 @@
 import { InputLabel, TextAreaLabel, ImageUpload, Button, ToolTip } from "@components";
 import { ChapterNode, StoryLink } from "./useStoryState";
-import { useNfc } from "../../../components/NfcProvider";
+import { useNfc } from "@components/NfcProvider";
 import { addCalibration, getStoryCalibration } from "@utils/tagMapping";
 import { useI18nContext } from "@/i18n/i18n-react";
 import type { TranslationFunctions } from "@/i18n/i18n-types";

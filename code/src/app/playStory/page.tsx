@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from "react";
 import SettingsModal from "./SettingsModal";
 import { storySettings } from "./Settings";
@@ -11,12 +11,13 @@ import StoryHeader from "./components/StoryHeader";
 import { resetAudioPlayer } from "./AudioPlayer";
 import { StorySettings } from "@/types";
 import { Center, LoadingScreen } from "../components";
-import { useNfc } from "../components/NfcProvider";
+import { useNfc } from "@components/NfcProvider";
 import { loadAllCalibrations, resolveTagForStory } from "@utils/tagMapping";
 import { useI18nContext } from "@/i18n/i18n-react";
 
 export default function PlayStory() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const {
         story,
         currentChapter,
@@ -73,8 +74,8 @@ export default function PlayStory() {
 
     const closeStory = useCallback(() => {
         resetAudioPlayer();
-        window.history.back();
-    }, []);
+        navigate(-1);
+    }, [navigate]);
 
     useEffect(() => {
         function handleKeyPressed(e: KeyboardEvent) {

@@ -8,7 +8,7 @@ import Help from "./app/help/page";
 import TestBoard from "./app/testBoard/page";
 import StoryConfigurator from "./app/makeStory/storyConfigurator/page";
 
-import { NfcProvider } from "./app/components/NfcProvider";
+import { NfcProvider } from "@components/NfcProvider";
 import TypesafeI18n from "./i18n/i18n-react";
 import { detectLocale } from "./i18n/i18n-util";
 import { loadAllLocales } from "./i18n/i18n-util.sync";

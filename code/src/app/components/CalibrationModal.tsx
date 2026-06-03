@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Modal, Button } from "@components";
-import { useNfc } from "./NfcProvider";
+import { useNfc } from "@components/NfcProvider";
 import { StoriesData, Item } from "@/types";
 import { loadStoryData } from "@utils/storyIO";
 import { addCalibration, getStoryCalibration } from "@utils/tagMapping";

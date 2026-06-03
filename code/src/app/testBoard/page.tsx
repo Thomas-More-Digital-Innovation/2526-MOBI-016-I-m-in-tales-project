@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
-import { useNfc } from "../components/NfcProvider";
+import { useNfc } from "@components/NfcProvider";
 import { loadAllCalibrations } from "@/utils/tagMapping";
 import { getStoriesOverview, loadStoryData } from "@/utils/storyIO";
 import { TagMatch } from "@/types/story.type";
