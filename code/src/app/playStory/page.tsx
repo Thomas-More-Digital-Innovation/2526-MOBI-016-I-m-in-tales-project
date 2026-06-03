@@ -141,6 +141,12 @@ export default function PlayStory() {
                 options={currentChapter?.option}
                 onOptionClick={nextChapter}
                 onErrorClick={() => triggerError(currentChapter?.failAudio)}
+                showStoryOptions={settings.showStoryOptions}
+                onToggleShowStoryOptions={(show) => {
+                    const next = { ...settings, showStoryOptions: show };
+                    setSettings(next);
+                    storySettings.showStoryOptions = show;
+                }}
             />
 
             <SettingsModal
