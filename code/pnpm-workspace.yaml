@@ -1,7 +1,2 @@
 allowBuilds:
   esbuild: true
-  optipng-bin: true
-  pngquant-bin: true
-  sharp: true
-  tauri: true
-  zopflipng-bin: true
