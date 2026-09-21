@@ -8,9 +8,11 @@
   },
   "bundle": {
     "active": true,
-    "category": "DeveloperTool",
-    "copyright": "",
+    "category": "Education",
+    "copyright": "Copyright © 2026 Thomas More Digital Innovation",
     "targets": "all",
+    "shortDescription": "Interactive storytelling NFC player",
+    "longDescription": "Interactive multimedia storytelling platform using NFC tags for children with visual impairments.",
     "externalBin": [],
     "icon": [
       "icons/32x32.png",
@@ -24,7 +26,6 @@
       "digestAlgorithm": "sha256",
       "timestampUrl": ""
     },
-    "longDescription": "",
     "macOS": {
       "entitlements": null,
       "exceptionDomain": "",
@@ -34,7 +35,6 @@
       "infoPlist": "Info.plist"
     },
     "resources": [],
-    "shortDescription": "",
     "linux": {
       "deb": {
         "depends": []
@@ -43,8 +43,8 @@
   },
   "productName": "whispertag",
   "mainBinaryName": "whispertag",
-  "version": "0.1.0",
-  "identifier": "com.whispertag.dev",
+  "version": "1.0.0",
+  "identifier": "be.digitalinnovation.whispertag",
   "plugins": {},
   "app": {
     "windows": [

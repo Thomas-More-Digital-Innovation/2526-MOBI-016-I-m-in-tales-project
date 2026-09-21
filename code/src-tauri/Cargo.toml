@@ -1,10 +1,10 @@
 [package]
 name = "whispertag"
-version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
+version = "1.0.0"
+description = "Interactive storytelling NFC player"
+authors = ["Thomas More Digital Innovation"]
+license = "MIT"
+repository = "https://github.com/Thomas-More-Digital-Innovation/2526-MOBI-016-I-m-in-tales-project"
 default-run = "whispertag"
 edition = "2021"
 rust-version = "1.60"
