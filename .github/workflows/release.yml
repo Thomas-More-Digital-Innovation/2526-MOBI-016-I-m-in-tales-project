@@ -1,15 +1,17 @@
 name: Release
 
 on:
+  release:
+    types: [published, created]
   push:
     tags:
       - 'v*'
   workflow_dispatch:
     inputs:
-      draft:
-        description: 'Create draft release'
-        type: boolean
-        default: true
+      release_id:
+        description: 'Existing GitHub Release ID to append to (optional)'
+        type: string
+        required: false
 
 jobs:
   build-tauri:
@@ -75,17 +77,14 @@ jobs:
         working-directory: ./code
         run: pnpm install --frozen-lockfile
 
-      - name: Build Tauri app
+      - name: Build Tauri app & attach to release
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           projectPath: ./code
-          tagName: app-v__VERSION__
-          releaseName: 'App v__VERSION__'
-          releaseBody: 'Automated release build for whispertag.'
-          releaseDraft: ${{ github.event.inputs.draft != 'false' }}
-          prerelease: false
+          releaseId: ${{ github.event.release.id || inputs.release_id }}
+          tagName: ${{ github.event.release.tag_name || github.ref_name }}
           args: ${{ matrix.args }}
 
       - name: Upload artifacts
