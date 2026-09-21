@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       release_id:
-        description: 'Existing GitHub Release ID to append to (optional)'
+        description: "Existing GitHub Release ID to append to (optional)"
         type: string
         required: false
 
@@ -18,18 +18,22 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: 'ubuntu-22.04'
-            args: ''
-            target: ''
-          - platform: 'windows-latest'
-            args: ''
-            target: ''
-          - platform: 'macos-latest'
-            args: '--target aarch64-apple-darwin'
-            target: 'aarch64-apple-darwin'
-          - platform: 'macos-latest'
-            args: '--target x86_64-apple-darwin'
-            target: 'x86_64-apple-darwin'
+          - platform: "ubuntu-22.04"
+            args: ""
+            target: ""
+            platform_name: "linux-x64"
+          - platform: "windows-latest"
+            args: ""
+            target: ""
+            platform_name: "windows-x64"
+          - platform: "macos-latest"
+            args: "--target aarch64-apple-darwin"
+            target: "aarch64-apple-darwin"
+            platform_name: "macos-arm64"
+          - platform: "macos-latest"
+            args: "--target x86_64-apple-darwin"
+            target: "x86_64-apple-darwin"
+            platform_name: "macos-x64"
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout repository
@@ -38,14 +42,14 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          package_json_file: 'code/package.json'
+          package_json_file: "code/package.json"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
-          cache-dependency-path: 'code/pnpm-lock.yaml'
+          cache: "pnpm"
+          cache-dependency-path: "code/pnpm-lock.yaml"
 
       - name: Install Linux dependencies
         if: matrix.platform == 'ubuntu-22.04'
@@ -68,7 +72,7 @@ jobs:
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
-          workspaces: 'code/src-tauri -> target'
+          workspaces: "code/src-tauri -> target"
 
       - name: Install frontend dependencies
         working-directory: ./code
@@ -87,7 +91,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: whispertag-${{ matrix.platform }}${{ matrix.target != '' && format('-{0}', matrix.target) || '' }}
+          name: whispertag-${{ matrix.platform_name }}
           path: |
             code/src-tauri/target/release/bundle/
             code/src-tauri/target/**/release/bundle/
