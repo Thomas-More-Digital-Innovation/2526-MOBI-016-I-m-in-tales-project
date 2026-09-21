@@ -1,8 +1,7 @@
-onlyBuiltDependencies:
-  - esbuild
-  - optipng-bin
-  - pngquant-bin
-  - sharp
-  - tauri
-  - unrs-resolver
-  - zopflipng-bin
+allowBuilds:
+  esbuild: true
+  optipng-bin: true
+  pngquant-bin: true
+  sharp: true
+  tauri: true
+  zopflipng-bin: true
