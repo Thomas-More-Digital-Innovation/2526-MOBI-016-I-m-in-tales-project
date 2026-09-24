@@ -25,11 +25,11 @@ struct NfcStatusEvent {
 }
 
 #[tauri::command]
-fn nfc_open(state: State<'_, NfcManager>) -> Result<(), String> {
+fn nfc_open(app_handle: AppHandle, state: State<'_, NfcManager>) -> Result<(), String> {
     let mut reader_guard = state.reader.lock().map_err(|e| e.to_string())?;
 
     if reader_guard.is_none() {
-        let reader = UfrReader::new().map_err(|e| e.to_string())?;
+        let reader = UfrReader::with_app_handle(&app_handle).map_err(|e| e.to_string())?;
         *reader_guard = Some(Box::new(reader));
     }
 
@@ -83,7 +83,7 @@ fn nfc_start_polling(app_handle: AppHandle, state: State<'_, NfcManager>) -> Res
                 };
 
             if reader_guard.is_none() {
-                match UfrReader::new() {
+                match UfrReader::with_app_handle(&app_handle) {
                     Ok(reader) => match reader.open() {
                         Ok(_) => {
                             *reader_guard = Some(Box::new(reader));

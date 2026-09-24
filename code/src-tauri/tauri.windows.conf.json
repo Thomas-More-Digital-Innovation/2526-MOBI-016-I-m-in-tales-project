@@ -1,0 +1,12 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "bundle": {
+    "resources": {
+      "../ufr-lib/windows/x86_64/uFCoder-x86_64.dll": "ufr-lib/windows/x86_64/uFCoder-x86_64.dll",
+      "../ufr-lib/windows/x86_64/libeay32.dll": "ufr-lib/windows/x86_64/libeay32.dll",
+      "../ufr-lib/windows/x86_64/uFCoder-BLE-x86_64.dll": "ufr-lib/windows/x86_64/uFCoder-BLE-x86_64.dll",
+      "../ufr-lib/windows/x86/uFCoder-x86.dll": "ufr-lib/windows/x86/uFCoder-x86.dll",
+      "../ufr-lib/windows/aarch64/uFCoder-aarch64.dll": "ufr-lib/windows/aarch64/uFCoder-aarch64.dll"
+    }
+  }
+}

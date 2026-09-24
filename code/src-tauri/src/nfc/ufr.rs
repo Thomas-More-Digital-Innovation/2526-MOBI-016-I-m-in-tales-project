@@ -5,6 +5,8 @@ use std::os::raw::c_char;
 use std::path::PathBuf;
 use std::sync::Arc;
 
+use tauri::{AppHandle, Manager};
+
 pub struct UfrReader {
     lib: Arc<Library>,
 }
@@ -17,42 +19,158 @@ impl Drop for UfrReader {
 
 impl UfrReader {
     pub fn new() -> Result<Self, NfcError> {
-        let lib_path = Self::get_lib_path()?;
-        let lib = unsafe { Library::new(lib_path) }
-            .map_err(|e| NfcError::Unknown(format!("Failed to load library: {}", e)))?;
+        Self::with_app_handle_opt(None)
+    }
+
+    pub fn with_app_handle(app_handle: &AppHandle) -> Result<Self, NfcError> {
+        Self::with_app_handle_opt(Some(app_handle))
+    }
+
+    fn with_app_handle_opt(app_handle: Option<&AppHandle>) -> Result<Self, NfcError> {
+        let lib_path = Self::get_lib_path(app_handle)?;
+        let lib = unsafe { Library::new(&lib_path) }
+            .map_err(|e| NfcError::Unknown(format!("Failed to load library at {:?}: {}", lib_path, e)))?;
 
         Ok(Self { lib: Arc::new(lib) })
     }
 
-    fn get_lib_path() -> Result<PathBuf, NfcError> {
-        let mut path = std::env::current_dir().map_err(|e| NfcError::Unknown(e.to_string()))?;
-        // Go up to the root of the workspace if needed, or assume we are in src-tauri
-        // Based on the project structure: I-m-in-tales/code/src-tauri
-        // ufr-lib is at I-m-in-tales/code/ufr-lib
+    fn candidate_names() -> &'static [&'static str] {
+        #[cfg(target_os = "windows")]
+        {
+            #[cfg(target_arch = "x86_64")]
+            return &[
+                "ufr-lib/windows/x86_64/uFCoder-x86_64.dll",
+                "uFCoder-x86_64.dll",
+            ];
+            #[cfg(target_arch = "aarch64")]
+            return &[
+                "ufr-lib/windows/aarch64/uFCoder-aarch64.dll",
+                "uFCoder-aarch64.dll",
+            ];
+            #[cfg(target_arch = "x86")]
+            return &[
+                "ufr-lib/windows/x86/uFCoder-x86.dll",
+                "uFCoder-x86.dll",
+            ];
+        }
 
         #[cfg(target_os = "linux")]
-        let lib_name = "ufr-lib/linux/x86_64/libuFCoder-x86_64.so";
-        #[cfg(target_os = "windows")]
-        let lib_name = "ufr-lib/windows/x86_64/uFCoder-x86_64.dll";
+        {
+            #[cfg(target_arch = "x86_64")]
+            return &[
+                "ufr-lib/linux/x86_64/libuFCoder-x86_64.so",
+                "libuFCoder-x86_64.so",
+                "libuFCoder.so",
+            ];
+            #[cfg(target_arch = "aarch64")]
+            return &[
+                "ufr-lib/linux/aarch64/libuFCoder-aarch64.so",
+                "libuFCoder-aarch64.so",
+                "libuFCoder.so",
+            ];
+            #[cfg(target_arch = "arm")]
+            return &[
+                "ufr-lib/linux/arm-hf/libuFCoder-armhf.so",
+                "libuFCoder-armhf.so",
+                "libuFCoder.so",
+            ];
+            #[cfg(not(any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "arm")))]
+            return &[
+                "ufr-lib/linux/x86_64/libuFCoder-x86_64.so",
+                "libuFCoder-x86_64.so",
+                "libuFCoder.so",
+            ];
+        }
+
         #[cfg(target_os = "macos")]
-        let lib_name = "ufr-lib/macos/x86_64/libuFCoder-x86_64.dylib";
-
-        // Try relative to current dir (likely code/ or code/src-tauri)
-        let mut full_path = path.clone().join(lib_name);
-        if !full_path.exists() {
-            // Try going up one level
-            path.pop();
-            full_path = path.join(lib_name);
+        {
+            return &[
+                "ufr-lib/macos/universal/libuFCoder-macos.dylib",
+                "ufr-lib/macos/x86_64/libuFCoder-x86_64.dylib",
+                "libuFCoder-macos.dylib",
+                "libuFCoder-x86_64.dylib",
+                "libuFCoder.dylib",
+            ];
         }
 
-        if !full_path.exists() {
-            return Err(NfcError::Unknown(format!(
-                "Library not found at {:?}",
-                full_path
-            )));
+        #[cfg(not(any(target_os = "windows", target_os = "linux", target_os = "macos")))]
+        return &[];
+    }
+
+    fn get_lib_path(app_handle: Option<&AppHandle>) -> Result<PathBuf, NfcError> {
+        let names = Self::candidate_names();
+
+        if let Some(handle) = app_handle {
+            for &name in names {
+                if let Ok(resolved) = handle.path().resolve(name, tauri::path::BaseDirectory::Resource) {
+                    if resolved.exists() {
+                        return Ok(resolved);
+                    }
+                }
+            }
+
+            if let Ok(res_dir) = handle.path().resource_dir() {
+                for &name in names {
+                    let direct = res_dir.join(name);
+                    if direct.exists() {
+                        return Ok(direct);
+                    }
+                    let sub = res_dir.join("resources").join(name);
+                    if sub.exists() {
+                        return Ok(sub);
+                    }
+                }
+            }
         }
 
-        Ok(full_path)
+        let mut bases: Vec<PathBuf> = Vec::new();
+
+        if let Ok(exe_path) = std::env::current_exe() {
+            if let Some(exe_dir) = exe_path.parent() {
+                bases.push(exe_dir.to_path_buf());
+                bases.push(exe_dir.join("resources"));
+                #[cfg(target_os = "macos")]
+                bases.push(exe_dir.join("../Resources"));
+                #[cfg(target_os = "linux")]
+                {
+                    bases.push(exe_dir.join("../lib"));
+                    bases.push(exe_dir.join("../share"));
+                }
+            }
+        }
+
+        if let Ok(cwd) = std::env::current_dir() {
+            bases.push(cwd.clone());
+            bases.push(cwd.join("resources"));
+            bases.push(cwd.join("code"));
+            let mut current = cwd.parent();
+            while let Some(parent) = current {
+                bases.push(parent.to_path_buf());
+                bases.push(parent.join("code"));
+                current = parent.parent();
+            }
+        }
+
+        for base in &bases {
+            for &name in names {
+                let candidate = base.join(name);
+                if candidate.exists() {
+                    return Ok(candidate);
+                }
+            }
+        }
+
+        for &name in names {
+            let bare = PathBuf::from(name);
+            if unsafe { Library::new(&bare) }.is_ok() {
+                return Ok(bare);
+            }
+        }
+
+        Err(NfcError::Unknown(format!(
+            "uFR NFC library not found. Searched candidates {:?} in {:?}",
+            names, bases
+        )))
     }
 }
 

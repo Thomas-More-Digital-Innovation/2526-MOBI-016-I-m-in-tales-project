@@ -1,0 +1,9 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "bundle": {
+    "resources": {
+      "../ufr-lib/linux/x86_64/libuFCoder-x86_64.so": "ufr-lib/linux/x86_64/libuFCoder-x86_64.so",
+      "../ufr-lib/linux/aarch64/libuFCoder-aarch64.so": "ufr-lib/linux/aarch64/libuFCoder-aarch64.so"
+    }
+  }
+}

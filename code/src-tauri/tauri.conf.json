@@ -34,7 +34,7 @@
       "signingIdentity": null,
       "infoPlist": "Info.plist"
     },
-    "resources": [],
+    "resources": {},
     "linux": {
       "deb": {
         "depends": []

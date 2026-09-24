@@ -1,0 +1,8 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "bundle": {
+    "resources": {
+      "../ufr-lib/macos/universal/libuFCoder-macos.dylib": "ufr-lib/macos/universal/libuFCoder-macos.dylib"
+    }
+  }
+}
