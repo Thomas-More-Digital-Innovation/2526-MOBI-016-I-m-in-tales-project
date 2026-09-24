@@ -105,8 +105,8 @@ export function useStoryState(folderName: string) {
                     const matchedItem = data.items?.find((item: any) => item.itemId === opt.item);
                     return {
                       targetId: opt.nextChapter,
-                      itemId: opt.item,
-                      itemLabel: matchedItem?.label || opt.item || "Loaded Item"
+                      itemId: opt.item || crypto.randomUUID(),
+                      itemLabel: matchedItem?.label || (opt.item ? opt.item : "")
                     };
                   }) || []
                 };
@@ -234,15 +234,17 @@ export function useStoryState(folderName: string) {
     const items: { itemId: string; linkedTo: string; label: string }[] = [];
     const chapters = nodes.map((node) => {
       const options = node.links.map((link) => {
-        items.push({
-          itemId: link.itemId,
-          linkedTo: link.targetId,
-          label: link.itemLabel
-        });
+        if (!node.autoAdvance) {
+          items.push({
+            itemId: link.itemId,
+            linkedTo: link.targetId,
+            label: link.itemLabel
+          });
+        }
         return {
           nextChapter: link.targetId,
           audio: null,
-          item: link.itemId,
+          item: node.autoAdvance ? null : link.itemId,
         };
       });
 

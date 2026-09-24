@@ -131,14 +131,27 @@ export function useStory(storyId: string | undefined) {
 
         async function startNarration() {
             if (!currentChapter) return;
+            setIsInitialPlaying(true);
+            setActiveAudioType("narration");
+
             if (currentChapter.audio) {
-                setIsInitialPlaying(true);
-                setActiveAudioType("narration");
                 await playAudio(currentChapter.audio);
                 if (!active) return;
+            } else if (currentChapter.autoAdvance) {
+                await new Promise((resolve) => setTimeout(resolve, 500));
+                if (!active) return;
             }
+
             setIsInitialPlaying(false);
             setActiveAudioType("none");
+
+            if (
+                currentChapter.autoAdvance &&
+                currentChapter.option &&
+                currentChapter.option.length === 1
+            ) {
+                transitionTo(currentChapter.option[0]);
+            }
         }
 
         startNarration();
@@ -146,9 +159,9 @@ export function useStory(storyId: string | undefined) {
         return () => {
             active = false;
         };
-    }, [currentChapter, getChapterById]);
+    }, [currentChapter, getChapterById, transitionTo]);
 
-    // process pending actions or auto advance when initial narration finishes
+    // process pending actions queued by user during narration
     useEffect(() => {
         if (isInitialPlaying) return;
 
@@ -160,16 +173,8 @@ export function useStory(storyId: string | undefined) {
             } else if (action.type === "error") {
                 handleTriggerError(action.failAudioUrl ?? null);
             }
-        } else {
-            if (
-                currentChapter?.autoAdvance &&
-                currentChapter.option &&
-                currentChapter.option.length === 1
-            ) {
-                transitionTo(currentChapter.option[0]);
-            }
         }
-    }, [isInitialPlaying, pendingAction, currentChapter, transitionTo, handleTriggerError]);
+    }, [isInitialPlaying, pendingAction, transitionTo, handleTriggerError]);
 
     // load story structure
     useEffect(() => {
