@@ -129,6 +129,9 @@ const en = {
   CANVAS_NO_IMAGE: 'No Image',
   CANVAS_HINT: 'Click + drag to pan \n Click on a chapter to select it \n Scroll to zoom in \n Use the button above to add a new chapter',
   CANVAS_RECENTER: 'Recenter Canvas & Reset Zoom',
+  CANVAS_MENU_DUPLICATE: 'Duplicate',
+  CANVAS_MENU_ADD_LINK: 'Add Link',
+  CANVAS_MENU_REMOVE: 'Remove',
 
   // PlayStory page
   PLAY_LOADING_TITLE: 'Loading story',

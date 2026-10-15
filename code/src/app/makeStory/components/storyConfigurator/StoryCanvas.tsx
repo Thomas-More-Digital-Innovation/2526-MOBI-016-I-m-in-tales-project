@@ -3,7 +3,8 @@ import type { KonvaEventObject } from "konva/lib/Node";
 import { ToolTip } from "@components";
 import { getEdgePoints, clamp, getNodeHeight } from "./StageNodeFunctions";
 import { ChapterNode } from "./useStoryState";
-import { useState, useRef, useEffect, memo } from "react";
+import ContextMenu from "./ContextMenu";
+import { useState, useRef, useEffect, useCallback, memo } from "react";
 import { useI18nContext } from "@/i18n/i18n-react";
 
 type StoryCanvasProps = {
@@ -16,6 +17,9 @@ type StoryCanvasProps = {
   showToolTipState?: boolean;
   linking?: boolean;
   linkingRootId?: string | null;
+  onDuplicate: (id: string) => void;
+  onLink: (id: string) => void;
+  onDelete: (id: string) => void;
 };
 
 const ChapterNodeView = memo(({
@@ -24,6 +28,7 @@ const ChapterNodeView = memo(({
   onSelect,
   onDragMove,
   onDragEnd,
+  onContextMenu,
   isLinking
 }: {
   node: ChapterNode,
@@ -31,6 +36,7 @@ const ChapterNodeView = memo(({
   onSelect: (id: string) => void,
   onDragMove: (id: string, x: number, y: number) => void,
   onDragEnd: (id: string, x: number, y: number) => void,
+  onContextMenu: (id: string, clientX: number, clientY: number) => void,
   isLinking: boolean
 }) => {
   const [hovered, setHovered] = useState(false);
@@ -44,6 +50,7 @@ const ChapterNodeView = memo(({
       draggable={!isLinking}
       onClick={() => onSelect(node.id)}
       onTap={() => onSelect(node.id)}
+      onContextMenu={(e) => onContextMenu(node.id, e.evt.clientX, e.evt.clientY)}
       onDragMove={(e) => {
         const { x, y } = e.target.position();
         onDragMove(node.id, x, y);
@@ -121,14 +128,26 @@ export default function StoryCanvas({
   onScaleChange,
   showToolTipState = false,
   linking = false,
-  linkingRootId = null
+  linkingRootId = null,
+  onDuplicate,
+  onLink,
+  onDelete
 }: StoryCanvasProps) {
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<any>(null);
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [localPositions, setLocalPositions] = useState<Record<string, { x: number, y: number }>>({});
+  const [menu, setMenu] = useState<{ nodeId: string; x: number; y: number } | null>(null);
   const { LL } = useI18nContext();
+  const closeMenu = useCallback(() => setMenu(null), []);
+
+  const handleNodeContextMenu = (nodeId: string, clientX: number, clientY: number) => {
+    if (linking) return;
+    const rect = stageContainerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setMenu({ nodeId, x: clientX - rect.left, y: clientY - rect.top });
+  };
 
   const handleLocalDragMove = (id: string, x: number, y: number) => {
     setLocalPositions((prev) => ({
@@ -220,6 +239,7 @@ export default function StoryCanvas({
         scaleY={scale}
         onWheel={handleWheel}
         onMouseMove={handleMouseMove}
+        onContextMenu={(e) => e.evt.preventDefault()}
       >
         <Layer>
           {linking && linkingRootNode && (
@@ -269,11 +289,25 @@ export default function StoryCanvas({
               onSelect={onSelect}
               onDragMove={handleLocalDragMove}
               onDragEnd={handleDragEnd}
+              onContextMenu={handleNodeContextMenu}
               isLinking={linking}
             />
           ))}
         </Layer>
       </Stage>
+
+      {menu && (
+        <ContextMenu
+          x={menu.x}
+          y={menu.y}
+          onClose={closeMenu}
+          items={[
+            { label: LL.CANVAS_MENU_DUPLICATE(), onClick: () => onDuplicate(menu.nodeId) },
+            { label: LL.CANVAS_MENU_ADD_LINK(), onClick: () => onLink(menu.nodeId) },
+            { label: LL.CANVAS_MENU_REMOVE(), onClick: () => onDelete(menu.nodeId) },
+          ]}
+        />
+      )}
 
       {/* Recenter Button */}
       <button

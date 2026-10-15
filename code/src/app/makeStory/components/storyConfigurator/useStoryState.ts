@@ -169,6 +169,24 @@ export function useStoryState(folderName: string) {
     setIsDirty(true);
   };
 
+  const duplicateNode = (id: string) => {
+    const source = nodes.find((n) => n.id === id);
+    if (!source) return;
+    const newNode: ChapterNode = {
+      ...source,
+      id: crypto.randomUUID(),
+      title: `${source.title} (copy)`,
+      x: source.x + 40,
+      y: source.y + 40,
+      // Fresh itemIds so the copy's links don't share NFC calibrations with the original
+      links: source.links.map((l) => ({ ...l, itemId: crypto.randomUUID() })),
+    };
+    if (mediaBytesRef.current[id]) mediaBytesRef.current[newNode.id] = { ...mediaBytesRef.current[id] };
+    setNodes((prev) => [...prev, newNode]);
+    setSelectedId(newNode.id);
+    setIsDirty(true);
+  };
+
   const deleteNode = (id: string) => {
     if (nodes.length <= 1) return; // Keep at least one node
     delete mediaBytesRef.current[id];
@@ -281,6 +299,7 @@ export function useStoryState(folderName: string) {
     selectedId,
     setSelectedId,
     createNewNode,
+    duplicateNode,
     deleteNode,
     updateNode,
     saveFile,

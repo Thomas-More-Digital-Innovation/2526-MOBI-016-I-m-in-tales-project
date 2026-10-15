@@ -424,6 +424,18 @@ type RootTranslation = {
 	 */
 	CANVAS_RECENTER: string
 	/**
+	 * D​u​p​l​i​c​a​t​e
+	 */
+	CANVAS_MENU_DUPLICATE: string
+	/**
+	 * A​d​d​ ​L​i​n​k
+	 */
+	CANVAS_MENU_ADD_LINK: string
+	/**
+	 * R​e​m​o​v​e
+	 */
+	CANVAS_MENU_REMOVE: string
+	/**
 	 * L​o​a​d​i​n​g​ ​s​t​o​r​y
 	 */
 	PLAY_LOADING_TITLE: string
@@ -1053,6 +1065,18 @@ export type TranslationFunctions = {
 	 * Recenter Canvas & Reset Zoom
 	 */
 	CANVAS_RECENTER: () => LocalizedString
+	/**
+	 * Duplicate
+	 */
+	CANVAS_MENU_DUPLICATE: () => LocalizedString
+	/**
+	 * Add Link
+	 */
+	CANVAS_MENU_ADD_LINK: () => LocalizedString
+	/**
+	 * Remove
+	 */
+	CANVAS_MENU_REMOVE: () => LocalizedString
 	/**
 	 * Loading story
 	 */
