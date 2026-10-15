@@ -143,7 +143,7 @@ const en = {
   SETTINGS_TEXT_SIZE: 'Text Size',
   SETTINGS_VOLUME: 'Volume',
   SETTINGS_SHOW_STORY_OPTIONS: 'Show Override Options',
-  SETTINGS_SHOW_STORY_OPTIONS_DESC: 'Display manual buttons in the bottom right corner to override chapter choices.',
+  SETTINGS_SHOW_STORY_OPTIONS_DESC: 'Display manual buttons in the bottom right corner to override chapter choices. Press and hold the button for 2 seconds to turn them off.',
 
   // StoryHeader component
   STORY_SETTINGS: 'Settings',
@@ -157,6 +157,7 @@ const en = {
   STORY_OPTION_NEXT_CHAPTER: 'Next chapter:',
   STORY_OPTION_PLAY_ERROR_SOUND: 'Play error sound',
   STORY_OPTION_HIDE_OPTIONS: 'Hide Options',
+  STORY_OPTION_HOLD_HINT: "Hold me! Don't press me!",
   STORY_OPTION_SHOW_OPTIONS: 'Show Options',
 
   // StoryVisuals component

@@ -464,7 +464,7 @@ type RootTranslation = {
 	 */
 	SETTINGS_SHOW_STORY_OPTIONS: string
 	/**
-	 * D​i​s​p​l​a​y​ ​m​a​n​u​a​l​ ​b​u​t​t​o​n​s​ ​i​n​ ​t​h​e​ ​b​o​t​t​o​m​ ​r​i​g​h​t​ ​c​o​r​n​e​r​ ​t​o​ ​o​v​e​r​r​i​d​e​ ​c​h​a​p​t​e​r​ ​c​h​o​i​c​e​s​.
+	 * D​i​s​p​l​a​y​ ​m​a​n​u​a​l​ ​b​u​t​t​o​n​s​ ​i​n​ ​t​h​e​ ​b​o​t​t​o​m​ ​r​i​g​h​t​ ​c​o​r​n​e​r​ ​t​o​ ​o​v​e​r​r​i​d​e​ ​c​h​a​p​t​e​r​ ​c​h​o​i​c​e​s​.​ ​P​r​e​s​s​ ​a​n​d​ ​h​o​l​d​ ​t​h​e​ ​b​u​t​t​o​n​ ​f​o​r​ ​2​ ​s​e​c​o​n​d​s​ ​t​o​ ​t​u​r​n​ ​t​h​e​m​ ​o​f​f​.
 	 */
 	SETTINGS_SHOW_STORY_OPTIONS_DESC: string
 	/**
@@ -495,6 +495,10 @@ type RootTranslation = {
 	 * H​i​d​e​ ​O​p​t​i​o​n​s
 	 */
 	STORY_OPTION_HIDE_OPTIONS: string
+	/**
+	 * H​o​l​d​ ​m​e​!​ ​D​o​n​'​t​ ​p​r​e​s​s​ ​m​e​!
+	 */
+	STORY_OPTION_HOLD_HINT: string
 	/**
 	 * S​h​o​w​ ​O​p​t​i​o​n​s
 	 */
@@ -1106,7 +1110,7 @@ export type TranslationFunctions = {
 	 */
 	SETTINGS_SHOW_STORY_OPTIONS: () => LocalizedString
 	/**
-	 * Display manual buttons in the bottom right corner to override chapter choices.
+	 * Display manual buttons in the bottom right corner to override chapter choices. Press and hold the button for 2 seconds to turn them off.
 	 */
 	SETTINGS_SHOW_STORY_OPTIONS_DESC: () => LocalizedString
 	/**
@@ -1137,6 +1141,10 @@ export type TranslationFunctions = {
 	 * Hide Options
 	 */
 	STORY_OPTION_HIDE_OPTIONS: () => LocalizedString
+	/**
+	 * Hold me! Don't press me!
+	 */
+	STORY_OPTION_HOLD_HINT: () => LocalizedString
 	/**
 	 * Show Options
 	 */

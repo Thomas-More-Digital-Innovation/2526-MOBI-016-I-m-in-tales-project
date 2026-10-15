@@ -137,23 +137,26 @@ export default function PlayStory() {
                 <p>{LL.PLAY_LOADING()}</p>
             )}
 
-            <StoryOptions
-                options={currentChapter?.option}
-                onOptionClick={nextChapter}
-                onErrorClick={() => triggerError(currentChapter?.failAudio)}
-                showStoryOptions={settings.showStoryOptions}
-                onToggleShowStoryOptions={(show) => {
-                    const next = { ...settings, showStoryOptions: show };
-                    setSettings(next);
-                    storySettings.showStoryOptions = show;
-                }}
-            />
+            {settings.showStoryOptions && (
+                <StoryOptions
+                    options={currentChapter?.option}
+                    onOptionClick={nextChapter}
+                    onErrorClick={() => triggerError(currentChapter?.failAudio)}
+                    onDisable={() => {
+                        storySettings.showStoryOptions = false;
+                        setSettings({ ...settings, showStoryOptions: false });
+                    }}
+                />
+            )}
 
-            <SettingsModal
-                isOpen={showSettingsModal}
-                setIsOpen={setShowSettingsModal}
-                onSettingsChange={setSettings}
-            />
+            {/* Mounted only while open so it reads the latest storySettings */}
+            {showSettingsModal && (
+                <SettingsModal
+                    isOpen={showSettingsModal}
+                    setIsOpen={setShowSettingsModal}
+                    onSettingsChange={setSettings}
+                />
+            )}
         </main>
     );
 }
