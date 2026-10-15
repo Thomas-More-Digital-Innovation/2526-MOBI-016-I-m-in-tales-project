@@ -143,7 +143,7 @@ const nl = {
   SETTINGS_TEXT_SIZE: 'Tekst grootte',
   SETTINGS_VOLUME: 'Volume',
   SETTINGS_SHOW_STORY_OPTIONS: 'Handmatige opties weergeven',
-  SETTINGS_SHOW_STORY_OPTIONS_DESC: 'Toon handmatige knoppen in de rechterbenedenhoek om hoofdstukkeuzes te forceren.',
+  SETTINGS_SHOW_STORY_OPTIONS_DESC: 'Toon handmatige knoppen in de rechterbenedenhoek om hoofdstukkeuzes te forceren. Houd de knop 2 seconden ingedrukt om ze uit te zetten.',
 
   // StoryHeader component
   STORY_SETTINGS: 'Instellingen',
@@ -157,6 +157,7 @@ const nl = {
   STORY_OPTION_NEXT_CHAPTER: 'Volgend hoofdstuk:',
   STORY_OPTION_PLAY_ERROR_SOUND: 'Foutgeluid afspelen',
   STORY_OPTION_HIDE_OPTIONS: 'Opties verbergen',
+  STORY_OPTION_HOLD_HINT: 'Houd me vast! Druk niet op me!',
   STORY_OPTION_SHOW_OPTIONS: 'Opties tonen',
 
   // StoryVisuals component

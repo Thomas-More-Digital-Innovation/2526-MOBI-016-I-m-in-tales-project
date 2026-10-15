@@ -9,6 +9,8 @@ export type StoryLink = {
   targetId: string;
   itemId: string;
   itemLabel: string;
+  // Choice audio carried per link so it survives link edits/duplication and is written back on save
+  audioBytes?: Uint8Array | null;
 };
 
 export type ChapterNode = {
@@ -106,7 +108,8 @@ export function useStoryState(folderName: string) {
                     return {
                       targetId: opt.nextChapter,
                       itemId: opt.item || crypto.randomUUID(),
-                      itemLabel: matchedItem?.label || (opt.item ? opt.item : "")
+                      itemLabel: matchedItem?.label || (opt.item ? opt.item : ""),
+                      audioBytes: opt.audio ?? null,
                     };
                   }) || []
                 };
@@ -261,7 +264,7 @@ export function useStoryState(folderName: string) {
         }
         return {
           nextChapter: link.targetId,
-          audio: null,
+          audio: link.audioBytes ?? null,
           item: node.autoAdvance ? null : link.itemId,
         };
       });

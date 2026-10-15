@@ -16,7 +16,7 @@ const getAudioUrl = (bytes: Uint8Array | number[] | null | undefined): string | 
     const length = bytes instanceof Uint8Array ? bytes.length : (Array.isArray(bytes) ? bytes.length : 0);
     if (length === 0) return null;
     const url = bytesToUrl(bytes, "audio/mpeg");
-    return url === "/placeholder.png" ? null : url;
+    return url === "/placeholder.jpeg" ? null : url;
 };
 
 export function useStory(storyId: string | undefined) {
@@ -186,13 +186,13 @@ export function useStory(storyId: string | undefined) {
                     id: data.story.id,
                     name: data.story.name,
                     description: data.story.description,
-                    image: bytesToUrl(data.story.thumbnail, "image/png"),
+                    image: bytesToUrl(data.story.thumbnail, "image/jpeg"),
                     chapter: (data.story.chapter || []).map((ch) => ({
                         id: ch.id,
                         title: ch.title,
                         description: ch.description,
                         audio: getAudioUrl(ch.audio) ?? "",
-                        image: bytesToUrl(ch.image, "image/png"),
+                        image: bytesToUrl(ch.image, "image/jpeg"),
                         failAudio: getAudioUrl(ch.failAudio),
                         autoAdvance: ch.autoAdvance ?? false,
                         option: (ch.option || []).map((opt) => {
