@@ -22,6 +22,7 @@ export default function Configurator({
     selectedId,
     setSelectedId,
     createNewNode,
+    duplicateNode,
     deleteNode,
     updateNode,
     saveFile,
@@ -62,6 +63,28 @@ export default function Configurator({
       confirmLeave();
     }
   }, [blocker]);
+
+  const confirmDeleteNode = async (id: string) => {
+    const node = nodes.find((n) => n.id === id);
+    if (!node || nodes.length <= 1) return; // deleteNode keeps at least one chapter, so don't ask for nothing
+    const confirmed = await ask(
+      LL.MANAGE_CONFIRM_DELETE({ name: node.title }),
+      { title: LL.MANAGE_CONFIRM_DELETE_TITLE(), kind: "warning" }
+    );
+    if (confirmed) deleteNode(id);
+  };
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key !== "Delete" || !selectedId || linking) return;
+      // Don't hijack Delete while editing a text field in the sidebar
+      const target = e.target as HTMLElement;
+      if (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+      confirmDeleteNode(selectedId);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedId, linking, confirmDeleteNode]);
 
   if (loading) {
     return (
@@ -133,6 +156,9 @@ export default function Configurator({
             showToolTipState={showToolTip}
             linking={linking}
             linkingRootId={linkingRootId}
+            onDuplicate={duplicateNode}
+            onLink={toggleLinking}
+            onDelete={confirmDeleteNode}
           />
         </div>
 
@@ -142,7 +168,7 @@ export default function Configurator({
             nodes={nodes}
             onSelectNode={setSelectedId}
             onUpdate={updateNode}
-            onDelete={deleteNode}
+            onDelete={confirmDeleteNode}
             onLink={toggleLinking}
             onSave={saveFile}
             linking={linking}
