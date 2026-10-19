@@ -10,6 +10,9 @@ import {
 import { join } from "@tauri-apps/api/path";
 import JSZip from "jszip";
 import { downscaleImageBytes } from "../app/makeStory/components/storyConfigurator/StageNodeFunctions";
+import { detectLocale, i18nObject } from "@/i18n/i18n-util";
+import { loadLocale } from "@/i18n/i18n-util.sync";
+import { localStorageDetector } from "typesafe-i18n/detectors";
 
 export interface StoryMetadata {
   id: string;
@@ -92,6 +95,12 @@ const toUint8Array = (data: Uint8Array | number[] | null | undefined): Uint8Arra
   return data instanceof Uint8Array ? data : new Uint8Array(data);
 };
 
+const getTranslations = () => {
+  const currentLocale = detectLocale(localStorageDetector);
+  loadLocale(currentLocale);
+  return i18nObject(currentLocale);
+};
+
 // ============================================
 // Save Story (Create Zip)
 // ============================================
@@ -105,14 +114,14 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
     id: data.story.id,
     name: data.story.name,
     description: data.story.description,
-    chapters: data.story.chapter?.map(ch => ({
+    chapters: data.story.chapter?.map((ch) => ({
       id: ch.id,
       title: ch.title,
       description: ch.description,
       autoAdvance: ch.autoAdvance ?? false,
       x: ch.x,
       y: ch.y,
-      options: ch.option?.map(opt => ({
+      options: ch.option?.map((opt) => ({
         nextChapter: opt.nextChapter,
         item: opt.item,
       })),
@@ -322,8 +331,8 @@ export const getAllAvailableStories = async (): Promise<string[]> => {
   try {
     const files = await readDir("stories", { baseDir: BaseDirectory.AppData });
     return files
-      .filter(file => file.name?.endsWith(".zip"))
-      .map(file => file.name!.replace(".zip", ""));
+      .filter((file) => file.name?.endsWith(".zip"))
+      .map((file) => file.name!.replace(".zip", ""));
   } catch (e) {
     console.error("Error reading stories:", e);
     return [];
@@ -352,8 +361,44 @@ export const exportStory = async (storyId: string): Promise<void> => {
   await writeFile(savePath, zipContent);
 };
 
-export const importStory = async (): Promise<string | null> => {
-  const { open } = await import("@tauri-apps/plugin-dialog");
+export const sanitizeStoryName = (name: string): string => {
+  if (!name) return `story_${Date.now()}`;
+
+  let sanitized = name
+    .replace(/[\x00-\x1f\x7f]/g, "")
+    .replace(/[/\\]/g, "")
+    .replace(/[<>:"|?*]/g, "");
+
+  while (sanitized.includes("..")) {
+    sanitized = sanitized.replace(/\.\./g, "");
+  }
+
+  sanitized = sanitized.replace(/^[.\s]+|[.\s]+$/g, "").trim();
+
+  // prevent collision with windows device names
+  const isWindowsReserved = /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(\..*)?$/i.test(sanitized);
+  if (isWindowsReserved) {
+    sanitized = `story_${sanitized}`;
+  }
+
+  if (
+    !sanitized ||
+    sanitized.includes("/") ||
+    sanitized.includes("\\") ||
+    sanitized.includes("..")
+  ) {
+    return `story_${Date.now()}`;
+  }
+
+  return sanitized.slice(0, 100);
+};
+
+export interface ImportStoryOptions {
+  confirmOverwrite?: (storyName: string) => Promise<boolean>;
+}
+
+export const importStory = async (options?: ImportStoryOptions): Promise<string | null> => {
+  const { open, ask } = await import("@tauri-apps/plugin-dialog");
   const filePath = await open({
     multiple: false,
     filters: [{ name: "Story", extensions: ["zip"] }],
@@ -369,17 +414,37 @@ export const importStory = async (): Promise<string | null> => {
   const metadata: StoryMetadata = JSON.parse(metadataText);
 
   await ensureStoriesDir();
-  const destPath = await join("stories", `${metadata.name}.zip`);
+  const safeName = sanitizeStoryName(metadata.name);
+  const destPath = await join("stories", `${safeName}.zip`);
+
+  const fileExists = await exists(destPath, { baseDir: BaseDirectory.AppData });
+  if (fileExists) {
+    let proceed: boolean;
+    if (options?.confirmOverwrite) {
+      proceed = await options.confirmOverwrite(safeName);
+    } else {
+      const LL = getTranslations();
+      proceed = await ask(LL.IMPORT_OVERWRITE_CONFIRM({ name: safeName }), {
+        title: LL.IMPORT_OVERWRITE_TITLE(),
+        kind: "warning",
+      });
+    }
+    if (!proceed) return null;
+  }
+
   await writeFile(destPath, zipContent, { baseDir: BaseDirectory.AppData });
 
-  return metadata.name;
+  return safeName;
 };
 
 // ============================================
 // Image URL Helpers
 // ============================================
 
-export const bytesToUrl = (bytes: Uint8Array | number[] | null | undefined, mimeType: string): string => {
+export const bytesToUrl = (
+  bytes: Uint8Array | number[] | null | undefined,
+  mimeType: string
+): string => {
   if (!bytes) return "/placeholder.png";
   const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
   if (u8.length === 0) return "/placeholder.png";
@@ -389,7 +454,7 @@ export const bytesToUrl = (bytes: Uint8Array | number[] | null | undefined, mime
     binary += String.fromCharCode(u8[i]);
   }
   const base64 = typeof btoa === "function" ? btoa(binary) : "";
-  return base64 ? `data:${mimeType};base64,${base64}` : "/placeholder.png"
+  return base64 ? `data:${mimeType};base64,${base64}` : "/placeholder.png";
 };
 // ============================================
 // Delete Story
