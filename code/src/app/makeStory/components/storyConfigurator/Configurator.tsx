@@ -134,9 +134,6 @@ export default function Configurator({
               </p>
             </div>
             <div className="flex gap-2">
-              <Button onClick={createNewNode} cls="text-[12px] !px-6 !py-2 !rounded-full shadow-md hover:shadow-lg transition-all bg-white !text-talesblu-800 border-2 border-gray-100">
-                {LL.CONFIG_ADD_CHAPTER()}
-              </Button>
               <Button onClick={saveFile} cls={`text-[12px] !px-8 !py-2 !rounded-full shadow-lg transition-all flex items-center gap-2 ${isDirty ? 'shadow-talesorang-200 ring-2 ring-talesorang-100' : 'shadow-gray-100 opacity-80 hover:opacity-100'}`}>
                 {isDirty && <div className="w-2 h-2 rounded-full bg-white animate-pulse" />}
                 {isDirty ? LL.CONFIG_SAVE() : LL.CONFIG_SAVED()}
@@ -159,6 +156,7 @@ export default function Configurator({
             onDuplicate={duplicateNode}
             onLink={toggleLinking}
             onDelete={confirmDeleteNode}
+            onCreateNode={createNewNode}
           />
         </div>
 

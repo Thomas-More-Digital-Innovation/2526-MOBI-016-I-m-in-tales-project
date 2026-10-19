@@ -1,11 +1,13 @@
-import { Stage, Layer, Group, Rect, Text, Image, Arrow } from "react-konva";
+import { Stage, Layer, Arrow } from "react-konva";
 import type { KonvaEventObject } from "konva/lib/Node";
 import { ToolTip } from "@components";
 import { getEdgePoints, clamp, getNodeHeight } from "./StageNodeFunctions";
 import { ChapterNode } from "./useStoryState";
 import ContextMenu from "./ContextMenu";
-import { useState, useRef, useEffect, useCallback, memo } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useI18nContext } from "@/i18n/i18n-react";
+import CanvasControls from "./CanvasControls";
+import { ChapterNodeView } from "./ChapterNodeView";
 
 type StoryCanvasProps = {
   nodes: ChapterNode[];
@@ -20,104 +22,8 @@ type StoryCanvasProps = {
   onDuplicate: (id: string) => void;
   onLink: (id: string) => void;
   onDelete: (id: string) => void;
+  onCreateNode: () => void;
 };
-
-const ChapterNodeView = memo(({
-  node,
-  isSelected,
-  onSelect,
-  onDragMove,
-  onDragEnd,
-  onContextMenu,
-  isLinking
-}: {
-  node: ChapterNode,
-  isSelected: boolean,
-  onSelect: (id: string) => void,
-  onDragMove: (id: string, x: number, y: number) => void,
-  onDragEnd: (id: string, x: number, y: number) => void,
-  onContextMenu: (id: string, clientX: number, clientY: number) => void,
-  isLinking: boolean
-}) => {
-  const [hovered, setHovered] = useState(false);
-  const { LL } = useI18nContext();
-  const cardHeight = getNodeHeight(node.title);
-
-  return (
-    <Group
-      x={node.x}
-      y={node.y}
-      draggable={!isLinking}
-      onClick={() => onSelect(node.id)}
-      onTap={() => onSelect(node.id)}
-      onContextMenu={(e) => onContextMenu(node.id, e.evt.clientX, e.evt.clientY)}
-      onDragMove={(e) => {
-        const { x, y } = e.target.position();
-        onDragMove(node.id, x, y);
-      }}
-      onDragEnd={(e) => {
-        const { x, y } = e.target.position();
-        onDragEnd(node.id, x, y);
-      }}
-      onMouseEnter={(e) => {
-        setHovered(true);
-        const container = e.target.getStage()?.container();
-        if (container) {
-          container.style.cursor = isLinking ? "crosshair" : "grab";
-        }
-      }}
-      onMouseLeave={(e) => {
-        setHovered(false);
-        const container = e.target.getStage()?.container();
-        if (container) {
-          container.style.cursor = "default";
-        }
-      }}
-    >
-      <Rect
-        fill={isSelected ? "#ffffff" : "#fdfdfd"}
-        stroke={isSelected || (isLinking && hovered) ? "#f97316" : "#e5e7eb"}
-        strokeWidth={isSelected ? 3 : (isLinking && hovered ? 2 : 1)}
-        dash={isLinking && hovered && !isSelected ? [10, 5] : undefined}
-        shadowBlur={isSelected ? 10 : 2}
-        shadowColor="rgba(0,0,0,0.1)"
-        cornerRadius={20}
-        width={150}
-        height={cardHeight}
-      />
-      {node.image && (
-        (node.image instanceof HTMLImageElement && node.image.complete && node.image.naturalWidth > 0) ||
-        (node.image instanceof HTMLCanvasElement && node.image.width > 0)
-      ) ? (
-        <Image
-          image={node.image}
-          cornerRadius={16}
-          x={2}
-          y={2}
-          width={146}
-          height={110}
-          listening={false}
-        />
-      ) : (
-        <Group listening={false}>
-          <Rect x={4} y={4} width={142} height={106} cornerRadius={16} fill="#f3f4f6" />
-          <Text text={LL.CANVAS_NO_IMAGE()} x={45} y={50} fontSize={10} fill="#9ca3af" fontStyle="bold uppercase" />
-        </Group>
-      )}
-      <Text
-        text={node.title}
-        x={10}
-        y={120}
-        width={130}
-        fontSize={14}
-        fontStyle="bold"
-        fill={isSelected ? "#111827" : "#4b5563"}
-        align="center"
-        listening={false}
-      />
-    </Group>
-  );
-});
 
 export default function StoryCanvas({
   nodes,
@@ -131,7 +37,8 @@ export default function StoryCanvas({
   linkingRootId = null,
   onDuplicate,
   onLink,
-  onDelete
+  onDelete,
+  onCreateNode
 }: StoryCanvasProps) {
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<any>(null);
@@ -309,15 +216,7 @@ export default function StoryCanvas({
         />
       )}
 
-      {/* Recenter Button */}
-      <button
-        onClick={handleRecenter}
-        type="button"
-        className="absolute bottom-6 right-6 z-10 flex items-center justify-center cursor-pointer bg-white hover:bg-talesorang-50 text-talesblu-800 hover:text-talesorang-600 border border-gray-200 hover:border-talesorang-200 rounded-2xl p-3 shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 select-none group"
-        title={LL.CANVAS_RECENTER()}
-      >
-        <img src="/frame.svg" alt={LL.CANVAS_RECENTER()} />
-      </button>
+      <CanvasControls onRecenter={handleRecenter} onCreateNode={onCreateNode} />
     </div>
   );
 }
