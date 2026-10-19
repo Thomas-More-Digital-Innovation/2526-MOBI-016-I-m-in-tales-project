@@ -25,6 +25,8 @@ export function useStory(storyId: string | undefined) {
     const currentChapterRef = useRef<Chapter | undefined>(undefined);
 
     const [isInitialPlaying, setIsInitialPlaying] = useState(false);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const isTransitioningRef = useRef(false);
     const [activeAudioType, setActiveAudioType] = useState<AudioType>("none");
     const [pendingAction, setPendingAction] = useState<PendingAction | null>(null);
 
@@ -41,20 +43,29 @@ export function useStory(storyId: string | undefined) {
 
     const transitionTo = useCallback(
         async (option: Option) => {
-            stopAudio();
-            setActiveAudioType("option");
-            setIsInitialPlaying(false);
-            setPendingAction(null);
+            if (isTransitioningRef.current) return;
+            isTransitioningRef.current = true;
+            setIsTransitioning(true);
 
-            if (option.audio) {
-                await playAudio(option.audio);
-            }
+            try {
+                stopAudio();
+                setActiveAudioType("option");
+                setIsInitialPlaying(false);
+                setPendingAction(null);
 
-            const chapter = getChapterById(option.nextChapter);
-            if (chapter) {
-                setCurrentChapter(chapter);
-            } else {
-                setActiveAudioType("none");
+                if (option.audio) {
+                    await playAudio(option.audio);
+                }
+
+                const chapter = getChapterById(option.nextChapter);
+                if (chapter) {
+                    setCurrentChapter(chapter);
+                } else {
+                    setActiveAudioType("none");
+                }
+            } finally {
+                isTransitioningRef.current = false;
+                setIsTransitioning(false);
             }
         },
         [getChapterById]
@@ -62,6 +73,7 @@ export function useStory(storyId: string | undefined) {
 
     const handleSelectOption = useCallback(
         async (option: Option) => {
+            if (isTransitioningRef.current) return;
             if (isInitialPlaying) {
                 setPendingAction({ type: "next", option });
             } else {
@@ -73,6 +85,7 @@ export function useStory(storyId: string | undefined) {
 
     const handleTriggerError = useCallback(
         async (failAudioUrl: string | null | undefined) => {
+            if (isTransitioningRef.current) return;
             if (isInitialPlaying) {
                 setPendingAction({ type: "error", failAudioUrl });
             } else {
@@ -89,7 +102,7 @@ export function useStory(storyId: string | undefined) {
     );
 
     const handleReplayAudio = useCallback(async () => {
-        if (!currentChapter?.audio) return;
+        if (isTransitioningRef.current || !currentChapter?.audio) return;
         stopAudio();
         setIsInitialPlaying(false);
         setActiveAudioType("narration");
@@ -227,6 +240,7 @@ export function useStory(storyId: string | undefined) {
         story,
         currentChapter,
         currentChapterRef,
+        isTransitioning,
         nextChapter: handleSelectOption,
         triggerError: handleTriggerError,
         replayAudio: handleReplayAudio,

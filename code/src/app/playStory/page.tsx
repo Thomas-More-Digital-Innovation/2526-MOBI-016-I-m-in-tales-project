@@ -26,6 +26,7 @@ export default function PlayStory() {
         replayAudio,
         cancelPendingAction,
         currentChapterRef,
+        isTransitioning,
     } = useStory(id);
     useFullscreen();
 
@@ -54,10 +55,14 @@ export default function PlayStory() {
             return;
         }
 
+        lastProcessedTagUid.current = tagUid;
+
+        if (isTransitioning) {
+            return;
+        }
+
         if (!story?.id || !currentChapter) return;
         if (currentChapter.autoAdvance) return;
-
-        lastProcessedTagUid.current = tagUid;
 
         const allowedItemIds = (currentChapter.option || []).map(o => o.item).filter((item): item is string => !!item);
         const resolvedItemId = resolveTagForStory(tagUid, story.id, calibrations, allowedItemIds);
@@ -70,7 +75,7 @@ export default function PlayStory() {
         } else {
             triggerError(currentChapter.failAudio);
         }
-    }, [tagUid, story?.id, currentChapter, calibrations, nextChapter, triggerError, cancelPendingAction]);
+    }, [tagUid, story?.id, currentChapter, calibrations, nextChapter, triggerError, cancelPendingAction, isTransitioning]);
 
     const closeStory = useCallback(() => {
         resetAudioPlayer();
@@ -121,6 +126,7 @@ export default function PlayStory() {
                 onSettingsClick={() => setShowSettingsModal(true)}
                 onCloseClick={closeStory}
                 onReplayAudioClick={replayAudio}
+                isTransitioning={isTransitioning}
             />
 
             {currentChapter ? (
@@ -142,6 +148,7 @@ export default function PlayStory() {
                 onOptionClick={nextChapter}
                 onErrorClick={() => triggerError(currentChapter?.failAudio)}
                 showStoryOptions={settings.showStoryOptions}
+                isTransitioning={isTransitioning}
                 onToggleShowStoryOptions={(show) => {
                     const next = { ...settings, showStoryOptions: show };
                     setSettings(next);
