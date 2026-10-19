@@ -88,6 +88,11 @@ const en = {
   MAKE_CARD_DESC_PLACEHOLDER: "Tell a bit about your story...",
   MAKE_CARD_UPDATE: "Update & Continue",
   MAKE_CARD_START: "Start Telling Your Story",
+  MAKE_CARD_RENAMING: "Updating Story...",
+  STORY_EXISTS_TITLE: "Story Already Exists",
+  STORY_EXISTS_MSG: 'A story named "{name:string}" already exists. Please choose a different title.',
+  STORY_INVALID_NAME_TITLE: "Invalid Story Name",
+  STORY_INVALID_NAME_MSG: "The story name contains only invalid characters. Please include letters or numbers.",
 
   // Configurator component
   CONFIG_LOADING_TITLE: "Loading design environment",

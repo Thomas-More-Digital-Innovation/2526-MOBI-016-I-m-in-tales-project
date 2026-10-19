@@ -88,6 +88,11 @@ const nl = {
   MAKE_CARD_DESC_PLACEHOLDER: "Vertel iets over je verhaal...",
   MAKE_CARD_UPDATE: "Bijwerken & doorgaan",
   MAKE_CARD_START: "Begin je verhaal te vertellen",
+  MAKE_CARD_RENAMING: "Verhaal bijwerken...",
+  STORY_EXISTS_TITLE: "Verhaal bestaat al",
+  STORY_EXISTS_MSG: 'Er bestaat al een verhaal met de naam "{name:string}". Kies een andere titel.',
+  STORY_INVALID_NAME_TITLE: "Ongeldige verhaalnaam",
+  STORY_INVALID_NAME_MSG: "De verhaalnaam bevat alleen ongeldige tekens. Gebruik letters of cijfers.",
 
   // Configurator component
   CONFIG_LOADING_TITLE: "Ontwerpomgeving laden",

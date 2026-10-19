@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { loadStoryData, saveStoryData, sanitizeStoryName } from "@utils/storyIO";
+import { loadStoryData, saveStoryData, normalizeStoryName } from "@utils/storyIO";
 import { getStoryCalibration } from "@utils/tagMapping";
 import { message } from "@tauri-apps/plugin-dialog";
 import { createCanvasThumbnail } from "./StageNodeFunctions";
@@ -302,7 +302,7 @@ export function useStoryState(folderName: string) {
     });
 
     const finalStoryName = storyMetadata?.name || folderName || "New Story";
-    const finalFolderName = sanitizeStoryName(finalStoryName).replace(/\s+/g, "_").toLowerCase();
+    const finalFolderName = normalizeStoryName(finalStoryName);
 
     const dataToSave = {
       story: { ...storyMetadata, chapter: chapters },
