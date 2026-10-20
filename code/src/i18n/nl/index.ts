@@ -151,11 +151,10 @@ const nl = {
   PLAY_LOADING: "Laden...",
 
   // SettingsModal component
-  SETTINGS_TEXT_SIZE: "Tekst grootte",
-  SETTINGS_VOLUME: "Volume",
-  SETTINGS_SHOW_STORY_OPTIONS: "Handmatige opties weergeven",
-  SETTINGS_SHOW_STORY_OPTIONS_DESC:
-    "Toon handmatige knoppen in de rechterbenedenhoek om hoofdstukkeuzes te forceren.",
+  SETTINGS_TEXT_SIZE: 'Tekst grootte',
+  SETTINGS_VOLUME: 'Volume',
+  SETTINGS_SHOW_STORY_OPTIONS: 'Handmatige opties weergeven',
+  SETTINGS_SHOW_STORY_OPTIONS_DESC: 'Toon handmatige knoppen in de rechterbenedenhoek om hoofdstukkeuzes te forceren. Houd de knop 2 seconden ingedrukt om ze uit te zetten; houd de rechterbenedenhoek 2 seconden ingedrukt om ze weer aan te zetten.',
 
   // StoryHeader component
   STORY_SETTINGS: "Instellingen",

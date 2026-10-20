@@ -150,11 +150,10 @@ const en = {
   PLAY_LOADING: "Loading...",
 
   // SettingsModal component
-  SETTINGS_TEXT_SIZE: "Text Size",
-  SETTINGS_VOLUME: "Volume",
-  SETTINGS_SHOW_STORY_OPTIONS: "Show Override Options",
-  SETTINGS_SHOW_STORY_OPTIONS_DESC:
-    "Display manual buttons in the bottom right corner to override chapter choices.",
+  SETTINGS_TEXT_SIZE: 'Text Size',
+  SETTINGS_VOLUME: 'Volume',
+  SETTINGS_SHOW_STORY_OPTIONS: 'Show Override Options',
+  SETTINGS_SHOW_STORY_OPTIONS_DESC: 'Display manual buttons in the bottom right corner to override chapter choices. Press and hold the button for 2 seconds to turn them off; press and hold the bottom right corner for 2 seconds to turn them back on.',
 
   // StoryHeader component
   STORY_SETTINGS: "Settings",

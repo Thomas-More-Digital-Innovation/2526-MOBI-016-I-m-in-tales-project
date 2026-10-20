@@ -6,7 +6,7 @@ import { useStory } from "./useStory";
 import { useFullscreen } from "./useFullscreen";
 import StoryVisuals from "./components/StoryVisuals";
 import StoryOverlay from "./components/StoryOverlay";
-import StoryOptions from "./components/StoryOptions";
+import StoryOptions, { StoryOptionsReveal } from "./components/StoryOptions";
 import StoryHeader from "./components/StoryHeader";
 import { resetAudioPlayer } from "./AudioPlayer";
 import { StorySettings } from "@/types";
@@ -143,24 +143,34 @@ export default function PlayStory() {
                 <p>{LL.PLAY_LOADING()}</p>
             )}
 
-            <StoryOptions
-                options={currentChapter?.option}
-                onOptionClick={nextChapter}
-                onErrorClick={() => triggerError(currentChapter?.failAudio)}
-                showStoryOptions={settings.showStoryOptions}
-                isTransitioning={isTransitioning}
-                onToggleShowStoryOptions={(show) => {
-                    const next = { ...settings, showStoryOptions: show };
-                    setSettings(next);
-                    storySettings.showStoryOptions = show;
-                }}
-            />
+            {settings.showStoryOptions ? (
+                <StoryOptions
+                    options={currentChapter?.option}
+                    onOptionClick={nextChapter}
+                    isTransitioning={isTransitioning}
+                    onErrorClick={() => triggerError(currentChapter?.failAudio)}
+                    onDisable={() => {
+                        storySettings.showStoryOptions = false;
+                        setSettings({ ...settings, showStoryOptions: false });
+                    }}
+                />
+            ) : (
+                <StoryOptionsReveal
+                    onEnable={() => {
+                        storySettings.showStoryOptions = true;
+                        setSettings({ ...settings, showStoryOptions: true });
+                    }}
+                />
+            )}
 
-            <SettingsModal
-                isOpen={showSettingsModal}
-                setIsOpen={setShowSettingsModal}
-                onSettingsChange={setSettings}
-            />
+            {/* Mounted only while open so it reads the latest storySettings */}
+            {showSettingsModal && (
+                <SettingsModal
+                    isOpen={showSettingsModal}
+                    setIsOpen={setShowSettingsModal}
+                    onSettingsChange={setSettings}
+                />
+            )}
         </main>
     );
 }

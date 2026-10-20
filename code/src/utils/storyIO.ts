@@ -245,7 +245,7 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
   const thumbBytes = toUint8Array(data.story.thumbnail);
   if (thumbBytes && thumbBytes.length > 0) {
     const downscaledThumb = await downscaleImageBytes(thumbBytes, 1920, 1080);
-    zip.file("thumbnail.png", downscaledThumb);
+    zip.file("thumbnail.jpeg", downscaledThumb);
   }
 
   if (data.story.chapter) {
@@ -256,7 +256,7 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
       const imgBytes = toUint8Array(chapter.image);
       if (imgBytes && imgBytes.length > 0) {
         const downscaledImg = await downscaleImageBytes(imgBytes, 1920, 1080);
-        imagesFolder?.file(`${chapter.id}.png`, downscaledImg);
+        imagesFolder?.file(`${chapter.id}.jpeg`, downscaledImg);
       }
 
       const audBytes = toUint8Array(chapter.audio);
@@ -309,7 +309,7 @@ export const loadStoryData = async (storyName: string): Promise<StoryData> => {
   const metadata: StoryMetadata = JSON.parse(metadataText);
 
   let thumbnail: Uint8Array | null = null;
-  const thumbFile = zip.file("thumbnail.png");
+  const thumbFile = zip.file("thumbnail.jpeg");
   if (thumbFile) {
     thumbnail = await thumbFile.async("uint8array");
   }
@@ -319,7 +319,7 @@ export const loadStoryData = async (storyName: string): Promise<StoryData> => {
       let image: Uint8Array | null = null;
       let audio: Uint8Array | null = null;
 
-      const imgFile = zip.file(`images/${ch.id}.png`);
+      const imgFile = zip.file(`images/${ch.id}.jpeg`);
       if (imgFile) {
         image = await imgFile.async("uint8array");
       }
@@ -409,12 +409,12 @@ export const getStoriesOverview = async (): Promise<StoryPreview[]> => {
           const metadataText = await metadataFile.async("string");
           const metadata: StoryMetadata = JSON.parse(metadataText);
 
-          let thumbnailUrl = "/placeholder.png";
-          const thumbFile = zip.file("thumbnail.png");
+          let thumbnailUrl = "/placeholder.jpeg";
+          const thumbFile = zip.file("thumbnail.jpeg");
           if (thumbFile) {
             const thumbBytes = await thumbFile.async("uint8array");
             if (thumbBytes.length > 0) {
-              thumbnailUrl = bytesToUrl(thumbBytes, "image/png");
+              thumbnailUrl = bytesToUrl(thumbBytes, "image/jpeg");
             }
           }
 
@@ -548,16 +548,16 @@ export const bytesToUrl = (
   bytes: Uint8Array | number[] | null | undefined,
   mimeType: string
 ): string => {
-  if (!bytes) return "/placeholder.png";
+  if (!bytes) return "/placeholder.jpeg";
   const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
-  if (u8.length === 0) return "/placeholder.png";
+  if (u8.length === 0) return "/placeholder.jpeg";
 
   let binary = "";
   for (let i = 0; i < u8.length; i++) {
     binary += String.fromCharCode(u8[i]);
   }
   const base64 = typeof btoa === "function" ? btoa(binary) : "";
-  return base64 ? `data:${mimeType};base64,${base64}` : "/placeholder.png";
+  return base64 ? `data:${mimeType};base64,${base64}` : "/placeholder.jpeg"
 };
 
 // ============================================
