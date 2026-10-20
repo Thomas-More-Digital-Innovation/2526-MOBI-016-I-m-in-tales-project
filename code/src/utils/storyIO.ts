@@ -10,6 +10,9 @@ import {
 import { join } from "@tauri-apps/api/path";
 import JSZip from "jszip";
 import { downscaleImageBytes } from "../app/makeStory/components/storyConfigurator/StageNodeFunctions";
+import { detectLocale, i18nObject } from "@/i18n/i18n-util";
+import { loadLocale } from "@/i18n/i18n-util.sync";
+import { localStorageDetector } from "typesafe-i18n/detectors";
 
 export interface StoryMetadata {
   id: string;
@@ -92,6 +95,122 @@ const toUint8Array = (data: Uint8Array | number[] | null | undefined): Uint8Arra
   return data instanceof Uint8Array ? data : new Uint8Array(data);
 };
 
+const getTranslations = () => {
+  const currentLocale = detectLocale(localStorageDetector);
+  loadLocale(currentLocale);
+  return i18nObject(currentLocale);
+};
+
+export const sanitizeStoryName = (name: string): string => {
+  if (!name) return `story_${Date.now()}`;
+
+  let sanitized = name
+    .trim()
+    .toLowerCase()
+    .replace(/\.zip$/i, "")
+    .replace(/[\x00-\x1f\x7f]/g, "")
+    .replace(/[/\\]/g, "")
+    .replace(/[<>:"|?*~#&{}]/g, "")
+    .replace(/\s+/g, "_")
+    .replace(/_+/g, "_");
+
+  while (sanitized.includes("..")) {
+    sanitized = sanitized.replace(/\.\./g, "");
+  }
+
+  sanitized = sanitized.replace(/^[.\s_]+|[.\s_]+$/g, "").trim();
+
+  // prevent collision with windows device names
+  const isWindowsReserved = /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(\..*)?$/i.test(sanitized);
+  if (isWindowsReserved) {
+    sanitized = `story_${sanitized}`;
+  }
+
+  if (
+    !sanitized ||
+    sanitized.includes("/") ||
+    sanitized.includes("\\") ||
+    sanitized.includes("..")
+  ) {
+    return `story_${Date.now()}`;
+  }
+
+  return sanitized.slice(0, 100);
+};
+
+export const normalizeStoryName = (name: string): string => {
+  const sanitized = sanitizeStoryName(name);
+  const cleaned = name
+    .trim()
+    .toLowerCase()
+    .replace(/[/\\?%*:|"<>~#&{}\x00-\x1f\x7f-\x9f]/g, "")
+    .replace(/\s+/g, "_")
+    .replace(/_+/g, "_")
+    .replace(/^[\._]+|[\._]+$/g, "");
+  if (!cleaned) return "";
+  return sanitized;
+};
+
+export const getStoryZipPath = async (storyName: string): Promise<string> => {
+  const safeName = sanitizeStoryName(storyName);
+  return join("stories", `${safeName}.zip`);
+};
+
+export const storyExists = async (slug: string): Promise<boolean> => {
+  try {
+    const zipPath = await getStoryZipPath(slug);
+    return await exists(zipPath, { baseDir: BaseDirectory.AppData });
+  } catch {
+    return false;
+  }
+};
+
+export const renameStory = async (
+  oldSlug: string,
+  newSlug: string,
+  updates?: { name?: string; description?: string; thumbnail?: Uint8Array | null }
+): Promise<void> => {
+  await ensureStoriesDir();
+  let oldZipPath = await getStoryZipPath(oldSlug);
+  if (!(await exists(oldZipPath, { baseDir: BaseDirectory.AppData }))) {
+    const rawOldPath = await join("stories", `${oldSlug}.zip`);
+    if (await exists(rawOldPath, { baseDir: BaseDirectory.AppData })) {
+      oldZipPath = rawOldPath;
+    }
+  }
+
+  const oldZipContent = await readFile(oldZipPath, { baseDir: BaseDirectory.AppData });
+  const zip = await JSZip.loadAsync(oldZipContent);
+
+  const metadataFile = zip.file("metadata.json");
+  if (!metadataFile) throw new Error(`No metadata.json found in story zip: ${oldSlug}`);
+  const metadataText = await metadataFile.async("string");
+  const metadata: StoryMetadata = JSON.parse(metadataText);
+
+  if (updates?.name !== undefined) metadata.name = updates.name;
+  if (updates?.description !== undefined) metadata.description = updates.description;
+  zip.file("metadata.json", JSON.stringify(metadata, null, 2));
+
+  if (updates?.thumbnail !== undefined) {
+    if (updates.thumbnail && updates.thumbnail.length > 0) {
+      const downscaledThumb = await downscaleImageBytes(updates.thumbnail, 1920, 1080);
+      zip.file("thumbnail.png", downscaledThumb);
+    } else {
+      zip.remove("thumbnail.png");
+    }
+  }
+
+  const safeNewSlug = sanitizeStoryName(newSlug);
+  const safeOldSlug = sanitizeStoryName(oldSlug);
+  const newZipContent = await zip.generateAsync({ type: "uint8array" });
+  const newZipPath = await getStoryZipPath(safeNewSlug);
+  await writeFile(newZipPath, newZipContent, { baseDir: BaseDirectory.AppData });
+
+  if (safeOldSlug !== safeNewSlug || oldZipPath !== newZipPath) {
+    await remove(oldZipPath, { baseDir: BaseDirectory.AppData });
+  }
+};
+
 // ============================================
 // Save Story (Create Zip)
 // ============================================
@@ -99,20 +218,21 @@ const toUint8Array = (data: Uint8Array | number[] | null | undefined): Uint8Arra
 export const saveStoryData = async (storyName: string, data: StoryData): Promise<void> => {
   await ensureStoriesDir();
 
+  const slug = normalizeStoryName(storyName) || storyName;
   const zip = new JSZip();
 
   const metadata: StoryMetadata = {
     id: data.story.id,
     name: data.story.name,
     description: data.story.description,
-    chapters: data.story.chapter?.map(ch => ({
+    chapters: data.story.chapter?.map((ch) => ({
       id: ch.id,
       title: ch.title,
       description: ch.description,
       autoAdvance: ch.autoAdvance ?? false,
       x: ch.x,
       y: ch.y,
-      options: ch.option?.map(opt => ({
+      options: ch.option?.map((opt) => ({
         nextChapter: opt.nextChapter,
         item: opt.item,
       })),
@@ -161,7 +281,7 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
   }
 
   const zipContent = await zip.generateAsync({ type: "uint8array" });
-  const zipPath = await join("stories", `${storyName}.zip`);
+  const zipPath = await getStoryZipPath(slug);
   await writeFile(zipPath, zipContent, { baseDir: BaseDirectory.AppData });
 };
 
@@ -170,7 +290,15 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
 // ============================================
 
 export const loadStoryData = async (storyName: string): Promise<StoryData> => {
-  const zipPath = await join("stories", `${storyName}.zip`);
+  let zipPath = await getStoryZipPath(storyName);
+  const zipExists = await exists(zipPath, { baseDir: BaseDirectory.AppData });
+  if (!zipExists) {
+    const rawPath = await join("stories", `${storyName}.zip`);
+    if (await exists(rawPath, { baseDir: BaseDirectory.AppData })) {
+      zipPath = rawPath;
+    }
+  }
+
   const zipContent = await readFile(zipPath, { baseDir: BaseDirectory.AppData });
 
   const zip = await JSZip.loadAsync(zipContent);
@@ -322,8 +450,8 @@ export const getAllAvailableStories = async (): Promise<string[]> => {
   try {
     const files = await readDir("stories", { baseDir: BaseDirectory.AppData });
     return files
-      .filter(file => file.name?.endsWith(".zip"))
-      .map(file => file.name!.replace(".zip", ""));
+      .filter((file) => file.name?.endsWith(".zip"))
+      .map((file) => file.name!.replace(".zip", ""));
   } catch (e) {
     console.error("Error reading stories:", e);
     return [];
@@ -335,25 +463,37 @@ export const getAllAvailableStories = async (): Promise<string[]> => {
 // ============================================
 
 export const deleteStory = async (storyId: string): Promise<void> => {
-  const zipPath = await join("stories", `${storyId}.zip`);
-  await remove(zipPath, { baseDir: BaseDirectory.AppData });
+  await removeStoryData(storyId);
 };
 
 export const exportStory = async (storyId: string): Promise<void> => {
+  const safeName = sanitizeStoryName(storyId);
   const { save } = await import("@tauri-apps/plugin-dialog");
   const savePath = await save({
-    defaultPath: `${storyId}.zip`,
+    defaultPath: `${safeName}.zip`,
     filters: [{ name: "Story", extensions: ["zip"] }],
   });
   if (!savePath) return;
 
-  const zipPath = await join("stories", `${storyId}.zip`);
+  let zipPath = await getStoryZipPath(safeName);
+  const zipExists = await exists(zipPath, { baseDir: BaseDirectory.AppData });
+  if (!zipExists) {
+    const rawPath = await join("stories", `${storyId}.zip`);
+    if (await exists(rawPath, { baseDir: BaseDirectory.AppData })) {
+      zipPath = rawPath;
+    }
+  }
+
   const zipContent = await readFile(zipPath, { baseDir: BaseDirectory.AppData });
   await writeFile(savePath, zipContent);
 };
 
-export const importStory = async (): Promise<string | null> => {
-  const { open } = await import("@tauri-apps/plugin-dialog");
+export interface ImportStoryOptions {
+  confirmOverwrite?: (storyName: string) => Promise<boolean>;
+}
+
+export const importStory = async (options?: ImportStoryOptions): Promise<string | null> => {
+  const { open, ask, message } = await import("@tauri-apps/plugin-dialog");
   const filePath = await open({
     multiple: false,
     filters: [{ name: "Story", extensions: ["zip"] }],
@@ -369,17 +509,45 @@ export const importStory = async (): Promise<string | null> => {
   const metadata: StoryMetadata = JSON.parse(metadataText);
 
   await ensureStoriesDir();
-  const destPath = await join("stories", `${metadata.name}.zip`);
+  const slug = normalizeStoryName(metadata.name);
+  if (!slug) {
+    const LL = getTranslations();
+    await message(LL.STORY_INVALID_NAME_MSG(), {
+      title: LL.STORY_INVALID_NAME_TITLE(),
+      kind: "error",
+    });
+    return null;
+  }
+
+  const destPath = await getStoryZipPath(slug);
+  const fileExists = await exists(destPath, { baseDir: BaseDirectory.AppData });
+  if (fileExists) {
+    let proceed: boolean;
+    if (options?.confirmOverwrite) {
+      proceed = await options.confirmOverwrite(metadata.name);
+    } else {
+      const LL = getTranslations();
+      proceed = await ask(LL.IMPORT_OVERWRITE_CONFIRM({ name: metadata.name }), {
+        title: LL.IMPORT_OVERWRITE_TITLE(),
+        kind: "warning",
+      });
+    }
+    if (!proceed) return null;
+  }
+
   await writeFile(destPath, zipContent, { baseDir: BaseDirectory.AppData });
 
-  return metadata.name;
+  return slug;
 };
 
 // ============================================
 // Image URL Helpers
 // ============================================
 
-export const bytesToUrl = (bytes: Uint8Array | number[] | null | undefined, mimeType: string): string => {
+export const bytesToUrl = (
+  bytes: Uint8Array | number[] | null | undefined,
+  mimeType: string
+): string => {
   if (!bytes) return "/placeholder.jpeg";
   const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
   if (u8.length === 0) return "/placeholder.jpeg";
@@ -391,14 +559,20 @@ export const bytesToUrl = (bytes: Uint8Array | number[] | null | undefined, mime
   const base64 = typeof btoa === "function" ? btoa(binary) : "";
   return base64 ? `data:${mimeType};base64,${base64}` : "/placeholder.jpeg"
 };
+
 // ============================================
 // Delete Story
 // ============================================
 
 export const removeStoryData = async (storyName: string): Promise<void> => {
-  const zipPath = await join("stories", `${storyName}.zip`);
+  const zipPath = await getStoryZipPath(storyName);
   const fileExists = await exists(zipPath, { baseDir: BaseDirectory.AppData });
   if (fileExists) {
     await remove(zipPath, { baseDir: BaseDirectory.AppData });
+    return;
+  }
+  const rawPath = await join("stories", `${storyName}.zip`);
+  if (await exists(rawPath, { baseDir: BaseDirectory.AppData })) {
+    await remove(rawPath, { baseDir: BaseDirectory.AppData });
   }
 };

@@ -10,6 +10,7 @@ export interface StoryOptionsProps {
     onErrorClick: () => void;
     onOptionClick: (option: Option) => void;
     onDisable: () => void;
+    isTransitioning?: boolean;
 }
 
 export default function StoryOptions({
@@ -17,6 +18,7 @@ export default function StoryOptions({
     onErrorClick,
     onOptionClick,
     onDisable,
+    isTransitioning = false,
 }: StoryOptionsProps) {
     const { LL } = useI18nContext();
     const pressedAt = useRef(0);
@@ -42,11 +44,15 @@ export default function StoryOptions({
                         <Button
                             key={option.nextChapter}
                             onClick={() => onOptionClick(option)}
+                            disabled={isTransitioning}
                             cls="m-1 shadow-md">
                             {LL.STORY_OPTION_NEXT_CHAPTER()} {option.itemLabel ?? option.item ?? "null"}
                         </Button>
                     ))}
-                    <Button onClick={() => onErrorClick()} cls="m-1 bg-red-500! shadow-md">
+                    <Button
+                        onClick={() => onErrorClick()}
+                        disabled={isTransitioning}
+                        cls="m-1 bg-red-500! shadow-md">
                         {LL.STORY_OPTION_PLAY_ERROR_SOUND()}
                     </Button>
             </div>

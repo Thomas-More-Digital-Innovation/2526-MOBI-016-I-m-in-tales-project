@@ -1,7 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
 import { ImageUpload, Button } from "@components";
 import { useNavigate } from "react-router-dom";
-import { loadStoryData, bytesToUrl } from "@utils/storyIO";
+import {
+  loadStoryData,
+  bytesToUrl,
+  normalizeStoryName,
+  storyExists,
+  renameStory,
+} from "@utils/storyIO";
+import { message } from "@tauri-apps/plugin-dialog";
 import { useI18nContext } from "@/i18n/i18n-react";
 
 export default function MakeStoryCard({ folderName }: { folderName?: string }) {
@@ -9,6 +16,7 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
   const [description, setDescription] = useState("");
   const [thumbnailBytes, setThumbnailBytes] = useState<Uint8Array | null>(null);
   const [existingStory, setExistingStory] = useState<any>(null);
+  const [isUpdating, setIsUpdating] = useState(false);
   const navigate = useNavigate();
   const { LL } = useI18nContext();
 
@@ -34,29 +42,73 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
     }
   }, [folderName]);
 
-  const handleNext = () => {
-    if (!name.trim()) {
-      alert(LL.MAKE_CARD_NAME_REQUIRED());
+  const handleNext = async () => {
+    const trimmedName = name.trim();
+    if (!trimmedName) {
+      await message(LL.MAKE_CARD_NAME_REQUIRED(), {
+        title: LL.STORY_INVALID_NAME_TITLE(),
+        kind: "error",
+      });
       return;
     }
 
-    const finalFolderName = name.trim().replace(/\s+/g, "_").toLowerCase();
+    const finalFolderName = normalizeStoryName(trimmedName);
+    if (!finalFolderName) {
+      await message(LL.STORY_INVALID_NAME_MSG(), {
+        title: LL.STORY_INVALID_NAME_TITLE(),
+        kind: "error",
+      });
+      return;
+    }
 
-    // If folderName changed (name changed), we might need to handle renaming, 
-    // but for now let's just pass the data. 
-    // The Configurator will use the finalFolderName to save.
+    setIsUpdating(true);
 
-    navigate(`/makeStory/storyConfigurator/${finalFolderName}`, {
-      state: {
-        story: {
-          ...existingStory,
-          id: existingStory?.id || crypto.randomUUID(),
-          name: name.trim(),
+    try {
+      if (folderName && folderName !== finalFolderName) {
+        const existsOnDisk = await storyExists(finalFolderName);
+        if (existsOnDisk) {
+          await message(LL.STORY_EXISTS_MSG({ name: trimmedName }), {
+            title: LL.STORY_EXISTS_TITLE(),
+            kind: "error",
+          });
+          setIsUpdating(false);
+          return;
+        }
+
+        await renameStory(folderName, finalFolderName, {
+          name: trimmedName,
           description: description.trim(),
-          thumbnail: thumbnailBytes ? Array.from(thumbnailBytes) : null,
+          thumbnail: thumbnailBytes,
+        });
+      } else if (!folderName) {
+        const existsOnDisk = await storyExists(finalFolderName);
+        if (existsOnDisk) {
+          await message(LL.STORY_EXISTS_MSG({ name: trimmedName }), {
+            title: LL.STORY_EXISTS_TITLE(),
+            kind: "error",
+          });
+          setIsUpdating(false);
+          return;
         }
       }
-    });
+
+      navigate(`/makeStory/storyConfigurator/${finalFolderName}`, {
+        state: {
+          story: {
+            ...existingStory,
+            id: existingStory?.id || crypto.randomUUID(),
+            name: trimmedName,
+            description: description.trim(),
+            thumbnail: thumbnailBytes ? Array.from(thumbnailBytes) : null,
+          },
+        },
+      });
+    } catch (err) {
+      console.error("Failed to process story rename/navigation:", err);
+      await message(String(err), { title: "Error", kind: "error" });
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
   return (
@@ -93,8 +145,18 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
       </div>
 
       <div className="mt-auto w-full pt-4">
-        <Button onClick={handleNext} cls="w-full !rounded-2xl !py-4 shadow-lg shadow-talesorang-100 hover:scale-[1.02] active:scale-[0.98] transition-transform">
-          {folderName ? LL.MAKE_CARD_UPDATE() : LL.MAKE_CARD_START()}
+        <Button
+          onClick={handleNext}
+          disabled={isUpdating}
+          cls={`w-full !rounded-2xl !py-4 shadow-lg shadow-talesorang-100 transition-transform ${
+            isUpdating ? "opacity-75 cursor-not-allowed" : "hover:scale-[1.02] active:scale-[0.98]"
+          }`}
+        >
+          {isUpdating
+            ? LL.MAKE_CARD_RENAMING()
+            : folderName
+            ? LL.MAKE_CARD_UPDATE()
+            : LL.MAKE_CARD_START()}
         </Button>
       </div>
     </div>
