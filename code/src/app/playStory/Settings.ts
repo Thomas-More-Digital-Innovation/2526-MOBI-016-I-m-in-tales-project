@@ -4,6 +4,8 @@ export let storySettings: StorySettings = {
   fontSize: "normale tekst",
   volume: 0.5,
   showStoryOptions: false,
+  showTitle: true,
+  showDescription: true,
 };
 
 export let fontSize: Record<FontSize, number> = {

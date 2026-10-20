@@ -133,8 +133,8 @@ export default function PlayStory() {
                 <div className="relative h-screen w-screen">
                     <StoryVisuals image={currentChapter.image} />
                     <StoryOverlay
-                        title={currentChapter.title}
-                        description={currentChapter.description}
+                        title={settings.showTitle ? currentChapter.title : undefined}
+                        description={settings.showDescription ? currentChapter.description : undefined}
                         fontSizeSetting={settings.fontSize}
                         options={currentChapter.option}
                     />

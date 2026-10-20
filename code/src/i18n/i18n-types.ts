@@ -498,6 +498,14 @@ type RootTranslation = {
 	 */
 	SETTINGS_SHOW_STORY_OPTIONS_DESC: string
 	/**
+	 * Show Top Text
+	 */
+	SETTINGS_SHOW_TITLE: string
+	/**
+	 * Show Bottom Text
+	 */
+	SETTINGS_SHOW_DESCRIPTION: string
+	/**
 	 * S​e​t​t​i​n​g​s
 	 */
 	STORY_SETTINGS: string
@@ -1171,6 +1179,14 @@ export type TranslationFunctions = {
 	 * Display manual buttons in the bottom right corner to override chapter choices. Press and hold the button for 2 seconds to turn them off.
 	 */
 	SETTINGS_SHOW_STORY_OPTIONS_DESC: () => LocalizedString
+	/**
+	 * Show Top Text
+	 */
+	SETTINGS_SHOW_TITLE: () => LocalizedString
+	/**
+	 * Show Bottom Text
+	 */
+	SETTINGS_SHOW_DESCRIPTION: () => LocalizedString
 	/**
 	 * Settings
 	 */
