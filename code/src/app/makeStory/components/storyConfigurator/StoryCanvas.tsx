@@ -91,6 +91,18 @@ export default function StoryCanvas({
 
   const linkingRootNode = linkingRootId ? effectiveNodes.find(n => n.id === linkingRootId) : null;
 
+  // Every node reachable from the selected one; their outgoing links get highlighted.
+  const downstreamIds = new Set<string>();
+  if (selectedId) {
+    const queue = [selectedId];
+    while (queue.length) {
+      const id = queue.shift()!;
+      if (downstreamIds.has(id)) continue;
+      downstreamIds.add(id);
+      nodes.find((n) => n.id === id)?.links.forEach((l) => queue.push(l.targetId));
+    }
+  }
+
   useEffect(() => {
     if (!stageContainerRef.current) return;
 
@@ -159,10 +171,10 @@ export default function StoryCanvas({
               ]}
               stroke="#f97316"
               fill="#f97316"
-              strokeWidth={2}
-              dash={[5, 5]}
-              pointerLength={8}
-              pointerWidth={8}
+              strokeWidth={3}
+              dash={[8, 6]}
+              pointerLength={12}
+              pointerWidth={12}
               listening={false}
             />
           )}
@@ -174,15 +186,19 @@ export default function StoryCanvas({
               const toHeight = getNodeHeight(destination.title);
               const pts = getEdgePoints(node, destination, fromHeight, toHeight);
               const isSourceSelected = selectedId === node.id;
+              const isDownstream = !isSourceSelected && downstreamIds.has(node.id);
+              const color = isSourceSelected ? "#f97316" : isDownstream ? "#facc15" : "#94a3b8";
               return (
                 <Arrow
                   key={`${node.id}->${link.targetId}`}
                   points={pts}
-                  stroke={isSourceSelected ? "#f97316" : "#cbd5e1"}
-                  fill={isSourceSelected ? "#f97316" : "#cbd5e1"}
-                  strokeWidth={isSourceSelected ? 2 : 1}
-                  pointerLength={6}
-                  pointerWidth={6}
+                  stroke={color}
+                  fill={color}
+                  strokeWidth={isSourceSelected || isDownstream ? 4 : 3}
+                  pointerLength={12}
+                  pointerWidth={12}
+                  shadowColor={color}
+                  shadowBlur={isSourceSelected || isDownstream ? 10 : 0}
                   listening={false}
                 />
               );

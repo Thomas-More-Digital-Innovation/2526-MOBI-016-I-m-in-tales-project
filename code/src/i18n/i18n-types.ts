@@ -439,6 +439,49 @@ type RootTranslation = {
 	 */
 	NODE_LINK_SELECT_HINT: string
 	/**
+	 * S​a​v​e​s​ ​a​l​l​ ​c​h​a​p​t​e​r​s​,​ ​l​i​n​k​s​,​ ​l​a​b​e​l​s​ ​a​n​d​ ​a​u​d​i​o​ ​t​o​ ​t​h​e​ ​s​t​o​r​y​ ​f​i​l​e​.
+	 */
+	TIP_SAVE: string
+	/**
+	 * A​d​d​s​ ​a​n​ ​e​m​p​t​y​ ​c​h​a​p​t​e​r​ ​t​o​ ​t​h​e​ ​c​a​n​v​a​s​.​ ​L​i​n​k​ ​t​o​ ​i​t​ ​f​r​o​m​ ​a​n​o​t​h​e​r​ ​c​h​a​p​t​e​r​ ​s​o​ ​i​t​ ​b​e​c​o​m​e​s​ ​p​a​r​t​ ​o​f​ ​t​h​e​ ​s​t​o​r​y​.
+	 */
+	TIP_ADD_CHAPTER: string
+	/**
+	 * R​e​m​o​v​e​s​ ​t​h​i​s​ ​c​h​a​p​t​e​r​ ​a​n​d​ ​e​v​e​r​y​ ​l​i​n​k​ ​t​h​a​t​ ​p​o​i​n​t​s​ ​t​o​ ​i​t​.
+	 */
+	TIP_DELETE_CHAPTER: string
+	/**
+	 * T​h​e​ ​i​m​a​g​e​ ​s​h​o​w​n​ ​w​h​i​l​e​ ​t​h​i​s​ ​c​h​a​p​t​e​r​ ​p​l​a​y​s​.
+	 */
+	TIP_ILLUSTRATION: string
+	/**
+	 * R​e​c​o​r​d​ ​o​r​ ​u​p​l​o​a​d​ ​a​u​d​i​o​.​
+​N​a​r​r​a​t​i​o​n​:​ ​p​l​a​y​s​ ​w​h​e​n​ ​t​h​e​ ​c​h​a​p​t​e​r​ ​s​t​a​r​t​s​.​
+​F​a​i​l​ ​a​u​d​i​o​:​ ​p​l​a​y​s​ ​w​h​e​n​ ​a​ ​t​a​g​ ​i​s​ ​s​c​a​n​n​e​d​ ​t​h​a​t​ ​i​s​n​'​t​ ​o​n​e​ ​o​f​ ​t​h​i​s​ ​c​h​a​p​t​e​r​'​s​ ​l​i​n​k​s​.
+	 */
+	TIP_MANAGE_AUDIO: string
+	/**
+	 * W​h​e​n​ ​o​n​,​ ​t​h​e​ ​s​t​o​r​y​ ​m​o​v​e​s​ ​o​n​ ​b​y​ ​i​t​s​e​l​f​ ​a​s​ ​s​o​o​n​ ​a​s​ ​t​h​e​ ​n​a​r​r​a​t​i​o​n​ ​e​n​d​s​;​ ​n​o​ ​t​a​g​ ​s​c​a​n​ ​n​e​e​d​e​d​.​ ​O​n​l​y​ ​w​o​r​k​s​ ​w​i​t​h​ ​e​x​a​c​t​l​y​ ​o​n​e​ ​l​i​n​k​.​
+​Y​o​u​r​ ​l​a​b​e​l​s​ ​a​n​d​ ​t​a​g​s​ ​a​r​e​ ​k​e​p​t​ ​a​n​d​ ​c​o​m​e​ ​b​a​c​k​ ​w​h​e​n​ ​y​o​u​ ​t​u​r​n​ ​i​t​ ​o​f​f​.
+	 */
+	TIP_AUTO_ADVANCE: string
+	/**
+	 * P​r​e​s​s​ ​t​h​i​s​,​ ​t​h​e​n​ ​c​l​i​c​k​ ​a​n​o​t​h​e​r​ ​c​h​a​p​t​e​r​ ​o​n​ ​t​h​e​ ​c​a​n​v​a​s​ ​t​o​ ​c​o​n​n​e​c​t​ ​i​t​.​ ​E​a​c​h​ ​l​i​n​k​ ​i​s​ ​o​n​e​ ​c​h​o​i​c​e​ ​t​h​e​ ​c​h​i​l​d​ ​c​a​n​ ​m​a​k​e​.
+	 */
+	TIP_ADD_LINK: string
+	/**
+	 * N​a​m​e​ ​o​f​ ​t​h​i​s​ ​c​h​o​i​c​e​ ​(​e​.​g​.​ ​"​t​h​e​ ​k​e​y​"​)​.​ ​S​h​o​w​n​ ​o​n​ ​t​h​e​ ​o​p​t​i​o​n​ ​b​u​t​t​o​n​s​ ​a​n​d​ ​i​n​ ​t​a​g​ ​c​a​l​i​b​r​a​t​i​o​n​.
+	 */
+	TIP_LINK_LABEL: string
+	/**
+	 * C​o​n​n​e​c​t​ ​t​h​e​ ​N​F​C​ ​r​e​a​d​e​r​,​ ​h​o​l​d​ ​a​ ​t​a​g​ ​o​n​ ​i​t​,​ ​t​h​e​n​ ​p​r​e​s​s​ ​L​i​n​k​ ​T​a​g​.​ ​S​c​a​n​n​i​n​g​ ​t​h​a​t​ ​t​a​g​ ​d​u​r​i​n​g​ ​p​l​a​y​ ​j​u​m​p​s​ ​t​o​ ​t​h​e​ ​l​i​n​k​e​d​ ​c​h​a​p​t​e​r​.
+	 */
+	TIP_LINK_TAG: string
+	/**
+	 * R​e​m​o​v​e​s​ ​t​h​i​s​ ​l​i​n​k​.​ ​T​h​e​ ​t​a​r​g​e​t​ ​c​h​a​p​t​e​r​ ​i​t​s​e​l​f​ ​i​s​ ​k​e​p​t​.
+	 */
+	TIP_DELETE_LINK: string
+	/**
 	 * N​o​ ​I​m​a​g​e
 	 */
 	CANVAS_NO_IMAGE: string
@@ -494,7 +537,7 @@ type RootTranslation = {
 	 */
 	SETTINGS_SHOW_STORY_OPTIONS: string
 	/**
-	 * D​i​s​p​l​a​y​ ​m​a​n​u​a​l​ ​b​u​t​t​o​n​s​ ​i​n​ ​t​h​e​ ​b​o​t​t​o​m​ ​r​i​g​h​t​ ​c​o​r​n​e​r​ ​t​o​ ​o​v​e​r​r​i​d​e​ ​c​h​a​p​t​e​r​ ​c​h​o​i​c​e​s​.​ ​P​r​e​s​s​ ​a​n​d​ ​h​o​l​d​ ​t​h​e​ ​b​u​t​t​o​n​ ​f​o​r​ ​2​ ​s​e​c​o​n​d​s​ ​t​o​ ​t​u​r​n​ ​t​h​e​m​ ​o​f​f​.
+	 * D​i​s​p​l​a​y​ ​m​a​n​u​a​l​ ​b​u​t​t​o​n​s​ ​i​n​ ​t​h​e​ ​b​o​t​t​o​m​ ​r​i​g​h​t​ ​c​o​r​n​e​r​ ​t​o​ ​o​v​e​r​r​i​d​e​ ​c​h​a​p​t​e​r​ ​c​h​o​i​c​e​s​.​ ​P​r​e​s​s​ ​a​n​d​ ​h​o​l​d​ ​t​h​e​ ​b​u​t​t​o​n​ ​f​o​r​ ​2​ ​s​e​c​o​n​d​s​ ​t​o​ ​t​u​r​n​ ​t​h​e​m​ ​o​f​f​;​ ​p​r​e​s​s​ ​a​n​d​ ​h​o​l​d​ ​t​h​e​ ​b​o​t​t​o​m​ ​r​i​g​h​t​ ​c​o​r​n​e​r​ ​f​o​r​ ​2​ ​s​e​c​o​n​d​s​ ​t​o​ ​t​u​r​n​ ​t​h​e​m​ ​b​a​c​k​ ​o​n​.
 	 */
 	SETTINGS_SHOW_STORY_OPTIONS_DESC: string
 	/**
@@ -526,13 +569,13 @@ type RootTranslation = {
 	 */
 	STORY_OPTION_HIDE_OPTIONS: string
 	/**
-	 * H​o​l​d​ ​m​e​!​ ​D​o​n​'​t​ ​p​r​e​s​s​ ​m​e​!
-	 */
-	STORY_OPTION_HOLD_HINT: string
-	/**
 	 * S​h​o​w​ ​O​p​t​i​o​n​s
 	 */
 	STORY_OPTION_SHOW_OPTIONS: string
+	/**
+	 * H​o​l​d​ ​t​o​ ​h​i​d​e​ ​o​p​t​i​o​n​s
+	 */
+	STORY_OPTION_HOLD_HINT: string
 	/**
 	 * S​t​o​r​y​ ​B​a​c​k​g​r​o​u​n​d
 	 */
@@ -1113,6 +1156,49 @@ export type TranslationFunctions = {
 	 */
 	NODE_LINK_SELECT_HINT: () => LocalizedString
 	/**
+	 * Saves all chapters, links, labels and audio to the story file.
+	 */
+	TIP_SAVE: () => LocalizedString
+	/**
+	 * Adds an empty chapter to the canvas. Link to it from another chapter so it becomes part of the story.
+	 */
+	TIP_ADD_CHAPTER: () => LocalizedString
+	/**
+	 * Removes this chapter and every link that points to it.
+	 */
+	TIP_DELETE_CHAPTER: () => LocalizedString
+	/**
+	 * The image shown while this chapter plays.
+	 */
+	TIP_ILLUSTRATION: () => LocalizedString
+	/**
+	 * Record or upload audio.
+Narration: plays when the chapter starts.
+Fail audio: plays when a tag is scanned that isn't one of this chapter's links.
+	 */
+	TIP_MANAGE_AUDIO: () => LocalizedString
+	/**
+	 * When on, the story moves on by itself as soon as the narration ends; no tag scan needed. Only works with exactly one link.
+Your labels and tags are kept and come back when you turn it off.
+	 */
+	TIP_AUTO_ADVANCE: () => LocalizedString
+	/**
+	 * Press this, then click another chapter on the canvas to connect it. Each link is one choice the child can make.
+	 */
+	TIP_ADD_LINK: () => LocalizedString
+	/**
+	 * Name of this choice (e.g. "the key"). Shown on the option buttons and in tag calibration.
+	 */
+	TIP_LINK_LABEL: () => LocalizedString
+	/**
+	 * Connect the NFC reader, hold a tag on it, then press Link Tag. Scanning that tag during play jumps to the linked chapter.
+	 */
+	TIP_LINK_TAG: () => LocalizedString
+	/**
+	 * Removes this link. The target chapter itself is kept.
+	 */
+	TIP_DELETE_LINK: () => LocalizedString
+	/**
 	 * No Image
 	 */
 	CANVAS_NO_IMAGE: () => LocalizedString
@@ -1168,7 +1254,7 @@ export type TranslationFunctions = {
 	 */
 	SETTINGS_SHOW_STORY_OPTIONS: () => LocalizedString
 	/**
-	 * Display manual buttons in the bottom right corner to override chapter choices. Press and hold the button for 2 seconds to turn them off.
+	 * Display manual buttons in the bottom right corner to override chapter choices. Press and hold the button for 2 seconds to turn them off; press and hold the bottom right corner for 2 seconds to turn them back on.
 	 */
 	SETTINGS_SHOW_STORY_OPTIONS_DESC: () => LocalizedString
 	/**
@@ -1200,13 +1286,13 @@ export type TranslationFunctions = {
 	 */
 	STORY_OPTION_HIDE_OPTIONS: () => LocalizedString
 	/**
-	 * Hold me! Don't press me!
-	 */
-	STORY_OPTION_HOLD_HINT: () => LocalizedString
-	/**
 	 * Show Options
 	 */
 	STORY_OPTION_SHOW_OPTIONS: () => LocalizedString
+	/**
+	 * Hold to hide options
+	 */
+	STORY_OPTION_HOLD_HINT: () => LocalizedString
 	/**
 	 * Story Background
 	 */

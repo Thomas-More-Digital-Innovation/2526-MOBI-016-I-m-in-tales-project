@@ -134,6 +134,18 @@ const en = {
   NODE_LINK_TO: "To:",
   NODE_LINK_SELECT_HINT: "Click to select this chapter on canvas",
 
+  // Editor help tooltips
+  TIP_SAVE: "Saves all chapters, links, labels and audio to the story file.",
+  TIP_ADD_CHAPTER: "Adds an empty chapter to the canvas. Link to it from another chapter so it becomes part of the story.",
+  TIP_DELETE_CHAPTER: "Removes this chapter and every link that points to it.",
+  TIP_ILLUSTRATION: "The image shown while this chapter plays.",
+  TIP_MANAGE_AUDIO: "Record or upload audio.\nNarration: plays when the chapter starts.\nFail audio: plays when a tag is scanned that isn't one of this chapter's links.",
+  TIP_AUTO_ADVANCE: "When on, the story moves on by itself as soon as the narration ends; no tag scan needed. Only works with exactly one link.\nYour labels and tags are kept and come back when you turn it off.",
+  TIP_ADD_LINK: "Press this, then click another chapter on the canvas to connect it. Each link is one choice the child can make.",
+  TIP_LINK_LABEL: "Name of this choice (e.g. \"the key\"). Shown on the option buttons and in tag calibration.",
+  TIP_LINK_TAG: "Connect the NFC reader, hold a tag on it, then press Link Tag. Scanning that tag during play jumps to the linked chapter.",
+  TIP_DELETE_LINK: "Removes this link. The target chapter itself is kept.",
+
   // StoryCanvas component
   CANVAS_NO_IMAGE: "No Image",
   CANVAS_HINT:
@@ -168,6 +180,7 @@ const en = {
   STORY_OPTION_PLAY_ERROR_SOUND: "Play error sound",
   STORY_OPTION_HIDE_OPTIONS: "Hide Options",
   STORY_OPTION_SHOW_OPTIONS: "Show Options",
+  STORY_OPTION_HOLD_HINT: "Hold to hide options",
 
   // StoryVisuals component
   STORY_BG_ALT: "Story Background",

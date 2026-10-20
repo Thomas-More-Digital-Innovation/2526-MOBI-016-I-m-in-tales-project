@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useStoryState } from "./useStoryState";
 import StoryCanvas from "./StoryCanvas";
 import NodeSidebar from "./NodeSidebar";
+import HelpTip from "./HelpTip";
 import { useI18nContext } from "@/i18n/i18n-react";
 
 type ConfiguratorProps = {
@@ -133,12 +134,12 @@ export default function Configurator({
                 {nodes.length} {nodes.length !== 1 ? LL.CONFIG_CHAPTER_PLURAL() : LL.CONFIG_CHAPTER_SINGULAR()}
               </p>
             </div>
-            <div className="flex gap-2">
+            <HelpTip text={LL.TIP_SAVE()}>
               <Button onClick={saveFile} cls={`text-[12px] !px-8 !py-2 !rounded-full shadow-lg transition-all flex items-center gap-2 ${isDirty ? 'shadow-talesorang-200 ring-2 ring-talesorang-100' : 'shadow-gray-100 opacity-80 hover:opacity-100'}`}>
                 {isDirty && <div className="w-2 h-2 rounded-full bg-white animate-pulse" />}
                 {isDirty ? LL.CONFIG_SAVE() : LL.CONFIG_SAVED()}
               </Button>
-            </div>
+            </HelpTip>
           </div>
 
           <StoryCanvas
