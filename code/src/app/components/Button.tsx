@@ -19,7 +19,7 @@ export default function Button({ children, cls = "", onClick, style, primary = f
             style={style}
             disabled={disabled}
             className={`text-3xl cursor-pointer font-semibold duration-150 ease-in-out py-3 px-8 h-fit hover:scale-85 hover:drop-shadow-none text-white rounded ${cls} ${variantClass} ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}
-            title={title}
+            title={title || undefined}
         >
             {children}
         </button>

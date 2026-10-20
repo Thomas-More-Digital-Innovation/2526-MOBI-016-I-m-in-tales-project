@@ -435,6 +435,18 @@ type RootTranslation = {
 	 */
 	NODE_AUTO_ADVANCE_DISABLED: string
 	/**
+	 * *​ ​A​u​t​o​-​a​d​v​a​n​c​e​ ​o​n​l​y​ ​w​o​r​k​s​ ​w​i​t​h​ ​1​ ​l​i​n​k​ ​(​m​u​l​t​i​p​l​e​ ​l​i​n​k​s​ ​w​i​l​l​ ​p​a​u​s​e​ ​p​l​a​y​b​a​c​k​)
+	 */
+	NODE_AUTO_ADVANCE_MULTIPLE_WARNING: string
+	/**
+	 * T​u​r​n​ ​o​f​f​ ​a​u​t​o​-​a​d​v​a​n​c​e​ ​t​o​ ​a​d​d​ ​m​o​r​e​ ​c​h​o​i​c​e​s
+	 */
+	NODE_AUTO_ADVANCE_LIMIT_REACHED: string
+	/**
+	 * A​d​d​ ​a​ ​l​i​n​k​ ​t​o​ ​a​n​o​t​h​e​r​ ​c​h​a​p​t​e​r​ ​b​e​f​o​r​e​ ​e​n​a​b​l​i​n​g​ ​a​u​t​o​-​a​d​v​a​n​c​e
+	 */
+	NODE_AUTO_ADVANCE_NEED_LINK: string
+	/**
 	 * T​r​a​n​s​i​t​i​o​n​ ​l​a​b​e​l​ ​(​o​p​t​i​o​n​a​l​)
 	 */
 	NODE_TRANSITION_LABEL_OPTIONAL: string
@@ -1167,6 +1179,18 @@ export type TranslationFunctions = {
 	 * * NFC tags ignored due to Auto-Advance
 	 */
 	NODE_AUTO_ADVANCE_DISABLED: () => LocalizedString
+	/**
+	 * * Auto-advance only works with 1 link (multiple links will pause playback)
+	 */
+	NODE_AUTO_ADVANCE_MULTIPLE_WARNING: () => LocalizedString
+	/**
+	 * Turn off auto-advance to add more choices
+	 */
+	NODE_AUTO_ADVANCE_LIMIT_REACHED: () => LocalizedString
+	/**
+	 * Add a link to another chapter before enabling auto-advance
+	 */
+	NODE_AUTO_ADVANCE_NEED_LINK: () => LocalizedString
 	/**
 	 * Transition label (optional)
 	 */
