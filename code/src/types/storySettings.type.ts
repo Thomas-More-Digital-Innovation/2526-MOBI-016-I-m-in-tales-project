@@ -2,6 +2,8 @@ export interface StorySettings {
     fontSize: FontSize;
     volume: number;
     showStoryOptions: boolean;
+    showTitle: boolean;
+    showDescription: boolean;
 }
 
 export type FontSize =

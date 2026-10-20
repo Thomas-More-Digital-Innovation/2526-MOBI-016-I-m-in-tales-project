@@ -21,9 +21,8 @@ export default function SettingsModal({
 
     const updateSettings = (next: StorySettings) => {
         setSettings(next);
-        storySettings.fontSize = next.fontSize;
+        Object.assign(storySettings, next);
         setVolume(next.volume);
-        storySettings.showStoryOptions = next.showStoryOptions;
         onSettingsChange?.(next);
     };
 
@@ -108,27 +107,62 @@ export default function SettingsModal({
                         <span className="text-sm font-medium text-talesblu-600 leading-snug pr-4">
                             {LL.SETTINGS_SHOW_STORY_OPTIONS_DESC()}
                         </span>
-                        <button
-                            onClick={() =>
+                        <Toggle
+                            checked={settings.showStoryOptions}
+                            onToggle={() =>
                                 updateSettings({
                                     ...settings,
                                     showStoryOptions: !settings.showStoryOptions,
                                 })
                             }
-                            type="button"
-                            className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                                settings.showStoryOptions ? "bg-talesorang-500" : "bg-slate-300"
-                            }`}
-                        >
-                            <span
-                                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                                    settings.showStoryOptions ? "translate-x-5" : "translate-x-0"
-                                }`}
-                            />
-                        </button>
+                        />
                     </div>
+                </div>
+
+                {/* Top / bottom text visibility switches */}
+                <div className="flex flex-col gap-2">
+                    {(
+                        [
+                            ["showTitle", LL.SETTINGS_SHOW_TITLE()],
+                            ["showDescription", LL.SETTINGS_SHOW_DESCRIPTION()],
+                        ] as const
+                    ).map(([key, label]) => (
+                        <div
+                            key={key}
+                            className="flex items-center justify-between bg-talesblu-50/50 border border-talesblu-100/60 p-4 rounded-xl">
+                            <span className="text-sm font-medium text-talesblu-600 leading-snug pr-4">
+                                {label}
+                            </span>
+                            <Toggle
+                                checked={settings[key]}
+                                onToggle={() =>
+                                    updateSettings({ ...settings, [key]: !settings[key] })
+                                }
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
         </Modal>
+    );
+}
+
+function Toggle({ checked, onToggle }: { checked: boolean; onToggle: () => void }) {
+    return (
+        <button
+            onClick={onToggle}
+            type="button"
+            role="switch"
+            aria-checked={checked}
+            className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                checked ? "bg-talesorang-500" : "bg-slate-300"
+            }`}
+        >
+            <span
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                    checked ? "translate-x-5" : "translate-x-0"
+                }`}
+            />
+        </button>
     );
 }

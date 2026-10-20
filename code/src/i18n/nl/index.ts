@@ -157,6 +157,8 @@ const nl = {
   SETTINGS_VOLUME: 'Volume',
   SETTINGS_SHOW_STORY_OPTIONS: 'Handmatige opties weergeven',
   SETTINGS_SHOW_STORY_OPTIONS_DESC: 'Toon handmatige knoppen in de rechterbenedenhoek om hoofdstukkeuzes te forceren. Houd de knop 2 seconden ingedrukt om ze uit te zetten; houd de rechterbenedenhoek 2 seconden ingedrukt om ze weer aan te zetten.',
+  SETTINGS_SHOW_TITLE: 'Bovenste tekst weergeven',
+  SETTINGS_SHOW_DESCRIPTION: 'Onderste tekst weergeven',
 
   // StoryHeader component
   STORY_SETTINGS: "Instellingen",
