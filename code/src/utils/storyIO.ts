@@ -105,16 +105,20 @@ export const sanitizeStoryName = (name: string): string => {
   if (!name) return `story_${Date.now()}`;
 
   let sanitized = name
+    .trim()
+    .toLowerCase()
     .replace(/\.zip$/i, "")
     .replace(/[\x00-\x1f\x7f]/g, "")
     .replace(/[/\\]/g, "")
-    .replace(/[<>:"|?*]/g, "");
+    .replace(/[<>:"|?*~#&{}]/g, "")
+    .replace(/\s+/g, "_")
+    .replace(/_+/g, "_");
 
   while (sanitized.includes("..")) {
     sanitized = sanitized.replace(/\.\./g, "");
   }
 
-  sanitized = sanitized.replace(/^[.\s]+|[.\s]+$/g, "").trim();
+  sanitized = sanitized.replace(/^[.\s_]+|[.\s_]+$/g, "").trim();
 
   // prevent collision with windows device names
   const isWindowsReserved = /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(\..*)?$/i.test(sanitized);
@@ -134,9 +138,77 @@ export const sanitizeStoryName = (name: string): string => {
   return sanitized.slice(0, 100);
 };
 
-const getStoryZipPath = async (storyName: string): Promise<string> => {
+export const normalizeStoryName = (name: string): string => {
+  const sanitized = sanitizeStoryName(name);
+  const cleaned = name
+    .trim()
+    .toLowerCase()
+    .replace(/[/\\?%*:|"<>~#&{}\x00-\x1f\x7f-\x9f]/g, "")
+    .replace(/\s+/g, "_")
+    .replace(/_+/g, "_")
+    .replace(/^[\._]+|[\._]+$/g, "");
+  if (!cleaned) return "";
+  return sanitized;
+};
+
+export const getStoryZipPath = async (storyName: string): Promise<string> => {
   const safeName = sanitizeStoryName(storyName);
   return join("stories", `${safeName}.zip`);
+};
+
+export const storyExists = async (slug: string): Promise<boolean> => {
+  try {
+    const zipPath = await getStoryZipPath(slug);
+    return await exists(zipPath, { baseDir: BaseDirectory.AppData });
+  } catch {
+    return false;
+  }
+};
+
+export const renameStory = async (
+  oldSlug: string,
+  newSlug: string,
+  updates?: { name?: string; description?: string; thumbnail?: Uint8Array | null }
+): Promise<void> => {
+  await ensureStoriesDir();
+  let oldZipPath = await getStoryZipPath(oldSlug);
+  if (!(await exists(oldZipPath, { baseDir: BaseDirectory.AppData }))) {
+    const rawOldPath = await join("stories", `${oldSlug}.zip`);
+    if (await exists(rawOldPath, { baseDir: BaseDirectory.AppData })) {
+      oldZipPath = rawOldPath;
+    }
+  }
+
+  const oldZipContent = await readFile(oldZipPath, { baseDir: BaseDirectory.AppData });
+  const zip = await JSZip.loadAsync(oldZipContent);
+
+  const metadataFile = zip.file("metadata.json");
+  if (!metadataFile) throw new Error(`No metadata.json found in story zip: ${oldSlug}`);
+  const metadataText = await metadataFile.async("string");
+  const metadata: StoryMetadata = JSON.parse(metadataText);
+
+  if (updates?.name !== undefined) metadata.name = updates.name;
+  if (updates?.description !== undefined) metadata.description = updates.description;
+  zip.file("metadata.json", JSON.stringify(metadata, null, 2));
+
+  if (updates?.thumbnail !== undefined) {
+    if (updates.thumbnail && updates.thumbnail.length > 0) {
+      const downscaledThumb = await downscaleImageBytes(updates.thumbnail, 1920, 1080);
+      zip.file("thumbnail.png", downscaledThumb);
+    } else {
+      zip.remove("thumbnail.png");
+    }
+  }
+
+  const safeNewSlug = sanitizeStoryName(newSlug);
+  const safeOldSlug = sanitizeStoryName(oldSlug);
+  const newZipContent = await zip.generateAsync({ type: "uint8array" });
+  const newZipPath = await getStoryZipPath(safeNewSlug);
+  await writeFile(newZipPath, newZipContent, { baseDir: BaseDirectory.AppData });
+
+  if (safeOldSlug !== safeNewSlug || oldZipPath !== newZipPath) {
+    await remove(oldZipPath, { baseDir: BaseDirectory.AppData });
+  }
 };
 
 // ============================================
@@ -146,6 +218,7 @@ const getStoryZipPath = async (storyName: string): Promise<string> => {
 export const saveStoryData = async (storyName: string, data: StoryData): Promise<void> => {
   await ensureStoriesDir();
 
+  const slug = normalizeStoryName(storyName) || storyName;
   const zip = new JSZip();
 
   const metadata: StoryMetadata = {
@@ -208,7 +281,7 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
   }
 
   const zipContent = await zip.generateAsync({ type: "uint8array" });
-  const zipPath = await getStoryZipPath(storyName);
+  const zipPath = await getStoryZipPath(slug);
   await writeFile(zipPath, zipContent, { baseDir: BaseDirectory.AppData });
 };
 
@@ -217,7 +290,15 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
 // ============================================
 
 export const loadStoryData = async (storyName: string): Promise<StoryData> => {
-  const zipPath = await getStoryZipPath(storyName);
+  let zipPath = await getStoryZipPath(storyName);
+  const zipExists = await exists(zipPath, { baseDir: BaseDirectory.AppData });
+  if (!zipExists) {
+    const rawPath = await join("stories", `${storyName}.zip`);
+    if (await exists(rawPath, { baseDir: BaseDirectory.AppData })) {
+      zipPath = rawPath;
+    }
+  }
+
   const zipContent = await readFile(zipPath, { baseDir: BaseDirectory.AppData });
 
   const zip = await JSZip.loadAsync(zipContent);
@@ -382,8 +463,7 @@ export const getAllAvailableStories = async (): Promise<string[]> => {
 // ============================================
 
 export const deleteStory = async (storyId: string): Promise<void> => {
-  const zipPath = await getStoryZipPath(storyId);
-  await remove(zipPath, { baseDir: BaseDirectory.AppData });
+  await removeStoryData(storyId);
 };
 
 export const exportStory = async (storyId: string): Promise<void> => {
@@ -395,7 +475,15 @@ export const exportStory = async (storyId: string): Promise<void> => {
   });
   if (!savePath) return;
 
-  const zipPath = await getStoryZipPath(safeName);
+  let zipPath = await getStoryZipPath(safeName);
+  const zipExists = await exists(zipPath, { baseDir: BaseDirectory.AppData });
+  if (!zipExists) {
+    const rawPath = await join("stories", `${storyId}.zip`);
+    if (await exists(rawPath, { baseDir: BaseDirectory.AppData })) {
+      zipPath = rawPath;
+    }
+  }
+
   const zipContent = await readFile(zipPath, { baseDir: BaseDirectory.AppData });
   await writeFile(savePath, zipContent);
 };
@@ -405,7 +493,7 @@ export interface ImportStoryOptions {
 }
 
 export const importStory = async (options?: ImportStoryOptions): Promise<string | null> => {
-  const { open, ask } = await import("@tauri-apps/plugin-dialog");
+  const { open, ask, message } = await import("@tauri-apps/plugin-dialog");
   const filePath = await open({
     multiple: false,
     filters: [{ name: "Story", extensions: ["zip"] }],
@@ -421,17 +509,25 @@ export const importStory = async (options?: ImportStoryOptions): Promise<string 
   const metadata: StoryMetadata = JSON.parse(metadataText);
 
   await ensureStoriesDir();
-  const safeName = sanitizeStoryName(metadata.name);
-  const destPath = await getStoryZipPath(safeName);
+  const slug = normalizeStoryName(metadata.name);
+  if (!slug) {
+    const LL = getTranslations();
+    await message(LL.STORY_INVALID_NAME_MSG(), {
+      title: LL.STORY_INVALID_NAME_TITLE(),
+      kind: "error",
+    });
+    return null;
+  }
 
+  const destPath = await getStoryZipPath(slug);
   const fileExists = await exists(destPath, { baseDir: BaseDirectory.AppData });
   if (fileExists) {
     let proceed: boolean;
     if (options?.confirmOverwrite) {
-      proceed = await options.confirmOverwrite(safeName);
+      proceed = await options.confirmOverwrite(metadata.name);
     } else {
       const LL = getTranslations();
-      proceed = await ask(LL.IMPORT_OVERWRITE_CONFIRM({ name: safeName }), {
+      proceed = await ask(LL.IMPORT_OVERWRITE_CONFIRM({ name: metadata.name }), {
         title: LL.IMPORT_OVERWRITE_TITLE(),
         kind: "warning",
       });
@@ -441,7 +537,7 @@ export const importStory = async (options?: ImportStoryOptions): Promise<string 
 
   await writeFile(destPath, zipContent, { baseDir: BaseDirectory.AppData });
 
-  return safeName;
+  return slug;
 };
 
 // ============================================
@@ -463,6 +559,7 @@ export const bytesToUrl = (
   const base64 = typeof btoa === "function" ? btoa(binary) : "";
   return base64 ? `data:${mimeType};base64,${base64}` : "/placeholder.png";
 };
+
 // ============================================
 // Delete Story
 // ============================================
@@ -472,5 +569,10 @@ export const removeStoryData = async (storyName: string): Promise<void> => {
   const fileExists = await exists(zipPath, { baseDir: BaseDirectory.AppData });
   if (fileExists) {
     await remove(zipPath, { baseDir: BaseDirectory.AppData });
+    return;
+  }
+  const rawPath = await join("stories", `${storyName}.zip`);
+  if (await exists(rawPath, { baseDir: BaseDirectory.AppData })) {
+    await remove(rawPath, { baseDir: BaseDirectory.AppData });
   }
 };
