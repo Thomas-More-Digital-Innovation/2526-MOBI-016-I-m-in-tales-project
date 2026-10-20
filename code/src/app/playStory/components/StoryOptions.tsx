@@ -93,7 +93,7 @@ export default function StoryOptions({
     );
 }
 
-// Invisible corner trigger while options are off; holding it shows a ring that fills, release when full to enable
+// Faint corner trigger while options are off; holding it shows a ring that fills, release when full to enable
 export function StoryOptionsReveal({ onEnable }: { onEnable: () => void }) {
     const { LL } = useI18nContext();
     const pressedAt = useRef(0);
@@ -110,7 +110,10 @@ export function StoryOptionsReveal({ onEnable }: { onEnable: () => void }) {
             onPointerLeave={() => setHolding(false)}
             onPointerCancel={() => setHolding(false)}
             onContextMenu={(e) => e.preventDefault()}
-            className={`absolute bottom-4 right-4 z-100 p-3 select-none rounded-full shadow-lg border-2 transition-all duration-300 active:scale-95 cursor-pointer bg-talesorang-500 border-talesorang-700 text-white hover:bg-talesorang-400 ${holding ? "" : "opacity-0"}`}
+            className={`absolute bottom-4 right-4 z-100 p-3 select-none rounded-full border-2 transition-all duration-300 active:scale-95 cursor-pointer ${holding
+                ? "shadow-lg bg-talesorang-500 border-talesorang-700 text-white"
+                : "border-transparent text-talesorang-500 opacity-40"
+                }`}
             aria-label={LL.STORY_OPTION_SHOW_OPTIONS()}
         >
             {holding && (
