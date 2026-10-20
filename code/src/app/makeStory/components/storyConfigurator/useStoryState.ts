@@ -247,6 +247,15 @@ export function useStoryState(folderName: string) {
     setIsDirty(true);
   };
 
+  // The first node is the story's entry point (saved as chapter[0], which the player starts on)
+  const setStartNode = (id: string) => {
+    setNodes((prev) => {
+      const node = prev.find((n) => n.id === id);
+      return node ? [node, ...prev.filter((n) => n.id !== id)] : prev;
+    });
+    setIsDirty(true);
+  };
+
   const updateCalibrations = (updated: Record<string, string>) => {
     setCalibrations(updated);
     setIsDirty(true);
@@ -323,6 +332,7 @@ export function useStoryState(folderName: string) {
     duplicateNode,
     deleteNode,
     updateNode,
+    setStartNode,
     saveFile,
     linking,
     linkingRootId,

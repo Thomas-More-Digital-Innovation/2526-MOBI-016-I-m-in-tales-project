@@ -25,6 +25,7 @@ export default function Configurator({
     duplicateNode,
     deleteNode,
     updateNode,
+    setStartNode,
     saveFile,
     linking,
     linkingRootId,
@@ -166,6 +167,7 @@ export default function Configurator({
             nodes={nodes}
             onSelectNode={setSelectedId}
             onUpdate={updateNode}
+            onSetStart={setStartNode}
             onDelete={confirmDeleteNode}
             onLink={toggleLinking}
             onSave={saveFile}

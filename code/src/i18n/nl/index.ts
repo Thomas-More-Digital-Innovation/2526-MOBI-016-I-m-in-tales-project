@@ -130,6 +130,8 @@ const nl = {
   NODE_OFFLINE: "Offline",
   NODE_AUTO_ADVANCE: "Automatisch doorgaan na afronding audio",
   NODE_AUTO_ADVANCE_DESC: "Ga automatisch door zodra de vertelling eindigt",
+  NODE_START_CHAPTER: "Beginhoofdstuk",
+  NODE_START_CHAPTER_DESC: "Het verhaal begint met dit hoofdstuk",
   NODE_AUTO_ADVANCE_DISABLED: "* NFC-tags genegeerd door automatisch doorgaan",
   NODE_TRANSITION_LABEL_OPTIONAL: "Overgangslabel (optioneel)",
   NODE_LINK_TO: "Naar:",
