@@ -92,3 +92,38 @@ export default function StoryOptions({
         </div>
     );
 }
+
+// Invisible corner trigger while options are off; holding it shows a ring that fills, release when full to enable
+export function StoryOptionsReveal({ onEnable }: { onEnable: () => void }) {
+    const { LL } = useI18nContext();
+    const pressedAt = useRef(0);
+    const [holding, setHolding] = useState(false);
+
+    return (
+        <button
+            onClick={() => Date.now() - pressedAt.current >= HOLD_MS && onEnable()}
+            onPointerDown={() => {
+                pressedAt.current = Date.now();
+                setHolding(true);
+            }}
+            onPointerUp={() => setHolding(false)}
+            onPointerLeave={() => setHolding(false)}
+            onPointerCancel={() => setHolding(false)}
+            onContextMenu={(e) => e.preventDefault()}
+            className={`absolute bottom-4 right-4 z-100 p-3 select-none rounded-full shadow-lg border-2 transition-all duration-300 active:scale-95 cursor-pointer bg-talesorang-500 border-talesorang-700 text-white hover:bg-talesorang-400 ${holding ? "" : "opacity-0"}`}
+            aria-label={LL.STORY_OPTION_SHOW_OPTIONS()}
+        >
+            {holding && (
+                <svg className="absolute -inset-2 h-[calc(100%+1rem)] w-[calc(100%+1rem)] -rotate-90 pointer-events-none" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="16" fill="none" stroke="var(--color-talesorang-200)" strokeWidth="3" />
+                    <circle cx="18" cy="18" r="16" fill="none" stroke="var(--color-talesorang-700)" strokeWidth="3" strokeLinecap="round" pathLength={100} strokeDasharray="100" strokeDashoffset="100">
+                        <animate attributeName="stroke-dashoffset" from="100" to="0" dur={`${HOLD_MS}ms`} fill="freeze" />
+                    </circle>
+                </svg>
+            )}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+    );
+}

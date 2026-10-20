@@ -6,7 +6,7 @@ import { useStory } from "./useStory";
 import { useFullscreen } from "./useFullscreen";
 import StoryVisuals from "./components/StoryVisuals";
 import StoryOverlay from "./components/StoryOverlay";
-import StoryOptions from "./components/StoryOptions";
+import StoryOptions, { StoryOptionsReveal } from "./components/StoryOptions";
 import StoryHeader from "./components/StoryHeader";
 import { resetAudioPlayer } from "./AudioPlayer";
 import { StorySettings } from "@/types";
@@ -137,7 +137,7 @@ export default function PlayStory() {
                 <p>{LL.PLAY_LOADING()}</p>
             )}
 
-            {settings.showStoryOptions && (
+            {settings.showStoryOptions ? (
                 <StoryOptions
                     options={currentChapter?.option}
                     onOptionClick={nextChapter}
@@ -145,6 +145,13 @@ export default function PlayStory() {
                     onDisable={() => {
                         storySettings.showStoryOptions = false;
                         setSettings({ ...settings, showStoryOptions: false });
+                    }}
+                />
+            ) : (
+                <StoryOptionsReveal
+                    onEnable={() => {
+                        storySettings.showStoryOptions = true;
+                        setSettings({ ...settings, showStoryOptions: true });
                     }}
                 />
             )}
