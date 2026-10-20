@@ -281,18 +281,17 @@ export function useStoryState(folderName: string) {
 
     const items: { itemId: string; linkedTo: string; label: string }[] = [];
     const chapters = nodes.map((node) => {
+      // Keep item/label even when auto-advancing so toggling it off restores the original links
       const options = node.links.map((link) => {
-        if (!node.autoAdvance) {
-          items.push({
-            itemId: link.itemId,
-            linkedTo: link.targetId,
-            label: link.itemLabel,
-          });
-        }
+        items.push({
+          itemId: link.itemId,
+          linkedTo: link.targetId,
+          label: link.itemLabel,
+        });
         return {
           nextChapter: link.targetId,
           audio: link.audioBytes ?? null,
-          item: node.autoAdvance ? null : link.itemId,
+          item: link.itemId,
         };
       });
 

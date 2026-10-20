@@ -90,7 +90,7 @@ const nl = {
   MAKE_CARD_START: "Begin je verhaal te vertellen",
   MAKE_CARD_RENAMING: "Verhaal bijwerken...",
   STORY_EXISTS_TITLE: "Verhaal bestaat al",
-  STORY_EXISTS_MSG: 'Er bestaat al een verhaal met de naam "{name:string}". Kies een andere titel.',
+  STORY_EXISTS_MSG: 'Er bestaat al een verhaal met de naam "{name}". Kies een andere titel.',
   STORY_INVALID_NAME_TITLE: "Ongeldige verhaalnaam",
   STORY_INVALID_NAME_MSG: "De verhaalnaam bevat alleen ongeldige tekens. Gebruik letters of cijfers.",
 
@@ -137,6 +137,18 @@ const nl = {
   NODE_LINK_TO: "Naar:",
   NODE_LINK_SELECT_HINT: "Klik om dit hoofdstuk te selecteren op het canvas",
 
+  // Editor help tooltips
+  TIP_SAVE: "Slaat alle hoofdstukken, koppelingen, labels en audio op in het verhaalbestand.",
+  TIP_ADD_CHAPTER: "Voegt een leeg hoofdstuk toe aan het canvas. Koppel het vanuit een ander hoofdstuk zodat het deel wordt van het verhaal.",
+  TIP_DELETE_CHAPTER: "Verwijdert dit hoofdstuk en elke koppeling die ernaar verwijst.",
+  TIP_ILLUSTRATION: "De afbeelding die getoond wordt terwijl dit hoofdstuk speelt.",
+  TIP_MANAGE_AUDIO: "Neem audio op of upload een bestand.\nVertelling: speelt af wanneer het hoofdstuk start.\nFout audio: speelt af wanneer een tag gescand wordt die niet bij de koppelingen van dit hoofdstuk hoort.",
+  TIP_AUTO_ADVANCE: "Wanneer aan, gaat het verhaal vanzelf verder zodra de vertelling eindigt; scannen is niet nodig. Werkt alleen met precies één koppeling.\nJe labels en tags blijven bewaard en komen terug wanneer je het uitzet.",
+  TIP_ADD_LINK: "Druk hierop en klik daarna op een ander hoofdstuk op het canvas om het te verbinden. Elke koppeling is één keuze die het kind kan maken.",
+  TIP_LINK_LABEL: "Naam van deze keuze (bv. \"de sleutel\"). Wordt getoond op de keuzeknoppen en bij het kalibreren van tags.",
+  TIP_LINK_TAG: "Sluit de NFC-lezer aan, houd een tag erop en druk op Label koppelen. Die tag scannen tijdens het spelen springt naar het gekoppelde hoofdstuk.",
+  TIP_DELETE_LINK: "Verwijdert deze koppeling. Het doelhoofdstuk zelf blijft bestaan.",
+
   // StoryCanvas component
   CANVAS_NO_IMAGE: "Geen afbeelding",
   CANVAS_HINT:
@@ -173,6 +185,7 @@ const nl = {
   STORY_OPTION_PLAY_ERROR_SOUND: "Foutgeluid afspelen",
   STORY_OPTION_HIDE_OPTIONS: "Opties verbergen",
   STORY_OPTION_SHOW_OPTIONS: "Opties tonen",
+  STORY_OPTION_HOLD_HINT: "Ingedrukt houden om opties te verbergen",
 
   // StoryVisuals component
   STORY_BG_ALT: "Verhaal achtergrond",
