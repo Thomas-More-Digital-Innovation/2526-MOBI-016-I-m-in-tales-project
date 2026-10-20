@@ -423,6 +423,14 @@ type RootTranslation = {
 	 */
 	NODE_AUTO_ADVANCE_DESC: string
 	/**
+	 * S​t​a​r​t​i​n​g​ ​c​h​a​p​t​e​r
+	 */
+	NODE_START_CHAPTER: string
+	/**
+	 * T​h​e​ ​s​t​o​r​y​ ​b​e​g​i​n​s​ ​w​i​t​h​ ​t​h​i​s​ ​c​h​a​p​t​e​r
+	 */
+	NODE_START_CHAPTER_DESC: string
+	/**
 	 * *​ ​N​F​C​ ​t​a​g​s​ ​i​g​n​o​r​e​d​ ​d​u​e​ ​t​o​ ​A​u​t​o​-​A​d​v​a​n​c​e
 	 */
 	NODE_AUTO_ADVANCE_DISABLED: string
@@ -1096,6 +1104,14 @@ export type TranslationFunctions = {
 	 * Proceed automatically once narration ends
 	 */
 	NODE_AUTO_ADVANCE_DESC: () => LocalizedString
+	/**
+	 * Starting chapter
+	 */
+	NODE_START_CHAPTER: () => LocalizedString
+	/**
+	 * The story begins with this chapter
+	 */
+	NODE_START_CHAPTER_DESC: () => LocalizedString
 	/**
 	 * * NFC tags ignored due to Auto-Advance
 	 */

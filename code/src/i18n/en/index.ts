@@ -129,6 +129,8 @@ const en = {
   NODE_OFFLINE: "Offline",
   NODE_AUTO_ADVANCE: "Auto-advance on audio completion",
   NODE_AUTO_ADVANCE_DESC: "Proceed automatically once narration ends",
+  NODE_START_CHAPTER: "Starting chapter",
+  NODE_START_CHAPTER_DESC: "The story begins with this chapter",
   NODE_AUTO_ADVANCE_DISABLED: "* NFC tags ignored due to Auto-Advance",
   NODE_TRANSITION_LABEL_OPTIONAL: "Transition label (optional)",
   NODE_LINK_TO: "To:",
