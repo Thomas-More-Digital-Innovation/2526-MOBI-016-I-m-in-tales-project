@@ -125,7 +125,7 @@ export function useStoryState(folderName: string) {
                       return {
                         targetId: opt.nextChapter,
                         itemId: opt.item || crypto.randomUUID(),
-                        itemLabel: matchedItem?.label || (opt.item ? opt.item : ""),
+                        itemLabel: matchedItem?.label ?? (opt.item ? opt.item : ""),
                       };
                     }) || [],
                 };

@@ -7,6 +7,8 @@ export default function ToolTip({
   absolute?: boolean;
   cls?: string;
 }) {
+  if (!text || !text.trim()) return null;
+
   return (
     <div
       className={`${absolute ? "absolute" : ""} ${cls ?? ""} items-center max-w-xs bg-gray-800 text-white text-sm rounded-xl px-3 py-2 shadow-lg z-10 whitespace-pre-line`}

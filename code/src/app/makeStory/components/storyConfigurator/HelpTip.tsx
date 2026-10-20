@@ -11,6 +11,10 @@ export default function HelpTip({
   cls?: string;
   children: ReactNode;
 }) {
+  if (!text || !text.trim()) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="relative group">
       {children}

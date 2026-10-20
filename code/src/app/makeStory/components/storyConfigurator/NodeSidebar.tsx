@@ -24,6 +24,7 @@ type NodeSidebarProps = {
 import { memo, useState } from "react";
 import AudioSettingsModal from "./AudioSettingsModal";
 import HelpTip from "./HelpTip";
+import LinkItem from "./LinkItem";
 
 const NodeSidebar = memo(({
   selectedNode,
@@ -72,6 +73,28 @@ const NodeSidebar = memo(({
     } else if (field === 'failAudioBytes') {
       onUpdate(selectedNode.id, { ...updates, failAudioSrc: url });
     }
+  };
+
+  const isAddLinkDisabled = !linking && !!selectedNode.autoAdvance && selectedNode.links.length >= 1;
+  const cannotEnableAutoAdvance = !selectedNode.autoAdvance && selectedNode.links.length !== 1;
+
+  const getAutoAdvanceTip = () => {
+    if (!selectedNode.autoAdvance) {
+      if (selectedNode.links.length === 0) {
+        return LL.NODE_AUTO_ADVANCE_NEED_LINK() || "Add a link to another chapter before enabling auto-advance";
+      }
+      if (selectedNode.links.length > 1) {
+        return LL.NODE_AUTO_ADVANCE_MULTIPLE_WARNING() || "Auto-advance only works with exactly 1 link. Remove extra links to enable";
+      }
+    }
+    return LL.TIP_AUTO_ADVANCE() || "When on, the story moves on by itself as soon as the narration ends; no tag scan needed.";
+  };
+
+  const getAddLinkTip = () => {
+    if (isAddLinkDisabled) {
+      return LL.NODE_AUTO_ADVANCE_LIMIT_REACHED() || "Turn off auto-advance to add more choices";
+    }
+    return LL.TIP_ADD_LINK() || "Press this, then click another chapter on the canvas to connect it.";
   };
 
   return (
@@ -170,18 +193,26 @@ const NodeSidebar = memo(({
           <p className="text-xs font-bold text-talesblu-800">{LL.NODE_AUTO_ADVANCE()}</p>
           <p className="text-[10px] text-gray-400">{LL.NODE_AUTO_ADVANCE_DESC()}</p>
         </div>
-        <HelpTip text={LL.TIP_AUTO_ADVANCE()}>
+        <HelpTip text={getAutoAdvanceTip()}>
           <button
             onClick={() => {
+              if (cannotEnableAutoAdvance) return;
               const newVal = !selectedNode.autoAdvance;
               onUpdate(selectedNode.id, { autoAdvance: newVal });
             }}
+            disabled={cannotEnableAutoAdvance}
             type="button"
             role="switch"
             aria-checked={!!selectedNode.autoAdvance}
+            aria-disabled={cannotEnableAutoAdvance}
             aria-label={LL.NODE_AUTO_ADVANCE()}
-            className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${selectedNode.autoAdvance ? "bg-talesorang-500" : "bg-gray-200"
-              }`}
+            className={`relative inline-flex h-5 w-9 shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+              cannotEnableAutoAdvance
+                ? "opacity-50 cursor-not-allowed bg-gray-200"
+                : selectedNode.autoAdvance
+                ? "cursor-pointer bg-talesorang-500"
+                : "cursor-pointer bg-gray-200"
+            }`}
           >
             <span
               className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${selectedNode.autoAdvance ? "translate-x-4" : "translate-x-0"
@@ -196,14 +227,17 @@ const NodeSidebar = memo(({
           <div className="flex flex-col">
             <p className="text-[10px] text-gray-400 uppercase font-black tracking-widest">{LL.NODE_LINKS()}</p>
             {selectedNode.autoAdvance && (
-              <span className="text-[9px] text-talesorang-500 font-bold italic mt-0.5">
-                {LL.NODE_AUTO_ADVANCE_DISABLED()}
+              <span className={`text-[9px] font-bold italic mt-0.5 ${selectedNode.links.length > 1 ? "text-red-500" : "text-talesorang-500"}`}>
+                {selectedNode.links.length > 1
+                  ? (LL.NODE_AUTO_ADVANCE_MULTIPLE_WARNING() || "* Auto-advance only works with 1 link (multiple links will pause playback)")
+                  : (LL.NODE_AUTO_ADVANCE_DISABLED() || "* NFC tags ignored due to Auto-Advance")}
               </span>
             )}
           </div>
-          <HelpTip text={LL.TIP_ADD_LINK()}>
+          <HelpTip text={getAddLinkTip()}>
             <Button
               onClick={() => onLink(selectedNode.id)}
+              disabled={isAddLinkDisabled}
               cls={`text-[10px] !px-3 !py-1 ${linking ? 'bg-talesorang-600' : ''}`}
             >
               {linking ? LL.NODE_LINKING() : LL.NODE_ADD_LINK()}
@@ -250,79 +284,5 @@ const NodeSidebar = memo(({
     </div>
   );
 });
-
-function LinkItem({ link, targetTitle, calibratedTag, onSelectTarget, onUpdateLabel, onDelete, onLinkTag, tagUid, nfcStatus, LL, autoAdvance }: any) {
-  const showLabelError = !link.itemLabel.trim();
-
-  return (
-    <li className="bg-gray-50 p-3 rounded-2xl border border-gray-100 space-y-2 transition-all hover:border-talesorang-200">
-      <HelpTip text={LL.NODE_LINK_SELECT_HINT()} cls="top-full left-0 mt-1">
-      <button
-        onClick={onSelectTarget}
-        type="button"
-        className="flex items-center gap-1.5 mb-1 bg-white hover:bg-talesorang-50 hover:border-talesorang-200 cursor-pointer transition-all duration-200 py-1 px-2.5 rounded-xl border border-gray-200/60 w-fit active:scale-95 select-none"
-      >
-        <span className="text-[9px] text-gray-400 font-extrabold uppercase tracking-widest">{LL.NODE_LINK_TO()}</span>
-        <span className="text-[10px] text-talesblu-800 font-black flex items-center gap-1">
-          {targetTitle}
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-talesorang-500" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-          </svg>
-        </span>
-      </button>
-      </HelpTip>
-      <div className="flex justify-end items-center gap-1">
-        {!autoAdvance && <div className="flex-1 flex flex-col min-w-0">
-          <HelpTip text={LL.TIP_LINK_LABEL()} cls="top-full left-0 mt-1">
-          <input
-            className={`w-full text-sm font-bold placeholder:italic border-2 border-dashed rounded-xl px-3 py-1.5 outline-none transition-all focus:ring-0 text-talesblu-800 placeholder:text-gray-400 mr-2 ${showLabelError
-              ? "border-red-300 focus:border-red-500 bg-red-50/20"
-              : "border-gray-200 focus:border-talesorang-500 focus:bg-white bg-white/60 hover:bg-white hover:border-gray-300"
-              }`}
-            value={link.itemLabel}
-            onChange={(e) => onUpdateLabel(e.target.value)}
-            placeholder={LL.NODE_INTERACTION_PH()}
-          />
-          </HelpTip>
-          {showLabelError && (
-            <span className="text-[10px] text-red-500 font-semibold mt-1 block">
-              {LL.NODE_INTERACTION_REQUIRED()}
-            </span>
-          )}
-        </div>}
-        <HelpTip text={LL.TIP_DELETE_LINK()}>
-          <button onClick={onDelete} aria-label={LL.TIP_DELETE_LINK()} className="text-gray-300 hover:text-red-400 transition-colors cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </button>
-        </HelpTip>
-      </div>
-      {!autoAdvance && (
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-1.5">
-            <div className={`w-1.5 h-1.5 rounded-full ${calibratedTag ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]' : 'bg-gray-300'}`} />
-            <span className={`text-[9px] font-mono uppercase tracking-tighter ${calibratedTag ? 'text-green-600 font-bold' : 'text-gray-400'}`}>
-              {calibratedTag ? `Tag: ${calibratedTag.slice(0, 8)}` : LL.NODE_TAG_NOT_LINKED()}
-            </span>
-          </div>
-          <HelpTip text={LL.TIP_LINK_TAG()}>
-            {nfcStatus === "Active" ? (
-              tagUid ? (
-                <Button onClick={onLinkTag} cls={`text-[8px] px-2! py-1! rounded-full font-black uppercase tracking-widest shadow-sm transition-all ${calibratedTag ? 'bg-green-500 hover:bg-green-600 text-white' : 'bg-talesorang-500 text-white'}`}>
-                  {calibratedTag ? LL.NODE_UPDATE() : LL.NODE_LINK_TAG()}
-                </Button>
-              ) : (
-                <span className="text-[8px] text-amber-500 font-bold italic animate-pulse cursor-help">{LL.NODE_WAIT_TAG()}</span>
-              )
-            ) : (
-              <span className="text-[8px] text-gray-300 font-bold italic cursor-help">{LL.NODE_OFFLINE()}</span>
-            )}
-          </HelpTip>
-        </div>
-      )}
-    </li>
-  );
-}
 
 export default NodeSidebar;
