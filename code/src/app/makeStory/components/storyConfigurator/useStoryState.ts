@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { loadStoryData, saveStoryData } from "@utils/storyIO";
+import { loadStoryData, saveStoryData, normalizeStoryName } from "@utils/storyIO";
 import { getStoryCalibration } from "@utils/tagMapping";
 import { message } from "@tauri-apps/plugin-dialog";
 import { createCanvasThumbnail } from "./StageNodeFunctions";
@@ -36,11 +36,16 @@ export function useStoryState(folderName: string) {
   const location = useLocation();
   const initialState = location.state as { story: any } | null;
 
-  const mediaBytesRef = useRef<Record<string, {
-    imageBytes?: Uint8Array | null;
-    audioBytes?: Uint8Array | null;
-    failAudioBytes?: Uint8Array | null;
-  }>>({});
+  const mediaBytesRef = useRef<
+    Record<
+      string,
+      {
+        imageBytes?: Uint8Array | null;
+        audioBytes?: Uint8Array | null;
+        failAudioBytes?: Uint8Array | null;
+      }
+    >
+  >({});
 
   const [storyId, setStoryId] = useState<string | null>(initialState?.story?.id || null);
   const [storyMetadata, setStoryMetadata] = useState<any>(initialState?.story || null);
@@ -73,7 +78,10 @@ export function useStoryState(folderName: string) {
               ...data.story,
               name: initialState?.story?.name || data.story.name,
               description: initialState?.story?.description || data.story.description,
-              thumbnail: initialState?.story?.thumbnail !== undefined ? initialState.story.thumbnail : data.story.thumbnail,
+              thumbnail:
+                initialState?.story?.thumbnail !== undefined
+                  ? initialState.story.thumbnail
+                  : data.story.thumbnail,
             });
 
             if (data.story.chapter && data.story.chapter.length > 0) {
@@ -99,25 +107,35 @@ export function useStoryState(folderName: string) {
                   audioSrc: ch.audio ? URL.createObjectURL(new Blob([ch.audio as any])) : null,
                   image: null,
                   imageSrc: ch.image ? URL.createObjectURL(new Blob([ch.image as any])) : null,
-                  failAudioSrc: ch.failAudio ? URL.createObjectURL(new Blob([ch.failAudio as any])) : null,
+                  failAudioSrc: ch.failAudio
+                    ? URL.createObjectURL(new Blob([ch.failAudio as any]))
+                    : null,
                   autoAdvance: ch.autoAdvance ?? false,
-                  x: typeof ch.x === "number" && typeof ch.y === "number" ? ch.x : startX + (i % cols) * spacingX,
-                  y: typeof ch.x === "number" && typeof ch.y === "number" ? ch.y : startY + Math.floor(i / cols) * spacingY,
-                  links: ch.option?.map((opt: any) => {
-                    const matchedItem = data.items?.find((item: any) => item.itemId === opt.item);
-                    return {
-                      targetId: opt.nextChapter,
-                      itemId: opt.item || crypto.randomUUID(),
-                      itemLabel: matchedItem?.label || (opt.item ? opt.item : ""),
-                      audioBytes: opt.audio ?? null,
-                    };
-                  }) || []
+                  x:
+                    typeof ch.x === "number" && typeof ch.y === "number"
+                      ? ch.x
+                      : startX + (i % cols) * spacingX,
+                  y:
+                    typeof ch.x === "number" && typeof ch.y === "number"
+                      ? ch.y
+                      : startY + Math.floor(i / cols) * spacingY,
+                  links:
+                    ch.option?.map((opt: any) => {
+                      const matchedItem = data.items?.find((item: any) => item.itemId === opt.item);
+                      return {
+                        targetId: opt.nextChapter,
+                        itemId: opt.item || crypto.randomUUID(),
+                        itemLabel: matchedItem?.label || (opt.item ? opt.item : ""),
+                      };
+                    }) || [],
                 };
 
                 if (node.imageSrc) {
                   const blob = new Blob([ch.image as any]);
                   createCanvasThumbnail(blob).then((canvas) => {
-                    setNodes((prev) => prev.map((n) => (n.id === node.id ? { ...n, image: canvas } : n)));
+                    setNodes((prev) =>
+                      prev.map((n) => (n.id === node.id ? { ...n, image: canvas } : n))
+                    );
                   });
                 }
                 return node;
@@ -137,7 +155,6 @@ export function useStoryState(folderName: string) {
       setLoading(false);
     }
   }, [folderName]);
-
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -184,7 +201,8 @@ export function useStoryState(folderName: string) {
       // Fresh itemIds so the copy's links don't share NFC calibrations with the original
       links: source.links.map((l) => ({ ...l, itemId: crypto.randomUUID() })),
     };
-    if (mediaBytesRef.current[id]) mediaBytesRef.current[newNode.id] = { ...mediaBytesRef.current[id] };
+    if (mediaBytesRef.current[id])
+      mediaBytesRef.current[newNode.id] = { ...mediaBytesRef.current[id] };
     setNodes((prev) => [...prev, newNode]);
     setSelectedId(newNode.id);
     setIsDirty(true);
@@ -196,30 +214,30 @@ export function useStoryState(folderName: string) {
     setNodes((prev) => {
       const filtered = prev.filter((n) => n.id !== id);
       // Also remove any links pointing to this node
-      return filtered.map(n => ({
+      return filtered.map((n) => ({
         ...n,
-        links: n.links.filter(l => l.targetId !== id)
+        links: n.links.filter((l) => l.targetId !== id),
       }));
     });
     if (selectedId === id) {
-      setSelectedId(nodes.find(n => n.id !== id)?.id || null);
+      setSelectedId(nodes.find((n) => n.id !== id)?.id || null);
     }
     setIsDirty(true);
   };
 
   const updateNode = (id: string, updates: Partial<ChapterNode>) => {
     const cleanUpdates = { ...updates };
-    if ('imageBytes' in cleanUpdates) {
+    if ("imageBytes" in cleanUpdates) {
       if (!mediaBytesRef.current[id]) mediaBytesRef.current[id] = {};
       mediaBytesRef.current[id].imageBytes = cleanUpdates.imageBytes;
       delete cleanUpdates.imageBytes;
     }
-    if ('audioBytes' in cleanUpdates) {
+    if ("audioBytes" in cleanUpdates) {
       if (!mediaBytesRef.current[id]) mediaBytesRef.current[id] = {};
       mediaBytesRef.current[id].audioBytes = cleanUpdates.audioBytes;
       delete cleanUpdates.audioBytes;
     }
-    if ('failAudioBytes' in cleanUpdates) {
+    if ("failAudioBytes" in cleanUpdates) {
       if (!mediaBytesRef.current[id]) mediaBytesRef.current[id] = {};
       mediaBytesRef.current[id].failAudioBytes = cleanUpdates.failAudioBytes;
       delete cleanUpdates.failAudioBytes;
@@ -240,8 +258,8 @@ export function useStoryState(folderName: string) {
   };
 
   const saveFile = async () => {
-    const hasEmptyLabels = nodes.some((node) =>
-      !node.autoAdvance && node.links.some((link) => !link.itemLabel.trim())
+    const hasEmptyLabels = nodes.some(
+      (node) => !node.autoAdvance && node.links.some((link) => !link.itemLabel.trim())
     );
 
     if (hasEmptyLabels) {
@@ -259,7 +277,7 @@ export function useStoryState(folderName: string) {
           items.push({
             itemId: link.itemId,
             linkedTo: link.targetId,
-            label: link.itemLabel
+            label: link.itemLabel,
           });
         }
         return {
@@ -286,7 +304,7 @@ export function useStoryState(folderName: string) {
     });
 
     const finalStoryName = storyMetadata?.name || folderName || "New Story";
-    const finalFolderName = finalStoryName.trim().replace(/\s+/g, "_").toLowerCase();
+    const finalFolderName = normalizeStoryName(finalStoryName);
 
     const dataToSave = {
       story: { ...storyMetadata, chapter: chapters },
@@ -315,6 +333,6 @@ export function useStoryState(folderName: string) {
     setCalibrations: updateCalibrations,
     storyMetadata,
     isDirty,
-    loading
+    loading,
   };
 }

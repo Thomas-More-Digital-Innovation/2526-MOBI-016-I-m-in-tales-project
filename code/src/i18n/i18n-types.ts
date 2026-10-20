@@ -84,6 +84,15 @@ type RootTranslation = {
 	 */
 	MANAGE_CONFIRM_DELETE_TITLE: string
 	/**
+	 * S​t​o​r​y​ ​A​l​r​e​a​d​y​ ​E​x​i​s​t​s
+	 */
+	IMPORT_OVERWRITE_TITLE: string
+	/**
+	 * A​ ​s​t​o​r​y​ ​n​a​m​e​d​ ​"​{​n​a​m​e​}​"​ ​a​l​r​e​a​d​y​ ​e​x​i​s​t​s​.​ ​D​o​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​o​v​e​r​w​r​i​t​e​ ​i​t​?
+	 * @param {string} name
+	 */
+	IMPORT_OVERWRITE_CONFIRM: RequiredParams<'name'>
+	/**
 	 * C​r​e​a​t​e​ ​A​ ​N​e​w​ ​S​t​o​r​y
 	 */
 	MAKE_TITLE_NEW: string
@@ -264,6 +273,27 @@ type RootTranslation = {
 	 * S​t​a​r​t​ ​T​e​l​l​i​n​g​ ​Y​o​u​r​ ​S​t​o​r​y
 	 */
 	MAKE_CARD_START: string
+	/**
+	 * U​p​d​a​t​i​n​g​ ​S​t​o​r​y​.​.​.
+	 */
+	MAKE_CARD_RENAMING: string
+	/**
+	 * S​t​o​r​y​ ​A​l​r​e​a​d​y​ ​E​x​i​s​t​s
+	 */
+	STORY_EXISTS_TITLE: string
+	/**
+	 * A​ ​s​t​o​r​y​ ​n​a​m​e​d​ ​"​{​n​a​m​e​}​"​ ​a​l​r​e​a​d​y​ ​e​x​i​s​t​s​.​ ​P​l​e​a​s​e​ ​c​h​o​o​s​e​ ​a​ ​d​i​f​f​e​r​e​n​t​ ​t​i​t​l​e​.
+	 * @param {string} name
+	 */
+	STORY_EXISTS_MSG: RequiredParams<'name'>
+	/**
+	 * I​n​v​a​l​i​d​ ​S​t​o​r​y​ ​N​a​m​e
+	 */
+	STORY_INVALID_NAME_TITLE: string
+	/**
+	 * T​h​e​ ​s​t​o​r​y​ ​n​a​m​e​ ​c​o​n​t​a​i​n​s​ ​o​n​l​y​ ​i​n​v​a​l​i​d​ ​c​h​a​r​a​c​t​e​r​s​.​ ​P​l​e​a​s​e​ ​i​n​c​l​u​d​e​ ​l​e​t​t​e​r​s​ ​o​r​ ​n​u​m​b​e​r​s​.
+	 */
+	STORY_INVALID_NAME_MSG: string
 	/**
 	 * L​o​a​d​i​n​g​ ​d​e​s​i​g​n​ ​e​n​v​i​r​o​n​m​e​n​t
 	 */
@@ -731,6 +761,14 @@ export type TranslationFunctions = {
 	 */
 	MANAGE_CONFIRM_DELETE_TITLE: () => LocalizedString
 	/**
+	 * Story Already Exists
+	 */
+	IMPORT_OVERWRITE_TITLE: () => LocalizedString
+	/**
+	 * A story named "{name}" already exists. Do you want to overwrite it?
+	 */
+	IMPORT_OVERWRITE_CONFIRM: (arg: { name: string }) => LocalizedString
+	/**
 	 * Create A New Story
 	 */
 	MAKE_TITLE_NEW: () => LocalizedString
@@ -910,6 +948,26 @@ export type TranslationFunctions = {
 	 * Start Telling Your Story
 	 */
 	MAKE_CARD_START: () => LocalizedString
+	/**
+	 * Updating Story...
+	 */
+	MAKE_CARD_RENAMING: () => LocalizedString
+	/**
+	 * Story Already Exists
+	 */
+	STORY_EXISTS_TITLE: () => LocalizedString
+	/**
+	 * A story named "{name}" already exists. Please choose a different title.
+	 */
+	STORY_EXISTS_MSG: (arg: { name: string }) => LocalizedString
+	/**
+	 * Invalid Story Name
+	 */
+	STORY_INVALID_NAME_TITLE: () => LocalizedString
+	/**
+	 * The story name contains only invalid characters. Please include letters or numbers.
+	 */
+	STORY_INVALID_NAME_MSG: () => LocalizedString
 	/**
 	 * Loading design environment
 	 */

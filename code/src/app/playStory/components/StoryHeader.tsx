@@ -8,6 +8,7 @@ export interface StoryHeaderProps {
     onSettingsClick: () => void;
     onCloseClick: () => void;
     onReplayAudioClick: () => void;
+    isTransitioning?: boolean;
 }
 
 export default function StoryHeader({
@@ -15,6 +16,7 @@ export default function StoryHeader({
     onSettingsClick,
     onCloseClick,
     onReplayAudioClick,
+    isTransitioning = false,
 }: StoryHeaderProps) {
     const baseFontSize = fontSize[fontSizeSetting];
     const { LL } = useI18nContext();
@@ -24,6 +26,7 @@ export default function StoryHeader({
 
             <Button
                 onClick={onReplayAudioClick}
+                disabled={isTransitioning}
                 cls="absolute top-3 left-2 z-100"
                 style={{
                     fontSize: baseFontSize + "px",
