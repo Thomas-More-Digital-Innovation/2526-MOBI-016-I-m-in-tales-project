@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useStoryState } from "./useStoryState";
 import StoryCanvas from "./StoryCanvas";
 import NodeSidebar from "./NodeSidebar";
-import HelpTip from "./HelpTip";
+import HelpTip, { ShowAllTipsContext } from "./HelpTip";
 import { useI18nContext } from "@/i18n/i18n-react";
 
 type ConfiguratorProps = {
@@ -18,6 +18,7 @@ export default function Configurator({
   folderName = "",
 }: ConfiguratorProps) {
   const [showToolTip, setShowToolTip] = useState(false);
+  const [hoveredLinkId, setHoveredLinkId] = useState<string | null>(null);
   const {
     nodes,
     selectedId,
@@ -122,6 +123,7 @@ export default function Configurator({
   const selectedNode = selectedId ? (nodes.find((n) => n.id === selectedId) ?? null) : null;
 
   return (
+    <ShowAllTipsContext.Provider value={showToolTip}>
     <div className="flex flex-col w-full h-screen">
       <Header onBack={handleBack} onHelpHover={setShowToolTip} />
 
@@ -159,6 +161,7 @@ export default function Configurator({
             onLink={toggleLinking}
             onDelete={confirmDeleteNode}
             onCreateNode={createNewNode}
+            hoveredLinkId={hoveredLinkId}
           />
         </div>
 
@@ -177,9 +180,11 @@ export default function Configurator({
             calibrations={calibrations}
             onCalibrationsUpdate={setCalibrations}
             showToolTipState={showToolTip}
+            onHoverLink={setHoveredLinkId}
           />
         </div>
       </div>
     </div>
+    </ShowAllTipsContext.Provider>
   );
 }

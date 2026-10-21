@@ -23,6 +23,7 @@ type StoryCanvasProps = {
   onLink: (id: string) => void;
   onDelete: (id: string) => void;
   onCreateNode: () => void;
+  hoveredLinkId?: string | null;
 };
 
 export default function StoryCanvas({
@@ -38,7 +39,8 @@ export default function StoryCanvas({
   onDuplicate,
   onLink,
   onDelete,
-  onCreateNode
+  onCreateNode,
+  hoveredLinkId = null
 }: StoryCanvasProps) {
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<any>(null);
@@ -187,18 +189,22 @@ export default function StoryCanvas({
               const pts = getEdgePoints(node, destination, fromHeight, toHeight);
               const isSourceSelected = selectedId === node.id;
               const isDownstream = !isSourceSelected && downstreamIds.has(node.id);
-              const color = isSourceSelected ? "#f97316" : isDownstream ? "#facc15" : "#94a3b8";
+              const isHovered = hoveredLinkId === link.itemId;
+              const isDimmed = !!hoveredLinkId && !isHovered;
+              const isHighlighted = isHovered || isSourceSelected || isDownstream;
+              const color = isHovered || isSourceSelected ? "#f97316" : isDownstream ? "#facc15" : "#94a3b8";
               return (
                 <Arrow
                   key={`${node.id}->${link.targetId}`}
                   points={pts}
                   stroke={color}
                   fill={color}
-                  strokeWidth={isSourceSelected || isDownstream ? 4 : 3}
+                  strokeWidth={isHovered ? 6 : isHighlighted ? 4 : 3}
+                  opacity={isDimmed ? 0.25 : 1}
                   pointerLength={12}
                   pointerWidth={12}
                   shadowColor={color}
-                  shadowBlur={isSourceSelected || isDownstream ? 10 : 0}
+                  shadowBlur={isHovered ? 16 : isHighlighted && !isDimmed ? 10 : 0}
                   listening={false}
                 />
               );
