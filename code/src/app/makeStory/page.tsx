@@ -1,4 +1,4 @@
-import { Header } from "@components";
+import { Header, ShowAllTipsContext } from "@components";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import MakeStoryCard from "./components/MakeStoryCard";
@@ -10,6 +10,7 @@ export default function MakeStory() {
   const { LL } = useI18nContext();
 
   return (
+    <ShowAllTipsContext.Provider value={showToolTip}>
     <main className="h-screen bg-gray-50">
       <Header
         onHelpHover={setShowToolTip}
@@ -19,5 +20,6 @@ export default function MakeStory() {
         <MakeStoryCard folderName={folderName} />
       </div>
     </main>
+    </ShowAllTipsContext.Provider>
   );
 }

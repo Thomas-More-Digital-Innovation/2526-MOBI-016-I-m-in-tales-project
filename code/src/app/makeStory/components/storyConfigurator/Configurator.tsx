@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Button, Header, LoadingScreen } from "@components";
+import { Button, Header, LoadingScreen, HelpTip, ShowAllTipsContext } from "@components";
 import { useNavigate, useBlocker } from "react-router-dom";
 import { ask } from "@tauri-apps/plugin-dialog";
 import { useEffect } from "react";
 import { useStoryState } from "./useStoryState";
 import StoryCanvas from "./StoryCanvas";
 import NodeSidebar from "./NodeSidebar";
-import HelpTip, { ShowAllTipsContext } from "./HelpTip";
 import { useI18nContext } from "@/i18n/i18n-react";
 
 type ConfiguratorProps = {

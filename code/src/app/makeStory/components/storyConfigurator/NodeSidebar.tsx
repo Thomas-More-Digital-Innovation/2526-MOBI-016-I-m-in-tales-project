@@ -1,4 +1,4 @@
-import { InputLabel, TextAreaLabel, ImageUpload, Button, ToolTip } from "@components";
+import { InputLabel, TextAreaLabel, ImageUpload, Button, ToolTip, HelpTip } from "@components";
 import { ChapterNode, StoryLink } from "./useStoryState";
 import { useNfc } from "@components/NfcProvider";
 import { addCalibration, getStoryCalibration } from "@utils/tagMapping";
@@ -25,7 +25,6 @@ type NodeSidebarProps = {
 
 import { memo, useState } from "react";
 import AudioSettingsModal from "./AudioSettingsModal";
-import HelpTip from "./HelpTip";
 import LinkItem from "./LinkItem";
 
 const NodeSidebar = memo(({
