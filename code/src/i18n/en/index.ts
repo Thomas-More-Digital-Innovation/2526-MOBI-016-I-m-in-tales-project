@@ -149,6 +149,18 @@ const en = {
   TIP_LINK_TAG: "Connect the NFC reader, hold a tag on it, then press Link Tag. Scanning that tag during play jumps to the linked chapter.",
   TIP_DELETE_LINK: "Removes this link. The target chapter itself is kept.",
 
+  // Manage stories help tooltips
+  TIP_IMPORT_STORY: "Import a story file shared by someone else.",
+  TIP_EDIT_STORY: "Open this story to change its name, cover, chapters and links.",
+  TIP_EXPORT_STORY: "Save this story as a single file so you can share it or keep a backup.",
+  TIP_DELETE_STORY: "Permanently removes this story and all its chapters, images and audio.",
+
+  // New story help tooltips
+  TIP_STORY_COVER: "Click to pick a cover image. It is shown on the story card.",
+  TIP_STORY_NAME: "The story title. Required, and must be different from your other stories.",
+  TIP_STORY_DESC: "A short summary shown under the title on the story card. Optional.",
+  TIP_STORY_START: "Continue to the editor to add chapters and connect them.",
+
   // StoryCanvas component
   CANVAS_NO_IMAGE: "No Image",
   CANVAS_HINT:

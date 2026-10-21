@@ -494,6 +494,38 @@ type RootTranslation = {
 	 */
 	TIP_DELETE_LINK: string
 	/**
+	 * I​m​p​o​r​t​ ​a​ ​s​t​o​r​y​ ​f​i​l​e​ ​s​h​a​r​e​d​ ​b​y​ ​s​o​m​e​o​n​e​ ​e​l​s​e​.
+	 */
+	TIP_IMPORT_STORY: string
+	/**
+	 * O​p​e​n​ ​t​h​i​s​ ​s​t​o​r​y​ ​t​o​ ​c​h​a​n​g​e​ ​i​t​s​ ​n​a​m​e​,​ ​c​o​v​e​r​,​ ​c​h​a​p​t​e​r​s​ ​a​n​d​ ​l​i​n​k​s​.
+	 */
+	TIP_EDIT_STORY: string
+	/**
+	 * S​a​v​e​ ​t​h​i​s​ ​s​t​o​r​y​ ​a​s​ ​a​ ​s​i​n​g​l​e​ ​f​i​l​e​ ​s​o​ ​y​o​u​ ​c​a​n​ ​s​h​a​r​e​ ​i​t​ ​o​r​ ​k​e​e​p​ ​a​ ​b​a​c​k​u​p​.
+	 */
+	TIP_EXPORT_STORY: string
+	/**
+	 * P​e​r​m​a​n​e​n​t​l​y​ ​r​e​m​o​v​e​s​ ​t​h​i​s​ ​s​t​o​r​y​ ​a​n​d​ ​a​l​l​ ​i​t​s​ ​c​h​a​p​t​e​r​s​,​ ​i​m​a​g​e​s​ ​a​n​d​ ​a​u​d​i​o​.
+	 */
+	TIP_DELETE_STORY: string
+	/**
+	 * C​l​i​c​k​ ​t​o​ ​p​i​c​k​ ​a​ ​c​o​v​e​r​ ​i​m​a​g​e​.​ ​I​t​ ​i​s​ ​s​h​o​w​n​ ​o​n​ ​t​h​e​ ​s​t​o​r​y​ ​c​a​r​d​.
+	 */
+	TIP_STORY_COVER: string
+	/**
+	 * T​h​e​ ​s​t​o​r​y​ ​t​i​t​l​e​.​ ​R​e​q​u​i​r​e​d​,​ ​a​n​d​ ​m​u​s​t​ ​b​e​ ​d​i​f​f​e​r​e​n​t​ ​f​r​o​m​ ​y​o​u​r​ ​o​t​h​e​r​ ​s​t​o​r​i​e​s​.
+	 */
+	TIP_STORY_NAME: string
+	/**
+	 * A​ ​s​h​o​r​t​ ​s​u​m​m​a​r​y​ ​s​h​o​w​n​ ​u​n​d​e​r​ ​t​h​e​ ​t​i​t​l​e​ ​o​n​ ​t​h​e​ ​s​t​o​r​y​ ​c​a​r​d​.​ ​O​p​t​i​o​n​a​l​.
+	 */
+	TIP_STORY_DESC: string
+	/**
+	 * C​o​n​t​i​n​u​e​ ​t​o​ ​t​h​e​ ​e​d​i​t​o​r​ ​t​o​ ​a​d​d​ ​c​h​a​p​t​e​r​s​ ​a​n​d​ ​c​o​n​n​e​c​t​ ​t​h​e​m​.
+	 */
+	TIP_STORY_START: string
+	/**
 	 * N​o​ ​I​m​a​g​e
 	 */
 	CANVAS_NO_IMAGE: string
@@ -1222,6 +1254,38 @@ Your labels and tags are kept and come back when you turn it off.
 	 * Removes this link. The target chapter itself is kept.
 	 */
 	TIP_DELETE_LINK: () => LocalizedString
+	/**
+	 * Import a story file shared by someone else.
+	 */
+	TIP_IMPORT_STORY: () => LocalizedString
+	/**
+	 * Open this story to change its name, cover, chapters and links.
+	 */
+	TIP_EDIT_STORY: () => LocalizedString
+	/**
+	 * Save this story as a single file so you can share it or keep a backup.
+	 */
+	TIP_EXPORT_STORY: () => LocalizedString
+	/**
+	 * Permanently removes this story and all its chapters, images and audio.
+	 */
+	TIP_DELETE_STORY: () => LocalizedString
+	/**
+	 * Click to pick a cover image. It is shown on the story card.
+	 */
+	TIP_STORY_COVER: () => LocalizedString
+	/**
+	 * The story title. Required, and must be different from your other stories.
+	 */
+	TIP_STORY_NAME: () => LocalizedString
+	/**
+	 * A short summary shown under the title on the story card. Optional.
+	 */
+	TIP_STORY_DESC: () => LocalizedString
+	/**
+	 * Continue to the editor to add chapters and connect them.
+	 */
+	TIP_STORY_START: () => LocalizedString
 	/**
 	 * No Image
 	 */

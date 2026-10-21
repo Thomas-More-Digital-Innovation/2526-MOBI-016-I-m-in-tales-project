@@ -8,6 +8,7 @@ export { default as ImageUpload } from "./ImageUpload";
 export { default as Button } from "./Button";
 export { default as AudioUpload } from "./AudioUpload";
 export { default as ToolTip } from "./ToolTip";
+export { default as HelpTip, ShowAllTipsContext } from "./HelpTip";
 export { default as Modal } from "./Modal";
 export { default as Center } from "./Center";
 export { NfcProvider, useNfc } from "./NfcProvider";

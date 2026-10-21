@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { Button } from "@components";
-import HelpTip from "./HelpTip";
+import { Button, HelpTip } from "@components";
 import type { StoryLink } from "./useStoryState";
 import type { TranslationFunctions } from "@/i18n/i18n-types";
 

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { ImageUpload, Button } from "@components";
+import { ImageUpload, Button, HelpTip } from "@components";
 import { useNavigate } from "react-router-dom";
 import {
   loadStoryData,
@@ -113,16 +113,19 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
 
   return (
     <div className="flex flex-col items-center border border-talesblu-400 bg-white p-4 rounded-3xl shadow-xl w-xl h-125 transition-all hover:shadow-2xl">
-      <div className="w-full h-48 mb-6 overflow-hidden rounded-2xl">
-        <ImageUpload
-          onImageBytes={(bytes) => setThumbnailBytes(bytes)}
-          value={thumbnailUrl}
-        />
-      </div>
+      <HelpTip text={LL.TIP_STORY_COVER()} cls="top-2 left-1/2 -translate-x-1/2" wrapCls="w-full mb-6">
+        <div className="w-full h-48 overflow-hidden rounded-2xl">
+          <ImageUpload
+            onImageBytes={(bytes) => setThumbnailBytes(bytes)}
+            value={thumbnailUrl}
+          />
+        </div>
+      </HelpTip>
 
       <div className="w-full space-y-4 px-2">
         <div className="flex flex-col space-y-1">
           <label className="text-[10px] text-center text-gray-400 uppercase font-black tracking-widest mt-1">{LL.MAKE_CARD_NAME_LABEL()}</label>
+          <HelpTip text={LL.TIP_STORY_NAME()} cls="top-full left-1/2 -translate-x-1/2 mt-1">
           <input
             type="text"
             placeholder={LL.MAKE_CARD_NAME_PLACEHOLDER()}
@@ -130,10 +133,12 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
             onChange={(e) => setName(e.target.value)}
             className="text-2xl font-bold text-center w-full outline-none border-2 border-dashed border-gray-100 focus:border-talesorang-400 bg-gray-50/30 rounded-2xl px-4 py-2 transition-all placeholder:text-gray-300 text-talesblu-800"
           />
+          </HelpTip>
         </div>
 
         <div className="flex flex-col space-y-1">
           <label className="text-[10px] text-center text-gray-400 uppercase font-black tracking-widest mt-1">{LL.MAKE_CARD_DESC_LABEL()}</label>
+          <HelpTip text={LL.TIP_STORY_DESC()} cls="top-full left-1/2 -translate-x-1/2 mt-1">
           <textarea
             placeholder={LL.MAKE_CARD_DESC_PLACEHOLDER()}
             value={description}
@@ -141,10 +146,11 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
             rows={4}
             className="text-sm text-center w-full outline-none resize-none border-2 border-dashed border-gray-100 focus:border-talesorang-400 bg-gray-50/30 rounded-2xl px-4 py-3 transition-all placeholder:text-gray-300 italic text-gray-600 leading-relaxed"
           />
+          </HelpTip>
         </div>
       </div>
 
-      <div className="mt-auto w-full pt-4">
+      <HelpTip text={LL.TIP_STORY_START()} cls="bottom-full left-1/2 -translate-x-1/2 mb-2" wrapCls="mt-auto w-full pt-4">
         <Button
           onClick={handleNext}
           disabled={isUpdating}
@@ -158,7 +164,7 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
             ? LL.MAKE_CARD_UPDATE()
             : LL.MAKE_CARD_START()}
         </Button>
-      </div>
+      </HelpTip>
     </div>
   );
 }

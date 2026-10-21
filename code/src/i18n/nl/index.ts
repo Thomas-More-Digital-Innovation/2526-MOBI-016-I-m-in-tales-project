@@ -150,6 +150,18 @@ const nl = {
   TIP_LINK_TAG: "Sluit de NFC-lezer aan, houd een tag erop en druk op Label koppelen. Die tag scannen tijdens het spelen springt naar het gekoppelde hoofdstuk.",
   TIP_DELETE_LINK: "Verwijdert deze koppeling. Het doelhoofdstuk zelf blijft bestaan.",
 
+  // Help tooltips verhalen beheren
+  TIP_IMPORT_STORY: "Importeer een verhaalbestand dat iemand anders gedeeld heeft.",
+  TIP_EDIT_STORY: "Open dit verhaal om de naam, omslag, hoofdstukken en koppelingen aan te passen.",
+  TIP_EXPORT_STORY: "Bewaar dit verhaal als één bestand om het te delen of als back-up.",
+  TIP_DELETE_STORY: "Verwijdert dit verhaal definitief, met alle hoofdstukken, afbeeldingen en audio.",
+
+  // Help tooltips nieuw verhaal
+  TIP_STORY_COVER: "Klik om een omslagafbeelding te kiezen. Die wordt getoond op de verhaalkaart.",
+  TIP_STORY_NAME: "De titel van het verhaal. Verplicht, en moet verschillen van je andere verhalen.",
+  TIP_STORY_DESC: "Een korte samenvatting onder de titel op de verhaalkaart. Optioneel.",
+  TIP_STORY_START: "Ga verder naar de editor om hoofdstukken toe te voegen en te verbinden.",
+
   // StoryCanvas component
   CANVAS_NO_IMAGE: "Geen afbeelding",
   CANVAS_HINT:

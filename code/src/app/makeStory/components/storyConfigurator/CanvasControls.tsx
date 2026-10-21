@@ -1,5 +1,5 @@
 import { useI18nContext } from "@/i18n/i18n-react";
-import HelpTip from "./HelpTip";
+import { HelpTip } from "@components";
 
 interface CanvasControlsProps {
   onRecenter: () => void;
