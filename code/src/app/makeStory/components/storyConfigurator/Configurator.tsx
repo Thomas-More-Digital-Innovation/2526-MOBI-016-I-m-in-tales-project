@@ -99,8 +99,14 @@ export default function Configurator({
 
   const handleSelect = (nodeId: string) => {
     if (linking && linkingRootId) {
+      const existingLinks = nodes.find(n => n.id === linkingRootId)?.links || [];
+      // No self-links or duplicate links: clicking such a node just cancels linking.
+      if (nodeId === linkingRootId || existingLinks.some(l => l.targetId === nodeId)) {
+        toggleLinking(null);
+        return;
+      }
       const newLinks = [
-        ...(nodes.find(n => n.id === linkingRootId)?.links || []),
+        ...existingLinks,
         {
           targetId: nodeId,
           itemId: crypto.randomUUID(),

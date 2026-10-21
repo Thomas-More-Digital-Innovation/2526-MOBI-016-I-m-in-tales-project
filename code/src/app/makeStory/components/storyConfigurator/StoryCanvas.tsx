@@ -187,10 +187,11 @@ export default function StoryCanvas({
               const fromHeight = getNodeHeight(node.title);
               const toHeight = getNodeHeight(destination.title);
               const pts = getEdgePoints(node, destination, fromHeight, toHeight);
-              const isSourceSelected = selectedId === node.id;
-              const isDownstream = !isSourceSelected && downstreamIds.has(node.id);
               const isHovered = hoveredLinkId === link.itemId;
               const isDimmed = !!hoveredLinkId && !isHovered;
+              // A hovered link overrides the selection highlight so only that line stands out
+              const isSourceSelected = !hoveredLinkId && selectedId === node.id;
+              const isDownstream = !hoveredLinkId && selectedId !== node.id && downstreamIds.has(node.id);
               const isHighlighted = isHovered || isSourceSelected || isDownstream;
               const color = isHovered || isSourceSelected ? "#f97316" : isDownstream ? "#facc15" : "#94a3b8";
               return (
