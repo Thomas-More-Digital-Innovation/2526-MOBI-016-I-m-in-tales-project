@@ -139,7 +139,7 @@ const NodeSidebar = memo(({
 
       <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-50">
         <div className="space-y-2">
-          <HelpTip text={LL.TIP_ILLUSTRATION()} cls="top-full left-0 mt-1">
+          <HelpTip text={LL.TIP_ILLUSTRATION()} cls="top-full left-0 mt-2">
             <p className="text-[10px] text-gray-400 uppercase font-black tracking-widest cursor-help">{LL.NODE_ILLUSTRATION()}</p>
           </HelpTip>
           <div className="h-32">

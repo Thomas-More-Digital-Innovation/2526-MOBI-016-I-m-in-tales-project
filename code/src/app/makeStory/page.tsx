@@ -11,12 +11,12 @@ export default function MakeStory() {
 
   return (
     <ShowAllTipsContext.Provider value={showToolTip}>
-    <main className="h-screen bg-gray-50">
+    <main className="h-screen flex flex-col bg-gray-50">
       <Header
         onHelpHover={setShowToolTip}
         title={folderName ? LL.MAKE_TITLE_EDIT() : LL.MAKE_TITLE_NEW()}
       />
-      <div className="h-[calc(100vh-80px)] flex flex-col justify-center items-center gap-8">
+      <div className="flex-1 min-h-0 flex flex-col justify-center items-center gap-8">
         <MakeStoryCard folderName={folderName} />
       </div>
     </main>
