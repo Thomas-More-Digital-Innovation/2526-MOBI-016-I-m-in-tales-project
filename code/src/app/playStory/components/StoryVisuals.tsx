@@ -10,10 +10,10 @@ export default function StoryVisuals({ image }: StoryVisualsProps) {
     if (!image) return null;
 
     return (
-        <div className="absolute top-0 left-0 w-full h-full">
+        <div className="w-full h-full flex items-center justify-center bg-black overflow-hidden">
             <img
                 src={image}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 alt={LL.STORY_BG_ALT()}
             />
         </div>
