@@ -13,6 +13,7 @@ import TypesafeI18n from "./i18n/i18n-react";
 import { detectLocale } from "./i18n/i18n-util";
 import { loadAllLocales } from "./i18n/i18n-util.sync";
 import { localStorageDetector } from "typesafe-i18n/detectors";
+import { useFullscreenShortcut } from "./utils/useFullscreenShortcut";
 
 loadAllLocales();
 const locale = detectLocale(localStorageDetector);
@@ -57,6 +58,8 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  useFullscreenShortcut();
+
   return (
     <NfcProvider>
       <TypesafeI18n locale={locale}>
