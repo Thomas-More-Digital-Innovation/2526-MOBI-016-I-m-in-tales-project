@@ -53,11 +53,7 @@ export default function ManageStory() {
       <Header
         title={LL.MANAGE_TITLE()}
         onHelpHover={setShowToolTip}
-        rightExtra={
-          <HelpTip text={LL.TIP_IMPORT_STORY()}>
-            <ImportButton onImportSuccess={loadStories} />
-          </HelpTip>
-        }
+        rightExtra={<ImportButton onImportSuccess={loadStories} />}
       />
       <div className="mx-auto px-6">
         {loading ? (
@@ -84,7 +80,7 @@ export default function ManageStory() {
                   // Card tips repeat on every card, so keep them out of the "?" show-all
                   <ShowAllTipsContext.Provider value={false}>
                   <div className="flex gap-2">
-                    <HelpTip text={LL.TIP_EDIT_STORY()} cls="bottom-full left-0 mb-2" wrapCls="flex-1 flex">
+                    <HelpTip text={LL.TIP_EDIT_STORY()} wrapCls="flex-1 flex">
                     <Button
                       onClick={() => handleEdit(story)}
                       cls="flex-1 !rounded-xl !py-3 !h-12 !bg-talesblu-600 hover:!bg-talesblu-700 shadow-md transition-all font-bold uppercase text-[10px] tracking-widest"
@@ -92,7 +88,7 @@ export default function ManageStory() {
                       {LL.MANAGE_EDIT_STORY()}
                     </Button>
                     </HelpTip>
-                    <HelpTip text={LL.TIP_EXPORT_STORY()} cls="bottom-full right-0 mb-2">
+                    <HelpTip text={LL.TIP_EXPORT_STORY()}>
                     <Button
                       onClick={() => handleExport(story)}
                       cls="!bg-talesorang-50 !text-talesorang-500 !text-white hover:!bg-talesorang-500 !w-12 !h-12 !rounded-xl !py-3 !px-4 shadow-sm transition-all flex items-center justify-center"
@@ -102,7 +98,7 @@ export default function ManageStory() {
                       </svg>
                     </Button>
                     </HelpTip>
-                    <HelpTip text={LL.TIP_DELETE_STORY()} cls="bottom-full right-0 mb-2">
+                    <HelpTip text={LL.TIP_DELETE_STORY()}>
                     <Button
                       onClick={() => handleDelete(story)}
                       cls="!bg-red-50 !text-red-500 hover:!bg-red-500 !w-12 !h-12 hover:!text-white !rounded-xl !py-3 !px-4 shadow-sm transition-all flex items-center justify-center"

@@ -112,8 +112,8 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
   };
 
   return (
-    <div className="flex flex-col items-center border border-talesblu-400 bg-white p-4 rounded-3xl shadow-xl w-xl h-125 transition-all hover:shadow-2xl">
-      <HelpTip text={LL.TIP_STORY_COVER()} cls="top-2 left-1/2 -translate-x-1/2" wrapCls="w-full mb-6">
+    <div className="flex flex-col items-center border border-talesblu-400 bg-white p-4 rounded-3xl shadow-xl w-xl transition-all hover:shadow-2xl">
+      <HelpTip text={LL.TIP_STORY_COVER()} wrapCls="w-full mb-6">
         <div className="w-full h-48 overflow-hidden rounded-2xl">
           <ImageUpload
             onImageBytes={(bytes) => setThumbnailBytes(bytes)}
@@ -125,7 +125,7 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
       <div className="w-full space-y-4 px-2">
         <div className="flex flex-col space-y-1">
           <label className="text-[10px] text-center text-gray-400 uppercase font-black tracking-widest mt-1">{LL.MAKE_CARD_NAME_LABEL()}</label>
-          <HelpTip text={LL.TIP_STORY_NAME()} cls="top-full left-1/2 -translate-x-1/2 mt-1">
+          <HelpTip text={LL.TIP_STORY_NAME()}>
           <input
             type="text"
             placeholder={LL.MAKE_CARD_NAME_PLACEHOLDER()}
@@ -138,7 +138,7 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
 
         <div className="flex flex-col space-y-1">
           <label className="text-[10px] text-center text-gray-400 uppercase font-black tracking-widest mt-1">{LL.MAKE_CARD_DESC_LABEL()}</label>
-          <HelpTip text={LL.TIP_STORY_DESC()} cls="top-full left-1/2 -translate-x-1/2 mt-1">
+          <HelpTip text={LL.TIP_STORY_DESC()}>
           <textarea
             placeholder={LL.MAKE_CARD_DESC_PLACEHOLDER()}
             value={description}
@@ -150,7 +150,7 @@ export default function MakeStoryCard({ folderName }: { folderName?: string }) {
         </div>
       </div>
 
-      <HelpTip text={LL.TIP_STORY_START()} cls="bottom-full left-1/2 -translate-x-1/2 mb-2" wrapCls="mt-auto w-full pt-4">
+      <HelpTip text={LL.TIP_STORY_START()} wrapCls="mt-auto w-full pt-4">
         <Button
           onClick={handleNext}
           disabled={isUpdating}

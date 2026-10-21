@@ -39,7 +39,7 @@ export default function LinkItem({
 
   return (
     <li onMouseEnter={() => onHover(true)} onMouseLeave={() => onHover(false)} className="bg-gray-50 p-3 rounded-2xl border border-gray-100 space-y-2 transition-all hover:border-talesorang-200">
-      <HelpTip text={LL.NODE_LINK_SELECT_HINT()} cls="top-full left-0 mt-1">
+      <HelpTip text={LL.NODE_LINK_SELECT_HINT()}>
         <button
           onClick={onSelectTarget}
           type="button"
@@ -57,7 +57,7 @@ export default function LinkItem({
       <div className="flex justify-end items-center gap-1">
         {!autoAdvance && (
           <div className="flex-1 flex flex-col min-w-0">
-            <HelpTip text={LL.TIP_LINK_LABEL()} cls="top-full left-0 mt-1">
+            <HelpTip text={LL.TIP_LINK_LABEL()}>
               <input
                 className={`w-full text-sm font-bold placeholder:italic border-2 border-dashed rounded-xl px-3 py-1.5 outline-none transition-all focus:ring-0 text-talesblu-800 placeholder:text-gray-400 mr-2 ${showLabelError
                   ? "border-red-300 focus:border-red-500 bg-red-50/20"
