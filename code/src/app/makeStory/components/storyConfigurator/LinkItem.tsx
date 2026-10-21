@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Button } from "@components";
 import HelpTip from "./HelpTip";
 import type { StoryLink } from "./useStoryState";
@@ -15,6 +16,7 @@ interface LinkItemProps {
   nfcStatus: string;
   LL: TranslationFunctions;
   autoAdvance?: boolean;
+  onHover: (hovered: boolean) => void;
 }
 
 export default function LinkItem({
@@ -29,11 +31,15 @@ export default function LinkItem({
   nfcStatus,
   LL,
   autoAdvance,
+  onHover,
 }: LinkItemProps) {
+  // Unmounting (delete, switching chapter) never fires mouseleave, so clear the highlight here
+  useEffect(() => () => onHover(false), []);
+
   const showLabelError = !link.itemLabel.trim();
 
   return (
-    <li className="bg-gray-50 p-3 rounded-2xl border border-gray-100 space-y-2 transition-all hover:border-talesorang-200">
+    <li onMouseEnter={() => onHover(true)} onMouseLeave={() => onHover(false)} className="bg-gray-50 p-3 rounded-2xl border border-gray-100 space-y-2 transition-all hover:border-talesorang-200">
       <HelpTip text={LL.NODE_LINK_SELECT_HINT()} cls="top-full left-0 mt-1">
         <button
           onClick={onSelectTarget}

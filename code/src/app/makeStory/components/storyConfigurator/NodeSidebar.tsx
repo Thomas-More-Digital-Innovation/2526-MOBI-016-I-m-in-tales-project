@@ -19,6 +19,7 @@ type NodeSidebarProps = {
   calibrations: Record<string, string>;
   onCalibrationsUpdate: (calibrations: Record<string, string>) => void;
   showToolTipState?: boolean;
+  onHoverLink: (itemId: string | null) => void;
 };
 
 import { memo, useState } from "react";
@@ -38,7 +39,8 @@ const NodeSidebar = memo(({
   storyId,
   calibrations,
   onCalibrationsUpdate,
-  showToolTipState = false
+  showToolTipState = false,
+  onHoverLink
 }: NodeSidebarProps) => {
   const { tagUid, status } = useNfc();
   const { LL } = useI18nContext();
@@ -269,6 +271,7 @@ const NodeSidebar = memo(({
                 nfcStatus={status}
                 LL={LL}
                 autoAdvance={selectedNode.autoAdvance}
+                onHover={(hovered) => onHoverLink(hovered ? link.itemId : null)}
               />
             );
           })}
