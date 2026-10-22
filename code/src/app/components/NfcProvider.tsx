@@ -15,7 +15,7 @@ interface NfcStatusEvent {
 }
 
 interface NfcContextType {
-  status: "Initializing" | "Active" | "Disconnected" | "Error";
+  status: "Active" | "Disconnected" | "Error";
   tagUid: string | null;
   tagContent: string | null;
   error: string | null;
@@ -24,7 +24,7 @@ interface NfcContextType {
 const NfcContext = createContext<NfcContextType | undefined>(undefined);
 
 export function NfcProvider({ children }: { children: React.ReactNode }) {
-  const [status, setStatus] = useState<NfcContextType["status"]>("Initializing");
+  const [status, setStatus] = useState<NfcContextType["status"]>("Disconnected");
   const [tagUid, setTagUid] = useState<string | null>(null);
   const [tagContent, setTagContent] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -58,7 +58,6 @@ export function NfcProvider({ children }: { children: React.ReactNode }) {
 
         // Start polling globally
         await invoke("nfc_start_polling");
-        setStatus("Active");
       } catch (e: any) {
         console.error("NFC Setup Error:", e);
         setError(e.toString());
