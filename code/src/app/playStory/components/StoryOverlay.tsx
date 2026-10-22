@@ -1,4 +1,3 @@
-import { fontSize } from "../Settings";
 import { Option, FontSize } from "@/types";
 import { useI18nContext } from "@/i18n/i18n-react";
 
@@ -15,7 +14,7 @@ export default function StoryOverlay({
     fontSizeSetting,
     options,
 }: StoryOverlayProps) {
-    const baseFontSize = fontSize[fontSizeSetting];
+    const baseFontSize = fontSizeSetting;
     const { LL } = useI18nContext();
 
     return (

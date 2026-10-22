@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from "react";
 import SettingsModal from "./SettingsModal";
-import { storySettings } from "./Settings";
+import { storySettings, saveStorySettings } from "./Settings";
 import { useStory } from "./useStory";
 import { useFullscreen } from "./useFullscreen";
 import StoryVisuals from "./components/StoryVisuals";
@@ -150,15 +150,19 @@ export default function PlayStory() {
                     isTransitioning={isTransitioning}
                     onErrorClick={() => triggerError(currentChapter?.failAudio)}
                     onDisable={() => {
-                        storySettings.showStoryOptions = false;
-                        setSettings({ ...settings, showStoryOptions: false });
+                        const next = { ...settings, showStoryOptions: false };
+                        Object.assign(storySettings, next);
+                        saveStorySettings(next);
+                        setSettings(next);
                     }}
                 />
             ) : (
                 <StoryOptionsReveal
                     onEnable={() => {
-                        storySettings.showStoryOptions = true;
-                        setSettings({ ...settings, showStoryOptions: true });
+                        const next = { ...settings, showStoryOptions: true };
+                        Object.assign(storySettings, next);
+                        saveStorySettings(next);
+                        setSettings(next);
                     }}
                 />
             )}

@@ -1,5 +1,4 @@
 import { Button } from "@components";
-import { fontSize } from "../Settings";
 import { FontSize } from "@/types";
 import { useI18nContext } from "@/i18n/i18n-react";
 
@@ -18,7 +17,7 @@ export default function StoryHeader({
     onReplayAudioClick,
     isTransitioning = false,
 }: StoryHeaderProps) {
-    const baseFontSize = fontSize[fontSizeSetting];
+    const baseFontSize = fontSizeSetting;
     const { LL } = useI18nContext();
 
     return (
