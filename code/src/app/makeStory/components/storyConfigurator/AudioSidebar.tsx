@@ -1,6 +1,7 @@
 import { useI18nContext } from "@/i18n/i18n-react";
 import { ChapterNode } from "./useStoryState";
 import AudioDropCard from "./AudioDropCard";
+import Sidebar from "./Sidebar";
 
 interface AudioSidebarProps {
   selectedNode: ChapterNode;
@@ -36,7 +37,7 @@ export default function AudioSidebar({
   };
 
   return (
-    <div className="flex flex-col h-full min-w-[320px] border-2 border-gray-100 rounded-r-3xl p-4 space-y-4 overflow-y-auto shadow-sm bg-white">
+    <Sidebar side="left">
       {/* Sidebar header */}
       <div className="flex justify-between items-center border-b border-gray-100 pb-3">
         <div className="flex items-center gap-2 min-w-0">
@@ -83,7 +84,7 @@ export default function AudioSidebar({
         isOptional={true}
         LL={LL}
       />
-    </div>
+    </Sidebar>
   );
 }
 

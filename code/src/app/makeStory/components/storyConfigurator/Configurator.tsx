@@ -199,7 +199,7 @@ export default function Configurator({
             />
           </div>
 
-          <div className="w-100 flex-none">
+          <div className="w-100 flex-none mt-2 mb-2">
             <NodeSidebar
               selectedNode={selectedNode}
               nodes={nodes}

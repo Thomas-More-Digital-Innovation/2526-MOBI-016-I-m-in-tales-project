@@ -28,6 +28,7 @@ type NodeSidebarProps = {
 import { memo } from "react";
 import LinkItem from "./LinkItem";
 import ChapterToggles from "./ChapterToggles";
+import Sidebar from "./Sidebar";
 
 const NodeSidebar = memo(({
   selectedNode,
@@ -52,9 +53,9 @@ const NodeSidebar = memo(({
 
   if (!selectedNode) {
     return (
-      <div className="flex-1 min-w-[320px] border-2 border-gray-100 rounded-3xl m-3 p-8 flex flex-col justify-center items-center text-gray-400">
+      <Sidebar side="right" className="justify-center items-center text-gray-400 p-8">
         <p className="text-lg font-medium italic">{LL.NODE_SELECT_HINT()}</p>
-      </div>
+      </Sidebar>
     );
   }
 
@@ -93,7 +94,7 @@ const NodeSidebar = memo(({
   };
 
   return (
-    <div className="flex flex-col h-full min-w-[320px] border-2 border-gray-100 rounded-3xl m-3 p-4 space-y-6 overflow-y-auto max-h-[calc(100vh-120px)] shadow-sm">
+    <Sidebar side="right">
       <div className="flex justify-between items-center border-b border-gray-100 pb-4">
         <h3 className="text-talesblu-900 text-xl font-black uppercase tracking-tight">{LL.NODE_EDIT_CHAPTER()}</h3>
         {selectedNode.title !== "Intro" && (
@@ -246,7 +247,7 @@ const NodeSidebar = memo(({
           })}
         </ul>
       </div>
-    </div>
+    </Sidebar>
   );
 });
 
