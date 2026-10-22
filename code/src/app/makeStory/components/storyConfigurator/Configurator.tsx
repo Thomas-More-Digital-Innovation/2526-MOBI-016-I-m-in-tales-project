@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Button, Header, LoadingScreen, HelpTip, ShowAllTipsContext } from "@components";
 import { useNavigate, useBlocker } from "react-router-dom";
 import { ask } from "@tauri-apps/plugin-dialog";
@@ -7,6 +7,7 @@ import StoryCanvas from "./StoryCanvas";
 import NodeSidebar from "./NodeSidebar";
 import AudioSidebar from "./AudioSidebar";
 import { useI18nContext } from "@/i18n/i18n-react";
+import { detectInescapableLoops } from "./loopDetection";
 
 type ConfiguratorProps = {
   folderName?: string;
@@ -49,6 +50,19 @@ export default function Configurator({
   useEffect(() => {
     if (!selectedId) setShowAudioSidebar(false);
   }, [selectedId]);
+
+  const loopResult = useMemo(() => detectInescapableLoops(nodes), [nodes]);
+
+  const handleSave = async () => {
+    if (loopResult.trappedNodeIds.size > 0) {
+      const confirmed = await ask(
+        LL.CONFIG_LOOP_WARNING_MSG(),
+        { title: LL.CONFIG_LOOP_WARNING_TITLE(), kind: "warning" }
+      );
+      if (!confirmed) return;
+    }
+    await saveFile();
+  };
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
@@ -162,18 +176,36 @@ export default function Configurator({
             )}
           </div>
 
-          <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out ${!isAudioOpen ? "pl-4" : "pl-0"}`}>
+          <div
+            className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out ${
+              !isAudioOpen ? "pl-4" : "pl-0"
+            }`}
+          >
             <div className="flex justify-between items-center mb-2 px-2">
               <div className="flex items-center gap-4">
-                <h2 className="text-2xl font-black text-talesblu-900 uppercase">{storyMetadata?.name || LL.CONFIG_NEW_STORY()}</h2>
+                <h2 className="text-2xl font-black text-talesblu-900 uppercase">
+                  {storyMetadata?.name || LL.CONFIG_NEW_STORY()}
+                </h2>
                 <div className="h-6 w-px bg-gray-200" />
                 <p className="text-gray-400 text-sm font-medium">
-                  {nodes.length} {nodes.length !== 1 ? LL.CONFIG_CHAPTER_PLURAL() : LL.CONFIG_CHAPTER_SINGULAR()}
+                  {nodes.length}{" "}
+                  {nodes.length !== 1
+                    ? LL.CONFIG_CHAPTER_PLURAL()
+                    : LL.CONFIG_CHAPTER_SINGULAR()}
                 </p>
               </div>
               <HelpTip text={LL.TIP_SAVE()}>
-                <Button onClick={saveFile} cls={`text-[12px] !px-8 !py-2 !rounded-full shadow-lg transition-all flex items-center gap-2 ${isDirty ? 'shadow-talesorang-200 ring-2 ring-talesorang-100' : 'shadow-gray-100 opacity-80 hover:opacity-100'}`}>
-                  {isDirty && <div className="w-2 h-2 rounded-full bg-white animate-pulse" />}
+                <Button
+                  onClick={handleSave}
+                  cls={`text-[12px] !px-8 !py-2 !rounded-full shadow-lg transition-all flex items-center gap-2 ${
+                    isDirty
+                      ? "shadow-talesorang-200 ring-2 ring-talesorang-100"
+                      : "shadow-gray-100 opacity-80 hover:opacity-100"
+                  }`}
+                >
+                  {isDirty && (
+                    <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                  )}
                   {isDirty ? LL.CONFIG_SAVE() : LL.CONFIG_SAVED()}
                 </Button>
               </HelpTip>
@@ -196,6 +228,8 @@ export default function Configurator({
               onDelete={confirmDeleteNode}
               onCreateNode={createNewNode}
               hoveredLinkId={hoveredLinkId}
+              trappedNodeIds={loopResult.trappedNodeIds}
+              trappedEdgeKeys={loopResult.trappedEdgeKeys}
             />
           </div>
 
@@ -208,7 +242,7 @@ export default function Configurator({
               onSetStart={setStartNode}
               onDelete={confirmDeleteNode}
               onLink={toggleLinking}
-              onSave={saveFile}
+              onSave={handleSave}
               linking={linking}
               storyId={storyId}
               calibrations={calibrations}

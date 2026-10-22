@@ -12,6 +12,7 @@ interface ChapterNodeViewProps {
   onDragEnd: (id: string, x: number, y: number) => void;
   onContextMenu: (id: string, clientX: number, clientY: number) => void;
   isLinking: boolean;
+  isTrapped?: boolean;
 }
 
 export const ChapterNodeView = memo(({
@@ -21,7 +22,8 @@ export const ChapterNodeView = memo(({
   onDragMove,
   onDragEnd,
   onContextMenu,
-  isLinking
+  isLinking,
+  isTrapped = false
 }: ChapterNodeViewProps) => {
   const [hovered, setHovered] = useState(false);
   const { LL } = useI18nContext();
@@ -60,11 +62,27 @@ export const ChapterNodeView = memo(({
     >
       <Rect
         fill={isSelected ? "#ffffff" : "#fdfdfd"}
-        stroke={isSelected || (isLinking && hovered) ? "#f97316" : "#e5e7eb"}
-        strokeWidth={isSelected ? 3 : (isLinking && hovered ? 2 : 1)}
-        dash={isLinking && hovered && !isSelected ? [10, 5] : undefined}
-        shadowBlur={isSelected ? 10 : 2}
-        shadowColor="rgba(0,0,0,0.1)"
+        stroke={
+          isTrapped
+            ? "#ef4444"
+            : isSelected || (isLinking && hovered)
+            ? "#f97316"
+            : "#e5e7eb"
+        }
+        strokeWidth={
+          isTrapped
+            ? isSelected
+              ? 3.5
+              : 2.5
+            : isSelected
+            ? 3
+            : isLinking && hovered
+            ? 2
+            : 1
+        }
+        dash={isLinking && hovered && !isSelected && !isTrapped ? [10, 5] : undefined}
+        shadowBlur={isSelected || isTrapped ? 10 : 2}
+        shadowColor={isTrapped ? "rgba(239, 68, 68, 0.4)" : "rgba(0,0,0,0.1)"}
         cornerRadius={20}
         width={150}
         height={cardHeight}

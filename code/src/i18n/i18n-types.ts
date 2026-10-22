@@ -335,6 +335,14 @@ type RootTranslation = {
 	 */
 	CONFIG_SAVED: string
 	/**
+	 * I​n​e​s​c​a​p​a​b​l​e​ ​L​o​o​p​ ​D​e​t​e​c​t​e​d
+	 */
+	CONFIG_LOOP_WARNING_TITLE: string
+	/**
+	 * O​n​e​ ​o​r​ ​m​o​r​e​ ​c​h​a​p​t​e​r​s​ ​f​o​r​m​ ​a​ ​l​o​o​p​ ​w​i​t​h​ ​n​o​ ​p​o​s​s​i​b​l​e​ ​e​x​i​t​.​ ​P​l​a​y​e​r​s​ ​m​a​y​ ​g​e​t​ ​t​r​a​p​p​e​d​ ​i​n​ ​a​n​ ​e​n​d​l​e​s​s​ ​s​t​o​r​y​.​ ​D​o​ ​y​o​u​ ​s​t​i​l​l​ ​w​a​n​t​ ​t​o​ ​s​a​v​e​?
+	 */
+	CONFIG_LOOP_WARNING_MSG: string
+	/**
 	 * S​e​l​e​c​t​ ​a​ ​c​h​a​p​t​e​r​ ​t​o​ ​s​t​a​r​t​ ​e​d​i​t​i​n​g
 	 */
 	NODE_SELECT_HINT: string
@@ -593,11 +601,11 @@ type RootTranslation = {
 	 */
 	SETTINGS_SHOW_STORY_OPTIONS_DESC: string
 	/**
-	 * Show Top Text
+	 * S​h​o​w​ ​T​o​p​ ​T​e​x​t
 	 */
 	SETTINGS_SHOW_TITLE: string
 	/**
-	 * Show Bottom Text
+	 * S​h​o​w​ ​B​o​t​t​o​m​ ​T​e​x​t
 	 */
 	SETTINGS_SHOW_DESCRIPTION: string
 	/**
@@ -1111,6 +1119,14 @@ export type TranslationFunctions = {
 	 * Saved
 	 */
 	CONFIG_SAVED: () => LocalizedString
+	/**
+	 * Inescapable Loop Detected
+	 */
+	CONFIG_LOOP_WARNING_TITLE: () => LocalizedString
+	/**
+	 * One or more chapters form a loop with no possible exit. Players may get trapped in an endless story. Do you still want to save?
+	 */
+	CONFIG_LOOP_WARNING_MSG: () => LocalizedString
 	/**
 	 * Select a chapter to start editing
 	 */
