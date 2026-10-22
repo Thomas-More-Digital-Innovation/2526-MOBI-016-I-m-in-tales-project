@@ -18,7 +18,7 @@ export default function StoryOverlay({
     options,
     children,
 }: StoryOverlayProps) {
-    const baseFontSize = fontSize[fontSizeSetting];
+    const baseFontSize = fontSizeSetting;
     const { LL } = useI18nContext();
 
     return (

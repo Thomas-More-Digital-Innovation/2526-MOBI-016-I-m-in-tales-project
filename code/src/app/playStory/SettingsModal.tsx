@@ -1,7 +1,14 @@
 import { useState } from "react";
-import { fontSize, storySettings } from "./Settings";
+import {
+    storySettings,
+    saveStorySettings,
+    MIN_FONT_SIZE,
+    MAX_FONT_SIZE,
+    FONT_PRESET_COUNT,
+    getFontSizePresets,
+} from "./Settings";
 import { Modal } from "@components";
-import { StorySettings, FontSize } from "@/types";
+import { StorySettings } from "@/types";
 import { useI18nContext } from "@/i18n/i18n-react";
 import { setVolume } from "./AudioPlayer";
 
@@ -19,9 +26,12 @@ export default function SettingsModal({
     const [settings, setSettings] = useState<StorySettings>(storySettings);
     const { LL } = useI18nContext();
 
+    const presets = getFontSizePresets(MIN_FONT_SIZE, MAX_FONT_SIZE, FONT_PRESET_COUNT);
+
     const updateSettings = (next: StorySettings) => {
         setSettings(next);
         Object.assign(storySettings, next);
+        saveStorySettings(next);
         setVolume(next.volume);
         onSettingsChange?.(next);
     };
@@ -35,45 +45,65 @@ export default function SettingsModal({
                     </h2>
                 </div>
 
-                {/* Font Size section */}
+                {/* font size section */}
                 <div className="flex flex-col gap-2">
-                    <h3 className="text-xs font-black uppercase tracking-widest text-talesblu-400">
-                        {LL.SETTINGS_TEXT_SIZE()}
-                    </h3>
-                    <div className="grid grid-cols-2 gap-2 mt-1">
-                        {Object.entries(fontSize).map(([key, value]) => {
-                            const isSelected = key === settings.fontSize;
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-xs font-black uppercase tracking-widest text-talesblu-400">
+                            {LL.SETTINGS_TEXT_SIZE()}
+                        </h3>
+                    </div>
+
+                    {/* dynamic preset jump buttons aligned across the slider */}
+                    <div className="flex justify-between items-end gap-2 mt-1 px-1">
+                        {presets.map((preset) => {
+                            const isSelected = settings.fontSize === preset;
                             return (
                                 <button
-                                    key={key}
+                                    key={preset}
                                     type="button"
                                     onClick={() =>
                                         updateSettings({
                                             ...settings,
-                                            fontSize: key as FontSize,
+                                            fontSize: preset,
                                         })
                                     }
-                                    className={`py-3 px-4 rounded-xl border-2 text-center transition-all active:scale-95 duration-200 cursor-pointer ${
-                                        isSelected
-                                            ? "bg-talesorang-500 border-talesorang-500 text-white font-bold shadow-md shadow-talesorang-100"
-                                            : "bg-white border-talesblu-100 text-talesblu-700 hover:bg-talesblu-50/50 hover:border-talesblu-200"
-                                    }`}
+                                    className={`h-14 w-16 rounded-xl border-2 flex items-center justify-center transition-all active:scale-95 duration-200 cursor-pointer ${isSelected
+                                        ? "bg-talesorang-500 border-talesorang-500 text-white font-bold shadow-md shadow-talesorang-100"
+                                        : "bg-white border-talesblu-100 text-talesblu-700 hover:bg-talesblu-50/50 hover:border-talesblu-200"
+                                        }`}
+                                    title={`${preset}px`}
                                 >
-                                    <span style={{ fontSize: `${value - 2}px` }}>{key}</span>
+                                    <span style={{ fontSize: `${preset}px`, lineHeight: 1 }}>Aa</span>
                                 </button>
                             );
                         })}
+                    </div>
+
+                    {/* font size slider */}
+                    <div className="flex items-center mt-1 bg-talesblu-50/50 border border-talesblu-100/60 p-3 rounded-xl">
+                        <input
+                            className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-talesorang-500 bg-talesblu-200/50"
+                            type="range"
+                            min={MIN_FONT_SIZE}
+                            max={MAX_FONT_SIZE}
+                            step="1"
+                            value={settings.fontSize}
+                            onChange={(e) =>
+                                updateSettings({
+                                    ...settings,
+                                    fontSize: Number(e.target.value),
+                                })
+                            }
+                        />
                     </div>
                 </div>
 
                 {/* Volume section */}
                 <div className="flex flex-col gap-2">
-                    <div className="flex justify-between items-center">
-                        <h3 className="text-xs font-black uppercase tracking-widest text-talesblu-400">
-                            {LL.SETTINGS_VOLUME()}
-                        </h3>
-                        <span className="text-sm font-bold text-talesblu-600">{Math.round(settings.volume * 100)}%</span>
-                    </div>
+                    <h3 className="text-xs font-black uppercase tracking-widest text-talesblu-400">
+                        {LL.SETTINGS_VOLUME()}
+                    </h3>
+                    <span className="text-sm font-bold text-talesblu-600">{Math.round(settings.volume * 100)}%</span>
                     <div className="flex items-center gap-3 mt-1 bg-talesblu-50/50 border border-talesblu-100/60 p-3 rounded-xl">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-talesblu-400" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -154,14 +184,12 @@ function Toggle({ checked, onToggle }: { checked: boolean; onToggle: () => void 
             type="button"
             role="switch"
             aria-checked={checked}
-            className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                checked ? "bg-talesorang-500" : "bg-slate-300"
-            }`}
+            className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${checked ? "bg-talesorang-500" : "bg-slate-300"
+                }`}
         >
             <span
-                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                    checked ? "translate-x-5" : "translate-x-0"
-                }`}
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${checked ? "translate-x-5" : "translate-x-0"
+                    }`}
             />
         </button>
     );
