@@ -24,6 +24,8 @@ type StoryCanvasProps = {
   onDelete: (id: string) => void;
   onCreateNode: () => void;
   hoveredLinkId?: string | null;
+  trappedNodeIds?: Set<string>;
+  trappedEdgeKeys?: Set<string>;
 };
 
 export default function StoryCanvas({
@@ -40,7 +42,9 @@ export default function StoryCanvas({
   onLink,
   onDelete,
   onCreateNode,
-  hoveredLinkId = null
+  hoveredLinkId = null,
+  trappedNodeIds = new Set(),
+  trappedEdgeKeys = new Set()
 }: StoryCanvasProps) {
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<any>(null);
@@ -192,8 +196,16 @@ export default function StoryCanvas({
               // A hovered link overrides the selection highlight so only that line stands out
               const isSourceSelected = !hoveredLinkId && selectedId === node.id;
               const isDownstream = !hoveredLinkId && selectedId !== node.id && downstreamIds.has(node.id);
-              const isHighlighted = isHovered || isSourceSelected || isDownstream;
-              const color = isHovered || isSourceSelected ? "#f97316" : isDownstream ? "#facc15" : "#94a3b8";
+              const edgeKey = `${node.id}->${link.targetId}`;
+              const isTrapped = trappedEdgeKeys.has(edgeKey);
+              const isHighlighted = isHovered || isSourceSelected || isDownstream || isTrapped;
+              const color = isTrapped
+                ? "#ef4444"
+                : isHovered || isSourceSelected
+                ? "#f97316"
+                : isDownstream
+                ? "#facc15"
+                : "#94a3b8";
               return (
                 <Arrow
                   key={`${node.id}->${link.targetId}`}
@@ -216,6 +228,7 @@ export default function StoryCanvas({
               key={node.id}
               node={node}
               isSelected={selectedId === node.id}
+              isTrapped={trappedNodeIds.has(node.id)}
               onSelect={onSelect}
               onDragMove={handleLocalDragMove}
               onDragEnd={handleDragEnd}
