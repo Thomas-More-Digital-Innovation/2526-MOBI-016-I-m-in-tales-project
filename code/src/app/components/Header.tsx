@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import FullScreenButton from "./FullScreenButton";
 import HeaderButton from "./HeaderLink";
 import { NfcBadge } from "./NfcBadge";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -39,7 +38,6 @@ export default function Header({ showPreviousButton = true, onBack, onHelpHover,
         <LanguageSwitcher />
         {backButton}
         {rightExtra}
-        <FullScreenButton />
         <HeaderButton label="?" {...helpHoverHandlers} />
       </div>
     </div>
