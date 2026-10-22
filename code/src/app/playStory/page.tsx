@@ -120,7 +120,7 @@ export default function PlayStory() {
     }
 
     return (
-        <main className="bg-white min-h-screen">
+        <main className="bg-black min-h-screen overflow-hidden">
             <StoryHeader
                 fontSizeSetting={settings.fontSize}
                 onSettingsClick={() => setShowSettingsModal(true)}
@@ -130,14 +130,15 @@ export default function PlayStory() {
             />
 
             {currentChapter ? (
-                <div className="relative h-screen w-screen">
-                    <StoryVisuals image={currentChapter.image} />
+                <div className="h-screen w-screen">
                     <StoryOverlay
                         title={settings.showTitle ? currentChapter.title : undefined}
                         description={settings.showDescription ? currentChapter.description : undefined}
                         fontSizeSetting={settings.fontSize}
                         options={currentChapter.option}
-                    />
+                    >
+                        <StoryVisuals image={currentChapter.image} />
+                    </StoryOverlay>
                 </div>
             ) : (
                 <p>{LL.PLAY_LOADING()}</p>
