@@ -43,7 +43,7 @@
   },
   "productName": "whispertag",
   "mainBinaryName": "whispertag",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "identifier": "be.digitalinnovation.whispertag",
   "plugins": {},
   "app": {
