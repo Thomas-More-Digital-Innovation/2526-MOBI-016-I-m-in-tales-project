@@ -4,15 +4,15 @@ import ToolTip from "./ToolTip";
 // True while the header "?" is hovered: every HelpTip shows at once
 export const ShowAllTipsContext = createContext(false);
 
-// Overlays a ToolTip in the wrapped control's top-right corner after 1s of hover, or while keyboard-focused
+// Shows a ToolTip just below the wrapped control (never on top of it, so typing stays visible) after 1s of hover, or while focused
 export default function HelpTip({
   text,
-  cls = "top-1 right-1",
+  cls = "top-full right-0 mt-1",
   wrapCls = "",
   children,
 }: {
   text: string;
-  // Tooltip position; override when the corner default would overflow its container
+  // Tooltip position; must stay outside the control. Override when below would overflow its container
   cls?: string;
   wrapCls?: string;
   children: ReactNode;

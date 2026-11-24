@@ -11,6 +11,11 @@ export type StoryLink = {
   itemLabel: string;
   // Choice audio carried per link so it survives link edits/duplication and is written back on save
   audioBytes?: Uint8Array | null;
+  // Object cell shown in the player for this link
+  objectImageBytes?: Uint8Array | null;
+  objectImageSrc?: string | null;
+  objectSoundBytes?: Uint8Array | null;
+  objectSoundSrc?: string | null;
 };
 
 export type ChapterNode = {
@@ -25,6 +30,8 @@ export type ChapterNode = {
   image: CanvasImageSource | null;
   imageSrc?: string | null;
   imageBytes?: Uint8Array | null;
+  /** Set = text chapter (shown instead of the image). */
+  text?: string;
   x: number;
   y: number;
   links: StoryLink[];
@@ -110,6 +117,7 @@ export function useStoryState(folderName: string) {
                   failAudioSrc: ch.failAudio
                     ? URL.createObjectURL(new Blob([ch.failAudio as any]))
                     : null,
+                  text: ch.text,
                   autoAdvance: ch.autoAdvance ?? false,
                   x:
                     typeof ch.x === "number" && typeof ch.y === "number"
@@ -126,6 +134,11 @@ export function useStoryState(folderName: string) {
                         targetId: opt.nextChapter,
                         itemId: opt.item || crypto.randomUUID(),
                         itemLabel: matchedItem?.label ?? (opt.item ? opt.item : ""),
+                        audioBytes: opt.audio ?? null,
+                        objectImageBytes: opt.objectImage ?? null,
+                        objectImageSrc: opt.objectImage ? URL.createObjectURL(new Blob([opt.objectImage])) : null,
+                        objectSoundBytes: opt.objectSound ?? null,
+                        objectSoundSrc: opt.objectSound ? URL.createObjectURL(new Blob([opt.objectSound])) : null,
                       };
                     }) || [],
                 };
@@ -173,15 +186,15 @@ export function useStoryState(folderName: string) {
     }
   }, [storyId]);
 
-  const createNewNode = () => {
+  const createNewNode = (position: { x: number; y: number } = { x: 100, y: 100 }) => {
     const newNode: ChapterNode = {
       id: crypto.randomUUID(),
       title: "New Chapter",
       description: "New Chapter Description",
       image: null,
       audio: null,
-      x: 100,
-      y: 100,
+      x: position.x,
+      y: position.y,
       links: [],
     };
     setNodes((prev) => [...prev, newNode]);
@@ -291,6 +304,8 @@ export function useStoryState(folderName: string) {
         return {
           nextChapter: link.targetId,
           audio: link.audioBytes ?? null,
+          objectImage: link.objectImageBytes ?? null,
+          objectSound: link.objectSoundBytes ?? null,
           item: link.itemId,
         };
       });
@@ -302,7 +317,8 @@ export function useStoryState(folderName: string) {
         title: node.title,
         description: node.description,
         audio: media.audioBytes ?? null,
-        image: media.imageBytes ?? null,
+        image: node.text !== undefined ? null : media.imageBytes ?? null,
+        text: node.text,
         failAudio: media.failAudioBytes ?? null,
         autoAdvance: node.autoAdvance ?? false,
         x: node.x,

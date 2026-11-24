@@ -155,6 +155,7 @@ export default function SettingsModal({
                         [
                             ["showTitle", LL.SETTINGS_SHOW_TITLE()],
                             ["showDescription", LL.SETTINGS_SHOW_DESCRIPTION()],
+                            ["autoPlayObjectSounds", LL.SETTINGS_AUTOPLAY_OBJECT_SOUNDS()],
                         ] as const
                     ).map(([key, label]) => (
                         <div

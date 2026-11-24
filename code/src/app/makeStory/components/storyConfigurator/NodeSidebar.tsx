@@ -137,11 +137,36 @@ const NodeSidebar = memo(({
           <HelpTip text={LL.TIP_ILLUSTRATION()} cls="top-full left-0 mt-2">
             <p className="text-[10px] text-gray-400 uppercase font-black tracking-widest cursor-help">{LL.NODE_ILLUSTRATION()}</p>
           </HelpTip>
+          <div className="flex rounded-lg bg-gray-100 p-0.5 text-[10px] font-bold" role="radiogroup">
+            {([false, true] as const).map((isText) => (
+              <button
+                key={String(isText)}
+                role="radio"
+                aria-checked={(selectedNode.text !== undefined) === isText}
+                onClick={() => onUpdate(selectedNode.id, { text: isText ? selectedNode.text ?? "" : undefined })}
+                className={`flex-1 rounded-md py-1 cursor-pointer ${
+                  (selectedNode.text !== undefined) === isText ? "bg-white text-talesblu-800 shadow-sm" : "text-gray-500"
+                }`}
+              >
+                {isText ? LL.NODE_CONTENT_TEXT() : LL.NODE_CONTENT_IMAGE()}
+              </button>
+            ))}
+          </div>
           <div className="h-32">
-            <ImageUpload
-              onImageBytes={(b) => handleMediaBytes('imageBytes', b)}
-              value={selectedNode.imageSrc}
-            />
+            {selectedNode.text !== undefined ? (
+              <textarea
+                value={selectedNode.text}
+                onChange={(e) => onUpdate(selectedNode.id, { text: e.target.value })}
+                placeholder={LL.NODE_TEXT_PH()}
+                aria-label={LL.NODE_CONTENT_TEXT()}
+                className="w-full h-full resize-none text-sm border-2 border-dashed border-gray-200 focus:border-talesorang-500 bg-gray-50/50 rounded-xl px-3 py-2 outline-none text-talesblu-800 placeholder:text-gray-300"
+              />
+            ) : (
+              <ImageUpload
+                onImageBytes={(b) => handleMediaBytes('imageBytes', b)}
+                value={selectedNode.imageSrc}
+              />
+            )}
           </div>
         </div>
 
@@ -230,6 +255,10 @@ const NodeSidebar = memo(({
                 onSelectTarget={() => onSelectNode(link.targetId)}
                 onUpdateLabel={(label: string) => {
                   const newLinks = selectedNode.links.map(l => l.itemId === link.itemId ? { ...l, itemLabel: label } : l);
+                  onUpdate(selectedNode.id, { links: newLinks });
+                }}
+                onUpdateLink={(updates) => {
+                  const newLinks = selectedNode.links.map(l => l.itemId === link.itemId ? { ...l, ...updates } : l);
                   onUpdate(selectedNode.id, { links: newLinks });
                 }}
                 onDelete={() => {

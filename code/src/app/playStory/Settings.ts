@@ -22,6 +22,7 @@ const defaultStorySettings: StorySettings = {
   showStoryOptions: false,
   showTitle: true,
   showDescription: true,
+  autoPlayObjectSounds: false,
 };
 
 export function loadStorySettings(): StorySettings {

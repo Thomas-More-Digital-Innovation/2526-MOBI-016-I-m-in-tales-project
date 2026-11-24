@@ -5,101 +5,33 @@ export interface InescapableLoopResult {
   trappedEdgeKeys: Set<string>;
 }
 
+/**
+ * Finds cycles made only of auto-advance chapters: once entered, the story plays forever with no tag
+ * able to stop it. Loops that pass through a tag-driven chapter (e.g. endings that link back to the
+ * start so a tag restarts the story) are intentional and not reported.
+ */
 export function detectInescapableLoops(nodes: ChapterNode[]): InescapableLoopResult {
   const trappedNodeIds = new Set<string>();
   const trappedEdgeKeys = new Set<string>();
+  const byId = new Map(nodes.map((n) => [n.id, n]));
+  // Auto-advance follows its single link without user input
+  const next = (n: ChapterNode | undefined) =>
+    n?.autoAdvance && n.links.length === 1 ? byId.get(n.links[0].targetId) : undefined;
 
-  if (!nodes || nodes.length === 0) {
-    return { trappedNodeIds, trappedEdgeKeys };
-  }
-
-  const nodeMap = new Map<string, ChapterNode>();
-  for (const node of nodes) {
-    nodeMap.set(node.id, node);
-  }
-
-  const adj = new Map<string, string[]>();
-  const revAdj = new Map<string, string[]>();
-
-  for (const node of nodes) {
-    adj.set(node.id, []);
-    revAdj.set(node.id, []);
-  }
-
-  for (const node of nodes) {
-    for (const link of node.links) {
-      if (nodeMap.has(link.targetId)) {
-        adj.get(node.id)!.push(link.targetId);
-        revAdj.get(link.targetId)!.push(node.id);
-      }
+  for (const start of nodes) {
+    // Walk the auto-advance chain from each node; revisiting a chain node means a cycle
+    const chain: ChapterNode[] = [];
+    let cur: ChapterNode | undefined = start;
+    while (cur && !chain.includes(cur)) {
+      chain.push(cur);
+      cur = next(cur);
     }
-  }
-
-  const terminalNodes: string[] = [];
-  for (const node of nodes) {
-    if (adj.get(node.id)!.length === 0) {
-      terminalNodes.push(node.id);
-    }
-  }
-
-  const canReachTerminal = new Set<string>();
-  const queue: string[] = [...terminalNodes];
-  for (const id of terminalNodes) {
-    canReachTerminal.add(id);
-  }
-
-  while (queue.length > 0) {
-    const current = queue.shift()!;
-    for (const predecessor of revAdj.get(current) || []) {
-      if (!canReachTerminal.has(predecessor)) {
-        canReachTerminal.add(predecessor);
-        queue.push(predecessor);
-      }
-    }
-  }
-
-  const candidateIds = new Set(nodes.filter((n) => !canReachTerminal.has(n.id)).map((n) => n.id));
-
-  if (candidateIds.size === 0) {
-    return { trappedNodeIds, trappedEdgeKeys };
-  }
-
-  for (const u of candidateIds) {
-    for (const v of adj.get(u) || []) {
-      if (!candidateIds.has(v)) continue;
-
-      if (isReachable(v, u, adj, candidateIds)) {
-        trappedEdgeKeys.add(`${u}->${v}`);
-        trappedNodeIds.add(u);
-        trappedNodeIds.add(v);
-      }
+    if (!cur) continue;
+    for (const n of chain.slice(chain.indexOf(cur))) {
+      trappedNodeIds.add(n.id);
+      trappedEdgeKeys.add(`${n.id}->${n.links[0].targetId}`);
     }
   }
 
   return { trappedNodeIds, trappedEdgeKeys };
-}
-
-function isReachable(
-  startId: string,
-  targetId: string,
-  adj: Map<string, string[]>,
-  allowedNodes: Set<string>
-): boolean {
-  if (startId === targetId) return true;
-  const visited = new Set<string>([startId]);
-  const queue = [startId];
-
-  while (queue.length > 0) {
-    const curr = queue.shift()!;
-    for (const next of adj.get(curr) || []) {
-      if (!allowedNodes.has(next)) continue;
-      if (next === targetId) return true;
-      if (!visited.has(next)) {
-        visited.add(next);
-        queue.push(next);
-      }
-    }
-  }
-
-  return false;
 }

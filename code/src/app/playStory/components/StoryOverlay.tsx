@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { fontSize } from "../Settings";
 import { Option, FontSize } from "@/types";
 import { useI18nContext } from "@/i18n/i18n-react";
 
@@ -53,9 +52,10 @@ export default function StoryOverlay({
 
             {options && options.length === 0 && (
                 <div
-                    className="absolute bottom-24 left-4 z-100 max-w-1/4 text-white bg-talesorang-500 p-4 rounded-lg"
+                    className="absolute bottom-4 left-4 z-100 max-w-1/4 text-gray-500"
+                    role="status"
                     style={{
-                        fontSize: baseFontSize + "px",
+                        fontSize: baseFontSize * 0.6 + "px",
                     }}>
                     {LL.STORY_END()}
                 </div>

@@ -19,7 +19,7 @@ const getAudioUrl = (bytes: Uint8Array | number[] | null | undefined): string | 
     return url === "/placeholder.jpeg" ? null : url;
 };
 
-export function useStory(storyId: string | undefined) {
+export function useStory(storyId: string | undefined, autoPlayObjectSounds = false) {
     const [story, setStory] = useState<Story | null>(null);
     const [currentChapter, setCurrentChapter] = useState<Chapter | undefined>(undefined);
     const currentChapterRef = useRef<Chapter | undefined>(undefined);
@@ -29,6 +29,11 @@ export function useStory(storyId: string | undefined) {
     const isTransitioningRef = useRef(false);
     const [activeAudioType, setActiveAudioType] = useState<AudioType>("none");
     const [pendingAction, setPendingAction] = useState<PendingAction | null>(null);
+    /** Index of the object cell whose sound is playing (highlighted in the player). */
+    const [activeObject, setActiveObject] = useState<number | null>(null);
+    // Ref so toggling the setting mid-chapter doesn't restart the narration effect
+    const autoPlayObjectSoundsRef = useRef(autoPlayObjectSounds);
+    autoPlayObjectSoundsRef.current = autoPlayObjectSounds;
 
     useEffect(() => {
         currentChapterRef.current = currentChapter;
@@ -110,6 +115,19 @@ export function useStory(storyId: string | undefined) {
         setActiveAudioType("none");
     }, [currentChapter]);
 
+    /** Hover on an object cell. Ignored while narration or a transition plays, so it never cuts the story audio. */
+    const playObjectSound = useCallback(
+        async (idx: number) => {
+            const sound = currentChapter?.option[idx]?.objectSound;
+            if (!sound || isInitialPlaying || isTransitioningRef.current) return;
+            setActiveObject(idx);
+            await playAudio(sound);
+            // Another cell may have taken over meanwhile; only clear our own highlight
+            setActiveObject((cur) => (cur === idx ? null : cur));
+        },
+        [currentChapter, isInitialPlaying]
+    );
+
     const cancelPendingAction = useCallback(() => {
         setPendingAction(null);
     }, []);
@@ -126,6 +144,7 @@ export function useStory(storyId: string | undefined) {
         if (currentChapter.failAudio) pathsToPreload.push(currentChapter.failAudio);
         currentChapter.option.forEach((opt) => {
             if (opt.audio) pathsToPreload.push(opt.audio);
+            if (opt.objectSound) pathsToPreload.push(opt.objectSound);
         });
 
         // preload next possible chapters' audio assets to pre-buffer
@@ -155,6 +174,17 @@ export function useStory(storyId: string | undefined) {
                 if (!active) return;
             }
 
+            // Tags placed meanwhile stay queued: isInitialPlaying is still true here
+            if (autoPlayObjectSoundsRef.current && !currentChapter.autoAdvance) {
+                for (const [idx, opt] of currentChapter.option.entries()) {
+                    if (!opt.objectSound) continue;
+                    setActiveObject(idx);
+                    await playAudio(opt.objectSound);
+                    if (!active) return;
+                }
+                setActiveObject(null);
+            }
+
             setIsInitialPlaying(false);
             setActiveAudioType("none");
 
@@ -171,6 +201,7 @@ export function useStory(storyId: string | undefined) {
 
         return () => {
             active = false;
+            setActiveObject(null);
         };
     }, [currentChapter, getChapterById, transitionTo]);
 
@@ -206,6 +237,7 @@ export function useStory(storyId: string | undefined) {
                         description: ch.description,
                         audio: getAudioUrl(ch.audio) ?? "",
                         image: bytesToUrl(ch.image, "image/jpeg"),
+                        text: ch.text,
                         failAudio: getAudioUrl(ch.failAudio),
                         autoAdvance: ch.autoAdvance ?? false,
                         option: (ch.option || []).map((opt) => {
@@ -213,6 +245,8 @@ export function useStory(storyId: string | undefined) {
                             return {
                                 nextChapter: opt.nextChapter,
                                 audio: getAudioUrl(opt.audio) ?? "",
+                                objectImage: opt.objectImage && opt.objectImage.length > 0 ? bytesToUrl(opt.objectImage, "image/jpeg") : undefined,
+                                objectSound: getAudioUrl(opt.objectSound),
                                 item: opt.item,
                                 itemLabel: itemData?.label || opt.item || undefined,
                             };
@@ -241,6 +275,8 @@ export function useStory(storyId: string | undefined) {
         currentChapter,
         currentChapterRef,
         isTransitioning,
+        activeObject,
+        playObjectSound,
         nextChapter: handleSelectOption,
         triggerError: handleTriggerError,
         replayAudio: handleReplayAudio,

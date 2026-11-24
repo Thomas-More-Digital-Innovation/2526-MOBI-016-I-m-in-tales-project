@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, HelpTip } from "@components";
+import { Button, HelpTip, ImageUpload, AudioUpload } from "@components";
 import type { StoryLink } from "./useStoryState";
 import type { TranslationFunctions } from "@/i18n/i18n-types";
 
@@ -9,6 +9,7 @@ interface LinkItemProps {
   calibratedTag?: string;
   onSelectTarget: () => void;
   onUpdateLabel: (label: string) => void;
+  onUpdateLink: (updates: Partial<StoryLink>) => void;
   onDelete: () => void;
   onLinkTag: () => void;
   tagUid: string | null;
@@ -24,6 +25,7 @@ export default function LinkItem({
   calibratedTag,
   onSelectTarget,
   onUpdateLabel,
+  onUpdateLink,
   onDelete,
   onLinkTag,
   tagUid,
@@ -83,6 +85,23 @@ export default function LinkItem({
           </button>
         </HelpTip>
       </div>
+      {!autoAdvance && (
+        <div className="flex items-center gap-2">
+          <HelpTip text={LL.TIP_OBJECT_CELL()} cls="top-full left-0 mt-2">
+            <div className="h-14 w-14 shrink-0 rounded-full overflow-hidden" aria-label={LL.NODE_OBJECT_IMAGE()}>
+              <ImageUpload
+                value={link.objectImageSrc}
+                onImageBytes={(b) => onUpdateLink({ objectImageBytes: b, objectImageSrc: URL.createObjectURL(new Blob([b])) })}
+              />
+            </div>
+          </HelpTip>
+          <AudioUpload
+            cls="flex-1 min-w-0"
+            value={link.objectSoundSrc}
+            onAudioBytes={(b) => onUpdateLink({ objectSoundBytes: b, objectSoundSrc: URL.createObjectURL(new Blob([b])) })}
+          />
+        </div>
+      )}
       {!autoAdvance && (
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-1.5">

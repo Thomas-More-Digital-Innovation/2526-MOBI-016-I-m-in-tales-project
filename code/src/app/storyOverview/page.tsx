@@ -4,6 +4,7 @@ import StoryCard from "../components/StoryCard";
 import Modal from "../components/Modal";
 import PlayStoryButton from "./PlayStoryButton";
 import CalibrationModal from "../components/CalibrationModal";
+import SettingsModal from "../playStory/SettingsModal";
 import { getStoriesOverview, StoryPreview } from "@/utils/storyIO";
 import { useI18nContext } from "@/i18n/i18n-react";
 import type { TranslationFunctions } from "@/i18n/i18n-types";
@@ -24,6 +25,7 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
   const [selectedStory, setSelectedStory] = useState<StoryCardData | null>(null);
   const [showToolTip, setShowToolTip] = useState(false);
   const [isCalibrationOpen, setIsCalibrationOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const { LL } = useI18nContext();
 
@@ -80,8 +82,11 @@ export default function StoryOverview({ mode = "view" }: { mode: Mode }) {
         setIsOpen={setIsOpen}
         onClose={() => setSelectedStory(null)}
       >
-        {selectedStory ? StoryModal(selectedStory, mode, () => setIsCalibrationOpen(true), LL) : null}
+        {selectedStory ? StoryModal(selectedStory, mode, () => setIsCalibrationOpen(true), () => setIsSettingsOpen(true), LL) : null}
       </Modal>
+
+      {/* Mounted only while open so it reads the latest storySettings */}
+      {isSettingsOpen && <SettingsModal isOpen={isSettingsOpen} setIsOpen={setIsSettingsOpen} />}
 
       {selectedStory && (
         <CalibrationModal
@@ -99,6 +104,7 @@ function StoryModal(
   selectedStory: StoryCardData,
   mode: Mode,
   onCalibrate: () => void,
+  onSettings: () => void,
   LL: TranslationFunctions,
 ) {
   return (
@@ -117,6 +123,12 @@ function StoryModal(
         </div>
         <div className="flex items-center gap-3">
           {mode === "view" ? <PlayStoryButton id={selectedStory.id} /> : <h3 className="text-white">{LL.OVERVIEW_EDIT_STORY()}</h3>}
+          <button
+            onClick={onSettings}
+            className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-colors backdrop-blur-sm border border-white/30"
+          >
+            {LL.STORY_SETTINGS()}
+          </button>
           <button
             onClick={onCalibrate}
             className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-colors backdrop-blur-sm border border-white/30"
