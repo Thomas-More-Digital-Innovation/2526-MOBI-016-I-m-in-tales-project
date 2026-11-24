@@ -94,7 +94,7 @@ export default function ImageUpload({
     }, []);
 
     const fileSelector = async () => {
-        const selected = await open({ multiple: false, extensions: ["png", "jpeg"] });
+        const selected = await open({ multiple: false, filters: [{ name: "Image", extensions: ["png", "jpg", "jpeg"] }] });
         if (!selected) return;
         const bytes = await readFile(selected.toString());
         const url = URL.createObjectURL(new Blob([bytes]));

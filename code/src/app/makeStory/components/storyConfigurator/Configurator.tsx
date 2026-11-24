@@ -230,6 +230,7 @@ export default function Configurator({
               hoveredLinkId={hoveredLinkId}
               trappedNodeIds={loopResult.trappedNodeIds}
               trappedEdgeKeys={loopResult.trappedEdgeKeys}
+              calibrations={calibrations}
             />
           </div>
 

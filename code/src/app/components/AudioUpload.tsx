@@ -34,7 +34,7 @@ export default function AudioUpload({
     const fileSelector = async () => {
         const selectedAudio = await open({
             multiple: false,
-            extensions: ["mp3", "wav"],
+            filters: [{ name: "Audio", extensions: ["mp3", "wav"] }],
         });
         if (!selectedAudio) return;
 

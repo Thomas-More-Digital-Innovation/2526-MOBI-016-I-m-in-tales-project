@@ -11,10 +11,12 @@ export default function CanvasControls({
   onCreateNode,
 }: CanvasControlsProps) {
   const { LL } = useI18nContext();
+  // Controls sit in the bottom-right corner, so tips open to their left instead of below
+  const TIP_LEFT = "right-full top-1/2 -translate-y-1/2 mr-2";
 
   return (
     <div className="absolute bottom-6 right-6 z-10 flex flex-col items-end gap-3 select-none">
-      <HelpTip text={LL.CANVAS_RECENTER()}>
+      <HelpTip text={LL.CANVAS_RECENTER()} cls={TIP_LEFT}>
         <button
           onClick={onRecenter}
           type="button"
@@ -25,7 +27,7 @@ export default function CanvasControls({
         </button>
       </HelpTip>
 
-      <HelpTip text={LL.TIP_ADD_CHAPTER()}>
+      <HelpTip text={LL.TIP_ADD_CHAPTER()} cls={TIP_LEFT}>
         <button
           onClick={onCreateNode}
           type="button"

@@ -25,6 +25,9 @@ const en = {
   IMPORT_OVERWRITE_TITLE: "Story Already Exists",
   IMPORT_OVERWRITE_CONFIRM:
     'A story named "{name:string}" already exists. Do you want to overwrite it?',
+  IMPORT_CALIBRATION_OVERWRITE_TITLE: "Tag Calibrations Already Exist",
+  IMPORT_CALIBRATION_OVERWRITE_CONFIRM:
+    'This computer already has tag calibrations for "{name:string}". Replace them with the ones from the imported file?',
 
   // Make Story page
   MAKE_TITLE_NEW: "Create A New Story",
@@ -107,7 +110,7 @@ const en = {
   CONFIG_SAVED: "Saved",
   CONFIG_LOOP_WARNING_TITLE: "Inescapable Loop Detected",
   CONFIG_LOOP_WARNING_MSG:
-    "One or more chapters form a loop with no possible exit. Players may get trapped in an endless story. Do you still want to save?",
+    "One or more auto-advance chapters link to each other in a circle. Once reached, the story repeats forever without waiting for a tag. Do you still want to save?",
 
   // NodeSidebar component
   NODE_SELECT_HINT: "Select a chapter to start editing",
@@ -118,6 +121,9 @@ const en = {
   NODE_DESC_LABEL: "Description",
   NODE_DESC_PH: "What happens in this chapter?",
   NODE_ILLUSTRATION: "Illustration",
+  NODE_CONTENT_IMAGE: "Image",
+  NODE_CONTENT_TEXT: "Text",
+  NODE_TEXT_PH: "Type the text to show, e.g. 3 + 4 = ?",
   NODE_NARRATION: "Narration",
   NODE_FAIL_AUDIO: "Fail Audio (Optional)",
   NODE_LINKS: "Links & Interactions",
@@ -146,10 +152,13 @@ const en = {
   TIP_SAVE: "Saves all chapters, links, labels and audio to the story file.",
   TIP_ADD_CHAPTER: "Adds an empty chapter to the canvas. Link to it from another chapter so it becomes part of the story.",
   TIP_DELETE_CHAPTER: "Removes this chapter and every link that points to it.",
-  TIP_ILLUSTRATION: "The image shown while this chapter plays.",
+  TIP_ILLUSTRATION: "The image or text shown while this chapter plays.",
   TIP_MANAGE_AUDIO: "Record or upload audio.\nNarration: plays when the chapter starts.\nFail audio: plays when a tag is scanned that isn't one of this chapter's links.",
   TIP_AUTO_ADVANCE: "When on, the story moves on by itself as soon as the narration ends; no tag scan needed. Only works with exactly one link.\nYour labels and tags are kept and come back when you turn it off.",
   TIP_ADD_LINK: "Press this, then click another chapter on the canvas to connect it. Each link is one choice the child can make.",
+  NODE_OBJECT_IMAGE: "Object image",
+  TIP_OBJECT_CELL: "Picture and sound of this object. In the player it appears as a round cell; hovering it plays the sound.",
+  SETTINGS_AUTOPLAY_OBJECT_SOUNDS: "Play object sounds after the chapter audio",
   TIP_LINK_LABEL: "Name of this choice (e.g. \"the key\"). Shown on the option buttons and in tag calibration.",
   TIP_LINK_TAG: "Connect the NFC reader, hold a tag on it, then press Link Tag. Scanning that tag during play jumps to the linked chapter.",
   TIP_DELETE_LINK: "Removes this link. The target chapter itself is kept.",
@@ -190,6 +199,7 @@ const en = {
   SETTINGS_SHOW_DESCRIPTION: 'Show Bottom Text',
 
   // StoryHeader component
+  STORY_CLOSE: "Close story",
   STORY_SETTINGS: "Settings",
   STORY_REPLAY_AUDIO: "Replay audio",
 
@@ -198,7 +208,6 @@ const en = {
 
   // StoryOptions component
   STORY_OPTION_AUDIO: "(Audio)",
-  STORY_OPTION_NEXT_CHAPTER: "Next chapter:",
   STORY_OPTION_PLAY_ERROR_SOUND: "Play error sound",
   STORY_OPTION_HIDE_OPTIONS: "Hide Options",
   STORY_OPTION_SHOW_OPTIONS: "Show Options",

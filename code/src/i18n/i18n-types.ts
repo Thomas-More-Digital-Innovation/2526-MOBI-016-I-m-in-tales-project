@@ -93,6 +93,15 @@ type RootTranslation = {
 	 */
 	IMPORT_OVERWRITE_CONFIRM: RequiredParams<'name'>
 	/**
+	 * T​a​g​ ​C​a​l​i​b​r​a​t​i​o​n​s​ ​A​l​r​e​a​d​y​ ​E​x​i​s​t
+	 */
+	IMPORT_CALIBRATION_OVERWRITE_TITLE: string
+	/**
+	 * T​h​i​s​ ​c​o​m​p​u​t​e​r​ ​a​l​r​e​a​d​y​ ​h​a​s​ ​t​a​g​ ​c​a​l​i​b​r​a​t​i​o​n​s​ ​f​o​r​ ​"​{​n​a​m​e​}​"​.​ ​R​e​p​l​a​c​e​ ​t​h​e​m​ ​w​i​t​h​ ​t​h​e​ ​o​n​e​s​ ​f​r​o​m​ ​t​h​e​ ​i​m​p​o​r​t​e​d​ ​f​i​l​e​?
+	 * @param {string} name
+	 */
+	IMPORT_CALIBRATION_OVERWRITE_CONFIRM: RequiredParams<'name'>
+	/**
 	 * C​r​e​a​t​e​ ​A​ ​N​e​w​ ​S​t​o​r​y
 	 */
 	MAKE_TITLE_NEW: string
@@ -339,7 +348,7 @@ type RootTranslation = {
 	 */
 	CONFIG_LOOP_WARNING_TITLE: string
 	/**
-	 * O​n​e​ ​o​r​ ​m​o​r​e​ ​c​h​a​p​t​e​r​s​ ​f​o​r​m​ ​a​ ​l​o​o​p​ ​w​i​t​h​ ​n​o​ ​p​o​s​s​i​b​l​e​ ​e​x​i​t​.​ ​P​l​a​y​e​r​s​ ​m​a​y​ ​g​e​t​ ​t​r​a​p​p​e​d​ ​i​n​ ​a​n​ ​e​n​d​l​e​s​s​ ​s​t​o​r​y​.​ ​D​o​ ​y​o​u​ ​s​t​i​l​l​ ​w​a​n​t​ ​t​o​ ​s​a​v​e​?
+	 * O​n​e​ ​o​r​ ​m​o​r​e​ ​a​u​t​o​-​a​d​v​a​n​c​e​ ​c​h​a​p​t​e​r​s​ ​l​i​n​k​ ​t​o​ ​e​a​c​h​ ​o​t​h​e​r​ ​i​n​ ​a​ ​c​i​r​c​l​e​.​ ​O​n​c​e​ ​r​e​a​c​h​e​d​,​ ​t​h​e​ ​s​t​o​r​y​ ​r​e​p​e​a​t​s​ ​f​o​r​e​v​e​r​ ​w​i​t​h​o​u​t​ ​w​a​i​t​i​n​g​ ​f​o​r​ ​a​ ​t​a​g​.​ ​D​o​ ​y​o​u​ ​s​t​i​l​l​ ​w​a​n​t​ ​t​o​ ​s​a​v​e​?
 	 */
 	CONFIG_LOOP_WARNING_MSG: string
 	/**
@@ -374,6 +383,18 @@ type RootTranslation = {
 	 * I​l​l​u​s​t​r​a​t​i​o​n
 	 */
 	NODE_ILLUSTRATION: string
+	/**
+	 * I​m​a​g​e
+	 */
+	NODE_CONTENT_IMAGE: string
+	/**
+	 * T​e​x​t
+	 */
+	NODE_CONTENT_TEXT: string
+	/**
+	 * T​y​p​e​ ​t​h​e​ ​t​e​x​t​ ​t​o​ ​s​h​o​w​,​ ​e​.​g​.​ ​3​ ​+​ ​4​ ​=​ ​?
+	 */
+	NODE_TEXT_PH: string
 	/**
 	 * N​a​r​r​a​t​i​o​n
 	 */
@@ -479,7 +500,7 @@ type RootTranslation = {
 	 */
 	TIP_DELETE_CHAPTER: string
 	/**
-	 * T​h​e​ ​i​m​a​g​e​ ​s​h​o​w​n​ ​w​h​i​l​e​ ​t​h​i​s​ ​c​h​a​p​t​e​r​ ​p​l​a​y​s​.
+	 * T​h​e​ ​i​m​a​g​e​ ​o​r​ ​t​e​x​t​ ​s​h​o​w​n​ ​w​h​i​l​e​ ​t​h​i​s​ ​c​h​a​p​t​e​r​ ​p​l​a​y​s​.
 	 */
 	TIP_ILLUSTRATION: string
 	/**
@@ -497,6 +518,18 @@ type RootTranslation = {
 	 * P​r​e​s​s​ ​t​h​i​s​,​ ​t​h​e​n​ ​c​l​i​c​k​ ​a​n​o​t​h​e​r​ ​c​h​a​p​t​e​r​ ​o​n​ ​t​h​e​ ​c​a​n​v​a​s​ ​t​o​ ​c​o​n​n​e​c​t​ ​i​t​.​ ​E​a​c​h​ ​l​i​n​k​ ​i​s​ ​o​n​e​ ​c​h​o​i​c​e​ ​t​h​e​ ​c​h​i​l​d​ ​c​a​n​ ​m​a​k​e​.
 	 */
 	TIP_ADD_LINK: string
+	/**
+	 * O​b​j​e​c​t​ ​i​m​a​g​e
+	 */
+	NODE_OBJECT_IMAGE: string
+	/**
+	 * P​i​c​t​u​r​e​ ​a​n​d​ ​s​o​u​n​d​ ​o​f​ ​t​h​i​s​ ​o​b​j​e​c​t​.​ ​I​n​ ​t​h​e​ ​p​l​a​y​e​r​ ​i​t​ ​a​p​p​e​a​r​s​ ​a​s​ ​a​ ​r​o​u​n​d​ ​c​e​l​l​;​ ​h​o​v​e​r​i​n​g​ ​i​t​ ​p​l​a​y​s​ ​t​h​e​ ​s​o​u​n​d​.
+	 */
+	TIP_OBJECT_CELL: string
+	/**
+	 * P​l​a​y​ ​o​b​j​e​c​t​ ​s​o​u​n​d​s​ ​a​f​t​e​r​ ​t​h​e​ ​c​h​a​p​t​e​r​ ​a​u​d​i​o
+	 */
+	SETTINGS_AUTOPLAY_OBJECT_SOUNDS: string
 	/**
 	 * N​a​m​e​ ​o​f​ ​t​h​i​s​ ​c​h​o​i​c​e​ ​(​e​.​g​.​ ​"​t​h​e​ ​k​e​y​"​)​.​ ​S​h​o​w​n​ ​o​n​ ​t​h​e​ ​o​p​t​i​o​n​ ​b​u​t​t​o​n​s​ ​a​n​d​ ​i​n​ ​t​a​g​ ​c​a​l​i​b​r​a​t​i​o​n​.
 	 */
@@ -609,6 +642,10 @@ type RootTranslation = {
 	 */
 	SETTINGS_SHOW_DESCRIPTION: string
 	/**
+	 * C​l​o​s​e​ ​s​t​o​r​y
+	 */
+	STORY_CLOSE: string
+	/**
 	 * S​e​t​t​i​n​g​s
 	 */
 	STORY_SETTINGS: string
@@ -624,10 +661,6 @@ type RootTranslation = {
 	 * (​A​u​d​i​o​)
 	 */
 	STORY_OPTION_AUDIO: string
-	/**
-	 * N​e​x​t​ ​c​h​a​p​t​e​r​:
-	 */
-	STORY_OPTION_NEXT_CHAPTER: string
 	/**
 	 * P​l​a​y​ ​e​r​r​o​r​ ​s​o​u​n​d
 	 */
@@ -880,6 +913,14 @@ export type TranslationFunctions = {
 	 */
 	IMPORT_OVERWRITE_CONFIRM: (arg: { name: string }) => LocalizedString
 	/**
+	 * Tag Calibrations Already Exist
+	 */
+	IMPORT_CALIBRATION_OVERWRITE_TITLE: () => LocalizedString
+	/**
+	 * This computer already has tag calibrations for "{name}". Replace them with the ones from the imported file?
+	 */
+	IMPORT_CALIBRATION_OVERWRITE_CONFIRM: (arg: { name: string }) => LocalizedString
+	/**
 	 * Create A New Story
 	 */
 	MAKE_TITLE_NEW: () => LocalizedString
@@ -1124,7 +1165,7 @@ export type TranslationFunctions = {
 	 */
 	CONFIG_LOOP_WARNING_TITLE: () => LocalizedString
 	/**
-	 * One or more chapters form a loop with no possible exit. Players may get trapped in an endless story. Do you still want to save?
+	 * One or more auto-advance chapters link to each other in a circle. Once reached, the story repeats forever without waiting for a tag. Do you still want to save?
 	 */
 	CONFIG_LOOP_WARNING_MSG: () => LocalizedString
 	/**
@@ -1159,6 +1200,18 @@ export type TranslationFunctions = {
 	 * Illustration
 	 */
 	NODE_ILLUSTRATION: () => LocalizedString
+	/**
+	 * Image
+	 */
+	NODE_CONTENT_IMAGE: () => LocalizedString
+	/**
+	 * Text
+	 */
+	NODE_CONTENT_TEXT: () => LocalizedString
+	/**
+	 * Type the text to show, e.g. 3 + 4 = ?
+	 */
+	NODE_TEXT_PH: () => LocalizedString
 	/**
 	 * Narration
 	 */
@@ -1264,7 +1317,7 @@ export type TranslationFunctions = {
 	 */
 	TIP_DELETE_CHAPTER: () => LocalizedString
 	/**
-	 * The image shown while this chapter plays.
+	 * The image or text shown while this chapter plays.
 	 */
 	TIP_ILLUSTRATION: () => LocalizedString
 	/**
@@ -1282,6 +1335,18 @@ Your labels and tags are kept and come back when you turn it off.
 	 * Press this, then click another chapter on the canvas to connect it. Each link is one choice the child can make.
 	 */
 	TIP_ADD_LINK: () => LocalizedString
+	/**
+	 * Object image
+	 */
+	NODE_OBJECT_IMAGE: () => LocalizedString
+	/**
+	 * Picture and sound of this object. In the player it appears as a round cell; hovering it plays the sound.
+	 */
+	TIP_OBJECT_CELL: () => LocalizedString
+	/**
+	 * Play object sounds after the chapter audio
+	 */
+	SETTINGS_AUTOPLAY_OBJECT_SOUNDS: () => LocalizedString
 	/**
 	 * Name of this choice (e.g. "the key"). Shown on the option buttons and in tag calibration.
 	 */
@@ -1394,6 +1459,10 @@ Your labels and tags are kept and come back when you turn it off.
 	 */
 	SETTINGS_SHOW_DESCRIPTION: () => LocalizedString
 	/**
+	 * Close story
+	 */
+	STORY_CLOSE: () => LocalizedString
+	/**
 	 * Settings
 	 */
 	STORY_SETTINGS: () => LocalizedString
@@ -1409,10 +1478,6 @@ Your labels and tags are kept and come back when you turn it off.
 	 * (Audio)
 	 */
 	STORY_OPTION_AUDIO: () => LocalizedString
-	/**
-	 * Next chapter:
-	 */
-	STORY_OPTION_NEXT_CHAPTER: () => LocalizedString
 	/**
 	 * Play error sound
 	 */

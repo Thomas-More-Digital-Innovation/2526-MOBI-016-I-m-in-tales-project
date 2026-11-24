@@ -99,7 +99,7 @@ export function useAudioRecorder({
     try {
       const selectedAudio = await open({
         multiple: false,
-        extensions: ["mp3", "wav", "m4a", "webm", "ogg"],
+        filters: [{ name: "Audio", extensions: ["mp3", "wav", "m4a", "webm", "ogg"] }],
       });
       if (!selectedAudio) return;
 

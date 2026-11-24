@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from "react";
-import SettingsModal from "./SettingsModal";
 import { storySettings, saveStorySettings } from "./Settings";
 import { useStory } from "./useStory";
 import { useFullscreen } from "./useFullscreen";
@@ -13,11 +12,13 @@ import { StorySettings } from "@/types";
 import { Center, LoadingScreen } from "../components";
 import { useNfc } from "@components/NfcProvider";
 import { loadAllCalibrations, resolveTagForStory } from "@utils/tagMapping";
+import ObjectCells from "./components/ObjectCells";
 import { useI18nContext } from "@/i18n/i18n-react";
 
 export default function PlayStory() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [settings, setSettings] = useState<StorySettings>(storySettings);
     const {
         story,
         currentChapter,
@@ -27,11 +28,11 @@ export default function PlayStory() {
         cancelPendingAction,
         currentChapterRef,
         isTransitioning,
-    } = useStory(id);
+        activeObject,
+        playObjectSound,
+    } = useStory(id, settings.autoPlayObjectSounds);
     useFullscreen();
 
-    const [showSettingsModal, setShowSettingsModal] = useState(false);
-    const [settings, setSettings] = useState<StorySettings>(storySettings);
     const [isLoading, setLoading] = useState(true);
     const [calibrations, setCalibrations] = useState({});
     const { LL } = useI18nContext();
@@ -84,8 +85,6 @@ export default function PlayStory() {
 
     useEffect(() => {
         function handleKeyPressed(e: KeyboardEvent) {
-            if (showSettingsModal) return;
-
             if (
                 e.key === "Escape" ||
                 currentChapterRef.current?.option.length === 0
@@ -97,7 +96,7 @@ export default function PlayStory() {
         }
         window.addEventListener("keydown", handleKeyPressed);
         return () => window.removeEventListener("keydown", handleKeyPressed);
-    }, [currentChapterRef, showSettingsModal, closeStory]);
+    }, [currentChapterRef, closeStory]);
 
     useEffect(() => {
         if (story) {
@@ -123,7 +122,6 @@ export default function PlayStory() {
         <main className="bg-black min-h-screen overflow-hidden">
             <StoryHeader
                 fontSizeSetting={settings.fontSize}
-                onSettingsClick={() => setShowSettingsModal(true)}
                 onCloseClick={closeStory}
                 onReplayAudioClick={replayAudio}
                 isTransitioning={isTransitioning}
@@ -137,7 +135,17 @@ export default function PlayStory() {
                         fontSizeSetting={settings.fontSize}
                         options={currentChapter.option}
                     >
-                        <StoryVisuals image={currentChapter.image} />
+                        <div className="relative w-full h-full">
+                            <StoryVisuals image={currentChapter.image} text={currentChapter.text} fontSizeSetting={settings.fontSize} />
+                            {!currentChapter.autoAdvance && (
+                                <ObjectCells
+                                    options={currentChapter.option}
+                                    activeIndex={activeObject}
+                                    onHover={playObjectSound}
+                                    fontSizeSetting={settings.fontSize}
+                                />
+                            )}
+                        </div>
                     </StoryOverlay>
                 </div>
             ) : (
@@ -148,6 +156,7 @@ export default function PlayStory() {
                 <StoryOptions
                     options={currentChapter?.option}
                     onOptionClick={nextChapter}
+                    fontSizeSetting={settings.fontSize}
                     isTransitioning={isTransitioning}
                     onErrorClick={() => triggerError(currentChapter?.failAudio)}
                     onDisable={() => {
@@ -165,15 +174,6 @@ export default function PlayStory() {
                         saveStorySettings(next);
                         setSettings(next);
                     }}
-                />
-            )}
-
-            {/* Mounted only while open so it reads the latest storySettings */}
-            {showSettingsModal && (
-                <SettingsModal
-                    isOpen={showSettingsModal}
-                    setIsOpen={setShowSettingsModal}
-                    onSettingsChange={setSettings}
                 />
             )}
         </main>

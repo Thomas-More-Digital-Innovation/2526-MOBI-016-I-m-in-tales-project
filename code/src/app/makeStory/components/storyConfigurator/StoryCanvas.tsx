@@ -9,6 +9,14 @@ import { useI18nContext } from "@/i18n/i18n-react";
 import CanvasControls from "./CanvasControls";
 import { ChapterNodeView } from "./ChapterNodeView";
 
+export const ARROW_COLORS = {
+  default: "#94a3b8",
+  outgoing: "#22c55e",
+  incoming: "#3b82f6",
+  noTag: "#f97316",
+  error: "#ef4444",
+};
+
 type StoryCanvasProps = {
   nodes: ChapterNode[];
   selectedId: string | null;
@@ -22,10 +30,12 @@ type StoryCanvasProps = {
   onDuplicate: (id: string) => void;
   onLink: (id: string) => void;
   onDelete: (id: string) => void;
-  onCreateNode: () => void;
+  onCreateNode: (position: { x: number; y: number }) => void;
   hoveredLinkId?: string | null;
   trappedNodeIds?: Set<string>;
   trappedEdgeKeys?: Set<string>;
+  /** itemId -> tag UID; links without an entry get the orange "no tag" warning. */
+  calibrations?: Record<string, string>;
 };
 
 export default function StoryCanvas({
@@ -44,7 +54,8 @@ export default function StoryCanvas({
   onCreateNode,
   hoveredLinkId = null,
   trappedNodeIds = new Set(),
-  trappedEdgeKeys = new Set()
+  trappedEdgeKeys = new Set(),
+  calibrations = {}
 }: StoryCanvasProps) {
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<any>(null);
@@ -87,6 +98,15 @@ export default function StoryCanvas({
     }
   };
 
+  // Centre of the visible viewport in canvas coordinates (undo the stage pan and zoom)
+  const handleCreateNode = () => {
+    const stage = stageRef.current;
+    const pan = stage ? stage.position() : { x: 0, y: 0 };
+    const cx = (stageSize.width / 2 - pan.x) / scale;
+    const cy = (stageSize.height / 2 - pan.y) / scale;
+    onCreateNode({ x: cx - 75, y: cy - getNodeHeight("New Chapter") / 2 });
+  };
+
   const effectiveNodes = nodes.map((node) => {
     const local = localPositions[node.id];
     if (local) {
@@ -97,17 +117,6 @@ export default function StoryCanvas({
 
   const linkingRootNode = linkingRootId ? effectiveNodes.find(n => n.id === linkingRootId) : null;
 
-  // Every node reachable from the selected one; their outgoing links get highlighted.
-  const downstreamIds = new Set<string>();
-  if (selectedId) {
-    const queue = [selectedId];
-    while (queue.length) {
-      const id = queue.shift()!;
-      if (downstreamIds.has(id)) continue;
-      downstreamIds.add(id);
-      nodes.find((n) => n.id === id)?.links.forEach((l) => queue.push(l.targetId));
-    }
-  }
 
   useEffect(() => {
     if (!stageContainerRef.current) return;
@@ -175,8 +184,8 @@ export default function StoryCanvas({
                 mousePos.x,
                 mousePos.y
               ]}
-              stroke="#f97316"
-              fill="#f97316"
+              stroke={ARROW_COLORS.outgoing}
+              fill={ARROW_COLORS.outgoing}
               strokeWidth={3}
               dash={[8, 6]}
               pointerLength={12}
@@ -193,25 +202,31 @@ export default function StoryCanvas({
               const pts = getEdgePoints(node, destination, fromHeight, toHeight);
               const isHovered = hoveredLinkId === link.itemId;
               const isDimmed = !!hoveredLinkId && !isHovered;
-              // A hovered link overrides the selection highlight so only that line stands out
-              const isSourceSelected = !hoveredLinkId && selectedId === node.id;
-              const isDownstream = !hoveredLinkId && selectedId !== node.id && downstreamIds.has(node.id);
-              const edgeKey = `${node.id}->${link.targetId}`;
-              const isTrapped = trappedEdgeKeys.has(edgeKey);
-              const isHighlighted = isHovered || isSourceSelected || isDownstream || isTrapped;
-              const color = isTrapped
-                ? "#ef4444"
-                : isHovered || isSourceSelected
-                ? "#f97316"
-                : isDownstream
-                ? "#facc15"
-                : "#94a3b8";
+              const isOutgoing = selectedId === node.id;
+              const isIncoming = selectedId === link.targetId && !isOutgoing;
+              const isTrapped = trappedEdgeKeys.has(`${node.id}->${link.targetId}`);
+              // Auto-advance links need neither a label nor a tag (same rule as saving)
+              const isMissingLabel = !node.autoAdvance && !link.itemLabel.trim();
+              const isMissingTag = !node.autoAdvance && !calibrations[link.itemId];
+              const isWarning = isTrapped || isMissingLabel || isMissingTag;
+              const isHighlighted = isHovered || isOutgoing || isIncoming || isWarning;
+              // Warnings win over selection colours
+              const color = isTrapped || isMissingLabel
+                ? ARROW_COLORS.error
+                : isMissingTag
+                ? ARROW_COLORS.noTag
+                : isOutgoing
+                ? ARROW_COLORS.outgoing
+                : isIncoming
+                ? ARROW_COLORS.incoming
+                : ARROW_COLORS.default;
               return (
                 <Arrow
                   key={`${node.id}->${link.targetId}`}
                   points={pts}
                   stroke={color}
                   fill={color}
+                  dash={isMissingLabel && !isTrapped ? [10, 8] : undefined}
                   strokeWidth={isHovered ? 6 : isHighlighted ? 4 : 3}
                   opacity={isDimmed ? 0.25 : 1}
                   pointerLength={12}
@@ -252,7 +267,7 @@ export default function StoryCanvas({
         />
       )}
 
-      <CanvasControls onRecenter={handleRecenter} onCreateNode={onCreateNode} />
+      <CanvasControls onRecenter={handleRecenter} onCreateNode={handleCreateNode} />
     </div>
   );
 }

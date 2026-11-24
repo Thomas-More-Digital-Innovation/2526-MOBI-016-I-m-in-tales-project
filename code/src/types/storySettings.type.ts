@@ -6,4 +6,6 @@ export interface StorySettings {
     showStoryOptions: boolean;
     showTitle: boolean;
     showDescription: boolean;
+    /** Play every object cell's sound right after the chapter audio. */
+    autoPlayObjectSounds: boolean;
 }

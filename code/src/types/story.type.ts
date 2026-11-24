@@ -3,6 +3,9 @@ export interface Option {
   audio: string;
   item: string | null;
   itemLabel?: string;
+  /** Object cell shown during the chapter (one per link). */
+  objectImage?: string;
+  objectSound?: string | null;
 }
 
 export interface Chapter {
@@ -11,6 +14,8 @@ export interface Chapter {
   description: string;
   audio: string;
   image: string;
+  /** Set = text chapter: shown instead of the image. */
+  text?: string;
   failAudio: string | null;
   autoAdvance?: boolean;
   x?: number;

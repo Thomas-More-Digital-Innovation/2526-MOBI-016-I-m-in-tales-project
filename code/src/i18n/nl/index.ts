@@ -25,6 +25,9 @@ const nl = {
   IMPORT_OVERWRITE_TITLE: "Verhaal bestaat al",
   IMPORT_OVERWRITE_CONFIRM:
     'Er bestaat al een verhaal met de naam "{name}". Weet je zeker dat je dit wilt overschrijven?',
+  IMPORT_CALIBRATION_OVERWRITE_TITLE: "Tagkalibraties bestaan al",
+  IMPORT_CALIBRATION_OVERWRITE_CONFIRM:
+    'Deze computer heeft al tagkalibraties voor "{name}". Wil je ze vervangen door die uit het geïmporteerde bestand?',
 
   // Make Story page
   MAKE_TITLE_NEW: "Maak een nieuw verhaal",
@@ -108,7 +111,7 @@ const nl = {
   CONFIG_SAVED: "Opgeslagen",
   CONFIG_LOOP_WARNING_TITLE: "Oneindige Lus Gedetecteerd",
   CONFIG_LOOP_WARNING_MSG:
-    "Een of meer hoofdstukken vormen een lus zonder uitweg. Spelers kunnen vast komen te zitten in het verhaal. Weet je zeker dat je wilt opslaan?",
+    "Een of meer hoofdstukken met automatisch doorgaan verwijzen in een kring naar elkaar. Eenmaal daar herhaalt het verhaal zich eindeloos zonder op een tag te wachten. Weet je zeker dat je wilt opslaan?",
 
   // NodeSidebar component
   NODE_SELECT_HINT: "Selecteer een hoofdstuk om te bewerken",
@@ -119,6 +122,9 @@ const nl = {
   NODE_DESC_LABEL: "Beschrijving",
   NODE_DESC_PH: "Wat gebeurt er in dit hoofdstuk?",
   NODE_ILLUSTRATION: "Illustratie",
+  NODE_CONTENT_IMAGE: "Afbeelding",
+  NODE_CONTENT_TEXT: "Tekst",
+  NODE_TEXT_PH: "Typ de tekst die getoond wordt, bv. 3 + 4 = ?",
   NODE_NARRATION: "Vertelling",
   NODE_FAIL_AUDIO: "Fout audio (optioneel)",
   NODE_LINKS: "Koppelingen & interacties",
@@ -147,10 +153,13 @@ const nl = {
   TIP_SAVE: "Slaat alle hoofdstukken, koppelingen, labels en audio op in het verhaalbestand.",
   TIP_ADD_CHAPTER: "Voegt een leeg hoofdstuk toe aan het canvas. Koppel het vanuit een ander hoofdstuk zodat het deel wordt van het verhaal.",
   TIP_DELETE_CHAPTER: "Verwijdert dit hoofdstuk en elke koppeling die ernaar verwijst.",
-  TIP_ILLUSTRATION: "De afbeelding die getoond wordt terwijl dit hoofdstuk speelt.",
+  TIP_ILLUSTRATION: "De afbeelding of tekst die getoond wordt terwijl dit hoofdstuk speelt.",
   TIP_MANAGE_AUDIO: "Neem audio op of upload een bestand.\nVertelling: speelt af wanneer het hoofdstuk start.\nFout audio: speelt af wanneer een tag gescand wordt die niet bij de koppelingen van dit hoofdstuk hoort.",
   TIP_AUTO_ADVANCE: "Wanneer aan, gaat het verhaal vanzelf verder zodra de vertelling eindigt; scannen is niet nodig. Werkt alleen met precies één koppeling.\nJe labels en tags blijven bewaard en komen terug wanneer je het uitzet.",
   TIP_ADD_LINK: "Druk hierop en klik daarna op een ander hoofdstuk op het canvas om het te verbinden. Elke koppeling is één keuze die het kind kan maken.",
+  NODE_OBJECT_IMAGE: "Afbeelding van object",
+  TIP_OBJECT_CELL: "Afbeelding en geluid van dit object. In de speler verschijnt het als een rond vakje; erover bewegen speelt het geluid af.",
+  SETTINGS_AUTOPLAY_OBJECT_SOUNDS: "Objectgeluiden afspelen na de audio van het hoofdstuk",
   TIP_LINK_LABEL: "Naam van deze keuze (bv. \"de sleutel\"). Wordt getoond op de keuzeknoppen en bij het kalibreren van tags.",
   TIP_LINK_TAG: "Sluit de NFC-lezer aan, houd een tag erop en druk op Label koppelen. Die tag scannen tijdens het spelen springt naar het gekoppelde hoofdstuk.",
   TIP_DELETE_LINK: "Verwijdert deze koppeling. Het doelhoofdstuk zelf blijft bestaan.",
@@ -191,6 +200,7 @@ const nl = {
   SETTINGS_SHOW_DESCRIPTION: 'Onderste tekst weergeven',
 
   // StoryHeader component
+  STORY_CLOSE: "Verhaal sluiten",
   STORY_SETTINGS: "Instellingen",
   STORY_REPLAY_AUDIO: "Geluid opnieuw spelen",
 
@@ -199,7 +209,6 @@ const nl = {
 
   // StoryOptions component
   STORY_OPTION_AUDIO: "(Audio)",
-  STORY_OPTION_NEXT_CHAPTER: "Volgend hoofdstuk:",
   STORY_OPTION_PLAY_ERROR_SOUND: "Foutgeluid afspelen",
   STORY_OPTION_HIDE_OPTIONS: "Opties verbergen",
   STORY_OPTION_SHOW_OPTIONS: "Opties tonen",

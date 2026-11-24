@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@components";
-import { Option } from "@/types";
+import { Option, FontSize } from "@/types";
+import TeacherIconButton from "./TeacherIconButton";
 import { useI18nContext } from "@/i18n/i18n-react";
 
 const HOLD_MS = 2000;
@@ -30,6 +30,7 @@ export interface StoryOptionsProps {
     onErrorClick: () => void;
     onOptionClick: (option: Option) => void;
     onDisable: () => void;
+    fontSizeSetting: FontSize;
     isTransitioning?: boolean;
 }
 
@@ -38,6 +39,7 @@ export default function StoryOptions({
     onErrorClick,
     onOptionClick,
     onDisable,
+    fontSizeSetting,
     isTransitioning = false,
 }: StoryOptionsProps) {
     const { LL } = useI18nContext();
@@ -61,20 +63,23 @@ export default function StoryOptions({
         <div className="absolute flex flex-col bottom-4 right-4 z-100 items-end">
             <div className="flex flex-col mb-2 items-end">
                     {options.map((option) => (
-                        <Button
+                        <button
                             key={option.nextChapter}
+                            type="button"
                             onClick={() => onOptionClick(option)}
                             disabled={isTransitioning}
-                            cls="m-1 shadow-md">
-                            {LL.STORY_OPTION_NEXT_CHAPTER()} {option.itemLabel ?? option.item ?? "null"}
-                        </Button>
+                            className="m-1 px-3 py-1 rounded border border-gray-600 bg-transparent text-gray-400 hover:text-gray-200 hover:border-gray-400 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                            style={{ fontSize: fontSizeSetting * 0.75 + "px" }}>
+                            {option.itemLabel ?? option.item ?? "null"}
+                        </button>
                     ))}
-                    <Button
-                        onClick={() => onErrorClick()}
+                    <TeacherIconButton
+                        icon="error"
+                        label={LL.STORY_OPTION_PLAY_ERROR_SOUND()}
+                        onClick={onErrorClick}
                         disabled={isTransitioning}
-                        cls="m-1 bg-red-500! shadow-md">
-                        {LL.STORY_OPTION_PLAY_ERROR_SOUND()}
-                    </Button>
+                        size={fontSizeSetting}
+                    />
             </div>
             <div className="relative">
             {taps >= 2 && (
@@ -97,7 +102,7 @@ export default function StoryOptions({
                 onContextMenu={(e) => e.preventDefault()}
                 className={`relative p-3 select-none ${taps >= 2 ? "animate-wiggle" : ""} rounded-full shadow-lg border-2 transition-all duration-300 active:scale-95 cursor-pointer ${holding
                     ? "bg-red-500 border-red-700 text-white"
-                    : "bg-talesorang-500 border-talesorang-700 text-white hover:bg-talesorang-400"
+                    : "bg-transparent border-gray-600 text-gray-500 hover:text-gray-200 hover:border-gray-400"
                     }`}
                 title={LL.STORY_OPTION_HIDE_OPTIONS()}
             >
@@ -133,7 +138,7 @@ export function StoryOptionsReveal({ onEnable }: { onEnable: () => void }) {
             onContextMenu={(e) => e.preventDefault()}
             className={`absolute bottom-4 right-4 z-100 p-3 select-none rounded-full border-2 transition-all duration-300 active:scale-95 cursor-pointer ${holding
                 ? "shadow-lg bg-talesorang-500 border-talesorang-700 text-white"
-                : "border-transparent text-talesorang-500 opacity-40"
+                : "border-transparent text-gray-500 opacity-40"
                 }`}
             aria-label={LL.STORY_OPTION_SHOW_OPTIONS()}
         >

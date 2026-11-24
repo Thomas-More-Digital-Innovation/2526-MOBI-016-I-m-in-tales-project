@@ -13,6 +13,7 @@ import { downscaleImageBytes } from "../app/makeStory/components/storyConfigurat
 import { detectLocale, i18nObject } from "@/i18n/i18n-util";
 import { loadLocale } from "@/i18n/i18n-util.sync";
 import { localStorageDetector } from "typesafe-i18n/detectors";
+import { loadAllCalibrations, saveAllCalibrations } from "./tagMapping";
 
 export interface StoryMetadata {
   id: string;
@@ -26,6 +27,7 @@ export interface ChapterMetadata {
   id: string;
   title: string;
   description: string;
+  text?: string;
   autoAdvance?: boolean;
   x?: number;
   y?: number;
@@ -59,6 +61,7 @@ export interface ChapterData {
   title: string;
   description: string;
   image?: Uint8Array | number[] | null;
+  text?: string;
   audio?: Uint8Array | number[] | null;
   failAudio?: Uint8Array | number[] | null;
   autoAdvance?: boolean;
@@ -70,6 +73,8 @@ export interface ChapterData {
 export interface OptionData {
   nextChapter: string;
   audio?: Uint8Array | number[] | null;
+  objectImage?: Uint8Array | number[] | null;
+  objectSound?: Uint8Array | number[] | null;
   item: string | null;
 }
 
@@ -194,8 +199,10 @@ export const renameStory = async (
   if (updates?.thumbnail !== undefined) {
     if (updates.thumbnail && updates.thumbnail.length > 0) {
       const downscaledThumb = await downscaleImageBytes(updates.thumbnail, 1920, 1080);
-      zip.file("thumbnail.png", downscaledThumb);
+      zip.file("thumbnail.jpeg", downscaledThumb);
+      zip.remove("thumbnail.png"); // drop legacy duplicate
     } else {
+      zip.remove("thumbnail.jpeg");
       zip.remove("thumbnail.png");
     }
   }
@@ -229,6 +236,7 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
       id: ch.id,
       title: ch.title,
       description: ch.description,
+      text: ch.text,
       autoAdvance: ch.autoAdvance ?? false,
       x: ch.x,
       y: ch.y,
@@ -270,12 +278,21 @@ export const saveStoryData = async (storyName: string, data: StoryData): Promise
       }
 
       if (chapter.option) {
-        chapter.option.forEach((opt, idx) => {
+        for (const [idx, opt] of chapter.option.entries()) {
           const optAudBytes = toUint8Array(opt.audio);
           if (optAudBytes && optAudBytes.length > 0) {
             audioFolder?.file(`${chapter.id}_opt_${idx}.mp3`, optAudBytes);
           }
-        });
+          const objSoundBytes = toUint8Array(opt.objectSound);
+          if (objSoundBytes && objSoundBytes.length > 0) {
+            audioFolder?.file(`${chapter.id}_obj_${idx}.mp3`, objSoundBytes);
+          }
+          const objImgBytes = toUint8Array(opt.objectImage);
+          if (objImgBytes && objImgBytes.length > 0) {
+            // Cells are small circles, so a much smaller downscale than chapter images
+            imagesFolder?.file(`${chapter.id}_obj_${idx}.jpeg`, await downscaleImageBytes(objImgBytes, 512, 512));
+          }
+        }
       }
     }
   }
@@ -309,7 +326,7 @@ export const loadStoryData = async (storyName: string): Promise<StoryData> => {
   const metadata: StoryMetadata = JSON.parse(metadataText);
 
   let thumbnail: Uint8Array | null = null;
-  const thumbFile = zip.file("thumbnail.jpeg");
+  const thumbFile = zip.file("thumbnail.jpeg") ?? zip.file("thumbnail.png"); // .png = pre-#49 stories
   if (thumbFile) {
     thumbnail = await thumbFile.async("uint8array");
   }
@@ -342,9 +359,13 @@ export const loadStoryData = async (storyName: string): Promise<StoryData> => {
           if (optAudFile) {
             optAudio = await optAudFile.async("uint8array");
           }
+          const objImgFile = zip.file(`images/${ch.id}_obj_${idx}.jpeg`);
+          const objSoundFile = zip.file(`audio/${ch.id}_obj_${idx}.mp3`);
           return {
             nextChapter: opt.nextChapter,
             audio: optAudio,
+            objectImage: objImgFile ? await objImgFile.async("uint8array") : null,
+            objectSound: objSoundFile ? await objSoundFile.async("uint8array") : null,
             item: opt.item,
           };
         })
@@ -355,6 +376,7 @@ export const loadStoryData = async (storyName: string): Promise<StoryData> => {
         title: ch.title,
         description: ch.description,
         image,
+        text: ch.text,
         audio,
         failAudio,
         autoAdvance: ch.autoAdvance ?? false,
@@ -410,7 +432,7 @@ export const getStoriesOverview = async (): Promise<StoryPreview[]> => {
           const metadata: StoryMetadata = JSON.parse(metadataText);
 
           let thumbnailUrl = "/placeholder.jpeg";
-          const thumbFile = zip.file("thumbnail.jpeg");
+          const thumbFile = zip.file("thumbnail.jpeg") ?? zip.file("thumbnail.png"); // .png = pre-#49 stories
           if (thumbFile) {
             const thumbBytes = await thumbFile.async("uint8array");
             if (thumbBytes.length > 0) {
@@ -484,9 +506,19 @@ export const exportStory = async (storyId: string): Promise<void> => {
     }
   }
 
-  const zipContent = await readFile(zipPath, { baseDir: BaseDirectory.AppData });
-  await writeFile(savePath, zipContent);
+  const zip = await JSZip.loadAsync(await readFile(zipPath, { baseDir: BaseDirectory.AppData }));
+  const metadataFile = zip.file("metadata.json");
+  if (metadataFile) {
+    const { id } = JSON.parse(await metadataFile.async("string")) as StoryMetadata;
+    const mappings = (await loadAllCalibrations())[id];
+    if (mappings && Object.keys(mappings).length > 0) {
+      zip.file(CALIBRATIONS_FILE, JSON.stringify(mappings, null, 2));
+    }
+  }
+  await writeFile(savePath, await zip.generateAsync({ type: "uint8array" }));
 };
+
+const CALIBRATIONS_FILE = "calibrations.json";
 
 export interface ImportStoryOptions {
   confirmOverwrite?: (storyName: string) => Promise<boolean>;
@@ -536,6 +568,25 @@ export const importStory = async (options?: ImportStoryOptions): Promise<string 
   }
 
   await writeFile(destPath, zipContent, { baseDir: BaseDirectory.AppData });
+
+  const calibrationsFile = zip.file(CALIBRATIONS_FILE);
+  if (calibrationsFile) {
+    const imported: Record<string, string> = JSON.parse(await calibrationsFile.async("string"));
+    const all = await loadAllCalibrations();
+    const existing = all[metadata.id];
+    let apply = true;
+    if (existing && Object.keys(existing).length > 0 && JSON.stringify(existing) !== JSON.stringify(imported)) {
+      const LL = getTranslations();
+      apply = await ask(LL.IMPORT_CALIBRATION_OVERWRITE_CONFIRM({ name: metadata.name }), {
+        title: LL.IMPORT_CALIBRATION_OVERWRITE_TITLE(),
+        kind: "warning",
+      });
+    }
+    if (apply) {
+      all[metadata.id] = imported;
+      await saveAllCalibrations(all);
+    }
+  }
 
   return slug;
 };
