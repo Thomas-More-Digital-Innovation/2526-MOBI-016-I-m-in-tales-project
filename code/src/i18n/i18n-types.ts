@@ -348,7 +348,7 @@ type RootTranslation = {
 	 */
 	CONFIG_LOOP_WARNING_TITLE: string
 	/**
-	 * O​n​e​ ​o​r​ ​m​o​r​e​ ​a​u​t​o​-​a​d​v​a​n​c​e​ ​c​h​a​p​t​e​r​s​ ​l​i​n​k​ ​t​o​ ​e​a​c​h​ ​o​t​h​e​r​ ​i​n​ ​a​ ​c​i​r​c​l​e​.​ ​O​n​c​e​ ​r​e​a​c​h​e​d​,​ ​t​h​e​ ​s​t​o​r​y​ ​r​e​p​e​a​t​s​ ​f​o​r​e​v​e​r​ ​w​i​t​h​o​u​t​ ​w​a​i​t​i​n​g​ ​f​o​r​ ​a​ ​t​a​g​.​ ​D​o​ ​y​o​u​ ​s​t​i​l​l​ ​w​a​n​t​ ​t​o​ ​s​a​v​e​?
+	 * O​n​e​ ​o​r​ ​m​o​r​e​ ​c​h​a​p​t​e​r​s​ ​f​o​r​m​ ​a​ ​l​o​o​p​ ​w​i​t​h​ ​n​o​ ​p​o​s​s​i​b​l​e​ ​e​x​i​t​.​ ​P​l​a​y​e​r​s​ ​m​a​y​ ​g​e​t​ ​t​r​a​p​p​e​d​ ​i​n​ ​a​n​ ​e​n​d​l​e​s​s​ ​s​t​o​r​y​.​ ​D​o​ ​y​o​u​ ​s​t​i​l​l​ ​w​a​n​t​ ​t​o​ ​s​a​v​e​?
 	 */
 	CONFIG_LOOP_WARNING_MSG: string
 	/**
@@ -1165,7 +1165,7 @@ export type TranslationFunctions = {
 	 */
 	CONFIG_LOOP_WARNING_TITLE: () => LocalizedString
 	/**
-	 * One or more auto-advance chapters link to each other in a circle. Once reached, the story repeats forever without waiting for a tag. Do you still want to save?
+	 * One or more chapters form a loop with no possible exit. Players may get trapped in an endless story. Do you still want to save?
 	 */
 	CONFIG_LOOP_WARNING_MSG: () => LocalizedString
 	/**
