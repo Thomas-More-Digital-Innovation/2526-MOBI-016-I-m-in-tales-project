@@ -111,7 +111,7 @@ const nl = {
   CONFIG_SAVED: "Opgeslagen",
   CONFIG_LOOP_WARNING_TITLE: "Oneindige Lus Gedetecteerd",
   CONFIG_LOOP_WARNING_MSG:
-    "Een of meer hoofdstukken met automatisch doorgaan verwijzen in een kring naar elkaar. Eenmaal daar herhaalt het verhaal zich eindeloos zonder op een tag te wachten. Weet je zeker dat je wilt opslaan?",
+    "Een of meer hoofdstukken vormen een lus zonder uitweg. Spelers kunnen vast komen te zitten in het verhaal. Weet je zeker dat je wilt opslaan?",
 
   // NodeSidebar component
   NODE_SELECT_HINT: "Selecteer een hoofdstuk om te bewerken",

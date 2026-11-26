@@ -110,7 +110,7 @@ const en = {
   CONFIG_SAVED: "Saved",
   CONFIG_LOOP_WARNING_TITLE: "Inescapable Loop Detected",
   CONFIG_LOOP_WARNING_MSG:
-    "One or more auto-advance chapters link to each other in a circle. Once reached, the story repeats forever without waiting for a tag. Do you still want to save?",
+    "One or more chapters form a loop with no possible exit. Players may get trapped in an endless story. Do you still want to save?",
 
   // NodeSidebar component
   NODE_SELECT_HINT: "Select a chapter to start editing",
